@@ -36,6 +36,7 @@ import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
+import jsinterop.annotations.JsConstructor;
 
 import static com.ait.lienzo.client.core.shape.AbstractMultiPointShape.DefaultMultiPointShapeHandleFactory.R0;
 import static com.ait.lienzo.client.core.shape.AbstractMultiPointShape.DefaultMultiPointShapeHandleFactory.SELECTION_OFFSET;
@@ -463,6 +464,7 @@ public class WiresConnectorControlImpl implements WiresConnectorControl {
         Consumer<Point2D> addControlHandleConsumer;
         Point2D point;
 
+        @JsConstructor
         public AddControlPointTimer(Consumer<Point2D> addControlHandleConsumer, Point2D point) {
             this.addControlHandleConsumer = addControlHandleConsumer;
             this.point = point;

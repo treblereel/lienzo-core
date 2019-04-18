@@ -14,12 +14,25 @@ public class WiresContainmentControlImpl extends AbstractWiresParentPickerContro
 
     public WiresContainmentControlImpl(WiresShape shape,
                                        ColorMapBackedPicker.PickerOptions pickerOptions) {
+
         super(shape,
               pickerOptions);
     }
 
     public WiresContainmentControlImpl(WiresParentPickerControlImpl parentPickerControl) {
         super(parentPickerControl);
+    }
+
+    public static Point2D calculateCandidateLocation(final WiresParentPickerControlImpl parentPickerControl) {
+        final WiresLayer m_layer = parentPickerControl.getShape().getWiresManager().getLayer();
+        final WiresContainer parent = parentPickerControl.getParent();
+        final Point2D current = parentPickerControl.getShapeLocation();
+        if (parent == null || parent == m_layer) {
+            return current;
+        } else {
+            final Point2D trgAbsOffset = parent.getComputedLocation();
+            return current.sub(trgAbsOffset);
+        }
     }
 
     @Override
@@ -61,7 +74,7 @@ public class WiresContainmentControlImpl extends AbstractWiresParentPickerContro
         final boolean isParentLayer = null == parent || parent instanceof WiresLayer;
         final WiresContainer candidateParent = isParentLayer ? m_layer : parent;
         final boolean isAllowed = containmentAcceptor.containmentAllowed(candidateParent,
-                                                           shapes);
+                                                                         shapes);
         if (!allowNotAccept && isAllowed) {
             return containmentAcceptor.acceptContainment(candidateParent,
                                                          shapes);
@@ -119,18 +132,6 @@ public class WiresContainmentControlImpl extends AbstractWiresParentPickerContro
                                           location);
         }
         shape.setDockedTo(null);
-    }
-
-    public static Point2D calculateCandidateLocation(final WiresParentPickerControlImpl parentPickerControl) {
-        final WiresLayer m_layer = parentPickerControl.getShape().getWiresManager().getLayer();
-        final WiresContainer parent = parentPickerControl.getParent();
-        final Point2D current = parentPickerControl.getShapeLocation();
-        if (parent == null || parent == m_layer) {
-            return current;
-        } else {
-            final Point2D trgAbsOffset = parent.getComputedLocation();
-            return current.sub(trgAbsOffset);
-        }
     }
 
     private WiresLayer getWiresLayer() {
