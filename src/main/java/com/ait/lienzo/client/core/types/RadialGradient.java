@@ -20,10 +20,11 @@ import com.ait.lienzo.client.core.types.LinearGradient.LinearGradientJSO;
 import com.ait.lienzo.shared.core.types.IColor;
 
 import elemental2.core.Global;
+import jsinterop.annotations.JsConstructor;
 import jsinterop.annotations.JsType;
 
 /**
- * RadialGradient defines the fill style for a {@link Shape} as a Radial Gradient. 
+ * RadialGradient defines the fill style for a {@link Shape} as a Radial Gradient.
  */
 public final class RadialGradient implements FillGradient
 {
@@ -49,7 +50,7 @@ public final class RadialGradient implements FillGradient
 
     /**
      * Add color stop
-     * 
+     *
      * @param stop
      * @param color
      * @return {@link RadialGradient}
@@ -63,7 +64,7 @@ public final class RadialGradient implements FillGradient
 
     /**
      * Add color stop
-     * 
+     *
      * @param stop
      * @param color {@link ColorName} or {@link Color}
      * @return {@link RadialGradient}
@@ -135,6 +136,7 @@ public final class RadialGradient implements FillGradient
         public double sr;
         public double er;
 
+        @JsConstructor
         protected RadialGradientJSO()
         {
         }

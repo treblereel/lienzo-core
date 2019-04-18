@@ -32,7 +32,6 @@ import jsinterop.annotations.JsType;
  * The second one is a little faster as it does not need to create a new object.
  * Think of them as the "+" and the "+=" operators respectively.
  */
-@JsType()
 public final class Point2D
 {
 //    private Point2DJSO m_jso;
