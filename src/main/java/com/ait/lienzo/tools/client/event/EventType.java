@@ -7,7 +7,7 @@ public enum EventType
     DOUBLE_CLICKED("doubleclick", 4),
 
 
-    MOUSE_UP("mousedup", 2),
+    MOUSE_UP("mouseup", 2),
     MOUSE_MOVE("mousemove", 3),
     MOUSE_DOWN("mousedown", 1),
 
