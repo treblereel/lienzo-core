@@ -209,7 +209,7 @@ public class DragContext
         }
         if (m_lsty != localY)
         {
-            m_prim.setY(m_lsty = localX);
+            m_prim.setY(m_lsty = localY);
         }
         //Console.get().info("2) m_prim " + m_evtx + ":" + m_evty + ":" + m_dstx + " : " + m_dsty + " : " + p2 + " : " + m_lclp + " : " + m_prim.getLocation());
 

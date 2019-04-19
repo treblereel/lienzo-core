@@ -66,8 +66,6 @@ public final class Point2D
      */
     public final double getX()
     {
-        JsArray.of(1, 2, 3, 4);
-
         return this.x;
     }
 
