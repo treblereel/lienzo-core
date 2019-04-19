@@ -180,7 +180,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
 
     @JsProperty
-    private EventPropagationMode eventPropagationMode;
+    private EventPropagationMode eventPropagationMode = EventPropagationMode.lookup(null);
 
     @SafeVarargs
     public static final <T> List<T> asList(final T... list)
