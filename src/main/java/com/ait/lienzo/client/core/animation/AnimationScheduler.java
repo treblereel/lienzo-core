@@ -46,6 +46,10 @@ public class AnimationScheduler
         DomGlobal.cancelAnimationFrame(id);
     }
 
+//    public void requestAnimationFrame(final com.ait.lienzo.client.core.animation.AnimationCallback animationCallback)
+//    {
+//    }
+
     /**
      * The callback used when an animation frame becomes available.
      */

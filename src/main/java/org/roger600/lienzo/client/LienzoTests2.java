@@ -2,6 +2,8 @@ package org.roger600.lienzo.client;
 
 import java.util.function.Predicate;
 
+import org.roger600.AnimatedCircles;
+
 import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationProperty.Properties;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
@@ -52,9 +54,11 @@ public class LienzoTests2 implements EntryPoint {
 
     LienzoPanel2   lienzo;
 
+    private ExampleTest test;
+
     public void onModuleLoad() {
         new LienzoCoreEntryPoint().onModuleLoad();
-        createTests("test1", "test2", "test3");
+        createTests("test1", "test2", "test3", "test4");
     }
 
 
@@ -145,24 +149,6 @@ public class LienzoTests2 implements EntryPoint {
         MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
                                          .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
 
-//        Group group = new Group();
-//        group.add(path2);
-//
-//        group.setY(400);
-//
-//        l1.add(group);
-//
-//        l1.draw();
-//
-//        Console.get().info("hello 1");
-//
-//        Text text = new Text("test1");
-//        text.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-//        text.setFontSize(10);
-//        text.setY(10);
-//        group.add(text);
-
-
         Text text2 = new Text("test4");
         text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
         //text2.setFontSize(100);
@@ -199,11 +185,29 @@ public class LienzoTests2 implements EntryPoint {
         Console.get().info("hello 2");
     }
 
+    @JsMethod
+    public void test4()
+    {
+        Layer l1 = new Layer();
+        lienzo.add(l1);
+        AnimatedCircles test = new AnimatedCircles(l1);
+        test.animate();
+        this.test = test;
+
+        Console.get().info("hello 2");
+    }
+
     private void createPanel()
     {
         if (lienzo != null)
         {
             lienzo.destroy();
+        }
+
+        if (this.test != null)
+        {
+            this.test.destroy();
+            this.test = null;
         }
 
 
