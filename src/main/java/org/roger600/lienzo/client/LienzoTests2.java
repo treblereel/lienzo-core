@@ -1,10 +1,19 @@
 package org.roger600.lienzo.client;
 
+import java.util.function.Predicate;
+
+import com.ait.lienzo.client.core.shape.GridLayer;
+import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.client.core.shape.MultiPath;
+import com.ait.lienzo.client.core.shape.Text;
+import com.ait.lienzo.client.widget.LienzoPanel;
 import com.ait.lienzo.client.widget.LienzoPanel2;
+import com.ait.lienzo.tools.client.Console;
 import com.google.gwt.core.client.EntryPoint;
 
+import elemental2.core.Function;
 import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
 import elemental2.dom.CSSStyleDeclaration;
@@ -14,7 +23,13 @@ import elemental2.dom.Event;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
+import elemental2.dom.HTMLLinkElement;
 import elemental2.dom.MouseEvent;
+import elemental2.dom.UIEvent;
+import jsinterop.annotations.JsFunction;
+import jsinterop.annotations.JsMethod;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 import static elemental2.dom.DomGlobal.document;
 
@@ -26,145 +41,154 @@ public class LienzoTests2 implements EntryPoint {
 
     public static final int WIDE = 2815; //2815
     public static final int HIGH = 1415; // 1415
-//
-//    private final IEventFilter[] zommFilters = new IEventFilter[] { EventFilter.CONTROL };
-//    private final IEventFilter[] panFilters = new IEventFilter[] { EventFilter.SHIFT };
-//
-//    private final static MyLienzoTest[] TESTS = new MyLienzoTest[] {
-//            new BoundingBoxTests(),
-//            new SelectionManagerTests(),
-//            new TextWrapTests(),
-//            new AutoMagnetsConnectorsTests(),
-//            new CardinalIntersectSimpleTest(),
-//            new WiresDragHandlersTests(),
-//            new DragHandlersTests(),
-//            new SVGPicturesTests(),
-//            new ContainerTests(),
-//            new SVGTests(),
-//            new UXSVGTests(),
-//            new DragConstraintsTests(),
-//            new FontTests(),
-//            new ImagesTests(),
-//            new MultiPathShapesTests(),
-//            new WiresRingTests(),
-//            new BasicWiresShapesTests(),
-//            new GlyphPositionsAndScaleTests(),
-//            new TransformTests(),
-//            new MagnetsAndCPsTests(),
-//            new WiresDragAndMoveTests(),
-//            new ShapeResizeTests(),
-//            new DragBoundsTests(),
-//            new LayoutContainerChildrenTests(),
-//            new LayoutContainerChildrenTests2(),
-//            new ChildRectangleResizeTests(),
-//            new ChildCircleResizeTests(),
-//            new StandaloneConnectorsTests(),
-//            new ConnectionAndMagnetsTests(),
-//            new ConnectionAcceptorsTests(),
-//            new ConnectorsSelectionTests(),
-//            new ConnectorsAndParentsTests(),
-//            new ConnectorsAndParentsTests2(),
-//            new DeleteChildTests(),
-//            new DockingTests(),
-//            new MarkConnectorTests(),
-//            new MediatorsTests(),
-//            new MediatorsTests2(),
-//            new WiresTests(),
-//            new CaseModellerContainmentTests(),
-//            // From Lienzo KS
-//            new WiresAlignDistroTests(),
-//            new CardinalIntersectKSTests(),
-//            new MultiPathResizeTests(),
-//            new WiresArrowsTests(),
-//            new WiresSquaresTests(),
-//            new WiresResizesTests(),
-//            new WiresDockingTests(),
-//    };
 
-//    private static final int MAX_BUTTONS_ROW = 7;
-//    private VerticalPanel mainPanel = new VerticalPanel();
-//    private VerticalPanel buttonsPanel = new VerticalPanel();
-//    private HorizontalPanel screenButtonsPanel = new HorizontalPanel();
-//    private HorizontalPanel buttonsRowPanel;
-//    private int buttonsPanelSize = 0;
-//    private FlowPanel testsPanel = new FlowPanel();
+
+    HTMLDivElement panelDiv;
+
+    LienzoPanel2   lienzo;
+
+
+    @JsMethod
+    public void createTests(String... tests)
+    {
+        for ( String test : tests)
+        {
+            Function func = (Function) ((JsPropertyMap)this).get("createTest");
+            func.apply(this, new Object[] {test});
+        }
+    }
+
+
+    @JsMethod
+    public void createTest(String test)
+    {
+        HTMLDivElement e1 = (HTMLDivElement) document.createElement("div");
+        elemental2.dom.Text e1Text = document.createTextNode(test);
+        e1.appendChild(e1Text);
+        e1.addEventListener("click", evt -> {
+            createPanel();
+            Function func = (Function) ((JsPropertyMap)LienzoTests2.this).get(test);
+            func.apply(LienzoTests2.this);
+        });
+        Element links = document.getElementById("links");
+        links.appendChild(e1);
+    }
 
     public void onModuleLoad() {
-//    <!--div id="demo" style="display:inline-block; width:2815px; height:1415px">
-//                            asdf
-//                            </div-->
+        createTests("test1", "test2");
+    }
 
-        //div.style = CSSStyleDeclaration.of("display:inline-block; width:2815px; height:1415p");
+    @JsMethod
+    public void test1()
+    {
+        //lienzo.add()
+        Layer l1 = new Layer();
+        lienzo.add(l1);
 
-        HTMLDivElement div = (HTMLDivElement) document.createElement("div");
-        div.style.display = "inline-block";
-        div.style.width = WidthUnionType.of("2815px");
-        div.style.height = HeightUnionType.of("1415px");
-        document.body.appendChild(div);
+        MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
+                                         .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
+        l1.add(path1);
+        l1.draw();
 
+        MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
+                                         .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
 
-//        HTMLButtonElement btn = (HTMLButtonElement) document.createElement("button");
-//        btn.textContent = "I am a button";
-//        btn.addEventListener("click", evt -> {
-//            if(evt instanceof MouseEvent) {
-//                MouseEvent mouseEvent = (MouseEvent) evt;
+//        Group group = new Group();
+//        group.add(path2);
 //
-////                HTMLDivElement elm    = (HTMLDivElement) document.getElementById("demo");
-////                DomGlobal.alert("Clicked " + mouseEvent.clientX + " " + mouseEvent.clientY + " " + elm);
+//        group.setY(400);
 //
-//                DomGlobal.alert("Clicked " + mouseEvent.clientX + " " + mouseEvent.clientY);
+//        l1.add(group);
 //
-////                LienzoPanel2   lienzo = new LienzoPanel2(div);
-////
-////                //lienzo.add()
-////                Layer l1 = new Layer();
-////                lienzo.add(l1);
-////                l1.add(new MultiPath().rect(100, 100, 100, 100)
-////                                      .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true) );
-////                l1.draw();
+//        l1.draw();
 //
-//            }
-//        });
-
-                LienzoPanel2   lienzo = new LienzoPanel2(div);
-
-                //lienzo.add()
-                Layer l1 = new Layer();
-                lienzo.add(l1);
-                l1.add(new MultiPath().rect(100, 100, 100, 100)
-                                      .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true) );
-                l1.draw();
-
-//        document.body.appendChild(btn);
+//        Console.get().info("hello 1");
+//
+//        Text text = new Text("test1");
+//        text.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+//        text.setFontSize(10);
+//        text.setY(10);
+//        group.add(text);
 
 
-        //HTMLBodyElement body   = DomGlobal.document.body;
-        //HTMLDivElement  div    = (HTMLDivElement) DomGlobal.document.getElementById("demo");
+        Text text2 = new Text("test4");
+        text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+        //text2.setFontSize(100);
+        text2.setFontSize(30);
+        text2.setX(100);
+        text2.setY(350);
+        l1.add(text2);
 
-        //lienzo.
+        l1.draw();
 
-//        buttonsPanel.getElement().getStyle().setMargin( 10, Style.Unit.PX );
-//
-//        RootPanel.get().add( mainPanel );
-//
-//        for ( final MyLienzoTest test : TESTS ) {
-//
-//            final Button button = new Button( test.getClass().getSimpleName() );
-//            button.addClickHandler( new ClickHandler() {
-//                @Override
-//                public void onClick( ClickEvent clickEvent ) {
-//                    createPanelForTest( test );
-//                }
-//            } );
-//
-//            addButton( button );
-//
-//        }
-//
-//        mainPanel.add( buttonsPanel );
-//        mainPanel.add( screenButtonsPanel );
-//        mainPanel.add( testsPanel );
+        Console.get().info("hello 2");
+    }
 
+    @JsMethod
+    public void test2()
+    {
+        //lienzo.add()
+        Layer l1 = new Layer();
+        lienzo.add(l1);
+
+        MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
+                                         .setStrokeColor( "#FFFFFF" ).setFillColor( "#0000CC" ).setDraggable(true);
+        l1.add(path1);
+        l1.draw();
+
+        MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
+                                         .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
+
+//        Group group = new Group();
+//        group.add(path2);
+//
+//        group.setY(400);
+//
+//        l1.add(group);
+//
+//        l1.draw();
+//
+//        Console.get().info("hello 1");
+//
+//        Text text = new Text("test1");
+//        text.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+//        text.setFontSize(10);
+//        text.setY(10);
+//        group.add(text);
+
+
+        Text text2 = new Text("test4");
+        text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+        //text2.setFontSize(100);
+        text2.setFontSize(30);
+        text2.setX(100);
+        text2.setY(350);
+        l1.add(text2);
+
+        l1.draw();
+
+        Console.get().info("hello 2");
+    }
+
+    private void createPanel()
+    {
+        if (lienzo != null)
+        {
+            lienzo.destroy();
+        }
+
+
+        panelDiv = (HTMLDivElement) document.createElement("div");
+        panelDiv.style.display = "inline-block";
+
+//        div.style.width = WidthUnionType.of("1000px");
+//        div.style.height = HeightUnionType.of("1000px");
+        Element content = document.getElementById("content");
+        content.appendChild(panelDiv);
+
+
+        lienzo = new LienzoPanel2(panelDiv, 700, 700);
+        applyGrid(lienzo);
     }
 
     private void createPanelForTest(MyLienzoTest test) {
@@ -227,20 +251,20 @@ public class LienzoTests2 implements EntryPoint {
 ////        buttonsPanelSize++;
 //    }
 
-//    private void applyGrid( final LienzoPanel panel ) {
-//        // Grid.
-//        Line line1 = new Line( 0, 0, 0, 0 )
-//                .setStrokeColor( "#0000FF" )
-//                .setAlpha( 0.2 );
-//        Line line2 = new Line( 0, 0, 0, 0 )
-//                .setStrokeColor( "#00FF00"  )
-//                .setAlpha( 0.2 );
-//
-//        line2.setDashArray( 2,
-//                2 );
-//
-//        GridLayer gridLayer = new GridLayer( 100, line1, 25, line2 );
-//
-//        panel.setBackgroundLayer( gridLayer );
-//    }
+    private void applyGrid( final LienzoPanel2 panel) {
+        // Grid.
+        Line line1 = new Line(0, 0, 0, 0 )
+                .setStrokeColor( "#0000FF" )
+                .setAlpha( 0.2 );
+        Line line2 = new Line( 0, 0, 0, 0 )
+                .setStrokeColor( "#00FF00"  )
+                .setAlpha( 0.2 );
+
+        line2.setDashArray( 2,
+                2 );
+
+        GridLayer gridLayer = new GridLayer(100, line1, 25, line2 );
+
+        panel.setBackgroundLayer( gridLayer );
+    }
 }

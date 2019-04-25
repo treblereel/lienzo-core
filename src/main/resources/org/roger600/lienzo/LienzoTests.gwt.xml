@@ -22,7 +22,7 @@
   <inherits name="com.ait.lienzo.Lienzo" />
   <inherits name="elemental2.dom.Dom"/>
 
-    <entry-point class="org.roger600.lienzo.client.LienzoTests2" />
+  <entry-point class="org.roger600.lienzo.client.LienzoTests2" />
   <!--entry-point class="org.roger600.lienzo.client.CanvasReplicationTests" /-->
   <!--<entry-point class="org.roger600.lienzo.client.CanvasToDataImageTests" />-->
   <!--<entry-point class="org.roger600.lienzo.client.LienzoKeyboardTests" />-->

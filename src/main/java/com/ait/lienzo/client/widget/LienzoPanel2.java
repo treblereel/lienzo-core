@@ -37,6 +37,7 @@ import org.gwtproject.dom.client.Style;
 import org.gwtproject.dom.style.shared.Cursor;
 //import com.google.gwt.user.client.Window;
 
+import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
@@ -84,6 +85,19 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
         this(new Viewport(), elm);
     }
 
+    public LienzoPanel2(HTMLDivElement elm, int wide, int high)
+    {
+        m_view = new Viewport();
+        if (false == m_view.adopt(Js.uncheckedCast(elm)))
+        {
+            throw new IllegalArgumentException("Viewport is already adopted.");
+        }
+        m_elm = elm;
+        m_elm.tabIndex = 0;
+
+        doPostCTOR(wide, high,true);
+    }
+
     public LienzoPanel2(final Viewport view, HTMLDivElement elm)
     {
         if (false == view.adopt(Js.uncheckedCast(elm)))
@@ -98,8 +112,6 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
         setWidth("100%");
 
         setHeight("100%");
-
-
 
         doPostCTOR(DomGlobal.document.documentElement.clientWidth,DomGlobal.document.documentElement.clientHeight, true);
     }
@@ -162,6 +174,16 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
         m_elm.style.outlineStyle = Style.OutlineStyle.NONE.getCssName();
     }
 
+    private void setWidth(int width)
+    {
+        m_elm.style.width = WidthUnionType.of(width);
+    }
+
+    private void setHeight(int height)
+    {
+        m_elm.style.height = HeightUnionType.of(height);
+    }
+
     private void setWidth(String width)
     {
         m_elm.style.width = WidthUnionType.of(width);
@@ -169,8 +191,9 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
     private void setHeight(String height)
     {
-        m_elm.style.width = WidthUnionType.of(height);
+        m_elm.style.height = HeightUnionType.of(height);
     }
+
     public void onResize()
     {
         if (m_flex)

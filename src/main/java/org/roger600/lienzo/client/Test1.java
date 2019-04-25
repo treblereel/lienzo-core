@@ -3,6 +3,7 @@ package org.roger600.lienzo.client;
 import com.ait.lienzo.client.core.event.NodeMouseDownEvent;
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.MultiPath;
+import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.widget.LienzoHandlerManager;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.tools.client.Console;
@@ -51,9 +52,21 @@ public class Test1
         //lienzo.add()
         Layer l1 = new Layer();
         lienzo.add(l1);
-        l1.add(new MultiPath().rect(100, 100, 100, 100)
-                              .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true) );
+
+        MultiPath path = new MultiPath().rect(100, 100, 100, 100)
+                                        .setStrokeColor( "#CCCCCC" ).setFillColor( "#00CC00" ).setDraggable(true);
+
+        l1.add(path);
         l1.draw();
+
+        Console.get().info("help");
+
+//        Text text = new Text("Hello World");
+//        text.setX(0).setY(250);
+//        text.setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" );
+//        l1.add(text);
+//        l1.draw();
+
     }
 
 }

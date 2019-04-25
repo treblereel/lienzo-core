@@ -630,7 +630,7 @@
 					</plugin>
 
 					<plugin>
-						<groupId>net.cardosi.j2cl</groupId>
+						<groupId>org.treblereel.gwt.j2cl</groupId>
 						<artifactId>j2cl-maven-plugin</artifactId>
 						<version>${j2cl.maven.plugin.version}</version>
 						<executions>

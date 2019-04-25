@@ -1,0 +1,23 @@
+.my-sidebar {
+    -ms-flex: 0 0 230px;
+    flex: 0 0 230px;
+    #background-color: greenyellow;
+}
+
+@media (max-width: 690px) {
+    .my-sidebar {
+        display: none;
+    }
+}
+
+.row.vdivide [class*='col']:not(:last-child):after {
+    background: #b0b0b0;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    min-height: 70px;
+}
