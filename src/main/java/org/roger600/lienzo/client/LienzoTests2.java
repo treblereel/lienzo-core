@@ -2,6 +2,11 @@ package org.roger600.lienzo.client;
 
 import java.util.function.Predicate;
 
+import com.ait.lienzo.client.core.animation.AnimationProperties;
+import com.ait.lienzo.client.core.animation.AnimationProperty.Properties;
+import com.ait.lienzo.client.core.animation.AnimationTweener;
+import com.ait.lienzo.client.core.config.LienzoCore;
+import com.ait.lienzo.client.core.config.LienzoCoreEntryPoint;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.Layer;
@@ -47,6 +52,11 @@ public class LienzoTests2 implements EntryPoint {
 
     LienzoPanel2   lienzo;
 
+    public void onModuleLoad() {
+        new LienzoCoreEntryPoint().onModuleLoad();
+        createTests("test1", "test2", "test3");
+    }
+
 
     @JsMethod
     public void createTests(String... tests)
@@ -72,10 +82,6 @@ public class LienzoTests2 implements EntryPoint {
         });
         Element links = document.getElementById("links");
         links.appendChild(e1);
-    }
-
-    public void onModuleLoad() {
-        createTests("test1", "test2");
     }
 
     @JsMethod
@@ -166,6 +172,29 @@ public class LienzoTests2 implements EntryPoint {
         l1.add(text2);
 
         l1.draw();
+
+        Console.get().info("hello 2");
+    }
+
+    @JsMethod
+    public void test3()
+    {
+        //lienzo.add()
+        Layer l1 = new Layer();
+        lienzo.add(l1);
+
+        MultiPath path1 = new MultiPath().rect(0, 0, 200, 200)
+                                         .setStrokeColor( "#FFFFFF" ).setFillColor( "#0000CC" ).setDraggable(true);
+        l1.add(path1);
+        l1.draw();
+
+        AnimationProperties props = new AnimationProperties();
+        props.push(Properties.X(200));
+        props.push(Properties.Y(200));
+        props.push(Properties.SCALE(2));
+
+        path1.animate(AnimationTweener.LINEAR, props, 5000);
+
 
         Console.get().info("hello 2");
     }

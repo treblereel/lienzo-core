@@ -18,6 +18,8 @@ package com.ait.lienzo.client.core.config;
 
 import org.gwtproject.core.client.EntryPoint;
 
+import com.ait.lienzo.tools.client.Console;
+
 public final class LienzoCoreEntryPoint implements EntryPoint
 {
     @Override
