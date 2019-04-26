@@ -33,8 +33,9 @@ public abstract class BaseExampleTest implements ExampleTest
         MouseWheelZoomMediator zoom = new MouseWheelZoomMediator(EventFilter.SHIFT);
         panel.getViewport().pushMediator(zoom);
 
-        MousePanMediator pan = new MousePanMediator(EventFilter.ALT);
-        panel.getViewport().pushMediator(pan);
+        MousePanMediator pan = new MousePanMediator(EventFilter.CONTROL);
+        this.panel = null;
+        this.panel.getViewport().pushMediator(pan);
     }
 
     @Override public void destroy()

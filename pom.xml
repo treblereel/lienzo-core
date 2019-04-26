@@ -581,6 +581,7 @@
 							<jsZipCacheDir>${project.basedir}/jsZipCache</jsZipCacheDir>
 							<entrypoint>org.roger600.lienzo.client.LienzoTests2</entrypoint>
 							<outputJsFilename>app.js</outputJsFilename>
+							<intermediateJsPath>${webappdir}/js/sources</intermediateJsPath>
 							<externs>
 								<extern>${project.basedir}/src/main/externs/w3c_clipboardevent.js</extern>
 								<extern>${project.basedir}/src/main/externs/svg.js</extern>
@@ -700,6 +701,7 @@
 							</j2clClasspath>
 							<outputJsPathDir>${webappdir}/js</outputJsPathDir>
 							<outputJsFilename>app.js</outputJsFilename>
+							<intermediateJsPath>${webappdir}/js/sources</intermediateJsPath>
 							<sourceDir>
 								<param>${project.basedir}/src/main/java</param>
 							</sourceDir>
