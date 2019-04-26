@@ -3,6 +3,7 @@ package org.roger600;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.roger600.lienzo.client.BaseExampleTest;
 import org.roger600.lienzo.client.ExampleTest;
 
 import com.ait.lienzo.client.core.animation.AnimationCallback;
@@ -15,39 +16,43 @@ import com.ait.lienzo.client.core.animation.IndefiniteAnimation;
 import com.ait.lienzo.client.core.animation.TimedAnimation;
 import com.ait.lienzo.client.core.shape.Circle;
 import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.Color;
+import com.ait.lienzo.client.core.shape.Viewport;
 
-public class AnimatedCircles implements ExampleTest
+import jsinterop.annotations.JsConstructor;
+import jsinterop.annotations.JsType;
+
+import static jsinterop.annotations.JsPackage.GLOBAL;
+
+@JsType(isNative = false, namespace = GLOBAL)
+public class AnimatedCircles extends BaseExampleTest implements ExampleTest
 {
-    //private ExplorerWidget widget;
     private IAnimationHandle    animationHandle;
 
     private       List<MotionCircle> circles       = new ArrayList<MotionCircle>();
-    private final Layer              layer;
     private       boolean            animate       = true;
     private final int                yBottomOffSet = 0;
 
     private int width = 700;
     private int height = 700;
 
-    public AnimatedCircles(final Layer layer)
+    public AnimatedCircles(final String title)
     {
-        this.layer = layer;
-        init();
+        super(title);
     }
 
-
     public void destroy() {
+        super.destroy();
         animationHandle.stop();
     }
 
-    private void init() {
-
+    public void init(LienzoPanel2 panel) {
+        super.init(panel);
         layer.setListening(false);
         int total = 100; //GWT.isProdMode() ? 100 : 3;
 
         for (int i = 0; i < total; i++) {
-
             MotionCircle circle = new MotionCircle(Math.max(40, Math.random() * 60));
             circle.setAlpha(0.75).setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
                   .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(2).setFillColor(Color.getRandomHexColor());
@@ -57,8 +62,7 @@ public class AnimatedCircles implements ExampleTest
         }
     }
 
-    public void animate() {
-
+    public void run() {
         IAnimationCallback callback = new IAnimationCallback() {
             @Override public void onStart(final IAnimation animation, final IAnimationHandle handle)
             {
