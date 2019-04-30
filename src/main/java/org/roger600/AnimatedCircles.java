@@ -34,8 +34,8 @@ public class AnimatedCircles extends BaseExampleTest implements ExampleTest
     private       boolean            animate       = true;
     private final int                yBottomOffSet = 0;
 
-    private int width = 700;
-    private int height = 700;
+    private int width;
+    private int height;
 
     public AnimatedCircles(final String title)
     {
@@ -52,6 +52,9 @@ public class AnimatedCircles extends BaseExampleTest implements ExampleTest
         layer.setListening(false);
         int total = 100; //GWT.isProdMode() ? 100 : 3;
 
+        width = panel.getWidth();
+        height = panel.getHeight();
+
         for (int i = 0; i < total; i++) {
             MotionCircle circle = new MotionCircle(Math.max(40, Math.random() * 60));
             circle.setAlpha(0.75).setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
@@ -60,6 +63,13 @@ public class AnimatedCircles extends BaseExampleTest implements ExampleTest
             layer.add(circle);
 
         }
+    }
+
+    @Override
+    public void onResize()
+    {
+        width = panel.getWidth();
+        height = panel.getHeight();
     }
 
     public void run() {
@@ -99,10 +109,13 @@ public class AnimatedCircles extends BaseExampleTest implements ExampleTest
         double y = circle.getY();
         double r = circle.getRadius();
 
-        if (x + circle.getxVelocity() + r > width || x + circle.getxVelocity() - r < 0) {
+        if ((circle.getxVelocity() > 0 && x + circle.getxVelocity() + r > width) ||
+            (circle.getxVelocity() < 0 && x + circle.getxVelocity() - r < 0)) {
             circle.setxVelocity(-circle.getxVelocity());
         }
-        if (y + circle.getyVelocity() + r > height - yBottomOffSet || y + circle.getyVelocity() - r < 0) {
+
+        if ((circle.getyVelocity() > 0 && y + circle.getyVelocity() + r > height - yBottomOffSet) ||
+            (circle.getyVelocity() < 0 && y + circle.getyVelocity() - r < 0)) {
             circle.setyVelocity(-circle.getyVelocity());
         }
 

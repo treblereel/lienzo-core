@@ -638,7 +638,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     @Override
     public String toString()
     {
-        return toJSONString();
+        return getClass().getSimpleName() + " : " + getUserData() + " : " + getX() + " : " + getY();
     }
 
     @Override

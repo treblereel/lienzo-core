@@ -19,7 +19,6 @@ package com.ait.lienzo.client.core.event;
 import com.ait.lienzo.client.core.shape.Node;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.MouseEvent;
 
 public class NodeMouseEnterEvent extends AbstractNodeHumanInputEvent<NodeMouseEnterHandler, Node>
 {

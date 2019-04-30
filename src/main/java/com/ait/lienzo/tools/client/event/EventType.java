@@ -3,26 +3,27 @@ package com.ait.lienzo.tools.client.event;
 public enum EventType
 {
 
-    CLICKED("click", 4),
-    DOUBLE_CLICKED("doubleclick", 4),
+    CLICKED("click", 1),
+    DOUBLE_CLICKED("dblclick", 2),
 
 
-    MOUSE_UP("mouseup", 2),
-    MOUSE_MOVE("mousemove", 3),
-    MOUSE_DOWN("mousedown", 1),
+    MOUSE_UP("mouseup", 3),
+    MOUSE_DOWN("mousedown", 4),
+
+    MOUSE_MOVE("mousemove", 5),
 
 
-    MOUSE_OUT("mouseout", 5),
-    MOUSE_OVER("mouseover", 6),
 
-    MOUSE_WHEEL("mousewheel", 7),
+    MOUSE_OUT("mouseout", 6),
+    MOUSE_OVER("mouseover", 7),
 
+    MOUSE_WHEEL("mousewheel", 8),
 
-    TOUCH_CANCEL("touchcancel", 8),
 
     TOUCH_START("touchstart", 9),
     TOUCH_END("touchend", 10),
-    TOUCH_MOVE("touchmove", 11),
+    TOUCH_CANCEL("touchcancel", 11),
+    TOUCH_MOVE("touchmove", 12);
 
 
 //    GESTURE_START("gesturestart", 11),
@@ -30,7 +31,7 @@ public enum EventType
 //    GESTURE_END("gestureend", 11),
 
 
-    XXXX("mousewheel", 20);
+//    XXXX("mousewheel", 20);
 
     private String  type;
     private int code;
@@ -44,5 +45,10 @@ public enum EventType
     public String getType()
     {
         return this.type;
+    }
+
+    public int getCode()
+    {
+        return code;
     }
 }

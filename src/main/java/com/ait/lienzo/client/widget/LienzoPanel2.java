@@ -29,6 +29,7 @@ import com.ait.lienzo.client.core.util.CursorMap;
 import com.ait.lienzo.shared.core.types.AutoScaleType;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
+import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
 
 import org.gwtproject.core.client.Scheduler;
@@ -37,11 +38,13 @@ import org.gwtproject.dom.client.Style;
 import org.gwtproject.dom.style.shared.Cursor;
 //import com.google.gwt.user.client.Window;
 
+import elemental2.core.JsNumber;
 import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
+import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
-import elemental2.dom.HTMLElement;
+import elemental2.dom.ViewCSS;
 import jsinterop.base.Js;
 
 /**
@@ -60,9 +63,9 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
     private HTMLDivElement       m_elm;
 
-    private int                  m_wide;
+    private int                  m_width;
 
-    private int                  m_high;
+    private int                  m_height;
 
     private boolean              m_flex;
 
@@ -80,71 +83,66 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
     private DragMouseControl     m_drag_mouse_control;
 
-    public LienzoPanel2(HTMLDivElement elm)
-    {
-        this(new Viewport(), elm);
-    }
-
-    public LienzoPanel2(HTMLDivElement elm, int wide, int high)
+    public LienzoPanel2(final HTMLDivElement elm, boolean resize)
     {
         m_view = new Viewport();
-        if (false == m_view.adopt(Js.uncheckedCast(elm)))
-        {
-            throw new IllegalArgumentException("Viewport is already adopted.");
-        }
         m_elm = elm;
         m_elm.tabIndex = 0;
 
-        doPostCTOR(wide, high,true);
+        Size size = getSize((HTMLDivElement)elm.parentNode);
+
+        doPostCTOR(size.width, size.height);
+
+        if (resize)
+        {
+            DomGlobal.window.addEventListener("resize", (e) ->
+            {
+                Size resizeSize = getSize((HTMLDivElement)elm.parentNode);
+                setPixelSize(resizeSize.width, resizeSize.height);
+            });
+        }
     }
 
-    public LienzoPanel2(final Viewport view, HTMLDivElement elm)
+    public LienzoPanel2(HTMLDivElement elm, int width, int height)
     {
-        if (false == view.adopt(Js.uncheckedCast(elm)))
-        {
-            throw new IllegalArgumentException("Viewport is already adopted.");
-        }
+        m_view = new Viewport();
         m_elm = elm;
         m_elm.tabIndex = 0;
 
-        m_view = view;
-
-        setWidth("100%");
-
-        setHeight("100%");
-
-        doPostCTOR(DomGlobal.document.documentElement.clientWidth,DomGlobal.document.documentElement.clientHeight, true);
+        doPostCTOR(width, height);
     }
 
-    public LienzoPanel2(final int wide, final int high)
+    private Size getSize(final HTMLDivElement elm)
     {
-        this(new Viewport(wide, high), wide, high);
+        CSSStyleDeclaration cs = Js.<ViewCSS>uncheckedCast(DomGlobal.window).getComputedStyle(elm);
+
+        double paddingX = JsNumber.parseFloat(cs.paddingLeft.asString()) + JsNumber.parseFloat(cs.paddingRight.asString());
+        double paddingY = JsNumber.parseFloat(cs.paddingTop.asString()) + JsNumber.parseFloat(cs.paddingBottom.asString());
+
+        double borderX = JsNumber.parseFloat(cs.borderLeftWidth.asString()) + JsNumber.parseFloat(cs.borderRightWidth.asString());
+        double borderY = JsNumber.parseFloat(cs.borderTopWidth.asString()) + JsNumber.parseFloat(cs.borderBottomWidth.asString());
+
+        // Element width and height minus padding and border
+        int width  = (int)(elm.offsetWidth - paddingX - borderX);
+        int height = (int)(elm.offsetHeight - paddingY - borderY);
+
+        return new Size(width, height);
     }
 
-    public LienzoPanel2(final Scene scene, final int wide, final int high)
+    public static class Size
     {
-        this(new Viewport(scene, wide, high), wide, high);
-    }
+        public int width;
+        public int height;
 
-    public LienzoPanel2(final Viewport view, final int wide, final int high)
-    {
-        if (false == view.adopt(Js.uncheckedCast(m_elm)))
+        public Size(final int width, final int height)
         {
-            throw new IllegalArgumentException("Viewport is already adopted.");
+            this.width = width;
+            this.height = height;
         }
-        m_view = view;
-
-        doPostCTOR(wide, high, false);
     }
 
-    private final void doPostCTOR(final int wide, final int high, final boolean flex)
+    private final void doPostCTOR(final int width, final int height)
     {
-        m_wide = wide;
-
-        m_high = high;
-
-        m_flex = flex;
-
         m_drag_mouse_control = DragMouseControl.LEFT_MOUSE_ONLY;
 
         if (LienzoCore.IS_CANVAS_SUPPORTED)
@@ -154,11 +152,9 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
             m_elm.appendChild(divElement);
 
-            setPixelSize(wide, high);
+            setPixelSize(width, height);
 
             m_widget_cursor = CursorMap.get().lookup(m_elm.style.cursor);
-
-            //HTMLElement elm = Js.uncheckedCast(getElement());
 
             m_events = new LienzoHandlerManager(this);
         }
@@ -192,35 +188,6 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
     private void setHeight(String height)
     {
         m_elm.style.height = HeightUnionType.of(height);
-    }
-
-    public void onResize()
-    {
-        if (m_flex)
-        {
-            elemental2.dom.Node node = m_elm.parentNode;
-
-            if (node != null )
-            {
-                HTMLElement parent = (HTMLElement) node;
-
-                int wide = parent.offsetWidth;
-
-                int high = parent.offsetHeight;
-
-                if ((wide != 0) && (high != 0))
-                {
-                    setPixelSize(wide, high);
-                }
-            }
-        }
-    }
-
-    public void onAttach()
-    {
-        //super.onAttach();
-
-        onResize();
     }
 
     public void destroy() {
@@ -352,9 +319,11 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
     public void setPixelSize(final int width, final int height)
     {
         if (width >= 0) {
+            m_width = width;
             setWidth(width + "px");
         }
         if (height >= 0) {
+            m_height = height;
             setHeight(height + "px");
         }
 
@@ -478,7 +447,7 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
      */
     public int getWidth()
     {
-        return m_wide;
+        return m_width;
     }
 
     /**
@@ -488,7 +457,7 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
      */
     public int getHeight()
     {
-        return m_high;
+        return m_height;
     }
 
     /**

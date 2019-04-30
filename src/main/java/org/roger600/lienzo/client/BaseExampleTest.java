@@ -12,9 +12,12 @@ public abstract class BaseExampleTest implements ExampleTest
     protected LienzoPanel2 panel;
     protected Layer        layer;
 
+    protected Console      console;
+
     public BaseExampleTest(final String title)
     {
         this.title = title;
+        console = new Console();
     }
 
     @Override
@@ -34,13 +37,18 @@ public abstract class BaseExampleTest implements ExampleTest
         panel.getViewport().pushMediator(zoom);
 
         MousePanMediator pan = new MousePanMediator(EventFilter.CONTROL);
-        this.panel = null;
         this.panel.getViewport().pushMediator(pan);
     }
 
-    @Override public void destroy()
+    @Override
+    public void destroy()
     {
         panel.destroy();
     }
 
+    @Override
+    public void onResize()
+    {
+
+    }
 }

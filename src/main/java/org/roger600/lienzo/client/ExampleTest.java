@@ -14,4 +14,6 @@ public interface ExampleTest
 
     public void destroy();
 
+    public void onResize();
+
 }

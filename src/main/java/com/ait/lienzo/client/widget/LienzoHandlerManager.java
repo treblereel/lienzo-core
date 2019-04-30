@@ -30,6 +30,7 @@ import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
 import com.ait.lienzo.client.core.event.NodeMouseWheelEvent;
 import com.ait.lienzo.client.core.event.NodeTouchCancelEvent;
 import com.ait.lienzo.client.core.event.NodeTouchEndEvent;
+import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.client.event.EventType;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
@@ -358,7 +359,13 @@ final public class LienzoHandlerManager
             {
                 return;
             }
-            onNodeMouseOver(mouseEvent, x, y, nodeMouseOverEvent);
+
+            final Shape<?> shape = doCheckEnterExitShape(mouseEvent, null, x, y);
+
+            if ( shape != null)
+            {
+                fireEvent(mouseEvent, null, x, y, null, shape, nodeMouseOverEvent);
+            }
         });
 
         addEventListener(EventType.MOUSE_WHEEL, (Event event) ->
@@ -780,11 +787,9 @@ final public class LienzoHandlerManager
 
             int        oldX     = nodeEvent.getX();
             int        oldY     = nodeEvent.getY();
-            boolean    restore  = false;
 
             try
             {
-                restore = true;
                 nodeEvent.override((S) node, mouseEvent, touchEvent, x, y, drag);
                 node.fireEvent(nodeEvent);
             }
@@ -794,7 +799,7 @@ final public class LienzoHandlerManager
                 {
                     nodeEvent.kill();
                 }
-                else if (restore)
+                else
                 {
                     if(mouseEvent != null)
                     {
@@ -842,7 +847,7 @@ final public class LienzoHandlerManager
             {
                 if ((null != shape) && (shape.isEventHandled(NodeMouseEnterEvent.getType())))
                 {
-                    fireEvent(mouseEvent, touchEvent, x, y,null,  (Node<?>) m_over_prim, nodeMouseEnterEvent);
+                    fireEvent(mouseEvent, touchEvent, x, y,null,  (Node<?>) shape, nodeMouseEnterEvent);
                 }
                 m_over_prim = shape;
             }
@@ -932,21 +937,6 @@ final public class LienzoHandlerManager
 
         Node<?> node = findPrimitiveForEventType(x, y, nodeEvent.getAssociatedType());
         fireEvent(mouseEvent, touchEvent, x, y, null, node, nodeEvent); // @FIXME was the only ever meant to fire on scene->layers? and not nodes?
-    }
-
-    private final void onNodeMouseOver(final MouseEvent mouseEvent, int x, int y, final AbstractNodeHumanInputEvent nodeEvent)
-    {
-        final Node<?> node = doCheckEnterExitShape(mouseEvent, null, x, y);
-
-        //fireEvent(event, x, y, node, nodeMouseOverEvent);
-        fireEvent(mouseEvent, null, x, y, null, node, nodeEvent);
-
-        // @FIXME this is the old logic, I added the isListening and isVisible to the main fireEvent, seemed more correct, but we should triple check this (mdp)
-//        if ((null != node) && (node.isListening()) && (node.isVisible()) && (node.isEventHandled(NodeMouseOverEvent.getType())))
-//        {
-//            node.fireEvent(event);
-//        }
-//        fireEvent(event); // @FIXME shouldn't this be an "else" when node == null? (mdp)
     }
 
 

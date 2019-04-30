@@ -46,7 +46,7 @@ public class Test1
         // })
 
         //elm.innerHTML = "hello1";
-        LienzoPanel2 lienzo = new LienzoPanel2(elm);
+        LienzoPanel2 lienzo = new LienzoPanel2(elm, false);
 
 
         //lienzo.add()
