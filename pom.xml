@@ -83,17 +83,6 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>google-snapshots</id>
-			<name>google-snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/google-snapshots/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
 			<id>vertispan-releases</id>
 			<name>Vertispan hosted artifacts-releases</name>
 			<url>https://repo.vertispan.com/j2cl</url>
@@ -102,16 +91,6 @@
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>vertispan-snapshots</id>
-			<name>Vertispan Snapshots</name>
-			<url>https://repo.vertispan.com/gwt-snapshot/</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>daily</updatePolicy>
-				<checksumPolicy>fail</checksumPolicy>
 			</snapshots>
 		</pluginRepository>
 		<pluginRepository>
