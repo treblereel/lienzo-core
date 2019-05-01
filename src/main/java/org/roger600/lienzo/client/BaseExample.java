@@ -1,9 +1,12 @@
 package org.roger600.lienzo.client;
 
+import org.roger600.Util;
+
 import com.ait.lienzo.client.core.mediator.EventFilter;
 import com.ait.lienzo.client.core.mediator.MousePanMediator;
 import com.ait.lienzo.client.core.mediator.MouseWheelZoomMediator;
 import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 
 public abstract class BaseExample implements Example
@@ -16,6 +19,11 @@ public abstract class BaseExample implements Example
 
     protected int width;
     protected int height;
+
+    protected int leftPadding = 5;
+    protected int topPadding = 5;
+    protected int rightPadding = 5;
+    protected int bottomPadding = 5;
 
     public BaseExample(final String title)
     {
@@ -46,11 +54,17 @@ public abstract class BaseExample implements Example
         this.panel.getViewport().pushMediator(pan);
     }
 
+    public void setRandomLocation(Shape shape)
+    {
+        Util.setLocation(shape, width, height, leftPadding, topPadding, rightPadding, bottomPadding);
+    }
+
     @Override
     public void destroy()
     {
         panel.destroy();
     }
+
 
     @Override
     public void onResize()

@@ -46,8 +46,10 @@ public class AnimatedCirclesExample extends BaseExample implements Example
 
         for (int i = 0; i < total; i++) {
             MotionCircle circle = new MotionCircle(Math.max(40, Math.random() * 60));
-            circle.setAlpha(0.75).setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
+
+            circle.setAlpha(0.75)
                   .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(2).setFillColor(Color.getRandomHexColor());
+            setRandomLocation(circle);
             circles.add(circle);
             layer.add(circle);
         }

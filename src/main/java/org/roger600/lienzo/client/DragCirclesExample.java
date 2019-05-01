@@ -24,8 +24,9 @@ public class DragCirclesExample extends BaseExample implements Example
 
             final Circle circle = new Circle(10);
             circles[i] = circle;
-            circle.setX(Util.generateValueWithinBoundary(width, 10)).setY(Util.generateValueWithinBoundary(height, 10))
-                  .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(2).setFillColor(Color.getRandomHexColor()).setDraggable(true);
+            circle.setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(2).setFillColor(Color.getRandomHexColor()).setDraggable(true);
+            setRandomLocation(circle);
+
             layer.add(circle);
 
         }
@@ -38,7 +39,7 @@ public class DragCirclesExample extends BaseExample implements Example
         for (int i = 0; i < total; i++) {
 
             final Circle circle = circles[i];
-            circle.setX(Util.generateValueWithinBoundary(width, 10)).setY(Util.generateValueWithinBoundary(height, 10));
+            setRandomLocation(circle);
         }
 
         layer.batch();
