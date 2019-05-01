@@ -1,32 +1,24 @@
-package org.roger600;
+package org.roger600.lienzo.client;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.roger600.lienzo.client.BaseExampleTest;
-import org.roger600.lienzo.client.ExampleTest;
+import org.roger600.Util;
 
-import com.ait.lienzo.client.core.animation.AnimationCallback;
-import com.ait.lienzo.client.core.animation.AnimationScheduler;
-import com.ait.lienzo.client.core.animation.AnimationScheduler.AnimationHandle;
 import com.ait.lienzo.client.core.animation.IAnimation;
 import com.ait.lienzo.client.core.animation.IAnimationCallback;
 import com.ait.lienzo.client.core.animation.IAnimationHandle;
 import com.ait.lienzo.client.core.animation.IndefiniteAnimation;
-import com.ait.lienzo.client.core.animation.TimedAnimation;
 import com.ait.lienzo.client.core.shape.Circle;
-import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.Color;
-import com.ait.lienzo.client.core.shape.Viewport;
 
-import jsinterop.annotations.JsConstructor;
 import jsinterop.annotations.JsType;
 
 import static jsinterop.annotations.JsPackage.GLOBAL;
 
 @JsType(isNative = false, namespace = GLOBAL)
-public class AnimatedCircles extends BaseExampleTest implements ExampleTest
+public class AnimatedCirclesExample extends BaseExample implements Example
 {
     private IAnimationHandle    animationHandle;
 
@@ -37,7 +29,7 @@ public class AnimatedCircles extends BaseExampleTest implements ExampleTest
     private int width;
     private int height;
 
-    public AnimatedCircles(final String title)
+    public AnimatedCirclesExample(final String title)
     {
         super(title);
     }

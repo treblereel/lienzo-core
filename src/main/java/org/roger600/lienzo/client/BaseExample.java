@@ -6,7 +6,7 @@ import com.ait.lienzo.client.core.mediator.MouseWheelZoomMediator;
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 
-public abstract class BaseExampleTest implements ExampleTest
+public abstract class BaseExample implements Example
 {
     private String title;
     protected LienzoPanel2 panel;
@@ -14,7 +14,7 @@ public abstract class BaseExampleTest implements ExampleTest
 
     protected Console      console;
 
-    public BaseExampleTest(final String title)
+    public BaseExample(final String title)
     {
         this.title = title;
         console = new Console();

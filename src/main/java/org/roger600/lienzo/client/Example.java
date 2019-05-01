@@ -4,7 +4,7 @@ import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 
-public interface ExampleTest
+public interface Example
 {
     public String getTitle();
 

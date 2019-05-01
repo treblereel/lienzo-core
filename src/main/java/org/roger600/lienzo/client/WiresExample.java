@@ -5,7 +5,6 @@ import static com.ait.lienzo.client.core.shape.wires.LayoutContainer.Layout.CENT
 import com.ait.lienzo.client.core.shape.AbstractDirectionalMultiPointShape;
 import com.ait.lienzo.client.core.shape.Circle;
 import com.ait.lienzo.client.core.shape.IContainer;
-import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.shape.MultiPathDecorator;
 import com.ait.lienzo.client.core.shape.OrthogonalPolyLine;
@@ -23,9 +22,9 @@ import com.ait.lienzo.client.core.shape.wires.WiresShape;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 
-public class WiresArrowsViewComponent extends BaseExampleTest implements ExampleTest
+public class WiresExample extends BaseExample implements Example
 {
-    public WiresArrowsViewComponent(String title)
+    public WiresExample(String title)
     {
         super(title);
     }
