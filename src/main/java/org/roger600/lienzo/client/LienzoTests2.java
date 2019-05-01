@@ -1,19 +1,20 @@
 package org.roger600.lienzo.client;
 
-import org.roger600.Util;
-
 import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationProperty.Properties;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
 import com.ait.lienzo.client.core.config.LienzoCoreEntryPoint;
+import com.ait.lienzo.client.core.event.NodeMouseEnterHandler;
+import com.ait.lienzo.client.core.event.NodeMouseExitHandler;
 import com.ait.lienzo.client.core.shape.Circle;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.widget.LienzoPanel2;
-import com.ait.lienzo.shared.core.types.Color;
+import com.ait.lienzo.shared.core.types.ColorName;
 import com.ait.lienzo.tools.client.Console;
+import com.ait.lienzo.tools.client.Timer;
 import com.google.gwt.core.client.EntryPoint;
 
 import elemental2.dom.DomGlobal;
@@ -44,7 +45,8 @@ public class LienzoTests2 implements EntryPoint {
         createTests(new Test1("Rectangle"),
                     new Test2("Rectangle2"),
                     new Test3("Tweening"),
-                    new DragCirclesTest("Drag Circles"),
+                    new TimersExample("Timers"),
+                    new DragCirclesExample("Drag Circles"),
                     new DragConstraintsExample("Drag Constraints"),
                     new AnimatedCirclesExample("Animations"),
                     new EventExample("Event Test"),
@@ -188,14 +190,9 @@ public class LienzoTests2 implements EntryPoint {
         }
     }
 
-    public static class DragCirclesTest extends BaseExample implements Example
+    public static class TimersExample extends BaseExample implements Example
     {
-        private int width;
-        private int height;
-        private Circle[] circles;
-        int total = 1000;
-
-        public DragCirclesTest(final String title)
+        public TimersExample(final String title)
         {
             super(title);
         }
@@ -203,33 +200,61 @@ public class LienzoTests2 implements EntryPoint {
         @Override
         public void run()
         {
-            this.width = panel.getWidth();
-            this.height = panel.getHeight();
-            this.circles = new Circle[total];
+            final Circle circ1 = new Circle(50);
+            circ1.setX(150).setY(150);
+            circ1.setFillColor(ColorName.YELLOWGREEN);
+            circ1.setStrokeColor(ColorName.YELLOWGREEN);
+            circ1.setDraggable(true);
+            layer.add(circ1);
 
-            for (int i = 0; i < total; i++) {
+            final Timer scheduledTimer1 = new Timer() {
+                @Override
+                public void run() {
+                    circ1.setVisible(false);
+                    layer.batch();
+                    Timer scheduledTimer2 = new Timer() {
+                        @Override
+                        public void run() {
+                            circ1.setVisible(true);
+                            layer.batch();
 
-                final Circle circle = new Circle(10);
-                circles[i] = circle;
-                circle.setX(Util.generateValueWithinBoundary(width, 10)).setY(Util.generateValueWithinBoundary(height, 10))
-                      .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(2).setFillColor(Color.getRandomHexColor()).setDraggable(true);
-                layer.add(circle);
+                        }
+                    };
+                    scheduledTimer2.schedule(1000);
+                }
+            };
 
-            }
-        }
+            circ1.addNodeMouseClickHandler((e) ->{
+                scheduledTimer1.schedule(1000);
+            });
 
-        @Override public void onResize()
-        {
-            this.width = panel.getWidth();
-            this.height = panel.getHeight();
+            final Circle circ2 = new Circle(50);
+            circ2.setX(150).setY(350);
+            circ2.setFillColor(ColorName.BLUEVIOLET );
+            circ2.setStrokeColor(ColorName.BLUEVIOLET);
+            circ2.setDraggable(true);
+            layer.add(circ2);
 
-            for (int i = 0; i < total; i++) {
+            final Timer intervalTimer1 = new Timer() {
+                @Override
+                public void run()
+                {
+                    circ2.setVisible(!circ2.isVisible());
+                    layer.batch();
+                }
+            };
+            circ2.addNodeMouseClickHandler((e) ->{
+                if (intervalTimer1.isRunning())
+                {
+                    intervalTimer1.cancel();
+                }
+                else
+                {
+                    intervalTimer1.scheduleRepeating(1000);
+                }
 
-                final Circle circle = circles[i];
-                circle.setX(Util.generateValueWithinBoundary(width, 10)).setY(Util.generateValueWithinBoundary(height, 10));
-            }
+            });
 
-            layer.batch();
         }
     }
 
