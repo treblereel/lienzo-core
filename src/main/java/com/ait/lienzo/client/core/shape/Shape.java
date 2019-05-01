@@ -956,19 +956,22 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return gradient != null || fillColor != null;
     }
 
-    public final void setFillGradient(final LinearGradient gradient)
+    public final T setFillGradient(final LinearGradient gradient)
     {
         this.gradient = gradient;
+        return cast();
     }
 
-    public final void setFillGradient(final RadialGradient gradient)
+    public final T setFillGradient(final RadialGradient gradient)
     {
         this.gradient = gradient;
+        return cast();
     }
 
-    public final void setFillGradient(final PatternGradient gradient)
+    public final T setFillGradient(final PatternGradient gradient)
     {
         this.gradient = gradient;
+        return cast();
     }
 
     public final FillGradient getFillGradient()

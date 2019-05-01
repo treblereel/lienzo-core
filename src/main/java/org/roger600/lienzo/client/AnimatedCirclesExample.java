@@ -26,9 +26,6 @@ public class AnimatedCirclesExample extends BaseExample implements Example
     private       boolean            animate       = true;
     private final int                yBottomOffSet = 0;
 
-    private int width;
-    private int height;
-
     public AnimatedCirclesExample(final String title)
     {
         super(title);
@@ -54,13 +51,6 @@ public class AnimatedCirclesExample extends BaseExample implements Example
             circles.add(circle);
             layer.add(circle);
         }
-    }
-
-    @Override
-    public void onResize()
-    {
-        width = panel.getWidth();
-        height = panel.getHeight();
     }
 
     public void run() {

@@ -14,6 +14,9 @@ public abstract class BaseExample implements Example
 
     protected Console      console;
 
+    protected int width;
+    protected int height;
+
     public BaseExample(final String title)
     {
         this.title = title;
@@ -33,6 +36,9 @@ public abstract class BaseExample implements Example
         this.layer = new Layer();
         this.panel.add(this.layer);
 
+        width = panel.getWidth();
+        height = panel.getHeight();
+
         MouseWheelZoomMediator zoom = new MouseWheelZoomMediator(EventFilter.SHIFT);
         panel.getViewport().pushMediator(zoom);
 
@@ -49,6 +55,7 @@ public abstract class BaseExample implements Example
     @Override
     public void onResize()
     {
-
+        width = panel.getWidth();
+        height = panel.getHeight();
     }
 }

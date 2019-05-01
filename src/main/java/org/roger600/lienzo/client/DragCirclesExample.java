@@ -7,8 +7,6 @@ import com.ait.lienzo.shared.core.types.Color;
 
 public class DragCirclesExample extends BaseExample implements Example
 {
-    private int      width;
-    private int      height;
     private Circle[] circles;
     int total = 1000;
 
@@ -20,8 +18,6 @@ public class DragCirclesExample extends BaseExample implements Example
     @Override
     public void run()
     {
-        this.width = panel.getWidth();
-        this.height = panel.getHeight();
         this.circles = new Circle[total];
 
         for (int i = 0; i < total; i++) {
@@ -37,8 +33,7 @@ public class DragCirclesExample extends BaseExample implements Example
 
     @Override public void onResize()
     {
-        this.width = panel.getWidth();
-        this.height = panel.getHeight();
+        super.onResize();
 
         for (int i = 0; i < total; i++) {
 

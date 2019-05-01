@@ -1,18 +1,27 @@
 package org.roger600.lienzo.client;
 
+import org.roger600.Util;
+
 import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationProperty.Properties;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
 import com.ait.lienzo.client.core.config.LienzoCoreEntryPoint;
-import com.ait.lienzo.client.core.event.NodeMouseEnterHandler;
-import com.ait.lienzo.client.core.event.NodeMouseExitHandler;
+import com.ait.lienzo.client.core.shape.Arc;
 import com.ait.lienzo.client.core.shape.Circle;
+import com.ait.lienzo.client.core.shape.Ellipse;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.client.core.shape.MultiPath;
+import com.ait.lienzo.client.core.shape.Rectangle;
+import com.ait.lienzo.client.core.shape.Shape;
+import com.ait.lienzo.client.core.shape.Star;
 import com.ait.lienzo.client.core.shape.Text;
+import com.ait.lienzo.client.core.types.LinearGradient;
+import com.ait.lienzo.client.core.types.RadialGradient;
 import com.ait.lienzo.client.widget.LienzoPanel2;
+import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.shared.core.types.ColorName;
+import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.client.Timer;
 import com.google.gwt.core.client.EntryPoint;
@@ -42,10 +51,9 @@ public class LienzoTests2 implements EntryPoint {
 
     public void onModuleLoad() {
         new LienzoCoreEntryPoint().onModuleLoad();
-        createTests(
-//                    new Test1("Rectangle"),
-//                    new Test2("Rectangle2"),
-                    new Test3("Tweening"),
+        createTests(new StrokeAndFillingExample("Stroke and Filling"),
+                    new GradientsExample("Gradients"),
+                    new TweeningExample("Tweening"),
                     new TimersExample("Timers"),
                     new DragCirclesExample("Drag Circles"),
                     new DragConstraintsExample("Drag Constraints"),
@@ -81,6 +89,7 @@ public class LienzoTests2 implements EntryPoint {
         Element links = document.getElementById("nav");
         links.appendChild(e1);
     }
+
 
 //    public static class Test1 extends BaseExample implements Example
 //    {
@@ -164,9 +173,9 @@ public class LienzoTests2 implements EntryPoint {
 //        }
 //    }
 
-    public static class Test3 extends BaseExample implements Example
+    public static class TweeningExample extends BaseExample implements Example
     {
-        public Test3(final String title)
+        public TweeningExample(final String title)
         {
             super(title);
         }
@@ -188,6 +197,136 @@ public class LienzoTests2 implements EntryPoint {
 
 
             Console.get().info("hello 2");
+        }
+    }
+
+    public static class StrokeAndFillingExample extends BaseExample implements Example
+    {
+        private Shape[] shapes;
+
+        private int total = 4;
+
+        public StrokeAndFillingExample(final String title)
+        {
+            super(title);
+        }
+
+        @Override
+        public void run()
+        {
+
+            int          x = (int) (width * .25);
+            int          y = (int) (height * .50);
+            final String strokeColor = Color.getRandomHexColor();
+            final String fillColor = Color.getRandomHexColor();
+            Text         text;
+
+            shapes = new Shape[total];
+            for (int i = 1; i < total; i++) {
+
+                final int xOffSet = x * i;
+
+                final Circle circle = new Circle(60);
+                circle.setX(xOffSet).setY(y);
+                shapes[i] = circle;
+
+                if (i == 1) {
+                    text = new Text("Stroke", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setX(xOffSet).setY(y - 70).setStrokeColor(strokeColor)
+                                                                        .setStrokeWidth(2);
+                    circle.setStrokeColor(strokeColor).setStrokeWidth(2);
+                } else if (i == 2) {
+                    text = new Text("Fill", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setX(xOffSet).setY(y - 70).setFillColor(fillColor);
+                    circle.setFillColor(fillColor);
+                } else {
+                    text = new Text("Stroke & Fill", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setX(xOffSet).setY(y - 70)
+                                                                               .setStrokeColor(strokeColor).setStrokeWidth(2).setFillColor(fillColor);
+                    circle.setFillColor(fillColor).setStrokeColor(strokeColor).setStrokeWidth(2);
+                }
+
+                layer.add(circle);
+                layer.add(text);
+
+                layer.draw();
+
+            }
+        }
+    }
+
+    public static class GradientsExample extends BaseExample implements Example
+    {
+        private Shape[] shapes;
+        private int total = 4;
+
+        public GradientsExample(final String title)
+        {
+            super(title);
+        }
+
+        @Override
+        public void run()
+        {
+
+            shapes = new Shape[total * 5];
+
+            int j = 0;
+            for (int i = 0; i < total; i++) {
+
+                final int strokeWidth = 1;
+
+                final RadialGradient radialGradient = new RadialGradient(0, 0, 0, 0, 0, 40);
+                radialGradient.addColorStop(0.0, Color.getRandomHexColor());
+                radialGradient.addColorStop(1.0, Color.getRandomHexColor());
+
+                final Circle circle = new Circle(Util.randomNumber(8, 10));
+                circle.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
+                      .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(radialGradient).setDraggable(true);
+                layer.add(circle);
+                shapes[j++] = circle;
+
+                final LinearGradient linearGradient = new LinearGradient(0, -50, 0, 50);
+                linearGradient.addColorStop(0, Color.getRandomHexColor());
+                linearGradient.addColorStop(0.30, Color.getRandomHexColor());
+                linearGradient.addColorStop(1, Color.getRandomHexColor());
+
+                final Rectangle rectangle = new Rectangle(Math.random() * 160, Math.random() * 100);
+                rectangle.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
+                         .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient).setDraggable(true);
+                layer.add(rectangle);
+                shapes[j++] = rectangle;
+
+                final Star star = new Star((int) (Math.random() * 10), 25, 50);
+                star.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
+                    .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient).setDraggable(true);
+                layer.add(star);
+                shapes[j++] = star;
+
+                final Arc arc = new Arc((int) (Math.random() * 80), 0, (Math.PI * 2) / 2);
+                arc.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
+                   .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(radialGradient).setDraggable(true);
+                layer.add(arc);
+                shapes[j++] = arc;
+
+                final Ellipse ellipse = new Ellipse(Math.random() * 120, Math.random() * 60);
+                ellipse.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
+                       .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient).setDraggable(true);
+                layer.add(ellipse);
+                shapes[j++] = ellipse;
+
+                layer.draw();
+            }
+        }
+
+        @Override
+        public void onResize()
+        {
+            super.onResize();
+
+            for (int j = 0; j < shapes.length; j++) {
+                final Shape shape = shapes[j];
+                shape.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125));
+            }
+
+            layer.batch();
         }
     }
 
