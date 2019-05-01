@@ -18,6 +18,7 @@ import com.ait.lienzo.client.core.shape.Star;
 import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.core.types.LinearGradient;
 import com.ait.lienzo.client.core.types.RadialGradient;
+import com.ait.lienzo.client.core.types.Shadow;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.shared.core.types.ColorName;
@@ -52,7 +53,8 @@ public class LienzoTests2 implements EntryPoint {
     public void onModuleLoad() {
         new LienzoCoreEntryPoint().onModuleLoad();
         createTests(new StrokeAndFillingExample("Stroke and Filling"),
-                    new GradientsExample("Gradients"),
+                    new GradientsAndShadowsExample("Gradients and Shadows"),
+                    new ColorsAndTransparency("Colors and Transparency"),
                     new TweeningExample("Tweening"),
                     new TimersExample("Timers"),
                     new DragCirclesExample("Drag Circles"),
@@ -202,9 +204,11 @@ public class LienzoTests2 implements EntryPoint {
 
     public static class StrokeAndFillingExample extends BaseExample implements Example
     {
-        private Shape[] shapes;
+        private Circle[] circles;
+        private Text[] texts;
 
-        private int total = 4;
+
+        private int total = 3;
 
         public StrokeAndFillingExample(final String title)
         {
@@ -214,50 +218,76 @@ public class LienzoTests2 implements EntryPoint {
         @Override
         public void run()
         {
-
-            int          x = (int) (width * .25);
-            int          y = (int) (height * .50);
             final String strokeColor = Color.getRandomHexColor();
             final String fillColor = Color.getRandomHexColor();
             Text         text;
 
-            shapes = new Shape[total];
-            for (int i = 1; i < total; i++) {
+            circles = new Circle[total];
+            texts = new Text[total];
 
-                final int xOffSet = x * i;
+            for (int i = 0; i < total; i++) {
 
                 final Circle circle = new Circle(60);
-                circle.setX(xOffSet).setY(y);
-                shapes[i] = circle;
+                circles[i] = circle;
 
-                if (i == 1) {
-                    text = new Text("Stroke", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setX(xOffSet).setY(y - 70).setStrokeColor(strokeColor)
+                if (i == 0) {
+                    text = new Text("Stroke", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setStrokeColor(strokeColor)
                                                                         .setStrokeWidth(2);
+                    texts[i] = text;
                     circle.setStrokeColor(strokeColor).setStrokeWidth(2);
-                } else if (i == 2) {
-                    text = new Text("Fill", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setX(xOffSet).setY(y - 70).setFillColor(fillColor);
+                } else if (i == 1) {
+                    text = new Text("Fill", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setFillColor(fillColor);
+                    texts[i] = text;
                     circle.setFillColor(fillColor);
-                } else {
-                    text = new Text("Stroke & Fill", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER).setX(xOffSet).setY(y - 70)
+                } else if (i == 2) {
+                    text = new Text("Stroke & Fill", "oblique normal bold", 24).setTextAlign(TextAlign.CENTER)
                                                                                .setStrokeColor(strokeColor).setStrokeWidth(2).setFillColor(fillColor);
+                    texts[i] = text;
                     circle.setFillColor(fillColor).setStrokeColor(strokeColor).setStrokeWidth(2);
+                } else {
+                    throw new RuntimeException();
                 }
-
                 layer.add(circle);
                 layer.add(text);
+            }
 
-                layer.draw();
+            setLocation();
 
+            layer.draw();
+        }
+
+        @Override
+        public void onResize()
+        {
+            super.onResize();
+
+            setLocation();
+
+            layer.batch();
+        }
+
+        private void setLocation()
+        {
+            int          x = (int) (width * .25);
+            int          y = (int) (height * .50);
+
+            for (int i = 0; i < circles.length; i++) {
+                int   xOffSet = x * (i+1);
+                Shape shape   = circles[i];
+                shape.setX(xOffSet).setY(y);
+
+                final Text text   = texts[i];
+                text.setX(xOffSet).setY(y - 70);
             }
         }
     }
 
-    public static class GradientsExample extends BaseExample implements Example
+    public static class GradientsAndShadowsExample extends BaseExample implements Example
     {
         private Shape[] shapes;
         private int total = 4;
 
-        public GradientsExample(final String title)
+        public GradientsAndShadowsExample(final String title)
         {
             super(title);
         }
@@ -279,7 +309,8 @@ public class LienzoTests2 implements EntryPoint {
 
                 final Circle circle = new Circle(Util.randomNumber(8, 10));
                 circle.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
-                      .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(radialGradient).setDraggable(true);
+                      .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(radialGradient)
+                      .setShadow(new Shadow(Color.getRandomHexColor(), 50, 0, 0)).setDraggable(true);
                 layer.add(circle);
                 shapes[j++] = circle;
 
@@ -290,25 +321,29 @@ public class LienzoTests2 implements EntryPoint {
 
                 final Rectangle rectangle = new Rectangle(Math.random() * 160, Math.random() * 100);
                 rectangle.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
-                         .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient).setDraggable(true);
+                         .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient)
+                         .setShadow(new Shadow(Color.getRandomHexColor(), 50, 0, 0)).setDraggable(true);
                 layer.add(rectangle);
                 shapes[j++] = rectangle;
 
                 final Star star = new Star((int) (Math.random() * 10), 25, 50);
                 star.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
-                    .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient).setDraggable(true);
+                    .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient)
+                    .setShadow(new Shadow(Color.getRandomHexColor(), 20, 10, 10)).setDraggable(true);
                 layer.add(star);
                 shapes[j++] = star;
 
                 final Arc arc = new Arc((int) (Math.random() * 80), 0, (Math.PI * 2) / 2);
                 arc.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
-                   .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(radialGradient).setDraggable(true);
+                   .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(radialGradient)
+                   .setShadow(new Shadow(Color.getRandomHexColor(), 50, 0, 0)).setDraggable(true);
                 layer.add(arc);
                 shapes[j++] = arc;
 
                 final Ellipse ellipse = new Ellipse(Math.random() * 120, Math.random() * 60);
                 ellipse.setX(Util.generateValueWithinBoundary(width, 125)).setY(Util.generateValueWithinBoundary(height, 125))
-                       .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient).setDraggable(true);
+                       .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(strokeWidth).setFillGradient(linearGradient)
+                       .setShadow(new Shadow(Color.getRandomHexColor(), 50, 0, 0)).setDraggable(true);
                 layer.add(ellipse);
                 shapes[j++] = ellipse;
 
@@ -330,8 +365,64 @@ public class LienzoTests2 implements EntryPoint {
         }
     }
 
+    public static class ColorsAndTransparency extends BaseExample implements Example
+    {
+        private Shape[] shapes;
+
+        private int total = 10;
+
+        public ColorsAndTransparency(final String title)
+        {
+            super(title);
+        }
+
+        @Override
+        public void run()
+        {
+            shapes = new Shape[total];
+
+            // create the rectangles
+            for (int i = 0; i < total; i++) {
+                final Rectangle rectangle = new Rectangle(120, 60);
+                rectangle.setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(1).setFillColor(Color.getRandomHexColor())
+                         .setAlpha(Math.random() * 1).setDraggable(true);
+                layer.add(rectangle);
+                shapes[i] = rectangle;
+            }
+
+            setLocation();
+        }
+
+        @Override
+        public void onResize()
+        {
+            super.onResize();
+
+            setLocation();
+
+            layer.batch();
+        }
+
+        private void setLocation()
+        {
+            int xOffSet = 40;
+            int yOffSet = 40;
+
+            int x = width  / 2 - (xOffSet * total/2);
+            int y = height / 2 - (yOffSet * total/2);
+
+            for (int j = 0; j < shapes.length; j++) {
+                final Shape shape = shapes[j];
+                shape.setX(x).setY(y);
+                x += xOffSet;
+                y += yOffSet;
+            }
+        }
+    }
+
     public static class TimersExample extends BaseExample implements Example
     {
+        private Shape[] shapes;
         public TimersExample(final String title)
         {
             super(title);
@@ -340,12 +431,23 @@ public class LienzoTests2 implements EntryPoint {
         @Override
         public void run()
         {
+            shapes = new Shape[5];
+
+            int x = width / 2;
+
+            Text text1 = new Text("Click to hide and show once.", "oblique normal", 16)
+                    .setTextAlign(TextAlign.CENTER).setStrokeColor(ColorName.BLACK).setStrokeWidth(2)
+                    .setX(x).setY(80);
+            layer.add(text1);
+            shapes[0] = text1;
+
             final Circle circ1 = new Circle(50);
-            circ1.setX(150).setY(150);
+            circ1.setX(x).setY(150);
             circ1.setFillColor(ColorName.YELLOWGREEN);
             circ1.setStrokeColor(ColorName.YELLOWGREEN);
             circ1.setDraggable(true);
             layer.add(circ1);
+            shapes[1] = circ1;
 
             final Timer scheduledTimer1 = new Timer() {
                 @Override
@@ -368,12 +470,26 @@ public class LienzoTests2 implements EntryPoint {
                 scheduledTimer1.schedule(1000);
             });
 
+            Text text2 = new Text("Click to repeat hide and show.", "oblique normal", 16)
+                    .setTextAlign(TextAlign.CENTER).setStrokeColor(ColorName.BLACK).setStrokeWidth(2)
+                    .setX(x).setY(250);
+            layer.add(text2);
+            shapes[2] = text2;
+
+            Text text3 = new Text("Click again to stop.", "oblique normal", 16)
+                    .setTextAlign(TextAlign.CENTER).setStrokeColor(ColorName.BLACK).setStrokeWidth(2)
+                    .setX(x).setY(280);
+            layer.add(text3);
+            shapes[3] = text3;
+
+
             final Circle circ2 = new Circle(50);
-            circ2.setX(150).setY(350);
+            circ2.setX(x).setY(350);
             circ2.setFillColor(ColorName.BLUEVIOLET );
             circ2.setStrokeColor(ColorName.BLUEVIOLET);
             circ2.setDraggable(true);
             layer.add(circ2);
+            shapes[4] = circ2;
 
             final Timer intervalTimer1 = new Timer() {
                 @Override
@@ -395,6 +511,28 @@ public class LienzoTests2 implements EntryPoint {
 
             });
 
+            layer.batch();
+
+        }
+
+        @Override
+        public void onResize()
+        {
+            super.onResize();
+
+            setLocation();
+
+            layer.batch();
+        }
+
+        private void setLocation()
+        {
+            int x = width  / 2;
+
+            for (int j = 0; j < shapes.length; j++) {
+                final Shape shape = shapes[j];
+                shape.setX(x);
+            }
         }
     }
 
