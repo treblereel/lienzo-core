@@ -42,8 +42,9 @@ public class LienzoTests2 implements EntryPoint {
 
     public void onModuleLoad() {
         new LienzoCoreEntryPoint().onModuleLoad();
-        createTests(new Test1("Rectangle"),
-                    new Test2("Rectangle2"),
+        createTests(
+//                    new Test1("Rectangle"),
+//                    new Test2("Rectangle2"),
                     new Test3("Tweening"),
                     new TimersExample("Timers"),
                     new DragCirclesExample("Drag Circles"),
@@ -81,87 +82,87 @@ public class LienzoTests2 implements EntryPoint {
         links.appendChild(e1);
     }
 
-    public static class Test1 extends BaseExample implements Example
-    {
-        public Test1(final String title)
-        {
-            super(title);
-        }
-
-        @Override
-        public void run()
-        {
-            MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
-                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
-            layer.add(path1);
-            layer.draw();
-
-            MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
-                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
-
-//        Group group = new Group();
-//        group.add(path2);
+//    public static class Test1 extends BaseExample implements Example
+//    {
+//        public Test1(final String title)
+//        {
+//            super(title);
+//        }
 //
-//        group.setY(400);
+//        @Override
+//        public void run()
+//        {
+//            MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
+//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
+//            layer.add(path1);
+//            layer.draw();
 //
-//        l1.add(group);
+//            MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
+//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
 //
-//        l1.draw();
+////        Group group = new Group();
+////        group.add(path2);
+////
+////        group.setY(400);
+////
+////        l1.add(group);
+////
+////        l1.draw();
+////
+////        Console.get().info("hello 1");
+////
+////        Text text = new Text("test1");
+////        text.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+////        text.setFontSize(10);
+////        text.setY(10);
+////        group.add(text);
 //
-//        Console.get().info("hello 1");
 //
-//        Text text = new Text("test1");
-//        text.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-//        text.setFontSize(10);
-//        text.setY(10);
-//        group.add(text);
-
-
-            Text text2 = new Text("test4");
-            text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-            //text2.setFontSize(100);
-            text2.setFontSize(30);
-            text2.setX(100);
-            text2.setY(350);
-            layer.add(text2);
-
-            layer.draw();
-
-            Console.get().info("hello 2");
-        }
-    }
-
-    public static class Test2 extends BaseExample implements Example
-    {
-        public Test2(final String title)
-        {
-            super(title);
-        }
-
-        @Override
-        public void run()
-        {
-            MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
-                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#0000CC" ).setDraggable(true);
-            layer.add(path1);
-            layer.draw();
-
-            MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
-                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
-
-            Text text2 = new Text("test4");
-            text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-            //text2.setFontSize(100);
-            text2.setFontSize(30);
-            text2.setX(100);
-            text2.setY(350);
-            layer.add(text2);
-
-            layer.draw();
-
-            Console.get().info("hello 2");
-        }
-    }
+//            Text text2 = new Text("test4");
+//            text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+//            //text2.setFontSize(100);
+//            text2.setFontSize(30);
+//            text2.setX(100);
+//            text2.setY(350);
+//            layer.add(text2);
+//
+//            layer.draw();
+//
+//            Console.get().info("hello 2");
+//        }
+//    }
+//
+//    public static class Test2 extends BaseExample implements Example
+//    {
+//        public Test2(final String title)
+//        {
+//            super(title);
+//        }
+//
+//        @Override
+//        public void run()
+//        {
+//            MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
+//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#0000CC" ).setDraggable(true);
+//            layer.add(path1);
+//            layer.draw();
+//
+//            MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
+//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
+//
+//            Text text2 = new Text("test4");
+//            text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
+//            //text2.setFontSize(100);
+//            text2.setFontSize(30);
+//            text2.setX(100);
+//            text2.setY(350);
+//            layer.add(text2);
+//
+//            layer.draw();
+//
+//            Console.get().info("hello 2");
+//        }
+//    }
 
     public static class Test3 extends BaseExample implements Example
     {
