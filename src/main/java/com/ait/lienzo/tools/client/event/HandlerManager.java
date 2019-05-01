@@ -76,7 +76,18 @@ public class HandlerManager
 
     public void fireEvent(final INodeEvent event)
     {
+        if (map == null)
+        {
+            // map is only created, once handlers are added
+            return;
+        }
+
         JsArray<EventHandler> handlers = map.get(event.getAssociatedType());
+        if (handlers==null)
+        {
+            // no handlers for this type have been added yet
+            return;
+        }
         JsSet<Throwable>      causes   = null;
         try
         {

@@ -71,7 +71,7 @@ public class WiresConnector
 
     private final HandlerManager                 m_events = new HandlerManager(this);
 
-    private final WiresConnectorPointsChangedEvent wiresConnectorPointsChangedEvent;
+    private WiresConnectorPointsChangedEvent wiresConnectorPointsChangedEvent;
 
     public WiresConnector(IDirectionalMultiPointShape<?> line, MultiPathDecorator headDecorator, MultiPathDecorator tailDecorator)
     {
@@ -106,9 +106,6 @@ public class WiresConnector
 
         // The Line is only draggable if both Connections are unconnected
         setDraggable();
-
-        HTMLElement relativeDiv = m_group.getLayer().getViewport().getElement();
-        wiresConnectorPointsChangedEvent = new WiresConnectorPointsChangedEvent(relativeDiv);
     }
 
     public WiresConnector(WiresMagnet headMagnet, WiresMagnet tailMagnet, IDirectionalMultiPointShape<?> line, MultiPathDecorator headDecorator, MultiPathDecorator tailDecorator)
@@ -734,6 +731,17 @@ public class WiresConnector
 
 
     public void firePointsUpdated() {
+        if(wiresConnectorPointsChangedEvent==null)
+        {
+            if (m_group.getLayer() == null)
+            {
+                // we cannot fire any events, until this group is added to a layer
+                return;
+            }
+            HTMLElement relativeDiv = m_group.getLayer().getViewport().getElement();
+            wiresConnectorPointsChangedEvent = new WiresConnectorPointsChangedEvent(relativeDiv);
+        }
+
         wiresConnectorPointsChangedEvent.revive();
         wiresConnectorPointsChangedEvent.override(this);
         m_events.fireEvent(wiresConnectorPointsChangedEvent);

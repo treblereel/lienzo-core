@@ -61,7 +61,6 @@ public class AnimatedCircles extends BaseExampleTest implements ExampleTest
                   .setStrokeColor(Color.getRandomHexColor()).setStrokeWidth(2).setFillColor(Color.getRandomHexColor());
             circles.add(circle);
             layer.add(circle);
-
         }
     }
 

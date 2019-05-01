@@ -23,6 +23,10 @@ import java.util.Collection;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.core.shape.wires.event.WiresDragEndEvent;
+import com.ait.lienzo.client.core.shape.wires.event.WiresDragMoveEvent;
+import com.ait.lienzo.client.core.shape.wires.event.WiresDragStartEvent;
+import com.ait.lienzo.client.core.shape.wires.event.WiresMoveEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndHandler;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeStartEvent;
@@ -75,17 +79,19 @@ public final class WiresManager
 
     private IConnectionAcceptor                              m_connectionAcceptor  = IConnectionAcceptor.ALL;
 
-    private IContainmentAcceptor                             m_containmentAcceptor = IContainmentAcceptor.ALL;
+    private IContainmentAcceptor   m_containmentAcceptor = IContainmentAcceptor.ALL;
 
-    private IControlPointsAcceptor                           m_controlPointsAcceptor = IControlPointsAcceptor.ALL;
+    private IControlPointsAcceptor m_controlPointsAcceptor = IControlPointsAcceptor.ALL;
 
-    private IDockingAcceptor                                 m_dockingAcceptor     = IDockingAcceptor.NONE;
+    private IDockingAcceptor       m_dockingAcceptor     = IDockingAcceptor.NONE;
 
-    private SelectionManager                                 m_selectionManager;
+    private SelectionManager       m_selectionManager;
 
-    private WiresDragHandler                                 m_handler;
+    private WiresDragHandler       m_handler;
 
-    private boolean                                          m_spliceEnabled;
+    private boolean                m_spliceEnabled;
+
+    private WiresEventHandlers     m_wiresEventHandlers;
 
     public static final WiresManager get(Layer layer)
     {
@@ -125,6 +131,8 @@ public final class WiresManager
         m_index = new AlignAndDistribute(layer);
         m_handler = null;
         m_wiresHandlerFactory = new WiresHandlerFactoryImpl();
+
+        m_wiresEventHandlers = new WiresEventHandlers(layer.getViewport().getElement());
     }
 
     public void enableSelectionManager()
@@ -133,6 +141,11 @@ public final class WiresManager
         {
             m_selectionManager = new SelectionManager(this);
         }
+    }
+
+    public WiresEventHandlers getWiresEventHandlers()
+    {
+        return m_wiresEventHandlers;
     }
 
     public boolean isSpliceEnabled()

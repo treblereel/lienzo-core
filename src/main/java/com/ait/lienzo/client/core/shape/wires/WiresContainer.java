@@ -74,11 +74,6 @@ public class WiresContainer
 
     private              ILayoutHandler               m_layoutHandler       = ILayoutHandler.NONE;
 
-    private final WiresDragStartEvent dragStartEvent;
-    private final WiresDragMoveEvent  dragMoveEvent;
-    private final WiresDragEndEvent   dragEndEvent;
-    private final WiresMoveEvent      wiresMoveEvent;
-
 
     public WiresContainer(final IContainer<?, IPrimitive<?>> container)
     {
@@ -93,13 +88,6 @@ public class WiresContainer
         this.m_drag_initialized = false;
         this.m_childShapes = new NFastArrayList<>();
         this.m_registrationManager = m_registrationManager;
-
-        HTMLElement relativeDiv = m_container.getLayer().getViewport().getElement();
-
-        dragStartEvent = new WiresDragStartEvent(relativeDiv);
-        dragMoveEvent = new WiresDragMoveEvent(relativeDiv);
-        dragEndEvent = new WiresDragEndEvent(relativeDiv);
-        wiresMoveEvent = new WiresMoveEvent(relativeDiv);
     }
 
     public WiresManager getWiresManager()
@@ -212,7 +200,13 @@ public class WiresContainer
     }
 
     public void shapeMoved() {
-        // Delegate to children.
+        if (m_container.getLayer() == null)
+        {
+            // no layer yet, cannot issue any events. Avoids errors from events needing a layer, to be instantiated
+            return;
+        }
+
+            // Delegate to children.
         if (getChildShapes() != null && !getChildShapes().isEmpty())
         {
             NFastArrayList<WiresShape> shapes = getChildShapes();
@@ -260,8 +254,6 @@ public class WiresContainer
 
     }
 
-
-
     private void ensureHandlers()
     {
         if ( !m_drag_initialized && null != m_container)
@@ -271,11 +263,12 @@ public class WiresContainer
                 @Override
                 public void onNodeDragStart(final NodeDragStartEvent event)
                 {
+                    WiresEventHandlers wiresEventHandlers = m_wiresManager.getWiresEventHandlers();
                     WiresContainer.this.m_dragging = true;
-                    dragStartEvent.revive();
-                    dragStartEvent.override(WiresContainer.this,  event);
-                    m_events.fireEvent(dragStartEvent);
-                    dragStartEvent.kill();
+                    wiresEventHandlers.dragStartEvent.revive();
+                    wiresEventHandlers.dragStartEvent.override(WiresContainer.this,  event);
+                    m_events.fireEvent(wiresEventHandlers.dragStartEvent);
+                    wiresEventHandlers.dragStartEvent.kill();
                 }
             }));
 
@@ -284,11 +277,12 @@ public class WiresContainer
                 @Override
                 public void onNodeDragMove(final NodeDragMoveEvent event)
                 {
+                    WiresEventHandlers wiresEventHandlers = m_wiresManager.getWiresEventHandlers();
                     WiresContainer.this.m_dragging = true;
-                    dragMoveEvent.revive();
-                    dragMoveEvent.override(WiresContainer.this,  event);
-                    m_events.fireEvent(dragMoveEvent);
-                    dragMoveEvent.kill();
+                    wiresEventHandlers.dragMoveEvent.revive();
+                    wiresEventHandlers.dragMoveEvent.override(WiresContainer.this,  event);
+                    m_events.fireEvent(wiresEventHandlers.dragMoveEvent);
+                    wiresEventHandlers.dragMoveEvent.kill();
                 }
             }));
 
@@ -297,25 +291,26 @@ public class WiresContainer
                 @Override
                 public void onNodeDragEnd(final NodeDragEndEvent event)
                 {
+                    WiresEventHandlers wiresEventHandlers = m_wiresManager.getWiresEventHandlers();
                     WiresContainer.this.m_dragging = false;
-                    dragEndEvent.revive();
-                    dragEndEvent.override(WiresContainer.this,  event);
-                    m_events.fireEvent(dragEndEvent);
-                    dragEndEvent.kill();
+                    wiresEventHandlers.dragEndEvent.revive();
+                    wiresEventHandlers.dragEndEvent.override(WiresContainer.this,  event);
+                    m_events.fireEvent(wiresEventHandlers.dragEndEvent);
+                    wiresEventHandlers.dragEndEvent.kill();
                 }
             }));
 
             m_drag_initialized = true;
 
         }
-
     }
 
     private void fireMove() {
-        wiresMoveEvent.revive();
-        wiresMoveEvent.override(WiresContainer.this,  (int) getLocation().getX(), (int) getLocation().getY());
-        m_events.fireEvent(wiresMoveEvent);
-        wiresMoveEvent.kill();
+        WiresEventHandlers wiresEventHandlers = m_wiresManager.getWiresEventHandlers();
+        wiresEventHandlers.wiresMoveEvent.revive();
+        wiresEventHandlers.wiresMoveEvent.override(WiresContainer.this,  (int) getLocation().getX(), (int) getLocation().getY());
+        m_events.fireEvent(wiresEventHandlers.wiresMoveEvent);
+        wiresEventHandlers.wiresMoveEvent.kill();
     }
 
     public final HandlerRegistration addWiresMoveHandler(final WiresMoveHandler handler)
