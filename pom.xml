@@ -572,15 +572,15 @@
 								<param>${webapp.libdir}/bootstrap.js.zip</param>
 								<param>${webapp.libdir}/jre.js.zip</param>
 							</j2clClasspath>
-							<dependencyMode>PRUNE_LEGACY</dependencyMode>
-							<intermediateJsPath>${webappdir}/js/sources</intermediateJsPath>
-							<outputJsPathDir>${webappdir}/js</outputJsPathDir>
+							<dependencyMode>PRUNE</dependencyMode>
+							<outputJsPathDir>${webappdir}/</outputJsPathDir>
 							<sourceDir>
 								<param>${project.basedir}/src/main/java</param>
 							</sourceDir>
 							<jsZipCacheDir>${project.basedir}/jsZipCache</jsZipCacheDir>
 							<entrypoint>org.roger600.lienzo.client.LienzoTests2</entrypoint>
 							<outputJsFilename>app.js</outputJsFilename>
+							<intermediateJsPath>${webappdir}/sources</intermediateJsPath>
 							<externs>
 								<extern>${project.basedir}/src/main/externs/w3c_clipboardevent.js</extern>
 								<extern>${project.basedir}/src/main/externs/svg.js</extern>
