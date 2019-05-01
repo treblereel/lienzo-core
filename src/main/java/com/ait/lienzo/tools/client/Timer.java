@@ -101,7 +101,7 @@ public abstract class Timer
       cancel();
     }
     isRepeating = false;
-    timerId = setInterval(e -> this.fire( cancelCounter ), delayMillis);
+    timerId = setTimeout(e -> this.fire( cancelCounter ), delayMillis);
   }
 
   /**
