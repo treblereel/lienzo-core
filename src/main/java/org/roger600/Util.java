@@ -27,8 +27,8 @@ public class Util {
 
         // this is needed as some shapes, like circles and multipaths, won't have same x,y result as rectangle
         Point2DArray points  = shape.getBoundingPoints().getArray();
-        double       xOffset = points.get(0).getX();
-        double       yOffset = points.get(0).getY();
+        double       xOffset = points.get(0).getX() - shape.getX();
+        double       yOffset = points.get(0).getY() - shape.getY();
 
         double shapeWidth = points.get(1).getX() - points.get(0).getX();
         double shapeHeight = points.get(3).getY() - points.get(0).getY();
