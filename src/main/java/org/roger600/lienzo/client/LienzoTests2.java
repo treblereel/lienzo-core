@@ -46,6 +46,7 @@ public class LienzoTests2 implements EntryPoint {
                     new DragConstraintsExample("Drag Constraints"),
                     new AnimatedCirclesExample("Animations"),
                     new EventExample("Events"),
+                    new SVGTigerExample("SVG Paths Tiger"),
                     new WiresExample("Wires")
                    );
     }

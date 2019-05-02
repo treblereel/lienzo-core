@@ -3,7 +3,11 @@ package org.roger600.lienzo.client;
 import org.roger600.Util;
 
 import com.ait.lienzo.client.core.shape.Circle;
+import com.ait.lienzo.client.core.shape.Group;
+import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.core.shape.SVGPath;
 import com.ait.lienzo.shared.core.types.Color;
+import com.ait.lienzo.shared.core.types.DragMode;
 
 public class DragCirclesExample extends BaseExample implements Example
 {
