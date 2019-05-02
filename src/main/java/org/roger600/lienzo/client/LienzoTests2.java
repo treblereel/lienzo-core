@@ -36,15 +36,17 @@ public class LienzoTests2 implements EntryPoint {
                     new ColorsAndTransparency("Colors and Transparency"),
                     new HorizontalTextAlignmentExample("Horizontal Text Alignment"),
                     new VerticalTextAlignmentExample("Vertical Text Alignment"),
+                    new MeasureTextExample("Measure Text"),
                     new ScaledTextExample("Scaled Text"),
+                    new TextAroundArcExample("Text around Arc"),
                     new PanAndZoomExample("Pan and Zoom"),
                     new TweeningExample("Tweening"),
                     new TimersExample("Timers"),
                     new DragCirclesExample("Drag Circles"),
                     new DragConstraintsExample("Drag Constraints"),
                     new AnimatedCirclesExample("Animations"),
-                    new EventExample("Event Test"),
-                    new WiresExample("Wires Test")
+                    new EventExample("Events"),
+                    new WiresExample("Wires")
                    );
     }
 
