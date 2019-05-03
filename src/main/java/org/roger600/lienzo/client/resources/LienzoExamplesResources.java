@@ -5,10 +5,10 @@ import org.gwtproject.resources.client.ClientBundle;
 import org.gwtproject.resources.client.ClientBundleWithLookup;
 import org.gwtproject.resources.client.DataResource;
 
-public interface LienzoTestsResources extends ClientBundleWithLookup
+public interface LienzoExamplesResources extends ClientBundleWithLookup
 {
 
-    //public static final LienzoTestsResources INSTANCE = GWT.create(LienzoTestsResources.class);
+    //public static final LienzoExamplesResources INSTANCE = GWT.create(LienzoTestsResources.class);
 
     @Source( "images/yamaha_logo_red.jpg" )
     DataResource yamahaLogoJPG();

@@ -83,7 +83,15 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
     private DragMouseControl     m_drag_mouse_control;
 
+    private int                  m_widthOffset;
+    private int                  m_heightOffset;
+
     public LienzoPanel2(final HTMLDivElement elm, boolean resize)
+    {
+        this(elm, resize, 0,0);
+    }
+
+    public LienzoPanel2(final HTMLDivElement elm, boolean resize, int widthOffset, int heightOffset)
     {
         m_view = new Viewport();
         m_elm = elm;
@@ -91,7 +99,10 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
         Size size = getSize((HTMLDivElement)elm.parentNode);
 
-        doPostCTOR(size.width, size.height);
+        m_widthOffset = widthOffset;
+        m_heightOffset = heightOffset;
+
+        doPostCTOR(size.width - widthOffset, size.height - heightOffset);
 
         if (resize)
         {

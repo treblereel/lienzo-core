@@ -1,5 +1,7 @@
 package org.roger600.lienzo.client;
 
+import org.gwtproject.dom.style.shared.Display;
+
 import com.ait.lienzo.client.core.config.LienzoCoreEntryPoint;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
@@ -17,12 +19,7 @@ import static elemental2.dom.DomGlobal.document;
 //import com.google.gwt.core.client.EntryPoint;
 //import com.google.gwt.user.client.ui.Button;
 
-public class LienzoTests2 implements EntryPoint {
-
-    public static final int WIDE = 2815; //2815
-    public static final int HIGH = 1415; // 1415
-
-
+public class LienzoExamples implements EntryPoint {
     HTMLDivElement panelDiv;
 
     LienzoPanel2   lienzo;
@@ -44,10 +41,11 @@ public class LienzoTests2 implements EntryPoint {
                     new TimersExample("Timers"),
                     new DragCirclesExample("Drag Circles"),
                     new DragConstraintsExample("Drag Constraints"),
-                    new AnimatedCirclesExample("Animations"),
+                    new AnimatedCirclesExample("Animated Circles"),
                     new EventExample("Events"),
                     new SVGTigerExample("SVG Paths Tiger"),
-                    new WiresExample("Wires")
+                    new WiresExample("Wires"),
+                    new Animate("Animations")
                    );
     }
 
@@ -65,12 +63,14 @@ public class LienzoTests2 implements EntryPoint {
     public void createTest(Example test)
     {
         HTMLDivElement e1 = (HTMLDivElement) document.createElement("div");
+        HTMLDivElement top = (HTMLDivElement) document.getElementById("top");
         elemental2.dom.Text e1Text = document.createTextNode(test.getTitle());
         e1.appendChild(e1Text);
         e1.addEventListener("click", evt -> {
-            createPanel();
+            top.style.display = Display.NONE.getCssName();
+            createPanel(test);
             this.test = test;
-            this.test.init(lienzo);
+            this.test.init(lienzo, top);
             this.test.run();
 
         });
@@ -161,7 +161,7 @@ public class LienzoTests2 implements EntryPoint {
 //        }
 //    }
 
-    private void createPanel()
+    private void createPanel(Example test)
     {
         if (this.test != null)
         {
@@ -169,13 +169,12 @@ public class LienzoTests2 implements EntryPoint {
             this.test = null;
         }
 
-
         panelDiv = (HTMLDivElement) document.createElement("div");
         panelDiv.style.display = "inline-block";
-        HTMLDivElement content = (HTMLDivElement) document.getElementById("content");
-        content.appendChild(panelDiv);
+        HTMLDivElement main = (HTMLDivElement) document.getElementById("main");
+        main.appendChild(panelDiv);
 
-        lienzo = new LienzoPanel2(panelDiv, true);
+        lienzo = new LienzoPanel2(panelDiv, true, test.getWidthOffset(), test.getHeightOffset());
         applyGrid(lienzo);
 
         DomGlobal.window.addEventListener("resize", (e) ->

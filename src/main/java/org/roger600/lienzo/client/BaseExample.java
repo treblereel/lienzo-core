@@ -1,5 +1,6 @@
 package org.roger600.lienzo.client;
 
+import org.gwtproject.dom.style.shared.Display;
 import org.roger600.Util;
 
 import com.ait.lienzo.client.core.mediator.EventFilter;
@@ -8,6 +9,8 @@ import com.ait.lienzo.client.core.mediator.MouseWheelZoomMediator;
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.widget.LienzoPanel2;
+
+import elemental2.dom.HTMLDivElement;
 
 public abstract class BaseExample implements Example
 {
@@ -25,6 +28,11 @@ public abstract class BaseExample implements Example
     protected int rightPadding = 5;
     protected int bottomPadding = 5;
 
+    protected int widthOffset;
+    protected int heightOffset;
+
+    protected HTMLDivElement topDiv;
+
     public BaseExample(final String title)
     {
         this.title = title;
@@ -38,8 +46,10 @@ public abstract class BaseExample implements Example
     }
 
     @Override
-    public void init(final LienzoPanel2 panel)
+    public void init(final LienzoPanel2 panel, HTMLDivElement topDiv)
     {
+        this.topDiv = topDiv;
+
         this.panel = panel;
         this.layer = new Layer();
         this.panel.add(this.layer);
@@ -52,6 +62,16 @@ public abstract class BaseExample implements Example
 
         MousePanMediator pan = new MousePanMediator(EventFilter.META);
         this.panel.getViewport().pushMediator(pan);
+    }
+
+    @Override public int getWidthOffset()
+    {
+        return widthOffset;
+    }
+
+    @Override public int getHeightOffset()
+    {
+        return heightOffset;
     }
 
     public void setRandomLocation(Shape shape)

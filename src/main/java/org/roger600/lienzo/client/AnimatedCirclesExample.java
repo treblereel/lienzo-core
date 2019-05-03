@@ -25,6 +25,7 @@ public class AnimatedCirclesExample extends BaseExample implements Example
     private       List<MotionCircle> circles       = new ArrayList<MotionCircle>();
     private       boolean            animate       = true;
     private final int                yBottomOffSet = 0;
+    int total = 100; //GWT.isProdMode() ? 100 : 3;
 
     public AnimatedCirclesExample(final String title)
     {
@@ -36,14 +37,7 @@ public class AnimatedCirclesExample extends BaseExample implements Example
         animationHandle.stop();
     }
 
-    public void init(LienzoPanel2 panel) {
-        super.init(panel);
-        layer.setListening(false);
-        int total = 100; //GWT.isProdMode() ? 100 : 3;
-
-        width = panel.getWidth();
-        height = panel.getHeight();
-
+    public void run() {
         for (int i = 0; i < total; i++) {
             MotionCircle circle = new MotionCircle(Math.max(40, Math.random() * 60));
 
@@ -53,9 +47,8 @@ public class AnimatedCirclesExample extends BaseExample implements Example
             circles.add(circle);
             layer.add(circle);
         }
-    }
 
-    public void run() {
+
         IAnimationCallback callback = new IAnimationCallback() {
             @Override public void onStart(final IAnimation animation, final IAnimationHandle handle)
             {

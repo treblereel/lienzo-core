@@ -65,7 +65,7 @@ public class Attribute
 
     public static final Attribute           STROKE_ALPHA                     = new Attribute("strokeAlpha", MESSAGES.strokeAlphaLabel(), MESSAGES.strokeAlphaDescription(), AttributeType.NUMBER_TYPE, true);
 
-    public static final Attribute           SCALE                            = new Attribute("scaleWithXY", MESSAGES.scaleLabel(), MESSAGES.scaleDescription(), AttributeType.POINT2D_TYPE, true);
+    public static final Attribute           SCALE                            = new Attribute("scale", MESSAGES.scaleLabel(), MESSAGES.scaleDescription(), AttributeType.POINT2D_TYPE, true);
 
     public static final Attribute           ROTATION                         = new Attribute("rotation", MESSAGES.rotationLabel(), MESSAGES.rotationDescription(), AttributeType.NUMBER_TYPE, true);
 

@@ -14,6 +14,7 @@ public class SVGTigerExample extends BaseExample implements Example
     public SVGTigerExample(final String title)
     {
         super(title);
+        heightOffset = 30;
     }
 
     @Override
