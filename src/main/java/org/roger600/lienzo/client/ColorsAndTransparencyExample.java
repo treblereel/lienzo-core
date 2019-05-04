@@ -4,13 +4,13 @@ import com.ait.lienzo.client.core.shape.Rectangle;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.shared.core.types.Color;
 
-public class ColorsAndTransparency extends BaseExample implements Example
+public class ColorsAndTransparencyExample extends BaseExample implements Example
 {
     private Shape[] shapes;
 
     private int     total = 10;
 
-    public ColorsAndTransparency(final String title)
+    public ColorsAndTransparencyExample(final String title)
     {
         super(title);
     }

@@ -30,7 +30,7 @@ public class LienzoExamples implements EntryPoint {
         new LienzoCoreEntryPoint().onModuleLoad();
         createTests(new StrokeAndFillingExample("Stroke and Filling"),
                     new GradientsAndShadowsExample("Gradients and Shadows"),
-                    new ColorsAndTransparency("Colors and Transparency"),
+                    new ColorsAndTransparencyExample("Colors and Transparency"),
                     new HorizontalTextAlignmentExample("Horizontal Text Alignment"),
                     new VerticalTextAlignmentExample("Vertical Text Alignment"),
                     new MeasureTextExample("Measure Text"),
@@ -45,7 +45,8 @@ public class LienzoExamples implements EntryPoint {
                     new EventExample("Events"),
                     new SVGTigerExample("SVG Paths Tiger"),
                     new WiresExample("Wires"),
-                    new Animate("Animations")
+                    new Animate("Animations"),
+                    new LionExample("Polygon Lion with Clipping")
                    );
     }
 
