@@ -15,10 +15,6 @@ import jsinterop.annotations.JsMethod;
 
 import static elemental2.dom.DomGlobal.document;
 
-//import com.ait.lienzo.client.widget.LienzoPanel;
-//import com.google.gwt.core.client.EntryPoint;
-//import com.google.gwt.user.client.ui.Button;
-
 public class LienzoExamples implements EntryPoint {
     HTMLDivElement panelDiv;
 
@@ -46,7 +42,8 @@ public class LienzoExamples implements EntryPoint {
                     new SVGTigerExample("SVG Paths Tiger"),
                     new WiresExample("Wires"),
                     new Animate("Animations"),
-                    new LionExample("Polygon Lion with Clipping")
+                    new LionExample("Polygon Lion with Clipping"),
+                    new CardinalIntersectsExample("Cardinal Intersects")
                    );
     }
 
