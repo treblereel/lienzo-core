@@ -39,13 +39,8 @@ import jsinterop.annotations.JsProperty;
  */
 public class Triangle extends AbstractMultiPointShape<Triangle>
 {
-    private final PathPartList m_list = new PathPartList();
-
     @JsProperty
     private double       cornerRadius;
-
-    @JsProperty
-    private  Point2DArray points;
 
     /**
      * Constructor. Creates an instance of a triangle.
@@ -71,6 +66,17 @@ public class Triangle extends AbstractMultiPointShape<Triangle>
         super(ShapeType.TRIANGLE, node, ctx);
     }
 
+    /**
+     * Sets this triangles points.
+     *
+     * @param 3 points {@link Point2D}
+     * @return this Triangle
+     */
+    public Triangle setPoints(final Point2D a, final Point2D b, final Point2D c)
+    {
+        return setPoint2DArray(Point2DArray.fromArrayOfPoint2D(a, b, c));
+    }
+
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -85,18 +91,19 @@ public class Triangle extends AbstractMultiPointShape<Triangle>
     @Override
     protected boolean prepare(final Context2D context, final double alpha)
     {
-        if (m_list.size() < 1)
+        PathPartList plist = getPathPartList();
+        if (plist.size() < 1)
         {
             if (false == parse())
             {
                 return false;
             }
         }
-        if (m_list.size() < 1)
+        if (plist.size() < 1)
         {
             return false;
         }
-        context.path(m_list);
+        context.path(plist);
 
         return true;
     }
@@ -105,70 +112,32 @@ public class Triangle extends AbstractMultiPointShape<Triangle>
     {
         final Point2DArray list = getPoints().noAdjacentPoints();
 
+        PathPartList plist = getPathPartList();
+
         if ((null != list) && (list.size() > 2))
         {
             final Point2D p0 = list.get(0);
 
-            m_list.M(p0);
+            plist.M(p0);
 
             final double corner = getCornerRadius();
 
             if (corner <= 0)
             {
-                m_list.L(list.get(1));
+                plist.L(list.get(1));
 
-                m_list.L(list.get(2));
+                plist.L(list.get(2));
 
-                m_list.Z();
+                plist.Z();
             }
             else
             {
                 list.push(p0);
-                Geometry.drawArcJoinedLines(m_list, list, corner);
+                Geometry.drawArcJoinedLines(plist, list, corner);
             }
             return true;
         }
         return false;
-    }
-
-    /**
-     * Gets this triangles points.
-     * 
-     * @return {@link Point2DArray}
-     */
-    public Point2DArray getPoints()
-    {
-        return this.points;
-    }
-
-    /**
-     * Sets this triangles points.
-     * 
-     * @param 3 points {@link Point2D}
-     * @return this Triangle
-     */
-    public Triangle setPoints(final Point2D a, final Point2D b, final Point2D c)
-    {
-        return setPoint2DArray(Point2DArray.fromArrayOfPoint2D(a, b, c));
-    }
-
-    @Override
-    public Triangle setPoint2DArray(final Point2DArray points)
-    {
-        if (points.size() > 3)
-        {
-            throw new IllegalArgumentException("Cannot have more than 3 points");
-        }
-
-        this.points = points;
-
-        return refresh();
-    }
-
-    @Override
-    public Point2DArray getPoint2DArray()
-    {
-        return getPoints();
     }
 
     public double getCornerRadius()

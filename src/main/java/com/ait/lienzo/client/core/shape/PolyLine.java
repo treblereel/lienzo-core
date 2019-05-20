@@ -47,9 +47,6 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
     @JsProperty
     private double       cornerRadius;
 
-    @JsProperty
-    private Point2DArray points;
-
     /**
      * Constructor. Creates an instance of a polyline.
      *
@@ -168,28 +165,7 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
     {
         return false;
     }
-
-    /**
-     * Returns this PolyLine's points.
-     * @return {@link Point2DArray}
-     */
-    public Point2DArray getPoints()
-    {
-        return this.points;
-    }
-
-    /**
-     * Sets this PolyLine's points.
-     * @param points {@link Point2DArray}
-     * @return this PolyLine
-     */
-    public PolyLine setPoints(final Point2DArray points)
-    {
-        this.points = points;
-
-        return refresh();
-    }
-
+    
     public double getCornerRadius()
     {
         return this.cornerRadius;

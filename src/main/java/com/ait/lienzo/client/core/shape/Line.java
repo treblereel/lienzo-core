@@ -38,10 +38,6 @@ import jsinterop.annotations.JsProperty;
  */
 public class Line extends AbstractOffsetMultiPointShape<Line>
 {
-
-    @JsProperty
-    private       Point2DArray              points;
-
     /**
      * Constructor.  Creates an instance of a line of 0-pixel length, at the 0,0
      * coordinates.
@@ -68,7 +64,7 @@ public class Line extends AbstractOffsetMultiPointShape<Line>
     {
         super(ShapeType.LINE);
 
-        setPoints(Point2DArray.fromArrayOfPoint2D(p1, p2));
+        setPoint2DArray(Point2DArray.fromArrayOfPoint2D(p1, p2));
     }
 
     protected Line(final Object node, final ValidationContext ctx) throws ValidationException
@@ -151,36 +147,6 @@ public class Line extends AbstractOffsetMultiPointShape<Line>
     public boolean parse()
     {
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Gets the end-points of this line.
-     *
-     * @return Point2DArray
-     */
-    public Point2DArray getPoints()
-    {
-        return this.points;
-    }
-
-    /**
-     * Sets the end-points of this line.
-     * The points should be a 2-element {@link Point2DArray}
-     *
-     * @param points
-     * @return this Line
-     */
-    public Line setPoints(final Point2DArray points)
-    {
-        this.points = points;
-
-        return refresh();
-    }
-
-    @Override
-    public Line setPoint2DArray(final Point2DArray points)
-    {
-        return setPoints(points);
     }
 
     @Override

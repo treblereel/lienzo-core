@@ -560,6 +560,7 @@
 							<entrypoint>org.roger600.lienzo.client.LienzoExamples</entrypoint>
 							<outputJsFilename>app.js</outputJsFilename>
 							<intermediateJsPath>${webappdir}/sources</intermediateJsPath>
+							<recompileIfFilesChanged>false</recompileIfFilesChanged>
 							<externs>
 								<extern>${project.basedir}/src/main/externs/w3c_clipboardevent.js</extern>
 								<extern>${project.basedir}/src/main/externs/svg.js</extern>

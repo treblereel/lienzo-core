@@ -35,8 +35,6 @@ public class Spline extends AbstractMultiPointShape<Spline>
 {
     private boolean            m_fill = false;
 
-    private final PathPartList m_list = new PathPartList();
-
     @JsProperty
     private double curveFactor = 0.5;
 
@@ -64,11 +62,13 @@ public class Spline extends AbstractMultiPointShape<Spline>
     @Override
     public BoundingBox getBoundingBox()
     {
-        if (m_list.size() < 1)
+        PathPartList plist = getPathPartList();
+
+        if (plist.size() < 1)
         {
             parse();
         }
-        return m_list.getBoundingBox();
+        return plist.getBoundingBox();
     }
 
     /**
@@ -79,15 +79,17 @@ public class Spline extends AbstractMultiPointShape<Spline>
     @Override
     protected boolean prepare(final Context2D context, final double alpha)
     {
-        if (m_list.size() < 1)
+        PathPartList plist = getPathPartList();
+
+        if (plist.size() < 1)
         {
             parse();
         }
-        if (m_list.size() < 1)
+        if (plist.size() < 1)
         {
             return false;
         }
-        m_fill = context.path(m_list);
+        m_fill = context.path(plist);
 
         return true;
     }
@@ -104,6 +106,8 @@ public class Spline extends AbstractMultiPointShape<Spline>
 
     private final void parse()
     {
+        PathPartList plist = getPathPartList();
+
         final PathPoint[] points = getPathPoints(getControlPoints());
 
         final int size = points.length;
@@ -112,7 +116,7 @@ public class Spline extends AbstractMultiPointShape<Spline>
         {
             if (size > 1)
             {
-                m_list.M(points[0].x, points[0].y).L(points[1].x, points[1].y);
+                plist.M(points[0].x, points[0].y).L(points[1].x, points[1].y);
             }
             return;
         }
@@ -229,13 +233,13 @@ public class Spline extends AbstractMultiPointShape<Spline>
         }
         final boolean lineFlatten = getLineFlatten();
 
-        m_list.M(points[0].x, points[0].y);
+        plist.M(points[0].x, points[0].y);
 
         if (begindex == 1)
         {
             final PathPoint point = carray.get(1)[0];
 
-            m_list.Q(point.x, point.y, points[1].x, points[1].y);
+            plist.Q(point.x, point.y, points[1].x, points[1].y);
         }
         int i;
 
@@ -245,7 +249,7 @@ public class Spline extends AbstractMultiPointShape<Spline>
 
             if (line)
             {
-                m_list.L(points[i + 1].x, points[i + 1].y);
+                plist.L(points[i + 1].x, points[i + 1].y);
             }
             else
             {
@@ -253,18 +257,18 @@ public class Spline extends AbstractMultiPointShape<Spline>
 
                 final PathPoint p2 = carray.get(i + 1)[0];
 
-                m_list.C(p1.x, p1.y, p2.x, p2.y, points[i + 1].x, points[i + 1].y);
+                plist.C(p1.x, p1.y, p2.x, p2.y, points[i + 1].x, points[i + 1].y);
             }
         }
         if (endindex == (size - 1))
         {
             final PathPoint point = carray.get(i)[1];
 
-            m_list.Q(point.x, point.y, points[i + 1].x, points[i + 1].y);
+            plist.Q(point.x, point.y, points[i + 1].x, points[i + 1].y);
         }
         if (closed)
         {
-            m_list.Z();
+            plist.Z();
         }
     }
 

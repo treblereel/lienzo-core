@@ -43,7 +43,8 @@ public class LienzoExamples implements EntryPoint {
                     new WiresExample("Wires"),
                     new Animate("Animations"),
                     new LionExample("Polygon Lion with Clipping"),
-                    new CardinalIntersectsExample("Cardinal Intersects")
+                    new CardinalIntersectsExample("Cardinal Intersects"),
+                    new CornerRadiusExample("Corner Radius")
                    );
     }
 

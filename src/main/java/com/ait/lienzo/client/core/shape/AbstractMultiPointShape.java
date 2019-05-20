@@ -58,7 +58,7 @@ import jsinterop.annotations.JsProperty;
 public abstract class AbstractMultiPointShape<T extends AbstractMultiPointShape<T> & IMultiPointShape<T>> extends Shape<T> implements IMultiPointShape<T>
 {
     @JsProperty
-    private       Point2DArray controlPoints;
+    private Point2DArray points;
 
     private final PathPartList m_list = new PathPartList();
 
@@ -74,20 +74,63 @@ public abstract class AbstractMultiPointShape<T extends AbstractMultiPointShape<
 
     public final T setControlPoints(final Point2DArray controlPoints)
     {
-        this.controlPoints = controlPoints;
+        this.points = points;
 
         return refresh();
     }
 
     public final Point2DArray getControlPoints()
     {
-        return this.controlPoints;
+        return this.points;
     }
 
     @Override
     public PathPartList getPathPartList()
     {
         return m_list;
+    }
+
+    /**
+     * Gets this triangles points.
+     *
+     * @return {@link Point2DArray}
+     */
+    public Point2DArray getPoints()
+    {
+        return this.points;
+    }
+
+    /**
+     * Sets the end-points of this line.
+     * The points should be a 2-element {@link Point2DArray}
+     *
+     * @param points
+     * @return this Line
+     */
+    public T setPoints(final Point2DArray points)
+    {
+        this.points = points;
+
+        return refresh();
+    }
+
+    @Override
+    public T setPoint2DArray(final Point2DArray points)
+    {
+        if (points.size() > 3)
+        {
+            throw new IllegalArgumentException("Cannot have more than 3 points");
+        }
+
+        this.points = points;
+
+        return refresh();
+    }
+
+    @Override
+    public Point2DArray getPoint2DArray()
+    {
+        return getPoints();
     }
 
     @Override

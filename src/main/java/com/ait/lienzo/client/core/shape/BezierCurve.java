@@ -127,18 +127,6 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
     }
 
     @Override
-    public BezierCurve setPoint2DArray(Point2DArray points)
-    {
-        return setControlPoints(points);
-    }
-
-    @Override
-    public Point2DArray getPoint2DArray()
-    {
-        return getControlPoints();
-    }
-
-    @Override
     public boolean isControlPointShape()
     {
         return true;

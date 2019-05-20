@@ -37,13 +37,8 @@ import jsinterop.annotations.JsProperty;
  */
 public class Polygon extends AbstractMultiPointShape<Polygon>
 {
-    private final PathPartList m_list = new PathPartList();
-
     @JsProperty
     private double       cornerRadius;
-
-    @JsProperty
-    private Point2DArray points;
 
     /**
      * Constructor. Creates an instance of a polygon.
@@ -89,6 +84,8 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
     {
         Point2DArray list = getPoints();
 
+        PathPartList plist = getPathPartList();
+
         if (null != list)
         {
             list = list.noAdjacentPoints();
@@ -99,22 +96,22 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
             {
                 final Point2D point = list.get(0);
 
-                m_list.M(point);
+                plist.M(point);
 
                 final double corner = getCornerRadius();
 
                 if (corner > 0)
                 {
                     list.push(point);
-                    Geometry.drawArcJoinedLines(m_list, list, corner);
+                    Geometry.drawArcJoinedLines(plist, list, corner);
                 }
                 else
                 {
                     for (int i = 1; i < size; i++)
                     {
-                        m_list.L(list.get(i));
+                        plist.L(list.get(i));
                     }
-                    m_list.Z();
+                    plist.Z();
                 }
                 return true;
             }
@@ -130,18 +127,20 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
     @Override
     protected boolean prepare(final Context2D context, final double alpha)
     {
-        if (m_list.size() < 1)
+        PathPartList plist = getPathPartList();
+
+        if (plist.size() < 1)
         {
             if (false == parse())
             {
                 return false;
             }
         }
-        if (m_list.size() < 1)
+        if (plist.size() < 1)
         {
             return false;
         }
-        context.path(m_list);
+        context.path(plist);
 
         return true;
     }
@@ -154,29 +153,6 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
     public Polygon setCornerRadius(final double radius)
     {
         this.cornerRadius = radius;
-
-        return refresh();
-    }
-
-    /**
-     * Gets this polygon's points.
-     * 
-     * @return {@link Point2DArray}
-     */
-    public Point2DArray getPoints()
-    {
-        return this.points;
-    }
-
-    /**
-     * Sets this polygon's points.
-     * 
-     * @param points a {@link Point2DArray} of 3 or more points
-     * @return this Polygon
-     */
-    public Polygon setPoints(final Point2DArray points)
-    {
-        this.points = points;
 
         return refresh();
     }
