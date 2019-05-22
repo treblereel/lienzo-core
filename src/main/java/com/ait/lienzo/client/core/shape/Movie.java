@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.gwtproject.core.client.Scheduler;
 import org.gwtproject.core.client.Scheduler.ScheduledCommand;
+import org.gwtproject.dom.client.MediaElement;
 import org.gwtproject.safehtml.shared.UriUtils;
 
 import com.ait.lienzo.client.core.Attribute;
@@ -45,13 +46,14 @@ import com.ait.lienzo.shared.core.types.ShapeType;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 import com.ait.lienzo.shared.core.types.TextUnit;
-
+import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
 //import com.google.gwt.media.client.Video;
 //import com.google.gwt.dom.client.Document;
 //import com.google.gwt.user.client.ui.RootPanel;
 
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDocument;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLVideoElement;
@@ -103,7 +105,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
     private double height = -1;
 
     @JsProperty
-    private double volume = -1;
+    private double volume = 0.5;
 
     @JsProperty
     private boolean autoPlay;
@@ -112,44 +114,64 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
     private boolean loop;
 
     @JsProperty
-    private  double playBackRate;
+    private  double playBackRate = 1.0;
 
     @JsProperty
     private boolean showPoster;
+
+    public static interface VideoElementOnLoad {
+        public void onLoad(Movie movie, HTMLVideoElement elem);
+    }
+
+
+    /**
+     * Constructor. Creates an instance of a movie.
+     *
+     * @param url
+     */
+    public Movie(final String url)
+    {
+        this(url, (VideoElementOnLoad) null);
+    }
 
     /**
      * Constructor. Creates an instance of a movie.
      * 
      * @param url
      */
-    public Movie(final String url)
+    public Movie(final String url, VideoElementOnLoad onLoad)
     {
         super(ShapeType.MOVIE);
 
         this.url = url;
 
-        m_animate = doInitialize();
+        m_animate = doInitialize(onLoad);
     }
 
-    public Movie(final String url, final ImageDataFilter<?> filter, final ImageDataFilter<?>... filters)
+    public Movie(final String url, final ImageDataFilter<?>... filters)
+    {
+        this( url, (VideoElementOnLoad) null, filters);
+    }
+
+    public Movie(final String url, VideoElementOnLoad onLoad, final ImageDataFilter<?>... filters)
     {
         super(ShapeType.MOVIE);
 
         this.url = url;
 
-        m_animate = doInitialize();
+        m_animate = doInitialize(onLoad);
 
-        setFilters(filter, filters);
+        setFilters(filters);
     }
 
     protected Movie(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(ShapeType.MOVIE, node, ctx);
 
-        m_animate = doInitialize();
+        m_animate = doInitialize(null);
     }
 
-    private final MovieAnimation doInitialize()
+    private final MovieAnimation doInitialize(VideoElementOnLoad onLoad)
     {
         if (null != m_video)
         {
@@ -167,6 +189,10 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
             {
                 throw new NullPointerException("null or empty or invalid url");
             }
+            if (onLoad != null)
+            {
+                m_video.onloadedmetadata = (e) -> { onLoad.onLoad(this, m_video); return null;};
+            }
             m_video.src = url;
 
             m_video.loop = isLoop();
@@ -175,8 +201,9 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
 
             m_video.playbackRate = getPlaybackRate();
 
-            // @FIXME this property is missing from Elemental2, add later (mdp)
+            // @FIXME this property is missing from Elemental2, so used property map
             //m_video.setPreload(MediaElement.PRELOAD_AUTO);
+            Js.asPropertyMap(m_video).set("preLoad", MediaElement.PRELOAD_AUTO);
 
             if (getVolume() >= 0)
             {
@@ -398,25 +425,25 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
     }
 
     @Override
-    public Movie setFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Movie setFilters(ImageDataFilter<?>... filters)
     {
-        m_filters.setFilters(filter, filters);
+        m_filters.setFilters(filters);
 
         return this;
     }
 
     @Override
-    public Movie addFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Movie addFilters(ImageDataFilter<?>... filters)
     {
-        m_filters.addFilters(filter, filters);
+        m_filters.addFilters(filters);
 
         return this;
     }
 
     @Override
-    public Movie removeFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Movie removeFilters(ImageDataFilter<?>... filters)
     {
-        m_filters.removeFilters(filter, filters);
+        m_filters.removeFilters(filters);
 
         return this;
     }
@@ -526,6 +553,15 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
         return this;
     }
 
+    public Movie stop()
+    {
+        m_video.pause();
+        m_animate.stop();
+
+
+        return this;
+    }
+
     public boolean isPaused()
     {
         return m_pause;
@@ -594,7 +630,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
      */
     public Movie setWidth(int wide)
     {
-        this.width = width;
+        this.width = wide;
 
         setSizes();
 
@@ -880,7 +916,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
         @Override
         public IAnimation doStart()
         {
-            m_video.remove();
+            DomGlobal.document.body.appendChild(m_video);
 
             m_video.play();
 
@@ -948,7 +984,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
 
             if (null != layer)
             {
-                layer.batch();
+                layer.draw();
             }
             return this;
         }

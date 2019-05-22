@@ -37,11 +37,11 @@ public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilte
         super(ImageFilterType.ImageDataFilterChainType);
     }
 
-    public ImageDataFilterChain(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public ImageDataFilterChain(ImageDataFilter<?>... filters)
     {
         super(ImageFilterType.ImageDataFilterChainType);
 
-        addFilters(filter, filters);
+        addFilters(filters);
     }
 
     protected ImageDataFilterChain(Object node, ValidationContext ctx) throws ValidationException
@@ -153,10 +153,8 @@ public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilte
     }
 
     @Override
-    public ImageDataFilterChain addFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public ImageDataFilterChain addFilters(ImageDataFilter<?>... filters)
     {
-        add(filter);
-
         if (null != filters)
         {
             for (int i = 0; i < filters.length; i++)
@@ -168,11 +166,9 @@ public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilte
     }
 
     @Override
-    public ImageDataFilterChain setFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public ImageDataFilterChain setFilters(ImageDataFilter<?>... filters)
     {
         clearFilters();
-
-        add(filter);
 
         if (null != filters)
         {
@@ -193,10 +189,8 @@ public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilte
     }
 
     @Override
-    public ImageDataFilterChain removeFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public ImageDataFilterChain removeFilters(ImageDataFilter<?>... filters)
     {
-        remove(filter);
-
         if (null != filters)
         {
             for (int i = 0; i < filters.length; i++)

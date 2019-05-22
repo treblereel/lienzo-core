@@ -57,7 +57,7 @@ public abstract class AbstractAnimation implements IAnimation, IAnimationHandle
                 {
                     doFrame();
 
-                    if (isRunning())
+                    if (isRunning() && m_animate != null)
                     {
                         AnimationScheduler.get().requestAnimationFrame(m_animate);
                     }

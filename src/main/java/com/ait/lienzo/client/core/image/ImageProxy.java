@@ -402,25 +402,25 @@ public class ImageProxy<T extends AbstractImageShape<T>> implements ImageDataFil
     }
 
     @Override
-    public ImageProxy<T> setFilters(final ImageDataFilter<?> filter, final ImageDataFilter<?>... filters)
+    public ImageProxy<T> setFilters(final ImageDataFilter<?>... filters)
     {
-        m_filters.setFilters(filter, filters);
+        m_filters.setFilters(filters);
 
         return this;
     }
 
     @Override
-    public ImageProxy<T> addFilters(final ImageDataFilter<?> filter, final ImageDataFilter<?>... filters)
+    public ImageProxy<T> addFilters(final ImageDataFilter<?>... filters)
     {
-        m_filters.addFilters(filter, filters);
+        m_filters.addFilters(filters);
 
         return this;
     }
 
     @Override
-    public ImageProxy<T> removeFilters(final ImageDataFilter<?> filter, final ImageDataFilter<?>... filters)
+    public ImageProxy<T> removeFilters(final ImageDataFilter<?>... filters)
     {
-        m_filters.removeFilters(filter, filters);
+        m_filters.removeFilters(filters);
 
         return this;
     }

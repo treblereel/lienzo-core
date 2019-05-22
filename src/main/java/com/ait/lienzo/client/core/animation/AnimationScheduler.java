@@ -38,8 +38,16 @@ public class AnimationScheduler
 
     private static int requestImplNew(AnimationCallback cb,
                                       Element element) {
-        return DomGlobal.requestAnimationFrame(p0 -> cb.execute(Duration.currentTimeMillis()),
-                                               element);
+        DomGlobal.RequestAnimationFrameCallbackFn callback = new DomGlobal.RequestAnimationFrameCallbackFn() {
+            @Override public void onInvoke(final double p0)
+            {
+                cb.execute(p0);
+            }
+        };
+        int id = DomGlobal.requestAnimationFrame(callback,
+                                                 element);
+
+        return id;
     }
 
     private static void cancelImpl(int id) {

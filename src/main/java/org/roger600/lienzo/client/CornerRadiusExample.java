@@ -40,17 +40,20 @@ public class CornerRadiusExample extends BaseExample implements Example
 {
     private double         m_corner = 0;
 
+    private HTMLSelectElement select;
+
     public CornerRadiusExample(final String title)
     {
         super(title);
     }
 
-    @Override public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv)
+    @Override
+    public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv)
     {
         super.init(panel, topDiv);
         topDiv.style.display = Display.INLINE_BLOCK.getCssName();
 
-        HTMLSelectElement select = (HTMLSelectElement) document.createElement("select");
+        select = (HTMLSelectElement) document.createElement("select");
         for (int i = 0; i < 45; i += 5)
         {
             addOption(i, select);
@@ -138,6 +141,12 @@ public class CornerRadiusExample extends BaseExample implements Example
                 });
             }
         }
+    }
+
+    @Override public void destroy()
+    {
+        super.destroy();
+        select.remove();
     }
 
     private void make(final Layer layer)
