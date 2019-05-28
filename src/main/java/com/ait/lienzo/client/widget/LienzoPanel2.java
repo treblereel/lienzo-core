@@ -43,6 +43,7 @@ import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
 import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.ViewCSS;
 import jsinterop.base.Js;
@@ -86,6 +87,8 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
     private int                  m_widthOffset;
     private int                  m_heightOffset;
 
+    private EventListener        m_resizeListener;
+
     public LienzoPanel2(final HTMLDivElement elm, boolean resize)
     {
         this(elm, resize, 0,0);
@@ -106,11 +109,12 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
         if (resize)
         {
-            DomGlobal.window.addEventListener("resize", (e) ->
+            m_resizeListener = (e) ->
             {
                 Size resizeSize = getSize((HTMLDivElement)elm.parentNode);
                 setPixelSize(resizeSize.width, resizeSize.height);
-            });
+            };
+            DomGlobal.window.addEventListener("resize", m_resizeListener);
         }
     }
 
@@ -205,9 +209,13 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
         removeAll();
         //removeFromParent();
         // @FIXME should remove all listeners (mdp) and check if anything else needs to be done as part of destroy()
+        m_events.destroy();
+        if (m_resizeListener != null )
+        {
+            DomGlobal.window.removeEventListener("resize", m_resizeListener);
+        }
         m_elm.remove();
         m_auto = null;
-        m_events.destroy();
         m_events = null;
         m_widget_cursor = null;
         m_active_cursor = null;

@@ -10,9 +10,9 @@ import com.ait.lienzo.client.widget.DragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.shared.core.types.ColorName;
 
-public class DragConstraintsExample extends BaseExample implements Example
+public class CustomDragConstraintsExample extends BaseExample implements Example
 {
-    public DragConstraintsExample(final String title)
+    public CustomDragConstraintsExample(final String title)
     {
         super(title);
     }
