@@ -7,6 +7,7 @@ import com.ait.lienzo.shared.core.types.TextAlign;
 
 public class MovieExample extends BaseExample implements Example
 {
+    //https://upload.wikimedia.org/wikipedia/commons/9/91/Peach_poster_rodents.jpg
     private final String VIDEO_URL = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_5mb.mp4";
     private Movie  movie;
     private Text text;

@@ -21,6 +21,7 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
+import com.ait.lienzo.tools.client.Console;
 
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;

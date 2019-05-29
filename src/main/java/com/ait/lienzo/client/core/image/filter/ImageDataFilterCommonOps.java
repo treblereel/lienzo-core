@@ -159,23 +159,24 @@ public class ImageDataFilterCommonOps
         return new int[] {Js.coerceToInt(h), Js.coerceToInt(s), Js.coerceToInt(v)};
      };
 
-     public void filterTable(Uint8ClampedArray data, FilterTableArray table, int w, int h) {
+     // MDP set correct parameters....
+     public void filterTable(Uint8ClampedArray dataArray, FilterTableArray tableArray, int w, int h) {
          //int[] t1 = Uint8ClampedArray.ConstructorLengthUnionType.of(data).asIntArray();
-         int[] t1 = Js.uncheckedCast(data);
+         int[] data = Js.uncheckedCast(dataArray);
          // It's dirty, but should be no difference in JS from int[] and Integer[]
-         int[] t2 = Js.uncheckedCast(JsArray.from((JsArrayLike<Integer>)table));
+         int[] table = Js.uncheckedCast(tableArray);
 
         int length = w * h * 4;
         for(int i = 0; i < length; i += 4) {
-            data.setAt(  i, (double) table.getAt(Js.coerceToInt(data.getAt(i))));
-            data.setAt(i + 1, (double) table.getAt( Js.coerceToInt(data.getAt( i + 1))));
-            data.setAt(i + 2, (double) table.getAt( Js.coerceToInt(data.getAt( i + 2))));
+            data[i] = table[data[i]];
+            data[i + 1] = table[ data[ i + 1]];
+            data[i + 2] = table[ data[ i + 2]];
         }
      }
 
      public void filterLuminosity(Uint8ClampedArray dataArray, int length) {
 
-         int[] data = Uint8ClampedArray.ConstructorLengthUnionType.of(dataArray).asIntArray();
+         int[] data = Js.uncheckedCast(dataArray); //Uint8ClampedArray.ConstructorLengthUnionType.of(dataArray).asIntArray();
          for (int j = 0; j < length; j += 4) {
              int v = Js.coerceToInt((((data[j] * 0.21) + (data[j + 1] * 0.72) + (data[j + 2] * 0.07)) + 0.5));
              data[j] = data[j + 1] = data[j + 2] = v;
@@ -247,8 +248,8 @@ public class ImageDataFilterCommonOps
 
     public void filterConvolve(Uint8ClampedArray dataArray, Uint8ClampedArray buffArray,
                                FilterConvolveMatrix matrix, double w, double h) {
-        Double[] data = JsArray.from((JsArrayLike<Double>)dataArray);
-        Double[] buff = JsArray.from((JsArrayLike<Double>)buffArray);
+        int[] data = Js.uncheckedCast(dataArray); //Uint8ClampedArray dataArray
+        int[] buff = Js.uncheckedCast(buffArray);
 
         double rows, cols;
         rows = cols = Math.sqrt(matrix.getLength());
@@ -281,10 +282,10 @@ public class ImageDataFilterCommonOps
                         }
                     }
                 }
-                buff[ (int) p  ] = (double) Js.coerceToInt(r + 0.5);
-                buff[ (int) p + 1] =  (double) Js.coerceToInt(g + 0.5);
-                buff[ (int) p + 2] =  (double) Js.coerceToInt(b + 0.5);
-                buff[ (int) p + 3] =  (double) data[(int) p + 3];
+                buff[ (int) p  ] = (int) Js.coerceToInt(r + 0.5);
+                buff[ (int) p + 1] =  (int) Js.coerceToInt(g + 0.5);
+                buff[ (int) p + 2] =  (int) Js.coerceToInt(b + 0.5);
+                buff[ (int) p + 3] =  (int) data[(int) p + 3];
             }
         }
     };

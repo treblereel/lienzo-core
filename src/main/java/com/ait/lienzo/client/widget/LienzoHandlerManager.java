@@ -58,7 +58,9 @@ import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import com.gwtlienzo.event.shared.EventHandler;
 
+import elemental2.dom.AddEventListenerOptions;
 import elemental2.dom.EventListener;
+import elemental2.dom.EventTarget.AddEventListenerOptionsUnionType;
 import elemental2.dom.TouchEvent;
 import elemental2.dom.Touch;
 import elemental2.dom.Event;
@@ -368,6 +370,9 @@ final public class LienzoHandlerManager
             }
         });
 
+        AddEventListenerOptions opt = AddEventListenerOptions.create();
+        opt.setPassive(true);
+
         addEventListener(EventType.MOUSE_WHEEL, (Event event) ->
         {
             MouseEvent mouseEvent = (MouseEvent) event;
@@ -385,7 +390,7 @@ final public class LienzoHandlerManager
             {
                 fireEvent(mouseEvent, null, x, y, null, null, nodeMouseWheelEvent);
             }
-        });
+        }, opt);
 
         addEventListener(EventType.TOUCH_END, (Event event) ->
         {
@@ -539,7 +544,19 @@ final public class LienzoHandlerManager
 
     private void addEventListener(final EventType eventType, final EventListener listener)
     {
-        m_lienzoElm.addEventListener(eventType.getType(), listener);
+        m_lienzoElm.addEventListener(eventType.getType(), listener, (AddEventListenerOptions) null);
+    }
+
+    private void addEventListener(final EventType eventType, final EventListener listener, AddEventListenerOptions opt)
+    {
+        if (opt == null)
+        {
+            m_lienzoElm.addEventListener(eventType.getType(), listener);
+        }
+        else
+        {
+            m_lienzoElm.addEventListener(eventType.getType(), listener, opt);
+        }
     }
 
     private final Shape<?> findShapeAtPoint(final int x, final int y)

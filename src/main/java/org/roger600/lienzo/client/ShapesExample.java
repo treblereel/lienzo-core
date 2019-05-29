@@ -51,8 +51,7 @@ public class ShapesExample extends BaseExample implements Example
 	
     public ShapesExample(final String title) {
         super(title);
-        heightOffset = 30;
-        
+        heightOffset = 60;
     }
 
     @Override

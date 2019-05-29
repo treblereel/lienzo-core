@@ -481,7 +481,7 @@ public class ImageProxy<T extends AbstractImageShape<T>> implements ImageDataFil
     {
         ImageClipBounds bounds = m_image.getImageClipBounds();
 
-        if (m_obounds.isDifferent(bounds))
+        if (m_obounds == null || m_obounds.isDifferent(bounds))
         {
             m_obounds = bounds;
 

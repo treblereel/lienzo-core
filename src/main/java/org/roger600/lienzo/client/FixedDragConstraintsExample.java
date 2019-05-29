@@ -60,6 +60,8 @@ public class FixedDragConstraintsExample extends BaseExample implements Example
             layer.batch();
             return null;
         };
+
+        heightOffset = 30;
     }
 
 

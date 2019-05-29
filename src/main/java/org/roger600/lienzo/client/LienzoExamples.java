@@ -47,7 +47,8 @@ public class LienzoExamples implements EntryPoint {
                     new CardinalIntersectsExample("Cardinal Intersects"),
                     new CornerRadiusExample("Corner Radius"),
                     new ShapesExample("Shapes Example"),
-                    new MovieExample("Video")
+                    new MovieExample("Video"),
+                    new DrawImageExample("Draw Image")
                    );
     }
 

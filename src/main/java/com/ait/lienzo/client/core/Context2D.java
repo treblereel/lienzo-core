@@ -33,16 +33,17 @@ import com.ait.lienzo.shared.core.types.LineJoin;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 
+import elemental2.core.Function;
 import elemental2.dom.CanvasRenderingContext2D.FillStyleUnionType;
 import elemental2.dom.CanvasRenderingContext2D.StrokeStyleUnionType;
-import elemental2.dom.Element;
 import elemental2.dom.HTMLCanvasElement;
-import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLVideoElement;
 import elemental2.dom.ImageData;
 import elemental2.dom.Path2D;
 import elemental2.dom.TextMetrics;
+import jsinterop.base.Js;
+import jsinterop.base.JsPropertyMap;
 
 /**
  * Wrapper around a JSO that serves as a proxy to access the native capabilities of Canvas 2D.
@@ -398,7 +399,8 @@ public class Context2D
     {
         // @FIXME this doesn't exist on Elm2
         //return m_jso.createImageData(data);
-        return null;
+        //m_jso.createImageData(o,o);
+        return m_jso.createImageData(data.width, data.height);
     }
 
     public TextMetrics measureText(final String text)

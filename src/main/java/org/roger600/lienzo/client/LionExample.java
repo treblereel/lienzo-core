@@ -51,6 +51,8 @@ public class LionExample extends BaseExample implements Example
 
         topDiv.appendChild(m_doclip);
         topDiv.appendChild(m_dostar);
+
+        heightOffset = 30;
     }
 
     @Override public void destroy()
