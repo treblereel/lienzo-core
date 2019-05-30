@@ -81,89 +81,6 @@ public class LienzoExamples implements EntryPoint {
         links.appendChild(e1);
     }
 
-
-//    public static class Test1 extends BaseExample implements Example
-//    {
-//        public Test1(final String title)
-//        {
-//            super(title);
-//        }
-//
-//        @Override
-//        public void run()
-//        {
-//            MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
-//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
-//            layer.add(path1);
-//            layer.draw();
-//
-//            MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
-//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
-//
-////        Group group = new Group();
-////        group.add(path2);
-////
-////        group.setY(400);
-////
-////        l1.add(group);
-////
-////        l1.draw();
-////
-////        Console.get().info("hello 1");
-////
-////        Text text = new Text("test1");
-////        text.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-////        text.setFontSize(10);
-////        text.setY(10);
-////        group.add(text);
-//
-//
-//            Text text2 = new Text("test4");
-//            text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-//            //text2.setFontSize(100);
-//            text2.setFontSize(30);
-//            text2.setX(100);
-//            text2.setY(350);
-//            layer.add(text2);
-//
-//            layer.draw();
-//
-//            Console.get().info("hello 2");
-//        }
-//    }
-//
-//    public static class Test2 extends BaseExample implements Example
-//    {
-//        public Test2(final String title)
-//        {
-//            super(title);
-//        }
-//
-//        @Override
-//        public void run()
-//        {
-//            MultiPath path1 = new MultiPath().rect(100, 100, 200, 200)
-//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#0000CC" ).setDraggable(true);
-//            layer.add(path1);
-//            layer.draw();
-//
-//            MultiPath path2 = new MultiPath().rect(0, 0, 200, 200)
-//                                             .setStrokeColor( "#FFFFFF" ).setFillColor( "#CC0000" ).setDraggable(true);
-//
-//            Text text2 = new Text("test4");
-//            text2.setStrokeColor("#0000CC").setFillColor("#0000CC").setDraggable(true);
-//            //text2.setFontSize(100);
-//            text2.setFontSize(30);
-//            text2.setX(100);
-//            text2.setY(350);
-//            layer.add(text2);
-//
-//            layer.draw();
-//
-//            Console.get().info("hello 2");
-//        }
-//    }
-
     private void createPanel(Example test)
     {
         if (this.test != null)
@@ -185,25 +102,6 @@ public class LienzoExamples implements EntryPoint {
             test.onResize();
         });
     }
-
-
-//    private void addButton( final Button button ) {
-////
-////        if ( buttonsPanelSize >= MAX_BUTTONS_ROW ) {
-////
-////            buttonsPanelSize = 0;
-////            buttonsRowPanel = null;
-////        }
-////
-////
-////        if ( null == buttonsRowPanel ) {
-////            buttonsRowPanel = new HorizontalPanel();
-////            buttonsPanel.add( buttonsRowPanel );
-////        }
-////
-////        buttonsRowPanel.add( button );
-////        buttonsPanelSize++;
-//    }
 
     private void applyGrid( final LienzoPanel2 panel) {
         // Grid.

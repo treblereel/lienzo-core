@@ -57,23 +57,23 @@ public class ShapesExample extends BaseExample implements Example
     @Override
 	public void destroy() {
 		super.destroy();
-		 	rectangleButton.remove();
-		    roundedCornersRectangleButton.remove();
-		    linesButton.remove();
-		    dashedLinesButton.remove();
-		    lineCapsButton.remove();
-		    lineJoinsButton.remove();
-		    arcsButton.remove();
-		    arrowsButton.remove();
-		    arrowAttributesButton.remove();
-		    circleButton.remove();
-		    ellipseButton.remove();
-		    quadraticCurveButton.remove();
-		    cubicCurveButton.remove();
-		    polygonsButton.remove();
-		    starsButton.remove();
-		    groupsButton.remove();
-		    sliceGroupButton.remove();
+		rectangleButton.remove();
+		roundedCornersRectangleButton.remove();
+		linesButton.remove();
+		dashedLinesButton.remove();
+		lineCapsButton.remove();
+		lineJoinsButton.remove();
+		arcsButton.remove();
+		arrowsButton.remove();
+		arrowAttributesButton.remove();
+		circleButton.remove();
+		ellipseButton.remove();
+		quadraticCurveButton.remove();
+		cubicCurveButton.remove();
+		polygonsButton.remove();
+		starsButton.remove();
+		groupsButton.remove();
+		sliceGroupButton.remove();
     }
     
     @Override public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv) {

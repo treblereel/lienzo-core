@@ -72,7 +72,7 @@ public abstract class AbstractMultiPointShape<T extends AbstractMultiPointShape<
         super(type, node, ctx);
     }
 
-    public final T setControlPoints(final Point2DArray controlPoints)
+    public final T setControlPoints(final Point2DArray points)
     {
         this.points = points;
 
