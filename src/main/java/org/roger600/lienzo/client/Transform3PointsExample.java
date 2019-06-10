@@ -19,6 +19,7 @@ import com.ait.lienzo.client.core.types.Shadow;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.ColorName;
+import com.ait.lienzo.tools.client.Console;
 
 import elemental2.dom.HTMLDivElement;
 
@@ -86,30 +87,14 @@ public class Transform3PointsExample extends BaseExample implements Example
 
         animateButton = new Button("Animate");
         animateButton.setX(200).setY(430);
-        animateButton.addNodeMouseClickHandler(new NodeMouseClickHandler() {
-            public void onNodeMouseClick(NodeMouseClickEvent event) {
-                animate();
-            }
-        });
-        animateButton.addNodeTouchStartHandler(new NodeTouchStartHandler() {
-            public void onNodeTouchStart(NodeTouchStartEvent event) {
-                animate();
-            }
-        });
+        animateButton.addNodeMouseClickHandler((e) -> animate());
+        animateButton.addNodeTouchStartHandler((e) -> animate());
         layer.add(animateButton);
 
         resetButton = new Button("Reset");
         resetButton.setX(400).setY(430).setVisible(false);
-        resetButton.addNodeMouseClickHandler(new NodeMouseClickHandler() {
-            public void onNodeMouseClick(NodeMouseClickEvent event) {
-                reset();
-            }
-        });
-        resetButton.addNodeTouchStartHandler(new NodeTouchStartHandler() {
-            public void onNodeTouchStart(NodeTouchStartEvent event) {
-                reset();
-            }
-        });
+        resetButton.addNodeMouseClickHandler( (e) -> reset() );
+        resetButton.addNodeTouchStartHandler( (e) -> reset() );
         layer.add(resetButton);
 
         animateText[0] = new Text("Drag the red target points to the desired location and click 'Animate'.", TEXT_FONT, TEXT_SIZE);
@@ -194,7 +179,9 @@ public class Transform3PointsExample extends BaseExample implements Example
                 // Show the Reset button and associated text
                 resetButton.setVisible(true);
                 for (int i = 0; i < resetText.length; i++)
+                {
                     resetText[i].setVisible(true);
+                }
                 repaint();
             }
 
@@ -312,15 +299,16 @@ public class Transform3PointsExample extends BaseExample implements Example
             Rectangle r = new Rectangle(100, 30, 5);
             r.setFillColor("green");
             r.setShadow(new Shadow(ColorName.DARKGREEN.getValue(), 6, 6, 6));
-            layer.add(r);
+            add(r);
 
             Text text = new Text(label);
             text.setFillColor("white");
             text.setFontSize(16);
             text.setX(15);
             text.setY(20);
+            text.setListening(false);
 
-            layer.add(text);
+            add(text);
         }
     }
 }

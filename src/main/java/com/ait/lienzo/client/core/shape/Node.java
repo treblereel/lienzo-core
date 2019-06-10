@@ -934,11 +934,21 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
     protected Transform getPossibleNodeTransform()
     {
-        if (false == hasAnyTransformAttributes())
+
+        if (false == hasAnyTransformAttributes() && null == transform)
         {
             return null;
         }
         cachedXfrm = Transform.fromXY(cachedXfrm, getX(), getY());
+
+        Transform t2 = getTransform();
+
+        if (t2 != null) // Use the Transform if it's defined
+        {
+            cachedXfrm.multiply(t2);
+            return cachedXfrm;
+
+        }
 
         if (false == hasComplexTransformAttributes())
         {
