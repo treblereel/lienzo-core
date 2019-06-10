@@ -4,6 +4,10 @@ import com.ait.lienzo.client.core.animation.IAnimation;
 import com.ait.lienzo.client.core.animation.IAnimationCallback;
 import com.ait.lienzo.client.core.animation.IAnimationHandle;
 import com.ait.lienzo.client.core.animation.TimedAnimation;
+import com.ait.lienzo.client.core.event.NodeMouseClickEvent;
+import com.ait.lienzo.client.core.event.NodeMouseClickHandler;
+import com.ait.lienzo.client.core.event.NodeTouchStartEvent;
+import com.ait.lienzo.client.core.event.NodeTouchStartHandler;
 import com.ait.lienzo.client.core.shape.Circle;
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.Rectangle;
@@ -13,10 +17,12 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.types.Shadow;
 import com.ait.lienzo.client.core.types.Transform;
-import com.ait.lienzo.shared.core.types.Color;
+import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.ColorName;
 
-public class Transform3Points extends BaseExample implements Example
+import elemental2.dom.HTMLDivElement;
+
+public class Transform3PointsExample extends BaseExample implements Example
 {
     private static final int         WIDTH       = 200;
     private static final int         DX          = 20;
@@ -43,12 +49,14 @@ public class Transform3Points extends BaseExample implements Example
 //        init();
 //    }
 
-    public Transform3Points(final String title)
+    public Transform3PointsExample(final String title)
     {
         super(title);
     }
 
-    private void init() {
+    @Override
+    public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv) {
+        super.init(panel, topDiv);
 
         node = new SliceGroup(WIDTH, "red");
         // Use a Transform to position the node, rather than using X,Y attributes,
@@ -56,7 +64,7 @@ public class Transform3Points extends BaseExample implements Example
         originalTransform = new Transform().translate(DX, DY);
         //originalTransform.
 
-//        node.setTransform(originalTransform);
+        node.setTransform(originalTransform);
 
         layer.add(node);
 
@@ -76,33 +84,33 @@ public class Transform3Points extends BaseExample implements Example
         toPoints[2] = new DragPoint("3'", "red", 560, 250);
         layer.add(toPoints[2]);
 
-//        animateButton = new Button("Animate");
-//        animateButton.setX(200).setY(430);
-//        animateButton.addNodeMouseClickHandler(new NodeMouseClickHandler() {
-//            public void onNodeMouseClick(NodeMouseClickEvent event) {
-//                animate();
-//            }
-//        });
-//        animateButton.addNodeTouchStartHandler(new NodeTouchStartHandler() {
-//            public void onNodeTouchStart(NodeTouchStartEvent event) {
-//                animate();
-//            }
-//        });
-//        layer.add(animateButton);
-//
-//        resetButton = new Button("Reset");
-//        resetButton.setX(400).setY(430).setVisible(false);
-//        resetButton.addNodeMouseClickHandler(new NodeMouseClickHandler() {
-//            public void onNodeMouseClick(NodeMouseClickEvent event) {
-//                reset();
-//            }
-//        });
-//        resetButton.addNodeTouchStartHandler(new NodeTouchStartHandler() {
-//            public void onNodeTouchStart(NodeTouchStartEvent event) {
-//                reset();
-//            }
-//        });
-//        layer.add(resetButton);
+        animateButton = new Button("Animate");
+        animateButton.setX(200).setY(430);
+        animateButton.addNodeMouseClickHandler(new NodeMouseClickHandler() {
+            public void onNodeMouseClick(NodeMouseClickEvent event) {
+                animate();
+            }
+        });
+        animateButton.addNodeTouchStartHandler(new NodeTouchStartHandler() {
+            public void onNodeTouchStart(NodeTouchStartEvent event) {
+                animate();
+            }
+        });
+        layer.add(animateButton);
+
+        resetButton = new Button("Reset");
+        resetButton.setX(400).setY(430).setVisible(false);
+        resetButton.addNodeMouseClickHandler(new NodeMouseClickHandler() {
+            public void onNodeMouseClick(NodeMouseClickEvent event) {
+                reset();
+            }
+        });
+        resetButton.addNodeTouchStartHandler(new NodeTouchStartHandler() {
+            public void onNodeTouchStart(NodeTouchStartEvent event) {
+                reset();
+            }
+        });
+        layer.add(resetButton);
 
         animateText[0] = new Text("Drag the red target points to the desired location and click 'Animate'.", TEXT_FONT, TEXT_SIZE);
         animateText[0].setX(10).setY(500).setFillColor("black");
@@ -125,7 +133,12 @@ public class Transform3Points extends BaseExample implements Example
         layer.add(resetText[2]);
     }
 
-    public void run()
+    @Override public void run()
+    {
+
+    }
+
+    public void animate()
     {
         Point2DArray src = new Point2DArray();
         for (int i = 0; i < fromPoints.length; i++)
@@ -138,13 +151,15 @@ public class Transform3Points extends BaseExample implements Example
             target.push(new Point2D(toPoints[i].getX(), toPoints[i].getY()));
         }
 
-//        // Calculate the Transform to go from the 3 source points to the 3 target points
-//        fromTransform = node.getTransform();
-//        if (fromTransform == null)
-//            fromTransform = new Transform();
-//
-//        // Here's the magic. We'll do the math for you!
-//        toTransform = Transform.create3PointTransform(src, target).multiply(fromTransform);
+        // Calculate the Transform to go from the 3 source points to the 3 target points
+        fromTransform = node.getAbsoluteTransform();
+        if (fromTransform == null)
+        {
+            fromTransform = new Transform();
+        }
+
+        // Here's the magic. We'll do the math for you!
+        toTransform = Transform.create3PointTransform(src, target).multiply(fromTransform);
 
         TimedAnimation handle = new TimedAnimation(5000, new IAnimationCallback() {
 
@@ -170,7 +185,7 @@ public class Transform3Points extends BaseExample implements Example
                 }
 
                 // Set the Transform on the node
-//                node.setTransform(new Transform(transform));
+                node.setTransform(Transform.makeFromArray(transform));
                 repaint();
             }
 
@@ -190,28 +205,28 @@ public class Transform3Points extends BaseExample implements Example
 
     private void repaint()
     {
-//        getScene().draw();
+        layer.getScene().draw();
     }
 
     protected void reset()
     {
-//        animateButton.setVisible(true);
-//        for (int i = 0; i < animateText.length; i++)
-//            animateText[i].setVisible(true);
-//
-//        resetButton.setVisible(false);
-//        for (int i = 0; i < resetText.length; i++)
-//            resetText[i].setVisible(false);
-//
-//        // Put the node back in its original location
-//        node.setTransform(originalTransform);
-//
-//        // Put the blue source points back
-//        fromPoints[0].setX(DX).setY(DY + WIDTH);
-//        fromPoints[1].setX(DX).setY(DY);
-//        fromPoints[2].setX(DX + WIDTH).setY(DY);
-//
-//        repaint();
+        animateButton.setVisible(true);
+        for (int i = 0; i < animateText.length; i++)
+            animateText[i].setVisible(true);
+
+        resetButton.setVisible(false);
+        for (int i = 0; i < resetText.length; i++)
+            resetText[i].setVisible(false);
+
+        // Put the node back in its original location
+        node.setTransform(originalTransform);
+
+        // Put the blue source points back
+        fromPoints[0].setX(DX).setY(DY + WIDTH);
+        fromPoints[1].setX(DX).setY(DY);
+        fromPoints[2].setX(DX + WIDTH).setY(DY);
+
+        repaint();
     }
 
     // A SliceGroup is a Group with a Rectangle and some Slices and Text inside the Rectangle.
