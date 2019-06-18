@@ -16,37 +16,38 @@
 
 package com.ait.lienzo.client.widget.panel;
 
-import com.ait.lienzo.client.core.event.INodeEvent;
-import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.GwtEvent;
+//import com.ait.lienzo.client.core.event.INodeEvent;
+//import com.google.gwt.event.shared.EventHandler;
+//import com.google.gwt.event.shared.GwtEvent;
 
-public abstract class AbstractLienzoPanelEvent<H extends EventHandler>
-        extends GwtEvent<H>
-        implements INodeEvent
+public abstract class AbstractLienzoPanelEvent
+//        <H extends EventHandler>
+//        extends GwtEvent<H>
+//        implements INodeEvent
 {
-    private boolean m_dead = false;
-
-    @Override
-    public boolean isAlive()
-    {
-        return !m_dead;
-    }
-
-    @Override
-    public void preventDefault()
-    {
-        m_dead = true;
-    }
-
-    @Override
-    public void stopPropagation()
-    {
-        m_dead = true;
-    }
-
-    @Override
-    public GwtEvent<?> getNodeEvent()
-    {
-        return this;
-    }
+//    private boolean m_dead = false;
+//
+//    @Override
+//    public boolean isAlive()
+//    {
+//        return !m_dead;
+//    }
+//
+//    @Override
+//    public void preventDefault()
+//    {
+//        m_dead = true;
+//    }
+//
+//    @Override
+//    public void stopPropagation()
+//    {
+//        m_dead = true;
+//    }
+//
+//    @Override
+//    public GwtEvent<?> getNodeEvent()
+//    {
+//        return this;
+//    }
 }

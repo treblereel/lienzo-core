@@ -79,7 +79,7 @@ public class TextBoundsWrap extends TextNoWrap implements ITextWrapperWithBounda
     @Override
     public BoundingBox getBoundingBox() {
         final double[] boundaries = calculateWrapBoundaries();
-        return new BoundingBox(0, 0, boundaries[0], boundaries[1]);
+        return BoundingBox.fromDoubles(0, 0, boundaries[0], boundaries[1]);
     }
 
     private double[] calculateWrapBoundaries() {
@@ -115,8 +115,8 @@ public class TextBoundsWrap extends TextNoWrap implements ITextWrapperWithBounda
 
     @Override
     public void drawString(final Context2D context,
-                           final Attributes attr, final IDrawString drawCommand) {
-        final String[] words = attr.getText().split("\\s");
+                           final IDrawString drawCommand) {
+        final String[] words = text.getText().split("\\s");
 
         if (words.length < 1) {
             return;

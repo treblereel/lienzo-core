@@ -27,7 +27,6 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.google.gwt.json.client.JSONObject;
 
 /**
  * Bezier curves are defined with two anchor points and two control points.
@@ -61,7 +60,7 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
     {
         super(ShapeType.BEZIER_CURVE);
 
-        setControlPoints(new Point2DArray(sp, c1, c2, ep));
+        setControlPoints(Point2DArray.fromArrayOfPoint2D(sp, c1, c2, ep));
     }
 
     public BezierCurve(final Point2D c1, final Point2D c2, final Point2D ep)
@@ -69,7 +68,7 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
         this(new Point2D(0, 0), c1, c2, ep);
     }
 
-    protected BezierCurve(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected BezierCurve(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(ShapeType.BEZIER_CURVE, node, ctx);
     }
@@ -102,9 +101,9 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
      * @param context the {@link Context2D} used to draw this bezier curve.
      */
     @Override
-    protected boolean prepare(final Context2D context, final Attributes attr, final double alpha)
+    protected boolean prepare(final Context2D context, final double alpha)
     {
-        final Point2DArray points = attr.getControlPoints();
+        final Point2DArray points = getControlPoints();
 
         if ((points != null) && (points.size() == 4))
         {
@@ -125,44 +124,6 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
             return true;
         }
         return false;
-    }
-
-    /**
-     * Gets this curve's control points.
-     * 
-     * @return {@link Point2DArray}
-     */
-    public Point2DArray getControlPoints()
-    {
-        return getAttributes().getControlPoints();
-    }
-
-    /**
-     * Sets the control points for this curve.
-     * 
-     * @param points
-     *            A {@link Point2DArray} containing the control points in the following order:
-     *            first anchor, first control point, second control point, second anchor
-     *       
-     * @return this BezierCurve
-     */
-    public BezierCurve setControlPoints(final Point2DArray points)
-    {
-        getAttributes().setControlPoints(points);
-
-        return this;
-    }
-
-    @Override
-    public BezierCurve setPoint2DArray(Point2DArray points)
-    {
-        return setControlPoints(points);
-    }
-
-    @Override
-    public Point2DArray getPoint2DArray()
-    {
-        return getControlPoints();
     }
 
     @Override
@@ -187,7 +148,7 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
         }
 
         @Override
-        public BezierCurve create(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public BezierCurve create(final Object node, final ValidationContext ctx) throws ValidationException
         {
             return new BezierCurve(node, ctx);
         }

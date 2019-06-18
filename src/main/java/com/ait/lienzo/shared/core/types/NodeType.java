@@ -16,7 +16,7 @@
 
 package com.ait.lienzo.shared.core.types;
 
-import com.ait.tooling.common.api.types.IStringValued;
+import com.ait.lienzo.tools.common.api.types.IStringValued;
 
 /**
  * NodeType is an extensible enumeration of top-level node types used in the Lienzo toolkit.

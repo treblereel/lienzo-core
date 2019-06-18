@@ -26,7 +26,7 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresControlPointHandler;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresHandlerFactory;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresLayerIndex;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeHighlight;
-import com.ait.tooling.common.api.java.util.function.Supplier;
+import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 
 /**
  * Default factory implementation for Wires Handlers.

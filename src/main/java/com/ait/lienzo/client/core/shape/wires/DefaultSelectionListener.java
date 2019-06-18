@@ -1,6 +1,6 @@
 package com.ait.lienzo.client.core.shape.wires;
 
-import com.ait.tooling.common.api.java.util.function.Consumer;
+import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
 
 public class DefaultSelectionListener implements SelectionListener
 {
@@ -20,11 +20,11 @@ public class DefaultSelectionListener implements SelectionListener
         }
     };
 
-    private final Consumer<WiresShape>     onSelectShape;
+    private final       Consumer<WiresShape>     onSelectShape;
 
-    private final Consumer<WiresShape>     onDeselectShape;
+    private final       Consumer<WiresShape>     onDeselectShape;
 
-    private final Consumer<WiresConnector> onSelectConnector;
+    private final       Consumer<WiresConnector> onSelectConnector;
 
     private final Consumer<WiresConnector> onDeselectConnector;
 
@@ -52,12 +52,12 @@ public class DefaultSelectionListener implements SelectionListener
     {
         SelectionManager.ChangedItems changed = selectedItems.getChanged();
 
-        for (WiresShape shape : changed.getRemovedShapes())
+        for (WiresShape shape : changed.getRemovedShapes().asList())
         {
             deselect(shape);
         }
 
-        for (WiresConnector connector : changed.getRemovedConnectors())
+        for (WiresConnector connector : changed.getRemovedConnectors().asList())
         {
             deselect(connector);
         }

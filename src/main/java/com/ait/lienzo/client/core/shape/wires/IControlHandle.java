@@ -19,8 +19,8 @@ package com.ait.lienzo.client.core.shape.wires;
 import java.util.Objects;
 
 import com.ait.lienzo.client.core.shape.IPrimitive;
-import com.ait.tooling.common.api.types.IActivatable;
-import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.common.api.types.IActivatable;
+import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 public interface IControlHandle extends IActivatable
 {

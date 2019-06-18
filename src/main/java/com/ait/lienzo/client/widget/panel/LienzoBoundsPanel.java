@@ -16,171 +16,173 @@
 
 package com.ait.lienzo.client.widget.panel;
 
+import org.gwtproject.dom.client.Style;
+
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.widget.panel.impl.BoundsProviderFactory;
-import com.google.gwt.dom.client.Style;
+//import com.google.gwt.dom.client.Style;
 
 public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         extends LienzoPanel<P>
 {
-    private final LienzoPanel    lienzoPanel;
-
-    private final BoundsProvider boundsProvider;
-
-    private final Bounds         bounds;
-
-    private       Bounds         defaultBounds;
-
-    private       Layer          layer;
-
-    public LienzoBoundsPanel(final LienzoPanel lienzoPanel,
-                             final BoundsProvider boundsProvider)
-    {
-        this.lienzoPanel = lienzoPanel;
-        this.boundsProvider = boundsProvider;
-        this.bounds = Bounds.empty();
-    }
-
-    @Override
-    public P add(final Layer layer)
-    {
-        if (null != this.layer)
-        {
-            throw new IllegalStateException("LienzoBoundsPanel type only allows a single layer.");
-        }
-        set(layer);
-        return cast();
-    }
-
-    public P set(final Layer layer)
-    {
-        this.layer = layer;
-        lienzoPanel.add(layer);
-        return cast();
-    }
-
-    public final LienzoBoundsPanel refresh()
-    {
-        final Bounds bounds   = getLayerBounds();
-        final Bounds boundses = BoundsProviderFactory.join(bounds, getDefaultBounds());
-        setBounds(boundses.getX(),
-                  boundses.getY(),
-                  boundses.getWidth(),
-                  boundses.getHeight());
-        if (null != getLayer()) {
-            final int w = (int) Math.round(boundses.getWidth());
-            final int h = (int) Math.round(boundses.getHeight());
-            getLayer().getScratchPad().setPixelSize(w,
-                                                    h);
-        }
-        return onRefresh();
-    }
-
-    protected void setBounds(final double x,
-                             final double y,
-                             final double width,
-                             final double height)
-    {
-        bounds.setX(x);
-        bounds.setY(y);
-        bounds.setWidth(width);
-        bounds.setHeight(height);
-    }
-
-    public abstract LienzoBoundsPanel onRefresh();
-
-    public Bounds getLayerBounds()
-    {
-        return boundsProvider.get(getLayer());
-    }
-
-    public Bounds getBounds()
-    {
-        return bounds;
-    }
-
-    @Override
-    public P setBackgroundLayer(Layer layer)
-    {
-        lienzoPanel.setBackgroundLayer(layer);
-        return cast();
-    }
-
-    @Override
-    public P setCursor(final Style.Cursor cursor) {
-        lienzoPanel.setCursor(cursor);
-        return cast();
-    }
-
-    @Override
-    public void onResize()
-    {
-        refresh();
-    }
-
-    public void batch()
-    {
-        if (null != getLayer())
-        {
-            getLayer().batch();
-        }
-    }
-
-    @Override
-    public final void destroy()
-    {
-        doDestroy();
-        getLienzoPanel().destroy();
-        removeFromParent();
-        layer = null;
-        defaultBounds = null;
-    }
-
-    protected void doDestroy()
-    {
-
-    }
-
-    public Bounds getDefaultBounds()
-    {
-        return defaultBounds;
-    }
-
-    public void setDefaultBounds(final Bounds defaultBounds)
-    {
-        this.defaultBounds = defaultBounds;
-    }
-
-    public Layer getLayer()
-    {
-        return layer;
-    }
-
-    public LienzoPanel getLienzoPanel()
-    {
-        return lienzoPanel;
-    }
-
-    @Override
-    public int getHeightPx()
-    {
-        return lienzoPanel.getHeightPx();
-    }
-
-    @Override
-    public int getWidthPx()
-    {
-        return lienzoPanel.getWidthPx();
-    }
-
-    public BoundsProvider getBoundsProvider()
-    {
-        return boundsProvider;
-    }
-
-    @SuppressWarnings("unchecked")
-    private P cast()
-    {
-        return (P) this;
-    }
+//    private final LienzoPanel    lienzoPanel;
+//
+//    private final BoundsProvider boundsProvider;
+//
+//    private final Bounds         bounds;
+//
+//    private       Bounds         defaultBounds;
+//
+//    private       Layer          layer;
+//
+//    public LienzoBoundsPanel(final LienzoPanel lienzoPanel,
+//                             final BoundsProvider boundsProvider)
+//    {
+//        this.lienzoPanel = lienzoPanel;
+//        this.boundsProvider = boundsProvider;
+//        this.bounds = Bounds.empty();
+//    }
+//
+//    @Override
+//    public P add(final Layer layer)
+//    {
+//        if (null != this.layer)
+//        {
+//            throw new IllegalStateException("LienzoBoundsPanel type only allows a single layer.");
+//        }
+//        set(layer);
+//        return cast();
+//    }
+//
+//    public P set(final Layer layer)
+//    {
+//        this.layer = layer;
+//        lienzoPanel.add(layer);
+//        return cast();
+//    }
+//
+//    public final LienzoBoundsPanel refresh()
+//    {
+//        final Bounds bounds   = getLayerBounds();
+//        final Bounds boundses = BoundsProviderFactory.join(bounds, getDefaultBounds());
+//        setBounds(boundses.getX(),
+//                  boundses.getY(),
+//                  boundses.getWidth(),
+//                  boundses.getHeight());
+//        if (null != getLayer()) {
+//            final int w = (int) Math.round(boundses.getWidth());
+//            final int h = (int) Math.round(boundses.getHeight());
+//            getLayer().getScratchPad().setPixelSize(w,
+//                                                    h);
+//        }
+//        return onRefresh();
+//    }
+//
+//    protected void setBounds(final double x,
+//                             final double y,
+//                             final double width,
+//                             final double height)
+//    {
+//        bounds.setX(x);
+//        bounds.setY(y);
+//        bounds.setWidth(width);
+//        bounds.setHeight(height);
+//    }
+//
+//    public abstract LienzoBoundsPanel onRefresh();
+//
+//    public Bounds getLayerBounds()
+//    {
+//        return boundsProvider.get(getLayer());
+//    }
+//
+//    public Bounds getBounds()
+//    {
+//        return bounds;
+//    }
+//
+//    @Override
+//    public P setBackgroundLayer(Layer layer)
+//    {
+//        lienzoPanel.setBackgroundLayer(layer);
+//        return cast();
+//    }
+//
+//    @Override
+//    public P setCursor(final Style.Cursor cursor) {
+//        lienzoPanel.setCursor(cursor);
+//        return cast();
+//    }
+//
+//    @Override
+//    public void onResize()
+//    {
+//        refresh();
+//    }
+//
+//    public void batch()
+//    {
+//        if (null != getLayer())
+//        {
+//            getLayer().batch();
+//        }
+//    }
+//
+//    @Override
+//    public final void destroy()
+//    {
+//        doDestroy();
+//        getLienzoPanel().destroy();
+//        removeFromParent();
+//        layer = null;
+//        defaultBounds = null;
+//    }
+//
+//    protected void doDestroy()
+//    {
+//
+//    }
+//
+//    public Bounds getDefaultBounds()
+//    {
+//        return defaultBounds;
+//    }
+//
+//    public void setDefaultBounds(final Bounds defaultBounds)
+//    {
+//        this.defaultBounds = defaultBounds;
+//    }
+//
+//    public Layer getLayer()
+//    {
+//        return layer;
+//    }
+//
+//    public LienzoPanel getLienzoPanel()
+//    {
+//        return lienzoPanel;
+//    }
+//
+//    @Override
+//    public int getHeightPx()
+//    {
+//        return lienzoPanel.getHeightPx();
+//    }
+//
+//    @Override
+//    public int getWidthPx()
+//    {
+//        return lienzoPanel.getWidthPx();
+//    }
+//
+//    public BoundsProvider getBoundsProvider()
+//    {
+//        return boundsProvider;
+//    }
+//
+//    @SuppressWarnings("unchecked")
+//    private P cast()
+//    {
+//        return (P) this;
+//    }
 }

@@ -16,16 +16,18 @@
 
 package com.ait.lienzo.client.widget.panel;
 
+import org.gwtproject.dom.client.Style;
+
 import com.ait.lienzo.client.core.shape.Layer;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.ProvidesResize;
-import com.google.gwt.user.client.ui.RequiresResize;
+//import com.google.gwt.dom.client.Style;
+//import com.google.gwt.user.client.ui.FocusPanel;
+//import com.google.gwt.user.client.ui.ProvidesResize;
+//import com.google.gwt.user.client.ui.RequiresResize;
 
 public abstract class LienzoPanel<P extends LienzoPanel>
-        extends FocusPanel
-        implements RequiresResize,
-                   ProvidesResize
+//        extends FocusPanel
+//        implements RequiresResize,
+//                   ProvidesResize
 {
     public abstract P add(Layer layer);
 

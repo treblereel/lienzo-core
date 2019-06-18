@@ -18,9 +18,11 @@ package com.ait.lienzo.client.core;
 
 import java.util.List;
 
-import com.ait.tooling.common.api.flow.Flows.BooleanOp;
-import com.ait.tooling.common.api.flow.Flows.PredicateBooleanOp;
-import com.ait.tooling.nativetools.client.collection.NFastStringSet;
+import com.ait.lienzo.tools.client.collection.NFastStringSet;
+import com.ait.lienzo.tools.common.api.flow.Flows.BooleanOp;
+import com.ait.lienzo.tools.common.api.flow.Flows.PredicateBooleanOp;
+
+import elemental2.core.JsArray;
 
 public final class AttributeOp
 {
@@ -187,7 +189,8 @@ public final class AttributeOp
 
             final NFastStringSet changed = context();
 
-            for (String attribute : attributes)
+            String[] array = JsArray.from(attributes);
+            for (String attribute : array)
             {
                 if (false == seen.contains(attribute))
                 {

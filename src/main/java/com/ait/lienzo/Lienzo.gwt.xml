@@ -20,9 +20,11 @@
 	<inherits name='com.google.gwt.i18n.I18N' />
 	<inherits name='com.google.gwt.json.JSON' />
 	<inherits name='com.google.gwt.resources.Resources' />
-	<inherits name='com.ait.tooling.nativetools.NativeTools' />
+	<!--inherits name='com.ait.tooling.nativetools.NativeTools' /-->
+	<inherits name='elemental2.core.Core' />
 	<entry-point class='com.ait.lienzo.client.core.config.LienzoCoreEntryPoint' />
 	<source path='client' />
 	<source path='shared' />
+	<source path='tools' />
 
 </module>

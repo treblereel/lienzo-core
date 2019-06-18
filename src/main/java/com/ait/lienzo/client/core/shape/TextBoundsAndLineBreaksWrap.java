@@ -57,10 +57,9 @@ public class TextBoundsAndLineBreaksWrap extends TextBoundsWrap {
 
     @Override
     public void drawString(final Context2D context,
-                           final Attributes attr,
                            final IDrawString drawCommand) {
         final BoundingBox wrapBoundaries = getWrapBoundaries();
-        final String[] textLines = attr.getText().split("\\r?\\n");
+        final String[] textLines = text.getText().split("\\r?\\n");
         if (textLines.length < 1) {
             return;
         }

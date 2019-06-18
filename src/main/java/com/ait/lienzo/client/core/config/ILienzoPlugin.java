@@ -19,7 +19,7 @@ package com.ait.lienzo.client.core.config;
 import java.util.Collection;
 
 import com.ait.lienzo.client.core.shape.json.IFactory;
-import com.ait.tooling.common.api.types.IStringValued;
+import com.ait.lienzo.tools.common.api.types.IStringValued;
 
 public interface ILienzoPlugin
 {
@@ -27,7 +27,7 @@ public interface ILienzoPlugin
 
     public String getNameSpace();
 
-    public Collection<String> keys();
+    public String[] keys();
 
     public IFactory<?> getFactory(String name);
 

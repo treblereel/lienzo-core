@@ -30,10 +30,10 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeControl;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeHighlight;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.DragContext;
-import com.ait.tooling.common.api.java.util.function.Consumer;
-import com.ait.tooling.common.api.java.util.function.Supplier;
-
 import static com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresShapeControlUtils.excludeFromIndex;
+import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import com.ait.lienzo.tools.client.Console;
+import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 
 /**
  * This handler's goals are:
@@ -42,10 +42,10 @@ import static com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresShapeCon
  */
 public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler implements WiresShapeHandler {
 
-    private final Supplier<WiresLayerIndex> indexBuilder;
-    private final WiresShape shape;
+    private final Supplier<WiresLayerIndex>                 indexBuilder;
+    private final WiresShape                                shape;
     private final WiresShapeHighlight<PickerPart.ShapePart> highlight;
-    private final Consumer<NodeMouseClickEvent> clickEventConsumer;
+    private final Consumer<NodeMouseClickEvent>             clickEventConsumer;
 
     public WiresShapeHandlerImpl(final Supplier<WiresLayerIndex> indexBuilder,
                                  final WiresShape shape,
@@ -121,8 +121,7 @@ public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler impleme
 
         boolean adjusted = false;
         // Delegate drag adjustments to shape control.
-        if (getControl().onMove(dxy.getX(),
-                           dxy.getY())) {
+        if (getControl().onMove(dxy.getX(), dxy.getY())) {
             dxy.set(getControl().getAdjust());
             adjusted = true;
         }
@@ -195,7 +194,7 @@ public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler impleme
                                                  event.getY(),
                                                  event.isShiftKeyDown(),
                                                  event.isAltKeyDown(),
-                                                 event.isControlKeyDown()));
+                                                 event.isCtrlKeyDown()));
         clickEventConsumer.accept(event);
     }
 
@@ -205,7 +204,7 @@ public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler impleme
                                            event.getY(),
                                            event.isShiftKeyDown(),
                                            event.isAltKeyDown(),
-                                           event.isControlKeyDown()));
+                                           event.isCtrlKeyDown()));
     }
 
     @Override
@@ -214,7 +213,7 @@ public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler impleme
                                          event.getY(),
                                          event.isShiftKeyDown(),
                                          event.isAltKeyDown(),
-                                         event.isControlKeyDown()));
+                                         event.isCtrlKeyDown()));
     }
 
     @Override

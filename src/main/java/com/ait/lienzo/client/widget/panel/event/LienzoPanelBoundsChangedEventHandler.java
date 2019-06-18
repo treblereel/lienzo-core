@@ -16,9 +16,10 @@
 
 package com.ait.lienzo.client.widget.panel.event;
 
-import com.google.gwt.event.shared.EventHandler;
+//import com.google.gwt.event.shared.EventHandler;
 
-public interface LienzoPanelBoundsChangedEventHandler extends EventHandler
+public interface LienzoPanelBoundsChangedEventHandler
+//        extends EventHandler
 {
     public void onBoundsChanged(LienzoPanelBoundsChangedEvent event);
 }

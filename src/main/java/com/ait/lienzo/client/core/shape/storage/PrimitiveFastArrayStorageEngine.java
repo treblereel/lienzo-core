@@ -22,7 +22,6 @@ import com.ait.lienzo.client.core.shape.json.IFactory;
 import com.ait.lienzo.client.core.shape.json.IJSONSerializable;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
-import com.google.gwt.json.client.JSONObject;
 
 public class PrimitiveFastArrayStorageEngine extends AbstractFastArrayStorageEngine<IPrimitive<?>> implements IJSONSerializable<PrimitiveFastArrayStorageEngine>
 {
@@ -31,7 +30,7 @@ public class PrimitiveFastArrayStorageEngine extends AbstractFastArrayStorageEng
         super(StorageEngineType.PRIMITIVE_FAST_ARRAY_STORAGE_ENGINE);
     }
 
-    protected PrimitiveFastArrayStorageEngine(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected PrimitiveFastArrayStorageEngine(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(StorageEngineType.PRIMITIVE_FAST_ARRAY_STORAGE_ENGINE, node, ctx);
     }
@@ -50,7 +49,7 @@ public class PrimitiveFastArrayStorageEngine extends AbstractFastArrayStorageEng
         }
 
         @Override
-        public PrimitiveFastArrayStorageEngine create(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public PrimitiveFastArrayStorageEngine create(final Object node, final ValidationContext ctx) throws ValidationException
         {
             return new PrimitiveFastArrayStorageEngine(node, ctx);
         }

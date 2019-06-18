@@ -22,9 +22,9 @@ import java.util.Iterator;
 import com.ait.lienzo.client.core.shape.IContainer;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.types.NFastArrayListIterator;
-import com.ait.tooling.common.api.types.Activatable;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.common.api.types.Activatable;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 public class ControlHandleList extends Activatable implements IControlHandleList
 {

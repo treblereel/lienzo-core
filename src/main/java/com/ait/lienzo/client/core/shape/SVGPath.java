@@ -20,20 +20,22 @@ import java.util.List;
 
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
-import com.ait.lienzo.client.core.Path2D;
+import com.ait.lienzo.client.core.LienzoPath2D;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.PathPartEntryJSO;
 import com.ait.lienzo.client.core.types.PathPartList;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.ait.tooling.nativetools.client.collection.NFastDoubleArrayJSO;
-import com.google.gwt.json.client.JSONObject;
+import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
+
+import jsinterop.annotations.JsProperty;
 
 public class SVGPath extends Shape<SVGPath>
 {
     private static final String[] COMMANDS = { "m", "M", "l", "L", "v", "V", "h", "H", "z", "Z", "c", "C", "q", "Q", "t", "T", "s", "S", "a", "A" };
 
+    @JsProperty
     private String                m_path;
 
     private final PathPartList    m_list   = new PathPartList();
@@ -45,7 +47,7 @@ public class SVGPath extends Shape<SVGPath>
         setPath(path);
     }
 
-    protected SVGPath(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected SVGPath(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(ShapeType.SVG_PATH, node, ctx);
 
@@ -65,9 +67,8 @@ public class SVGPath extends Shape<SVGPath>
         {
             return;
         }
-        final Attributes attr = getAttributes();
 
-        alpha = alpha * attr.getAlpha();
+        alpha = alpha * getAlpha();
 
         if (alpha <= 0)
         {
@@ -75,7 +76,7 @@ public class SVGPath extends Shape<SVGPath>
         }
         if (context.isSelection())
         {
-            if (dofillBoundsForSelection(context, attr, alpha))
+            if (dofillBoundsForSelection(context, alpha))
             {
                 return;
             }
@@ -84,7 +85,7 @@ public class SVGPath extends Shape<SVGPath>
         {
             setAppliedShadow(false);
         }
-        final Path2D path = m_list.getPath2D();
+        final LienzoPath2D path = m_list.getPath2D();
 
         boolean fill = false;
 
@@ -92,22 +93,22 @@ public class SVGPath extends Shape<SVGPath>
         {
             if (path.isClosed())
             {
-                fill = fill(context, attr, alpha, path);
+                fill = fill(context, alpha, path);
             }
-            stroke(context, attr, alpha, path, fill);
+            stroke(context, alpha, path, fill);
         }
         else
         {
             if (context.path(m_list))
             {
-                fill = fill(context, attr, alpha);
+                fill = fill(context, alpha);
             }
-            stroke(context, attr, alpha, fill);
+            stroke(context, alpha, fill);
         }
     }
 
     @Override
-    protected boolean prepare(final Context2D context, Attributes attr, double alpha)
+    protected boolean prepare(final Context2D context, double alpha)
     {
         if (m_list.size() < 1)
         {
@@ -127,10 +128,11 @@ public class SVGPath extends Shape<SVGPath>
 
         path = path.replaceAll("\\s+", " ").trim();
 
-        if (Path2D.isSupported())
-        {
-            partlist.setPath2D(new Path2D(path));
-        }
+        // @FIXME for now temporarily disabling this.
+//        if (Path2D.isSupported())
+//        {
+//            partlist.setPath2D(new Path2D(path));
+//        }
         for (int n = 0; n < COMMANDS.length; n++)
         {
             path = path.replaceAll(COMMANDS[n] + " ", COMMANDS[n]);
@@ -163,7 +165,7 @@ public class SVGPath extends Shape<SVGPath>
             {
                 beg = 1;
             }
-            final NFastDoubleArrayJSO source = NFastDoubleArrayJSO.make();
+            final NFastDoubleArray source = new NFastDoubleArray();
 
             for (int i = beg, z = pts.length; i < z; i++)
             {
@@ -177,7 +179,7 @@ public class SVGPath extends Shape<SVGPath>
             {
                 int cmd = PathPartEntryJSO.UNDEFINED_PATH_PART;
 
-                final NFastDoubleArrayJSO points = NFastDoubleArrayJSO.make();
+                final NFastDoubleArray points = new NFastDoubleArray();
 
                 switch (chr)
                 {
@@ -222,9 +224,9 @@ public class SVGPath extends Shape<SVGPath>
 
                                 if (prev.getCommand() == PathPartEntryJSO.MOVETO_ABSOLUTE)
                                 {
-                                    cpx = prev.getPoints().get(0) + dx;
+                                    cpx = prev.getPoints()[0] + dx;
 
-                                    cpy = prev.getPoints().get(1) + dy;
+                                    cpy = prev.getPoints()[1] + dy;
 
                                     break;
                                 }
@@ -334,9 +336,9 @@ public class SVGPath extends Shape<SVGPath>
 
                         if (prev.getCommand() == PathPartEntryJSO.BEZIER_CURVETO_ABSOLUTE)
                         {
-                            ctx = cpx + (cpx - prev.getPoints().get(2));
+                            ctx = cpx + (cpx - prev.getPoints()[2]);
 
-                            cty = cpy + (cpy - prev.getPoints().get(3));
+                            cty = cpy + (cpy - prev.getPoints()[3]);
                         }
                         points.push(ctx);
 
@@ -365,9 +367,9 @@ public class SVGPath extends Shape<SVGPath>
 
                         if (prev.getCommand() == PathPartEntryJSO.BEZIER_CURVETO_ABSOLUTE)
                         {
-                            ctx = cpx + (cpx - prev.getPoints().get(2));
+                            ctx = cpx + (cpx - prev.getPoints()[2]);
 
-                            cty = cpy + (cpy - prev.getPoints().get(3));
+                            cty = cpy + (cpy - prev.getPoints()[3]);
                         }
                         points.push(ctx);
 
@@ -426,9 +428,9 @@ public class SVGPath extends Shape<SVGPath>
 
                         if (prev.getCommand() == PathPartEntryJSO.QUADRATIC_CURVETO_ABSOLUTE)
                         {
-                            ctx = cpx + (cpx - prev.getPoints().get(0));
+                            ctx = cpx + (cpx - prev.getPoints()[0]);
 
-                            cty = cpy + (cpy - prev.getPoints().get(1));
+                            cty = cpy + (cpy - prev.getPoints()[1]);
                         }
                         cpx = source.shift();
 
@@ -453,9 +455,9 @@ public class SVGPath extends Shape<SVGPath>
 
                         if (prev.getCommand() == PathPartEntryJSO.QUADRATIC_CURVETO_ABSOLUTE)
                         {
-                            ctx = cpx + (cpx - prev.getPoints().get(0));
+                            ctx = cpx + (cpx - prev.getPoints()[0]);
 
-                            cty = cpy + (cpy - prev.getPoints().get(1));
+                            cty = cpy + (cpy - prev.getPoints()[1]);
                         }
                         cpx += source.shift();
 
@@ -532,7 +534,7 @@ public class SVGPath extends Shape<SVGPath>
                 }
                 if (cmd != PathPartEntryJSO.UNDEFINED_PATH_PART)
                 {
-                    partlist.push(PathPartEntryJSO.make(cmd, points));
+                    partlist.push(PathPartEntryJSO.make(cmd, points.toArray()));
                 }
             }
             if ((chr == 'z') || (chr == 'Z'))
@@ -544,12 +546,11 @@ public class SVGPath extends Shape<SVGPath>
 
     public String getPath()
     {
-        return getAttributes().getPath();
+        return this.m_path;
     }
 
     public SVGPath setPath(final String path)
     {
-        getAttributes().setPath(path);
 
         if (false == path.equals(m_path))
         {
@@ -574,7 +575,7 @@ public class SVGPath extends Shape<SVGPath>
         }
 
         @Override
-        public SVGPath create(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public SVGPath create(final Object node, final ValidationContext ctx) throws ValidationException
         {
             return new SVGPath(node, ctx);
         }

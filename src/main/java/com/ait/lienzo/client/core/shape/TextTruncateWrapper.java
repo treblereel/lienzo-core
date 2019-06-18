@@ -53,7 +53,7 @@ import com.ait.lienzo.client.core.types.BoundingBox;
     public BoundingBox getBoundingBox()
     {
         final double[] boundaries = calculateWrapBoundaries();
-        return new BoundingBox(0, 0, boundaries[0], boundaries[1]);
+        return BoundingBox.fromDoubles(0, 0, boundaries[0], boundaries[1]);
     }
 
     protected double getWrapBoundariesWidth()
@@ -120,10 +120,10 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 
     @Override
     public void drawString(final Context2D context,
-                           final Attributes attr,
                            final IDrawString drawCommand)
     {
-        final String[] words = attr.getText().split("\\s");
+
+        final String[] words = text.getText().split("\\s");
 
         if (words.length < 1)
         {

@@ -34,9 +34,8 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.shared.core.types.Direction;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.ait.tooling.nativetools.client.collection.NFastDoubleArray;
-import com.ait.tooling.nativetools.client.collection.NFastDoubleArrayJSO;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 
 /**
  * Static utility methods related to geometry and other math.
@@ -98,7 +97,7 @@ public final class Geometry
 
         if (!arcPoints.get(0).equals(p0))
         {
-            box.add(p0);//p0 is always the start point of the path, but not necessary of the arc - depending on the radius
+            box.addPoint2D(p0);//p0 is always the start point of the path, but not necessary of the arc - depending on the radius
         }
         return box;
     }
@@ -147,7 +146,7 @@ public final class Geometry
         }
         if (!clockwise(as, ae))
         {
-            // reverse to make clockwise
+            // reverse to makeXY clockwise
             final double t = ae;
             ae = as;
             as = t;
@@ -225,10 +224,10 @@ public final class Geometry
                 }
             }
         }
-        return new BoundingBox(xmin, ymin, xmax, ymax);
+        return BoundingBox.fromDoubles(xmin, ymin, xmax, ymax);
     }
 
-    private static final boolean areLinear(final NFastDoubleArrayJSO values)
+    private static final boolean areLinear(final NFastDoubleArray values)
     {
         final int sz = values.size();
 
@@ -281,7 +280,7 @@ public final class Geometry
             final double iy = (by[0] * Math.pow(t, 3)) + (by[1] * Math.pow(t, 2)) + (by[2] * t) + by[3];
 
             // above is intersection point assuming infinitely long line segment,
-            // make sure we are also in bounds of the line
+            // makeXY sure we are also in bounds of the line
             double s;
             if ((lx[1] - lx[0]) != 0)           // if not vertical line
             {
@@ -399,7 +398,7 @@ public final class Geometry
         double c0y = y0 + 2.0/3.0 * (cy-y0);
         double c1x = c0x + (x1 - x0)/3.0;
         double c1y = c0y + (y1 - y0)/3.0;
-        return new NFastDoubleArray(x0, y0, c0x, c0y, c1x, c1y, x1, y1);
+        return NFastDoubleArray.makeFromDoubles(x0, y0, c0x, c0y, c1x, c1y, x1, y1);
     }
 
     public static BoundingBox getBoundingBoxOfCubicCurve(double[] xval, double[] yval)
@@ -823,9 +822,9 @@ public final class Geometry
 
     private static final double closingArc(final PathPartList list, final Point2D p0, final Point2D p2, final Point2D p4, final Point2D plast, final Point2D p0new, final double radius)
     {
-        final Point2D p1 = new Point2D();
+        final Point2D p1 = new Point2D(0,0);
 
-        final Point2D p3 = new Point2D();
+        final Point2D p3 = new Point2D(0,0);
 
         final double closingRadius = adjustStartEndOffsets(p0, p2, p4, radius, p1, p3);
 
@@ -844,9 +843,9 @@ public final class Geometry
 
     private static final void drawLines(final PathPartList list, final Point2D p0, final Point2D p2, final Point2D p4, double radius)
     {
-        final Point2D p1 = new Point2D();
+        final Point2D p1 = new Point2D(0,0);
 
-        final Point2D p3 = new Point2D();
+        final Point2D p3 = new Point2D(0,0);
 
         radius = adjustStartEndOffsets(p0, p2, p4, radius, p1, p3);
 
@@ -1022,7 +1021,7 @@ public final class Geometry
         }
         if ((pe.sub(pc)).crossScalar((ps.sub(pc))) < 0)
         {
-            // reverse to make counterclockwise
+            // reverse to makeXY counterclockwise
             final Point2D t = pe;
             pe = ps;
             ps = t;
@@ -1114,14 +1113,14 @@ public final class Geometry
         if (closeEnough(discrimant, 0))
         {
             // line only intersects once, so the start or end is inside of the circle
-            return new Point2DArray(det * d.getY() / dSq + pc.getX(), -det * d.getX() / dSq + pc.getY());
+            return Point2DArray.fromArrayOfDouble(det * d.getY() / dSq + pc.getX(), -det * d.getX() / dSq + pc.getY());
         }
         final double discSqrt = Math.sqrt(discrimant);
 
         final double sgn =  sgn(d.getY() );
-        final Point2DArray intr = new Point2DArray((((det * d.getY()) + (sgn * d.getX() * discSqrt)) / dSq) + pc.getX(), (((-det * d.getX()) + (Math.abs(d.getY()) * discSqrt)) / dSq) + pc.getY());
+        final Point2DArray intr = Point2DArray.fromArrayOfDouble((((det * d.getY()) + (sgn * d.getX() * discSqrt)) / dSq) + pc.getX(), (((-det * d.getX()) + (Math.abs(d.getY()) * discSqrt)) / dSq) + pc.getY());
 
-        return intr.push((det * d.getY() - sgn * d.getX() * discSqrt) / dSq + pc.getX(), (-det * d.getX() - Math.abs(d.getY()) * discSqrt) / dSq + pc.getY());
+        return intr.pushXY((det * d.getY() - sgn * d.getX() * discSqrt) / dSq + pc.getX(), (-det * d.getX() - Math.abs(d.getY()) * discSqrt) / dSq + pc.getY());
     }
 
     public static double getRatio(final double pos, final double boxPos, final double boxWidth)
@@ -1176,7 +1175,7 @@ public final class Geometry
 
         final Point2D pc = p1.add(dx.mul(distance(r, ln)));
 
-        return new Point2DArray(ps, pc, pe);
+        return Point2DArray.fromArrayOfPoint2D(ps, pc, pe);
     }
 
     public static final Point2DArray getCardinalIntersects(final AbstractMultiPathPartShape<?> shape, Direction[] requestedCardinals)
@@ -1238,9 +1237,7 @@ public final class Geometry
                               p,
                               width);
 
-            Set<Point2D>[] set = Geometry.getCardinalIntersects(path,
-                                                                                 new Point2DArray(c,
-                                                                                 p));
+            Set<Point2D>[] set = Geometry.getCardinalIntersects(path, Point2DArray.fromArrayOfPoint2D(c, p));
             Point2DArray points = Geometry.removeInnerPoints(c,
                                                              set);
 
@@ -1274,7 +1271,7 @@ public final class Geometry
                     {
                         intersectPoints = new Point2DArray();
                     }
-                    for (Point2D p : segmentIntersectPoints)
+                    for (Point2D p : segmentIntersectPoints.asArray())
                     {
                         intersectPoints.push(p);
                     }
@@ -1289,7 +1286,7 @@ public final class Geometry
         // the line is on the root container, it's points must be translated to be within the group of the path
 
 
-        Point2DArray line = new Point2DArray(l0, l1);
+        Point2DArray line = Point2DArray.fromArrayOfPoint2D(l0, l1);
         final Set<Point2D>[] intersections = new Set[line.size()]; // this is a line, there won't be more than one
 
         getPathPointsProjectionIntersects(path, line, intersections, false);
@@ -1310,7 +1307,7 @@ public final class Geometry
 
     public static Point2D getPathPointsProjectionIntersects(MultiPath path, Point2D center, Point2D point)
     {
-        Set<Point2D>[] intersections = getCardinalIntersects(path,  new Point2DArray(center, point));
+        Set<Point2D>[] intersections = getCardinalIntersects(path, Point2DArray.fromArrayOfPoint2D(center, point));
         Point2D intersection = (Point2D) intersections[0].toArray()[0];
         return intersection;
     }
@@ -1327,14 +1324,14 @@ public final class Geometry
         for (; i < path.size(); i++)
         {
             PathPartEntryJSO entry = path.get(i);
-            NFastDoubleArrayJSO entryPoints = entry.getPoints();
+            double[] entryPoints = entry.getPoints();
 
             switch (entry.getCommand())
             {
                 case PathPartEntryJSO.MOVETO_ABSOLUTE:
                 {
                     entryPoints = entry.getPoints();
-                    Point2D m = new Point2D(entryPoints.get(0), entryPoints.get(1));
+                    Point2D m = new Point2D(entryPoints[0], entryPoints[1]);
                     if (i == 0)
                     {
                         // This position is needed, if we close the path.
@@ -1346,8 +1343,8 @@ public final class Geometry
                 case PathPartEntryJSO.LINETO_ABSOLUTE:
                 {
                     entryPoints = entry.getPoints();
-                    double x0 = entryPoints.get(0);
-                    double y0 = entryPoints.get(1);
+                    double x0 = entryPoints[0];
+                    double y0 = entryPoints[1];
                     Point2D end = new Point2D(x0, y0);
                     for (int j = 1; j < points.size(); j++)
                     {
@@ -1382,16 +1379,16 @@ public final class Geometry
                 {
                     entryPoints = entry.getPoints();
 
-                    double x0 = entryPoints.get(0);
-                    double y0 = entryPoints.get(1);
+                    double x0 = entryPoints[0];
+                    double y0 = entryPoints[1];
                     Point2D p0 = new Point2D(x0, y0);
 
-                    double x1 = entryPoints.get(2);
-                    double y1 = entryPoints.get(3);
+                    double x1 = entryPoints[2];
+                    double y1 = entryPoints[3];
                     Point2D p1 = new Point2D(x1, y1);
                     Point2D end = p1;
 
-                    double r = entryPoints.get(4);
+                    double r = entryPoints[4];
                     for (int j = 1; j < points.size(); j++)
                     {
                         final Point2D point = points.get(j);
@@ -1399,7 +1396,7 @@ public final class Geometry
 
                         if (intersectPoints.size() > 0)
                         {
-                            for (Point2D p : intersectPoints)
+                            for (Point2D p : intersectPoints.asArray())
                             {
                                 addIntersect(intersections, j, p);
                             }
@@ -1413,14 +1410,14 @@ public final class Geometry
                     final double x0 = segmentStart.getX();
                     final double y0 = segmentStart.getY();
 
-                    final double x1 = entryPoints.get(0);
-                    final double y1 = entryPoints.get(1);
+                    final double x1 = entryPoints[0];
+                    final double y1 = entryPoints[1];
 
-                    final double x2 = entryPoints.get(2);
-                    final double y2 = entryPoints.get(3);
+                    final double x2 = entryPoints[2];
+                    final double y2 = entryPoints[3];
 
-                    final double x3 = entryPoints.get(4);
-                    final double y3 = entryPoints.get(5);
+                    final double x3 = entryPoints[4];
+                    final double y3 = entryPoints[5];
 
                     final double[] xvals = new double[] { x0, x1, x2, x3 };
                     final double[] yvals = new double[] { y0, y1, y2, y3 };
@@ -1437,7 +1434,7 @@ public final class Geometry
 
                         if (intersectPoints.size() > 0)
                         {
-                            for (final Point2D p : intersectPoints)
+                            for (final Point2D p : intersectPoints.asArray())
                             {
                                 addIntersect(intersections, j, p);
                             }
@@ -1644,7 +1641,7 @@ public final class Geometry
 
             if ((sx != 1) || (sy != 1))
             {
-                return setScaleToFit(prim, wide, high, new BoundingPoints(bbox).transform(new Transform().scale(sx, sy)).getBoundingBox());
+                return setScaleToFit(prim, wide, high, new BoundingPoints(bbox).transform(new Transform().scaleWithXY(sx, sy)).getBoundingBox());
             }
         }
         return setScaleToFit(prim, wide, high, bbox);
@@ -1712,7 +1709,7 @@ public final class Geometry
     public static Point2D findCenter(final Point2D p0,
                                       final Point2D p1)
     {
-        return Geometry.findCenter(new BoundingBox(p0, p1));
+        return Geometry.findCenter(BoundingBox.fromArrayOfPoint2D(p0, p1));
     }
 
     public static Point2D findCenter(BoundingBox box)

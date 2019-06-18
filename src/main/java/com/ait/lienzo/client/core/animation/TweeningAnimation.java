@@ -17,7 +17,7 @@
 package com.ait.lienzo.client.core.animation;
 
 import com.ait.lienzo.client.core.shape.Node;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public class TweeningAnimation extends TimedAnimation
 {

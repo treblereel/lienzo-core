@@ -16,11 +16,16 @@
 
 package com.ait.lienzo.client.core.mediator;
 
+import elemental2.dom.UIEvent;
+import elemental2.dom.WheelEvent;
+
+import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.client.core.event.NodeMouseWheelEvent;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.LienzoPanel;
-import com.google.gwt.event.shared.GwtEvent;
+import com.ait.lienzo.tools.client.event.INodeEvent.Type;
+import com.gwtlienzo.event.shared.EventHandler;
 
 /**
  * MouseWheelZoomMediator zooms in or out when the mouse wheel is moved.
@@ -52,15 +57,15 @@ public class MouseWheelZoomMediator extends AbstractMediator
     }
 
     @Override
-    public boolean handleEvent(final GwtEvent<?> event)
+    public <H extends EventHandler> boolean handleEvent(Type<H> type, final UIEvent event, int x, int y)
     {
-        if (event.getAssociatedType() == NodeMouseWheelEvent.getType())
+        if (type == NodeMouseWheelEvent.getType())
         {
             final IEventFilter filter = getEventFilter();
 
             if ((null == filter) || (false == filter.isEnabled()) || (filter.test(event)))
             {
-                onMouseWheel((NodeMouseWheelEvent) event);
+                onMouseWheel((WheelEvent) event, x, y);
 
                 return true;
             }
@@ -87,7 +92,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
     }
 
     /**
-     * Sets the minimum scale of the viewport.
+     * Sets the minimum scaleWithXY of the viewport.
      * 
      * The default value is 0 (unlimited.)
      * 
@@ -99,7 +104,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
     }
 
     /**
-     * Sets the minimum scale of the viewport.
+     * Sets the minimum scaleWithXY of the viewport.
      * 
      * The default value is 0 (unlimited.)
      * 
@@ -114,7 +119,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
     }
 
     /**
-     * Sets the maximum scale of the viewport.
+     * Sets the maximum scaleWithXY of the viewport.
      * 
      * The default value is Double.MAX_VALUE (unlimited.)
      * 
@@ -126,7 +131,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
     }
 
     /**
-     * Sets the maximum scale of the viewport.
+     * Sets the maximum scaleWithXY of the viewport.
      * 
      * The default value is Double.MAX_VALUE (unlimited.)
      * 
@@ -193,7 +198,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
         return this;
     }
 
-    protected void onMouseWheel(final NodeMouseWheelEvent event)
+    protected void onMouseWheel(WheelEvent event, int x, int y)
     {
         Transform transform = getTransform();
 
@@ -203,7 +208,8 @@ public class MouseWheelZoomMediator extends AbstractMediator
         }
         double scaleDelta;
 
-        if (event.isSouth() == m_downZoomOut) // down
+
+        if (event.deltaY < 0 == m_downZoomOut) // down
         {
             // zoom out
             scaleDelta = 1 / (1 + m_zoomFactor);
@@ -230,7 +236,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
 
         if (m_scaleAboutPoint)
         {
-            Point2D p = new Point2D(event.getX(), event.getY());
+            Point2D p = new Point2D(x, y);
 
             transform.getInverse().transform(p, p);
 

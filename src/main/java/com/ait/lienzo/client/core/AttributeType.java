@@ -50,7 +50,6 @@ import com.ait.lienzo.shared.core.types.LineJoin;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 import com.ait.lienzo.shared.core.types.TextUnit;
-import com.google.gwt.json.client.JSONValue;
 
 /**
  * Each {@link Attribute} has an AttributeType.
@@ -130,7 +129,7 @@ public class AttributeType
         m_validator = Objects.requireNonNull(validator);
     }
 
-    public void validate(final JSONValue val, final ValidationContext ctx) throws ValidationException
+    public void validate(final Object val, final ValidationContext ctx) throws ValidationException
     {
         m_validator.validate(val, ctx);
     }

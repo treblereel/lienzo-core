@@ -21,76 +21,76 @@ import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.panel.Bounds;
 
 class ScrollPosition {
-
-    private final ScrollablePanelHandler scrollHandler;
-
-    ScrollPosition(final ScrollablePanelHandler scrollHandler) {
-        this.scrollHandler = scrollHandler;
-    }
-
-    double currentRelativeX() {
-
-        final double delta = deltaX();
-
-        return delta == 0d ? 0d : 100 * currentX() / delta;
-    }
-
-    double currentRelativeY() {
-
-        final double delta = deltaY();
-
-        return delta == 0d ? 0d : 100 * currentY() / delta;
-    }
-
-    double currentPositionX(final Double level) {
-
-        final double position = deltaX() * level / 100;
-
-        return -(bounds().minBoundX() + position);
-    }
-
-    double currentPositionY(final Double level) {
-
-        final double position = deltaY() * level / 100;
-
-        return -(bounds().minBoundY() + position);
-    }
-
-    double deltaX() {
-        return bounds().maxBoundX() - bounds().minBoundX() - getVisibleBounds().getWidth();
-    }
-
-    double deltaY() {
-        return bounds().maxBoundY() - bounds().minBoundY() - getVisibleBounds().getHeight();
-    }
-
-    Transform getTransform() {
-        if (null == getLayer()) {
-            return new Transform();
-        }
-
-        final Viewport viewport = getLayer().getViewport();
-
-        return viewport.getTransform();
-    }
-
-    Bounds getVisibleBounds() {
-        return scrollHandler.getPanel().getVisibleBounds();
-    }
-
-    ScrollBounds bounds() {
-        return scrollHandler.scrollBounds();
-    }
-
-    private Double currentX() {
-        return -(getTransform().getTranslateX() / getTransform().getScaleX() + bounds().minBoundX());
-    }
-
-    private Double currentY() {
-        return -(getTransform().getTranslateY() / getTransform().getScaleY() + bounds().minBoundY());
-    }
-
-    Layer getLayer() {
-        return scrollHandler.getLayer();
-    }
+//
+//    private final ScrollablePanelHandler scrollHandler;
+//
+//    ScrollPosition(final ScrollablePanelHandler scrollHandler) {
+//        this.scrollHandler = scrollHandler;
+//    }
+//
+//    double currentRelativeX() {
+//
+//        final double delta = deltaX();
+//
+//        return delta == 0d ? 0d : 100 * currentX() / delta;
+//    }
+//
+//    double currentRelativeY() {
+//
+//        final double delta = deltaY();
+//
+//        return delta == 0d ? 0d : 100 * currentY() / delta;
+//    }
+//
+//    double currentPositionX(final Double level) {
+//
+//        final double position = deltaX() * level / 100;
+//
+//        return -(bounds().minBoundX() + position);
+//    }
+//
+//    double currentPositionY(final Double level) {
+//
+//        final double position = deltaY() * level / 100;
+//
+//        return -(bounds().minBoundY() + position);
+//    }
+//
+//    double deltaX() {
+//        return bounds().maxBoundX() - bounds().minBoundX() - getVisibleBounds().getWidth();
+//    }
+//
+//    double deltaY() {
+//        return bounds().maxBoundY() - bounds().minBoundY() - getVisibleBounds().getHeight();
+//    }
+//
+//    Transform getTransform() {
+//        if (null == getLayer()) {
+//            return new Transform();
+//        }
+//
+//        final Viewport viewport = getLayer().getViewport();
+//
+//        return viewport.getTransform();
+//    }
+//
+//    Bounds getVisibleBounds() {
+//        return scrollHandler.getPanel().getVisibleBounds();
+//    }
+//
+//    ScrollBounds bounds() {
+//        return scrollHandler.scrollBounds();
+//    }
+//
+//    private Double currentX() {
+//        return -(getTransform().getTranslateX() / getTransform().getScaleX() + bounds().minBoundX());
+//    }
+//
+//    private Double currentY() {
+//        return -(getTransform().getTranslateY() / getTransform().getScaleY() + bounds().minBoundY());
+//    }
+//
+//    Layer getLayer() {
+//        return scrollHandler.getLayer();
+//    }
 }

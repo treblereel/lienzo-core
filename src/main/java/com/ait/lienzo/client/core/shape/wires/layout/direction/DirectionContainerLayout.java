@@ -21,7 +21,7 @@ import com.ait.lienzo.client.core.shape.wires.layout.IContainerLayout;
 import com.ait.lienzo.client.core.shape.wires.layout.direction.DirectionLayout.Direction;
 import com.ait.lienzo.client.core.shape.wires.layout.direction.DirectionLayout.Orientation;
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.tooling.common.api.java.util.function.Function;
+import com.ait.lienzo.tools.common.api.java.util.function.Function;
 
 public class DirectionContainerLayout extends AbstractContainerLayout<DirectionLayout>
 {
@@ -34,8 +34,8 @@ public class DirectionContainerLayout extends AbstractContainerLayout<DirectionL
     {
         BoundingBox childBoundingBox = child.getBoundingBox();
         return (Orientation.VERTICAL.equals(orientation)) ?
-               new BoundingBox(childBoundingBox.getMinY(), childBoundingBox.getMinX(), childBoundingBox.getHeight(),
-                               childBoundingBox.getWidth()) :
+               BoundingBox.fromDoubles(childBoundingBox.getMinY(), childBoundingBox.getMinX(), childBoundingBox.getHeight(),
+                                       childBoundingBox.getWidth()) :
                childBoundingBox;
     }
 

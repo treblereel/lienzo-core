@@ -20,6 +20,10 @@ package com.ait.lienzo.client.core.shape.wires;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.shape.Layer;
+import com.ait.lienzo.client.core.shape.wires.event.WiresDragEndEvent;
+import com.ait.lienzo.client.core.shape.wires.event.WiresDragMoveEvent;
+import com.ait.lienzo.client.core.shape.wires.event.WiresDragStartEvent;
+import com.ait.lienzo.client.core.shape.wires.event.WiresMoveEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndHandler;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeStartEvent;
@@ -38,10 +42,12 @@ import com.ait.lienzo.client.core.types.OnLayerBeforeDraw;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.DragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragContext;
-import com.ait.tooling.common.api.java.util.function.Supplier;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.ait.tooling.nativetools.client.collection.NFastStringMap;
-import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.collection.NFastStringMap;
+import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.client.Console;
+
+import elemental2.core.JsArray;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,17 +77,19 @@ public final class WiresManager
 
     private IConnectionAcceptor                              m_connectionAcceptor  = IConnectionAcceptor.ALL;
 
-    private IContainmentAcceptor                             m_containmentAcceptor = IContainmentAcceptor.ALL;
+    private IContainmentAcceptor   m_containmentAcceptor = IContainmentAcceptor.ALL;
 
-    private IControlPointsAcceptor                           m_controlPointsAcceptor = IControlPointsAcceptor.ALL;
+    private IControlPointsAcceptor m_controlPointsAcceptor = IControlPointsAcceptor.ALL;
 
-    private IDockingAcceptor                                 m_dockingAcceptor     = IDockingAcceptor.NONE;
+    private IDockingAcceptor       m_dockingAcceptor     = IDockingAcceptor.NONE;
 
-    private SelectionManager                                 m_selectionManager;
+    private SelectionManager       m_selectionManager;
 
-    private WiresDragHandler                                 m_handler;
+    private WiresDragHandler       m_handler;
 
-    private boolean                                          m_spliceEnabled;
+    private boolean                m_spliceEnabled;
+
+    private WiresEventHandlers     m_wiresEventHandlers;
 
     public static final WiresManager get(Layer layer)
     {
@@ -122,6 +130,8 @@ public final class WiresManager
         m_handler = null;
         m_controlFactory = new WiresControlFactoryImpl();
         m_wiresHandlerFactory = new WiresHandlerFactoryImpl();
+
+        m_wiresEventHandlers = new WiresEventHandlers(layer.getViewport().getElement());
     }
 
     public SelectionManager enableSelectionManager()
@@ -131,6 +141,11 @@ public final class WiresManager
             m_selectionManager = new SelectionManager(this);
         }
         return m_selectionManager;
+    }
+
+    public WiresEventHandlers getWiresEventHandlers()
+    {
+        return m_wiresEventHandlers;
     }
 
     public boolean isSpliceEnabled()
@@ -159,8 +174,11 @@ public final class WiresManager
             // as this is expensive it's delayed until the last minute before draw. As drawing order is not guaranteed
             // this method is used to force a parse on any line that has been refreshed. Refreshed means it's points where
             // changed and thus will be reparsed.
-            for (WiresConnector c : m_wiresManager.getConnectorList())
+            //for (WiresConnector c : )
+            NFastArrayList<WiresConnector> list = m_wiresManager.getConnectorList();
+            for (int i = 0, size = list.size(); i < size; i++)
             {
+                WiresConnector c = list.get(i);
                 if (WiresConnector.updateHeadTailForRefreshedConnector(c))
                 {
                     return false;
@@ -211,7 +229,6 @@ public final class WiresManager
 
         // Shapes added to the canvas layer by default.
         getLayer().add(shape);
-
 
         final String uuid = shape.uuid();
         m_shapesMap.put(uuid, shape);
@@ -296,6 +313,7 @@ public final class WiresManager
         m_registrationManager.register(connector.getHead().addNodeMouseMoveHandler(handler));
         m_registrationManager.register(connector.getHead().addNodeMouseExitHandler(handler));
         m_registrationManager.register(connector.getTail().addNodeMouseClickHandler(handler));
+
         m_registrationManager.register(connector.getTail().addNodeMouseEnterHandler(handler));
         m_registrationManager.register(connector.getTail().addNodeMouseMoveHandler(handler));
         m_registrationManager.register(connector.getTail().addNodeMouseExitHandler(handler));
@@ -326,7 +344,7 @@ public final class WiresManager
 
     private void destroy() {
         if (!m_shapesMap.isEmpty()) {
-            final Collection<WiresShape> shapes = new ArrayList<>(m_shapesMap.values());
+            final WiresShape[] shapes = JsArray.from(m_shapesMap.values());
             for (WiresShape shape : shapes) {
                 deregister(shape);
             }
@@ -334,7 +352,7 @@ public final class WiresManager
         }
         if (!m_connectorList.isEmpty()) {
             final NFastArrayList<WiresConnector> connectors = m_connectorList.copy();
-            for (WiresConnector connector : connectors) {
+            for (WiresConnector connector : connectors.asList()) {
                 deregister(connector);
             }
             m_connectorList.clear();

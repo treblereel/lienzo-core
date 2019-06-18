@@ -33,7 +33,7 @@ public interface IDirectionalMultiPointShape<T extends Shape<T> & IDirectionalMu
 
     public T setCorrectionOffset(final double offset);
 
-    public boolean isPathPartListPrepared(final Attributes attr);
+    public boolean isPathPartListPrepared();
 
     public Point2D adjustPoint(double x, double y, double deltaX, double deltaY);
 }

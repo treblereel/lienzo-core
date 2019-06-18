@@ -19,40 +19,40 @@ package com.ait.lienzo.client.widget.panel.event;
 import com.ait.lienzo.client.widget.panel.AbstractLienzoPanelEvent;
 
 public class LienzoPanelResizeEvent
-        extends AbstractLienzoPanelEvent<LienzoPanelResizeEventHandler>
+//        extends AbstractLienzoPanelEvent<LienzoPanelResizeEventHandler>
 {
-    public static final Type<LienzoPanelResizeEventHandler> TYPE = new Type<>();
-
-    private final double m_width;
-
-    private final double m_height;
-
-    public LienzoPanelResizeEvent(final double m_width,
-                                  final double m_height)
-    {
-        this.m_width = m_width;
-        this.m_height = m_height;
-    }
-
-    @Override
-    public Type<LienzoPanelResizeEventHandler> getAssociatedType()
-    {
-        return TYPE;
-    }
-
-    @Override
-    protected void dispatch(final LienzoPanelResizeEventHandler handler)
-    {
-        handler.onResize(this);
-    }
-
-    public double getWidth()
-    {
-        return m_width;
-    }
-
-    public double getHeight()
-    {
-        return m_height;
-    }
+//    public static final Type<LienzoPanelResizeEventHandler> TYPE = new Type<>();
+//
+//    private final double m_width;
+//
+//    private final double m_height;
+//
+//    public LienzoPanelResizeEvent(final double m_width,
+//                                  final double m_height)
+//    {
+//        this.m_width = m_width;
+//        this.m_height = m_height;
+//    }
+//
+//    @Override
+//    public Type<LienzoPanelResizeEventHandler> getAssociatedType()
+//    {
+//        return TYPE;
+//    }
+//
+//    @Override
+//    protected void dispatch(final LienzoPanelResizeEventHandler handler)
+//    {
+//        handler.onResize(this);
+//    }
+//
+//    public double getWidth()
+//    {
+//        return m_width;
+//    }
+//
+//    public double getHeight()
+//    {
+//        return m_height;
+//    }
 }

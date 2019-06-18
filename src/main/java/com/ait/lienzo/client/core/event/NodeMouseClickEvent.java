@@ -16,9 +16,12 @@
 
 package com.ait.lienzo.client.core.event;
 
-import com.google.gwt.event.dom.client.MouseEvent;
+import com.ait.lienzo.client.core.shape.Node;
 
-public class NodeMouseClickEvent extends AbstractNodeMouseEvent<MouseEvent<?>, NodeMouseClickHandler>
+import elemental2.dom.HTMLElement;
+import elemental2.dom.MouseEvent;
+
+public class NodeMouseClickEvent extends AbstractNodeHumanInputEvent<NodeMouseClickHandler, Node>
 {
     private static final Type<NodeMouseClickHandler> TYPE = new Type<NodeMouseClickHandler>();
 
@@ -27,9 +30,9 @@ public class NodeMouseClickEvent extends AbstractNodeMouseEvent<MouseEvent<?>, N
         return TYPE;
     }
 
-    public NodeMouseClickEvent(final MouseEvent<?> event)
+    public NodeMouseClickEvent(final HTMLElement relativeElement)
     {
-        super(event);
+        super(relativeElement);
     }
 
     @Override
@@ -39,7 +42,7 @@ public class NodeMouseClickEvent extends AbstractNodeMouseEvent<MouseEvent<?>, N
     }
 
     @Override
-    protected void dispatch(final NodeMouseClickHandler handler)
+    public void dispatch(final NodeMouseClickHandler handler)
     {
         handler.onNodeMouseClick(this);
     }

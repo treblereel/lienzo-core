@@ -22,20 +22,18 @@ import java.util.List;
 import java.util.Set;
 
 import com.ait.lienzo.client.core.Attribute;
-import com.ait.lienzo.client.core.event.AttributesChangedEvent;
-import com.ait.lienzo.client.core.event.AttributesChangedHandler;
-import com.ait.lienzo.client.core.shape.Attributes;
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.IDrawable;
 import com.ait.lienzo.client.core.shape.IPrimitive;
+import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.core.shape.wires.AlignAndDistribute;
 import com.ait.lienzo.client.core.shape.wires.handlers.AlignAndDistributeControl;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.tooling.common.api.flow.Flows;
-import com.ait.tooling.nativetools.client.collection.NFastStringSet;
-import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
+import com.ait.lienzo.tools.common.api.flow.Flows;
+import com.ait.lienzo.tools.client.collection.NFastStringSet;
+import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 import static com.ait.lienzo.client.core.AttributeOp.any;
 
@@ -134,30 +132,8 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
             }
             m_bboxOp = any(list);
 
-            addHandlers(m_group, list);
-
             m_tranOp = any(Attribute.ROTATION, Attribute.SCALE, Attribute.SHEAR);
         }
-    }
-
-    protected final AttributesChangedHandler ShapeAttributesChangedHandler = new AttributesChangedHandler()
-    {
-        @Override
-        public void onAttributesChanged(AttributesChangedEvent event)
-        {
-            refresh(event.evaluate(m_tranOp), event.evaluate(m_bboxOp));
-        }
-    };
-
-    private void addHandlers(IDrawable<?> drawable, ArrayList<Attribute> list)
-    {
-        for (Attribute attribute : list)
-        {
-            m_attrHandlerRegs.register(drawable.addAttributesChangedHandler(attribute, ShapeAttributesChangedHandler));
-        }
-        m_attrHandlerRegs.register(drawable.addAttributesChangedHandler(Attribute.ROTATION, ShapeAttributesChangedHandler));
-        m_attrHandlerRegs.register(drawable.addAttributesChangedHandler(Attribute.SCALE, ShapeAttributesChangedHandler));
-        m_attrHandlerRegs.register(drawable.addAttributesChangedHandler(Attribute.SHEAR, ShapeAttributesChangedHandler));
     }
 
     public boolean isIndexed()
@@ -375,17 +351,19 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
     private final boolean hasComplexTransformAttributes()
     {
-        final Attributes attr = AlignAndDistribute.getAttributes(m_group);
+        //JSONObject attr = new JSONObject(getAttributes().getJSO());
+        //JSONObject attr = new JSONObject();
+        Node       node = m_group.asNode();
 
-        if (attr.hasComplexTransformAttributes())
+        if (m_group.asNode().hasComplexTransformAttributes())
         {
-            final double r = attr.getRotation();
+            final double r = node.getRotation();
 
             if (r != 0)
             {
                 return true;
             }
-            final Point2D scale = attr.getScale();
+            final Point2D scale = node.getScale();
 
             if (null != scale)
             {
@@ -394,7 +372,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
                     return true;
                 }
             }
-            final Point2D shear = attr.getShear();
+            final Point2D shear = node.getShear();
 
             if (null != shear)
             {
@@ -488,7 +466,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
         indexOff(prim);
         if (prim instanceof Group)
         {
-            for (IPrimitive<?> child : prim.asGroup().getChildNodes())
+            for (IPrimitive<?> child : prim.asGroup().getChildNodes().asList())
             {
                 if (child instanceof Group)
                 {
@@ -530,7 +508,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
     private void removeChildrenIfIndexed(IPrimitive<?> prim, List<ShapePair> pairs)
     {
-        for (IPrimitive<?> child : prim.asGroup().getChildNodes())
+        for (IPrimitive<?> child : prim.asGroup().getChildNodes().asList())
         {
             AlignAndDistributeControl handler = m_alignAndDistribute.getControlForShape(child.uuid());
             if (handler != null)

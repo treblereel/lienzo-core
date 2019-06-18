@@ -20,6 +20,8 @@ import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.shared.core.types.ColorName;
 
+import elemental2.dom.CSSProperties;
+
 public class BluePrintBackgroundGridLayer extends GridLayer
 {
     public BluePrintBackgroundGridLayer()
@@ -27,7 +29,7 @@ public class BluePrintBackgroundGridLayer extends GridLayer
         super(20, new Line().setAlpha(0.2).setStrokeWidth(1).setStrokeColor(ColorName.WHITE));
 
         setTransformable(false).setListening(false);
-        
-        getElement().getStyle().setBackgroundColor(ColorName.ROYALBLUE.getColorString());
+
+        getElement().style.backgroundColor = ColorName.ROYALBLUE.getColorString();
     }
 }

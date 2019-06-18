@@ -22,6 +22,10 @@ import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 import com.ait.lienzo.shared.core.types.TextUnit;
 
+import jsinterop.annotations.JsOverlay;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+
 /**
  * ITextWrapper implementation that performs no wrapping.
  */
@@ -34,6 +38,8 @@ public class TextNoWrap implements ITextWrapper {
     protected final ITextWrapper.Supplier<TextUnit> textUnitSupplier;
     protected final ITextWrapper.Supplier<TextBaseLine> textBaseLineSupplier;
     protected final ITextWrapper.Supplier<TextAlign> textAlignSupplier;
+
+    protected Text text;
 
     public TextNoWrap(final Text text) {
         this(new ITextWrapper.Supplier<String>() {
@@ -78,6 +84,7 @@ public class TextNoWrap implements ITextWrapper {
                      return text.getTextAlign();
                  }
              });
+        this.text = text;
     }
 
     public TextNoWrap(final ITextWrapper.Supplier<String> textSupplier,
@@ -113,11 +120,12 @@ public class TextNoWrap implements ITextWrapper {
 
     @Override
     public void drawString(final Context2D context,
-                           final Attributes attr,
                            final IDrawString drawCommand) {
-        drawCommand.draw(context,
-                         attr.getText(),
-                         0,
-                         0);
+        drawCommand.draw(context, text.getText(), 0, 0);
+    }
+
+    public Text getText()
+    {
+        return text;
     }
 }

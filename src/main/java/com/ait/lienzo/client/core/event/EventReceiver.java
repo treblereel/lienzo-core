@@ -1,0 +1,9 @@
+package com.ait.lienzo.client.core.event;
+
+import com.ait.lienzo.tools.client.event.INodeEvent;
+import com.gwtlienzo.event.shared.EventHandler;
+
+public interface EventReceiver
+{
+    public <H extends EventHandler, S> void fireEvent(final INodeEvent<H, S> event);
+}

@@ -16,6 +16,7 @@
 
 package com.ait.lienzo.client.core.shape.wires.handlers.impl;
 
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.client.core.shape.wires.IDockingAcceptor;
 import com.ait.lienzo.client.core.shape.wires.PickerPart;
 import com.ait.lienzo.client.core.shape.wires.WiresContainer;
@@ -31,9 +32,8 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresParentPickerControl;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.util.Geometry;
-import com.ait.tooling.common.api.java.util.function.Supplier;
-import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 
 public class WiresDockingControlImpl extends AbstractWiresControl<WiresDockingControlImpl>
         implements WiresDockingControl {
@@ -237,9 +237,9 @@ public class WiresDockingControlImpl extends AbstractWiresControl<WiresDockingCo
                 if ( xRatio == -1 && yRatio == -1 )
                 {
                     // this is a hack, to ensure it runs on the first before any resize computations
-                    BoundingBox parentBox = event.getShape().getPath().getBoundingBox();
+                    BoundingBox parentBox = event.getSource().getPath().getBoundingBox();
 
-                    // make sure everything is shifted to have x/y greater than 0
+                    // makeXY sure everything is shifted to have x/y greater than 0
                     double normaliseX = parentBox.getX() >= 0 ? 0 : 0 - parentBox.getX();
                     double normaliseY = parentBox.getY() >= 0 ? 0 : 0 - parentBox.getY();
 

@@ -18,9 +18,12 @@ package com.ait.lienzo.client.core.event;
 
 import java.util.List;
 
-import com.google.gwt.event.dom.client.TouchEvent;
+import com.ait.lienzo.client.core.shape.Node;
 
-public class NodeTouchEndEvent extends AbstractNodeTouchEvent<TouchEvent<?>, NodeTouchEndHandler>
+import elemental2.dom.HTMLElement;
+import elemental2.dom.TouchEvent;
+
+public class NodeTouchEndEvent extends AbstractNodeHumanInputEvent<NodeTouchEndHandler, Node>
 {
     private static final Type<NodeTouchEndHandler> TYPE = new Type<NodeTouchEndHandler>();
 
@@ -29,9 +32,9 @@ public class NodeTouchEndEvent extends AbstractNodeTouchEvent<TouchEvent<?>, Nod
         return TYPE;
     }
 
-    public NodeTouchEndEvent(final TouchEvent<?> event, final List<TouchPoint> touches)
+    public NodeTouchEndEvent(final HTMLElement relativeElement)
     {
-        super(event, touches);
+        super(relativeElement);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class NodeTouchEndEvent extends AbstractNodeTouchEvent<TouchEvent<?>, Nod
     }
 
     @Override
-    protected void dispatch(final NodeTouchEndHandler handler)
+    public void dispatch(final NodeTouchEndHandler handler)
     {
         handler.onNodeTouchEnd(this);
     }
