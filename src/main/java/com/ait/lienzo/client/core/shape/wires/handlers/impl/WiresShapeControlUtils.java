@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import com.ait.lienzo.client.core.event.AbstractNodeMouseEvent;
+import com.ait.lienzo.client.core.event.AbstractNodeHumanInputEvent;
 import com.ait.lienzo.client.core.shape.IDirectionalMultiPointShape;
 import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.shape.OrthogonalPolyLine;
@@ -40,9 +40,10 @@ import com.ait.lienzo.client.core.types.PathPartList;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.util.Geometry;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public class WiresShapeControlUtils {
+
 
     public static void moveShapeUpToParent(final WiresShape shape,
                                            final WiresContainer parent) {
@@ -56,12 +57,12 @@ public class WiresShapeControlUtils {
                                             final Collection<WiresShape> processed) {
         processed.add(shape);
         final NFastArrayList<WiresConnector> connectors = getConnectors(shape);
-        for (WiresConnector connector : connectors) {
+        for (WiresConnector connector : connectors.asList()) {
             connector.getGroup().moveToTop();
         }
             final NFastArrayList<WiresShape> childShapes = shape.getChildShapes();
             if (null != childShapes) {
-                for (WiresShape childShape : childShapes) {
+                for (WiresShape childShape : childShapes.asList()) {
                     if (!processed.contains(childShape)) {
                         moveConnectorsToTop(childShape, processed);
                     }
@@ -77,7 +78,7 @@ public class WiresShapeControlUtils {
                 final WiresMagnet magnet = magnets.getMagnet(i);
                 if (null != magnet && null != magnet.getConnections()) {
                     final NFastArrayList<WiresConnection> connections = magnet.getConnections();
-                    for (WiresConnection connection : connections) {
+                    for (WiresConnection connection : connections.asList()) {
                         final WiresConnector connector = connection.getConnector();
                         if (null != connector) {
                             connectors.add(connector);
@@ -99,7 +100,7 @@ public class WiresShapeControlUtils {
         }
     }
     public static Point2D getViewportRelativeLocation(final Viewport viewport,
-                                                      final AbstractNodeMouseEvent mouseEvent) {
+                                                      final AbstractNodeHumanInputEvent mouseEvent) {
         return getViewportRelativeLocation(viewport,
                                            mouseEvent.getX(),
                                            mouseEvent.getY());
@@ -117,7 +118,7 @@ public class WiresShapeControlUtils {
         if (shape.getMagnets() == null) {
             return null;
         }
-        Map<String, WiresConnector> connectors = new HashMap<String, WiresConnector>();
+        Map<String, WiresConnector> connectors = new HashMap<>();
         collectionSpecialConnectors(shape,
                                     connectors);
         return connectors.values().toArray(new WiresConnector[connectors.size()]);
@@ -139,7 +140,7 @@ public class WiresShapeControlUtils {
             }
         }
 
-        for (WiresShape child : shape.getChildShapes()) {
+        for (WiresShape child : shape.getChildShapes().asList()) {
             collectionSpecialConnectors(child,
                                         connectors);
         }
@@ -165,6 +166,8 @@ public class WiresShapeControlUtils {
             for (int i = 0, size0 = shape.getMagnets().size(); i < size0; i++) {
                 WiresMagnet m = shape.getMagnets().getMagnet(i);
                 for (int j = 0, size1 = m.getConnectionsSize(); j < size1; j++) {
+
+
                     final WiresConnection connection = m.getConnections().get(j);
                     final WiresConnector connector = connection.getConnector();
                     if (isConnected(connector)) {
@@ -180,7 +183,7 @@ public class WiresShapeControlUtils {
         }
 
         if (shape.getChildShapes() != null) {
-            for (WiresShape child : shape.getChildShapes()) {
+            for (WiresShape child : shape.getChildShapes().asList()) {
                 //recursive call to children
                 connectors.putAll(lookupChildrenConnectorsToUpdate(child));
             }
@@ -218,7 +221,7 @@ public class WiresShapeControlUtils {
         }
 
         boolean accept = true;
-        for (WiresConnector c : wiresManager.getConnectorList()) {
+        for (WiresConnector c : wiresManager.getConnectorList().asList()) {
             Point2DArray linePoints = ((OrthogonalPolyLine) c.getLine()).getComputedPoint2DArray();
             MultiPath path = shape.getPath();
             Point2DArray intersectPoints = null;
@@ -241,9 +244,9 @@ public class WiresShapeControlUtils {
                 if (intersectPoints.size() == 1) {
                     // one arrow end is enclosed in the shape, we can only splice/connect if that connection is not already connected.
                     BoundingBox bbox = shape.getContainer().getComputedBoundingPoints().getBoundingBox();
-                    if (bbox.contains(headCon.getPoint()) && headCon.getMagnet() != null) {
+                    if (bbox.containsPoint(headCon.getPoint()) && headCon.getMagnet() != null) {
                         return accept;
-                    } else if (bbox.contains(tailCon.getPoint()) && headCon.getMagnet() != null) {
+                    } else if (bbox.containsPoint(tailCon.getPoint()) && headCon.getMagnet() != null) {
                         return accept;
                     } else {
                         throw new RuntimeException("Defensive programming: should not be possible if there is a single intersection.");
@@ -255,7 +258,7 @@ public class WiresShapeControlUtils {
                 Point2DArray oldPoints = c.getLine().getPoint2DArray();
                 int firstSegmentIndex = Integer.MAX_VALUE;
                 int lastSegmentIndex = 0;
-                for (Point2D p : intersectPoints) {
+                for (Point2D p : intersectPoints.asArray()) {
                     double x = p.getX() + absLoc.getX();
                     double y = p.getY() + absLoc.getY();
 
@@ -403,7 +406,9 @@ public class WiresShapeControlUtils {
                                                  MultiPath path,
                                                  Point2DArray intersectPoints,
                                                  Point2D absLoc) {
-        for (PathPartList pathPartList : path.getActualPathPartListArray()) {
+        NFastArrayList<PathPartList> array =  path.getActualPathPartListArray();
+        for (int i = 0, size = array.size(); i < size; i++ ) {
+            PathPartList pathPartList = array.get(i);
             intersectPoints = getPoint2Ds(linePoints,
                                           intersectPoints,
                                           absLoc,
@@ -418,7 +423,8 @@ public class WiresShapeControlUtils {
                                             PathPartList pathPartList) {
         Point2DArray offsetLinePoints = new Point2DArray();
 
-        for (Point2D p : linePoints) {
+        for (int i = 0, size = linePoints.size(); i < size; i++ ) {
+            Point2D p = linePoints.get(i);
             offsetLinePoints.push(p.copy().offset(-absLoc.getX(),
                                                   -absLoc.getY()));
         }
@@ -430,7 +436,9 @@ public class WiresShapeControlUtils {
             if (intersectPoints == null) {
                 intersectPoints = new Point2DArray();
             }
-            for (Point2D p : pathPartIntersectPoints) {
+
+            for (int i = 0, size = pathPartIntersectPoints.size(); i < size; i++ ) {
+                Point2D p = pathPartIntersectPoints.get(i);
                 intersectPoints.push(p);
             }
         }

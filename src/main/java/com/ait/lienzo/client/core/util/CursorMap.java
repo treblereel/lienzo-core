@@ -26,7 +26,7 @@ public final class CursorMap
 {
     private static final CursorMap        INSTANCE  = new CursorMap();
 
-    private final HashMap<String, Cursor> m_cursors = new HashMap<String, Cursor>();
+    private final HashMap<String, Cursor> m_cursors = new HashMap<>();
 
     public static final CursorMap get()
     {

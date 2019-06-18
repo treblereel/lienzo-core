@@ -17,12 +17,14 @@
 package com.ait.lienzo.client.core.shape.toolbox.items.impl;
 
 import java.util.Iterator;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-import com.ait.lienzo.client.core.event.AbstractNodeMouseEvent;
-import com.ait.lienzo.client.core.event.NodeMouseEnterEvent;
-import com.ait.lienzo.client.core.event.NodeMouseEnterHandler;
+import com.ait.lienzo.client.core.event.NodeMouseClickEvent;
 import com.ait.lienzo.client.core.event.NodeMouseExitEvent;
 import com.ait.lienzo.client.core.event.NodeMouseExitHandler;
+import com.ait.lienzo.client.core.event.NodeMouseMoveEvent;
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.shape.Shape;
@@ -36,11 +38,7 @@ import com.ait.lienzo.client.core.shape.toolbox.items.DecoratorItem;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.Direction;
-import com.ait.tooling.common.api.java.util.function.BiConsumer;
-import com.ait.tooling.common.api.java.util.function.Consumer;
-import com.ait.tooling.common.api.java.util.function.Supplier;
-import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
-import com.google.gwt.event.shared.HandlerRegistration;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.google.gwt.user.client.Timer;
 
 /**
@@ -55,11 +53,7 @@ public class ButtonGridItemImpl
 
     static final int TIMER_DELAY_MILLIS = 500;
 
-    private static final Runnable NO_OP = new Runnable() {
-        @Override
-        public void run() {
-        }
-    };
+    private static final Runnable NO_OP = () -> {};
 
     private final HandlerRegistration[] decoratorHandlers = new HandlerRegistration[2];
     private final ButtonItemImpl button;
@@ -132,20 +126,13 @@ public class ButtonGridItemImpl
             decoratorHandlers[0] = instance
                     .asPrimitive()
                     .setListening(true)
-                    .addNodeMouseEnterHandler(new NodeMouseEnterHandler() {
-                        @Override
-                        public void onNodeMouseEnter(NodeMouseEnterEvent event) {
-                            itemFocusCallback.run();
-                        }
-                    });
+                    .addNodeMouseEnterHandler(event -> itemFocusCallback.run());
             decoratorHandlers[1] = instance.asPrimitive().addNodeMouseExitHandler(new NodeMouseExitHandler() {
                 @Override
                 public void onNodeMouseExit(NodeMouseExitEvent event) {
                     itemUnFocusCallback.run();
                 }
             });
-            registrations().register(decoratorHandlers[0]);
-            registrations().register(decoratorHandlers[1]);
         }
         return this;
     }
@@ -227,13 +214,13 @@ public class ButtonGridItemImpl
     }
 
     @Override
-    public ButtonGridItem onClick(final Consumer<AbstractNodeMouseEvent> onEvent) {
+    public ButtonGridItem onClick(final Consumer<NodeMouseClickEvent> onEvent) {
         button.onClick(onEvent);
         return this;
     }
 
     @Override
-    public ButtonGridItem onMoveStart(final Consumer<AbstractNodeMouseEvent> onEvent) {
+    public ButtonGridItem onMoveStart(final Consumer<NodeMouseMoveEvent> onEvent) {
         button.onMoveStart(onEvent);
         return this;
     }
@@ -282,35 +269,14 @@ public class ButtonGridItemImpl
         positionArrow();
     }
 
-    private void registerItemFocusHandler(final AbstractDecoratedItem item,
-                                          final Runnable callback) {
-        registrations()
-                .register(
-                        item.getPrimitive().addNodeMouseEnterHandler(new NodeMouseEnterHandler() {
-                            @Override
-                            public void onNodeMouseEnter(NodeMouseEnterEvent event) {
-                                callback.run();
-                            }
-                        })
-                );
+    private HandlerRegistration registerItemFocusHandler(final AbstractDecoratedItem item,
+                                                         final Runnable callback) {
+        return item.getPrimitive().addNodeMouseEnterHandler(event -> callback.run());
     }
 
-    private void registerItemUnFocusHandler(final AbstractDecoratedItem item,
-                                            final Runnable callback) {
-        registrations()
-                .register(
-                        item.getPrimitive().addNodeMouseExitHandler(new NodeMouseExitHandler() {
-                            @Override
-                            public void onNodeMouseExit(NodeMouseExitEvent event) {
-                                callback.run();
-                            }
-                        })
-                );
-    }
-
-    private HandlerRegistrationManager registrations() {
-        return button.getWrapped()
-                .registrations();
+    private HandlerRegistration registerItemUnFocusHandler(final AbstractDecoratedItem item,
+                                                           final Runnable callback) {
+        return item.getPrimitive().addNodeMouseExitHandler(event -> callback.run());
     }
 
     ButtonGridItemImpl focus() {
@@ -376,9 +342,11 @@ public class ButtonGridItemImpl
     private void removeDecoratorHandlers() {
         if (null != decoratorHandlers[0]) {
             decoratorHandlers[0].removeHandler();
+            decoratorHandlers[0] = null;
         }
         if (null != decoratorHandlers[1]) {
             decoratorHandlers[1].removeHandler();
+            decoratorHandlers[1] = null;
         }
     }
 

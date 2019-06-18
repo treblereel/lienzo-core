@@ -16,19 +16,16 @@
 
 package com.ait.lienzo.client.core.shape;
 
+import java.util.List;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.PathPartList;
-import com.ait.lienzo.client.core.types.PathPartList.PathPartListJSO;
+import com.ait.lienzo.client.core.types.PathPartListJSO;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONValue;
-
-import java.util.List;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
 {
@@ -60,38 +57,46 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
         }
     }
 
-    protected MultiPath(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected MultiPath(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(ShapeType.MULTI_PATH, node, ctx);
 
-        JSONValue pval = node.get("path-list");
+        // @FIXME serialization
+//        JSONValue pval = node.get("path-list");
+//
+//        if (null != pval)
+//        {
+//            final JSONArray list = pval.isArray();
+//
+//            if (null != list)
+//            {
+//                final int size = list.size();
+//
+//                for (int i = 0; i < size; i++)
+//                {
+//                    final JSONValue lval = list.get(i);
+//
+//                    if (null != lval)
+//                    {
+//                        final JSONArray path = lval.isArray();
+//
+//                        if (null != path)
+//                        {
+////@FIXME fix this later (mdp)
+////                            PathPartListJSO pjso = path.getJavaScriptObject().cast();
+////
+////                            addBoundingBox(new PathPartList(pjso, true));
+//                        }
+//                    }
+//                }
+//            }
+//        }
+    }
 
-        if (null != pval)
-        {
-            final JSONArray list = pval.isArray();
-
-            if (null != list)
-            {
-                final int size = list.size();
-
-                for (int i = 0; i < size; i++)
-                {
-                    final JSONValue lval = list.get(i);
-
-                    if (null != lval)
-                    {
-                        final JSONArray path = lval.isArray();
-
-                        if (null != path)
-                        {
-                            PathPartListJSO pjso = path.getJavaScriptObject().cast();
-
-                            add(new PathPartList(pjso, true));
-                        }
-                    }
-                }
-            }
-        }
+    // TODO: lienzo-to-native
+    @Override
+    public MultiPath copy() {
+        return (MultiPath) copyTo(new MultiPath());
     }
 
     public MultiPath M(final double x, final double y)
@@ -213,25 +218,27 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
         return this;
     }
 
-    @Override
-    public JSONObject toJSONObject()
-    {
-        final JSONObject object = super.toJSONObject();
-
-        final NFastArrayList<PathPartList> list = getPathPartListArray();
-
-        final JSONArray path = new JSONArray();
-
-        final int size = list.size();
-
-        for (int i = 0; i < size; i++)
-        {
-            path.set(i, list.get(i).toJSONArray());
-        }
-        object.put("path-list", path);
-
-        return object;
-    }
+    // @FIXME serialization (mdp)
+//    @Override
+//    public JSONObject toJSONObject()
+//    {
+//        final JSONObject object = super.toJSONObject();
+//
+//        final NFastArrayList<PathPartList> list = getPathPartListArray();
+//
+//        final JSONArray path = new JSONArray();
+//
+//        final int size = list.size();
+//
+////@FIXME fix later (mdp)
+////        for (int i = 0; i < size; i++)
+////        {
+////            path.set(i, list.get(i).toJSONArray());
+////        }
+//        object.put("path-list", path);
+//
+//        return object;
+//    }
 
     private final PathPartList getOrIncrementList()
     {
@@ -276,7 +283,7 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
         }
 
         @Override
-        public MultiPath create(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public MultiPath create(final Object node, final ValidationContext ctx) throws ValidationException
         {
             return new MultiPath(node, ctx);
         }

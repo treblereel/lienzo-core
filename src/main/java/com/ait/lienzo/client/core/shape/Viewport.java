@@ -22,6 +22,7 @@ import java.util.List;
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.config.LienzoCore;
+import com.ait.lienzo.client.core.event.EventReceiver;
 import com.ait.lienzo.client.core.event.OnEventHandlers;
 import com.ait.lienzo.client.core.event.OrientationChangeEvent;
 import com.ait.lienzo.client.core.event.OrientationChangeHandler;
@@ -31,9 +32,7 @@ import com.ait.lienzo.client.core.event.ResizeEndEvent;
 import com.ait.lienzo.client.core.event.ResizeEndHandler;
 import com.ait.lienzo.client.core.event.ResizeStartEvent;
 import com.ait.lienzo.client.core.event.ResizeStartHandler;
-import com.ait.lienzo.client.core.event.OnMouseEventHandler;
 import com.ait.lienzo.client.core.event.ViewportTransformChangedEvent;
-import com.ait.lienzo.client.core.event.ViewportTransformChangedHandler;
 import com.ait.lienzo.client.core.mediator.IMediator;
 import com.ait.lienzo.client.core.mediator.Mediators;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
@@ -43,54 +42,52 @@ import com.ait.lienzo.client.core.shape.storage.ViewportFastArrayStorageEngine;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.core.util.ScratchPad;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.NodeType;
-import com.ait.tooling.common.api.java.util.function.Predicate;
-import com.ait.tooling.nativetools.client.collection.MetaData;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.google.gwt.dom.client.CanvasElement;
-import com.google.gwt.dom.client.DivElement;
-import com.google.gwt.dom.client.Document;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
+import com.ait.lienzo.tools.client.event.INodeEvent;
+import java.util.function.Predicate;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
-import com.google.gwt.event.shared.GwtEvent;
-import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.user.client.ui.Widget;
+import elemental2.dom.CSSProperties;
+import elemental2.dom.DomGlobal;
+import elemental2.dom.HTMLCanvasElement;
+import elemental2.dom.HTMLDivElement;
 
 /**
  * Serves as a container for {@link Scene}
- * 
+ *
  * <ul>
- * <li>A {@link Viewport} contains three {@link Scene} (Main, Drag and Back Scene)</li>
+ * <li>A {@link Viewport} containsBoundingBox three {@link Scene} (Main, Drag and Back Scene)</li>
  * <li>The main {@link Scene} can contain multiple {@link Layer}.</li>
- * </ul> 
+ * </ul>
  */
-public class Viewport extends ContainerNode<Scene, Viewport>
+public class Viewport extends ContainerNode<Scene, Viewport> implements EventReceiver
 {
-    private int                    m_wide    = 0;
+    private       int            m_wide    = 0;
 
-    private int                    m_high    = 0;
+    private       int            m_high    = 0;
 
-    private Widget                 m_owns    = null;
+    private final HTMLDivElement m_element = (HTMLDivElement) DomGlobal.document.createElement("div");;
 
-    private final DivElement       m_element = Document.get().createDivElement();
+    private       Scene          m_drag    = new Scene();
 
-    private Scene                  m_drag    = new Scene();
+    private       Scene          m_main    = null;
 
-    private Scene                  m_main    = null;
+    private       Scene          m_back    = new Scene();
 
-    private Scene                  m_back    = new Scene();
+    private       ScratchPad     m_spad    = new ScratchPad(0, 0);
 
-    private ScratchPad             m_spad    = new ScratchPad(0, 0);
+    private       Mediators      m_mediators;
 
-    private Mediators              m_mediators;
+    private static long idCounter;
 
     private final OnEventHandlers m_onEventHandlers = new OnEventHandlers();
 
+    private ViewportTransformChangedEvent viewportTransformChangedEvent;
 
     public Viewport()
     {
@@ -110,7 +107,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Constructor. Creates an instance of a viewport.
-     * 
+     *
      * @param wide
      * @param high
      */
@@ -125,10 +122,12 @@ public class Viewport extends ContainerNode<Scene, Viewport>
         setSceneAndState(new Scene());
     }
 
-    protected Viewport(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected Viewport(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(NodeType.VIEWPORT, node, ctx);
     }
+
+
 
     @Override
     public final IStorageEngine<Scene> getDefaultStorageEngine()
@@ -136,9 +135,26 @@ public class Viewport extends ContainerNode<Scene, Viewport>
         return new ViewportFastArrayStorageEngine();
     }
 
-    public Transform getTransform()
+    /**
+     * Sets the Transform for this Viewport and fires a ZoomEvent
+     * to any ZoomHandlers registered with this Viewport.
+     *
+     *
+     * @param transform Transform
+     * @return this Viewport
+     */
+
+    @Override
+    public final Viewport setTransform(final Transform transform)
     {
-        return getAttributes().getTransform();
+        super.setTransform(transform);
+        if(viewportTransformChangedEvent != null) {
+            viewportTransformChangedEvent.revive();
+            viewportTransformChangedEvent.override(this);
+            super.fireEvent(viewportTransformChangedEvent);
+            viewportTransformChangedEvent.kill();
+        }
+        return this;
     }
 
     @Override
@@ -163,6 +179,8 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
         m_mediators = new Mediators(this);
 
+        viewportTransformChangedEvent = new ViewportTransformChangedEvent(getElement());
+
         final Transform transform = getTransform();
 
         if (null == transform)
@@ -171,17 +189,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
             setTransform(new Transform());
         }
-    }
-
-    public final boolean adopt(final Widget owns)
-    {
-        if (null == m_owns)
-        {
-            m_owns = owns;
-
-            return true;
-        }
-        return false;
+        m_element.id = "viewPort_div" + idCounter++;
     }
 
     @Override
@@ -192,7 +200,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Returns the viewport width in pixels.
-     * 
+     *
      * @return int
      */
     public final int getWidth()
@@ -202,7 +210,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Returns the viewport height in pixels.
-     * 
+     *
      * @return int
      */
     public final int getHeight()
@@ -211,18 +219,18 @@ public class Viewport extends ContainerNode<Scene, Viewport>
     }
 
     /**
-     * Returns the {@link DivElement}
-     * 
-     * @return {@link DivElement}
+     * Returns the {@link HTMLDivElement}
+     *
+     * @return {@link HTMLDivElement}
      */
-    public final DivElement getElement()
+    public final HTMLDivElement getElement()
     {
         return m_element;
     }
 
     /**
      * Sets size of the {@link Viewport} in pixels
-     * 
+     *
      * @param wide
      * @param high
      * @return Viewpor this viewport
@@ -233,9 +241,9 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
         m_high = high;
 
-        getElement().getStyle().setWidth(wide, Unit.PX);
+        getElement().style.width = CSSProperties.WidthUnionType.of(wide + Unit.PX.getType());
 
-        getElement().getStyle().setHeight(high, Unit.PX);
+        getElement().style.height= CSSProperties.HeightUnionType.of(high + Unit.PX.getType());
 
         final NFastArrayList<Scene> scenes = getChildNodes();
 
@@ -265,7 +273,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Adds a {@link Scene} to this viewport.
-     * 
+     *
      * @param scene
      */
     @Override
@@ -273,7 +281,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
     {
         if ((null != scene) && (LienzoCore.IS_CANVAS_SUPPORTED))
         {
-            if (false == scene.adopt(this))
+            if (!scene.adopt(this))
             {
                 throw new IllegalArgumentException("Scene is already adopted.");
             }
@@ -281,19 +289,24 @@ public class Viewport extends ContainerNode<Scene, Viewport>
             {
                 throw new IllegalArgumentException("Too many Scene objects is Viewport.");
             }
-            DivElement element = scene.getElement();
+            HTMLDivElement element = scene.getElement();
 
-            scene.setPixelSize(m_wide, m_high);
+            setScenePixelSize(scene, m_wide, m_high);
 
-            element.getStyle().setPosition(Position.ABSOLUTE);
+            element.style.position = Position.ABSOLUTE.getCssName();
 
-            element.getStyle().setDisplay(Display.INLINE_BLOCK);
+            element.style.display = Display.INLINE_BLOCK.getCssName();
 
             getElement().appendChild(element);
 
             super.add(scene);
         }
         return this;
+    }
+
+    public Scene setScenePixelSize(Scene scene, int h, int w) {
+        scene.setPixelSize(h, w);
+        return scene;
     }
 
     @Override
@@ -380,7 +393,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Returns the main Scene for the {@link Viewport}
-     * 
+     *
      * @return {@link Scene}
      */
     @Override
@@ -391,7 +404,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Sets the background layer
-     * 
+     *
      * @param layer
      * @return this Viewport
      */
@@ -406,8 +419,8 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Returns the Drag Layer.
-     * 
-     * @return {@link Layer} 
+     *
+     * @return {@link Layer}
      */
     public final Layer getDragLayer()
     {
@@ -454,7 +467,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -465,7 +478,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -476,7 +489,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -487,7 +500,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -499,7 +512,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
     /**
      * Change the viewport's transform so that the specified area (in global or canvas coordinates)
      * is visible.
-     * 
+     *
      * @param x
      * @param y
      * @param width
@@ -539,7 +552,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
     /**
      * Change the viewport's transform so that the specified area (in local or world coordinates)
      * is visible.
-     * 
+     *
      * @param x
      * @param y
      * @param width
@@ -555,57 +568,42 @@ public class Viewport extends ContainerNode<Scene, Viewport>
         }
     }
 
-    /**
-     * Sets the Transform for this Viewport and fires a ZoomEvent
-     * to any ZoomHandlers registered with this Viewport.
-     * 
-     * 
-     * @param transform Transform
-     * @return this Viewport
-     */
 
-    public final Viewport setTransform(final Transform transform)
-    {
-        getAttributes().setTransform(transform);
-
-        super.fireEvent(new ViewportTransformChangedEvent(this));
-
-        return this;
-    }
-
-    /**
-     * Returns a {@link JSONObject} representation of the {@link Viewport} with its {@link Attributes} as well as its children.
-     * 
-     * @return {@link JSONObject}
-     */
-    @Override
-    public final JSONObject toJSONObject()
-    {
-        final JSONObject object = new JSONObject();
-
-        object.put("type", new JSONString(getNodeType().getValue()));
-
-        if (hasMetaData())
-        {
-            final MetaData meta = getMetaData();
-
-            if (false == meta.isEmpty())
-            {
-                object.put("meta", new JSONObject(meta.getJSO()));
-            }
-        }
-        object.put("attributes", new JSONObject(getAttributes().getJSO()));
-
-        final JSONArray children = new JSONArray();
-
-        children.set(0, getScene().toJSONObject());
-
-        object.put("children", children);
-
-        object.put("storage", getStorageEngine().toJSONObject());
-
-        return object;
-    }
+    // @FIXME seialisation (mdp)
+//    /**
+//     * Returns a {@link JSONObject} representation of the {@link Viewport} with its {@link Attributes} as well as its children.
+//     *
+//     * @return {@link JSONObject}
+//     */
+//    @Override
+//    public final JSONObject toJSONObject()
+//    {
+//        final JSONObject object = new JSONObject();
+//
+//        object.put("type", new JSONString(getNodeType().getValue()));
+//
+//        if (hasMetaData())
+//        {
+//            final MetaData meta = getMetaData();
+//
+//            if (false == meta.isEmpty())
+//            {
+//                // @FIXME (mdp)
+//                //object.putString("meta", new JSONObject(meta.getJSO()));
+//            }
+//        }
+//        //object.put("attributes", new JSONObject(getAttributes().getJSO()));
+//
+//        final JSONArray children = new JSONArray();
+//
+//        children.set(0, getScene().toJSONObject());
+//
+//        object.put("children", children);
+//
+//        object.put("storage", getStorageEngine().toJSONObject());
+//
+//        return object;
+//    }
 
     private final Layer getBackgroundLayer()
     {
@@ -630,7 +628,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
     /**
      * Fires the given GWT event.
      */
-    public final void fireEvent(final GwtEvent<?> event)
+    public final  <H extends EventHandler, S> void fireEvent(final INodeEvent<H, S> event)
     {
         getScene().fireEvent(event);
     }
@@ -681,8 +679,8 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
     /**
      * Returns the {@link Mediators} for this viewport.
-     * Mediators can be used to e.g. to add zoom operations.
-     * 
+     * Mediators can be used to e.g. to addBoundingBox zoom operations.
+     *
      * @return Mediators
      */
     public final Mediators getMediators()
@@ -693,9 +691,9 @@ public class Viewport extends ContainerNode<Scene, Viewport>
     /**
      * Add a mediator to the stack of {@link Mediators} for this viewport.
      * The one that is added last, will be called first.
-     * 
-     * Mediators can be used to e.g. to add zoom operations.
-     * 
+     *
+     * Mediators can be used to e.g. to addBoundingBox zoom operations.
+     *
      * @param mediator IMediator
      */
     public final void pushMediator(final IMediator mediator)
@@ -703,17 +701,17 @@ public class Viewport extends ContainerNode<Scene, Viewport>
         m_mediators.push(mediator);
     }
 
-    /**
-     * Adds a ViewportTransformChangedHandler that will be notified whenever the Viewport's 
-     * transform changes (probably due to a zoom or pan operation.)
-     * 
-     * @param handler ViewportTransformChangedHandler
-     * @return HandlerRegistration
-     */
-    public HandlerRegistration addViewportTransformChangedHandler(final ViewportTransformChangedHandler handler)
-    {
-        return addEnsureHandler(ViewportTransformChangedEvent.getType(), handler);
-    }
+//    /**
+//     * Adds a ViewportTransformChangedHandler that will be notified whenever the Viewport's
+//     * transform changes (probably due to a zoom or pan operation.)
+//     *
+//     * @param handler ViewportTransformChangedHandler
+//     * @return HandlerRegistration
+//     */
+//    public HandlerRegistration addViewportTransformChangedHandler(final ViewportTransformChangedHandler handler)
+//    {
+//        return addEnsureHandler(ViewportTransformChangedEvent.getType(), handler);
+//    }
 
     public static class ViewportFactory extends ContainerNodeFactory<Viewport>
     {
@@ -728,7 +726,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
         }
 
         @Override
-        public final Viewport container(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public final Viewport container(final Object node, final ValidationContext ctx) throws ValidationException
         {
             return new Viewport(node, ctx);
         }
@@ -780,9 +778,9 @@ public class Viewport extends ContainerNode<Scene, Viewport>
         }
 
         @Override
-        public CanvasElement getCanvasElement()
+        public HTMLCanvasElement getCanvasElement()
         {
-            final CanvasElement element = super.getCanvasElement();
+            final HTMLCanvasElement element = super.getCanvasElement();
 
             if (null != element)
             {
@@ -802,7 +800,7 @@ public class Viewport extends ContainerNode<Scene, Viewport>
 
         private static class DragContext2D extends Context2D
         {
-            public DragContext2D(CanvasElement element)
+            public DragContext2D(HTMLCanvasElement element)
             {
                 super(element);
             }

@@ -16,6 +16,8 @@
 
 package com.ait.lienzo.client.core.shape.toolbox.items.tooltip;
 
+import java.util.function.Consumer;
+
 import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationProperty;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
@@ -27,7 +29,6 @@ import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.Direction;
-import com.ait.tooling.common.api.java.util.function.Consumer;
 
 public class Tooltip {
 
@@ -205,7 +206,7 @@ public class Tooltip {
         // Direction.
         final double tpw = (bw - tw - (padding * 2)) > 0 ? padding : 0;
         final double tph = (bh - th - (padding * 2)) > 0 ? padding : 0;
-        final Point2D textLoc = new Point2D();
+        final Point2D textLoc = new Point2D(0, 0);
         switch (direction) {
             case WEST:
                 path.setRotationDegrees(180);
