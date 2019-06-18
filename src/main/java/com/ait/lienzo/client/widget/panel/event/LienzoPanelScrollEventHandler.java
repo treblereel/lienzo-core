@@ -16,9 +16,10 @@
 
 package com.ait.lienzo.client.widget.panel.event;
 
-import com.google.gwt.event.shared.EventHandler;
+//import com.google.gwt.event.shared.EventHandler;
 
-public interface LienzoPanelScrollEventHandler extends EventHandler
+public interface LienzoPanelScrollEventHandler
+//        extends EventHandler
 {
-    public void onScroll(LienzoPanelScrollEvent event);
+//    public void onScroll(LienzoPanelScrollEvent event);
 }

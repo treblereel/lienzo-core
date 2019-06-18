@@ -24,8 +24,8 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.panel.Bounds;
 import com.ait.lienzo.client.widget.panel.BoundsProvider;
-import com.ait.tooling.common.api.java.util.function.Function;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.common.api.java.util.function.Function;
 
 public class BoundsProviderFactory
 {
@@ -38,7 +38,7 @@ public class BoundsProviderFactory
             NFastArrayList<IPrimitive<?>> shapes = layer.getChildNodes();
             if (null != shapes)
             {
-                for (IPrimitive<?> shape : shapes)
+                for (IPrimitive<?> shape : shapes.asList())
                 {
                     BoundingBox boundingBox = shape.getBoundingBox();
                     result.add(boundingBox);
@@ -63,14 +63,14 @@ public class BoundsProviderFactory
             final NFastArrayList<WiresShape>  childShapes = wiresLayer.getChildShapes();
             if (null != childShapes)
             {
-                for (WiresShape shape : childShapes)
+                for (WiresShape shape : childShapes.asList())
                 {
                     final Point2D     location    = shape.getLocation();
                     final BoundingBox boundingBox = shape.getGroup().getBoundingBox();
-                    result.add(new BoundingBox(location.getX(),
-                                               location.getY(),
-                                               location.getX() + boundingBox.getWidth(),
-                                               location.getY() + boundingBox.getHeight()));
+                    result.add(BoundingBox.fromDoubles(location.getX(),
+                                                       location.getY(),
+                                                       location.getX() + boundingBox.getWidth(),
+                                                       location.getY() + boundingBox.getHeight()));
                 }
             }
             return result;
@@ -80,11 +80,11 @@ public class BoundsProviderFactory
     public static abstract class FunctionalBoundsProvider<T extends FunctionalBoundsProvider>
             implements BoundsProvider
     {
-        public static final double PADDING = 25d;
+        public static final double                        PADDING = 25d;
 
-        private Function<BoundingBox, Bounds> boundsBuilder;
+        private             Function<BoundingBox, Bounds> boundsBuilder;
 
-        private double                        padding;
+        private             double                        padding;
 
         protected FunctionalBoundsProvider()
         {
@@ -133,9 +133,9 @@ public class BoundsProviderFactory
             {
                 final BoundingBox result = new BoundingBox();
                 result.add(0, 0);
-                for (BoundingBox box : boxes)
+                for (BoundingBox box : boxes.asList())
                 {
-                    result.add(box);
+                    result.addBoundingBox(box);
                 }
                 if (result.getMinX() < 0)
                 {
@@ -173,15 +173,15 @@ public class BoundsProviderFactory
         {
             return Bounds.empty();
         }
-        BoundingBox boundsBB = new BoundingBox(b1.getX(),
-                                               b1.getY(),
-                                               b1.getX() + b1.getWidth(),
-                                               b1.getY() + b1.getHeight());
-        BoundingBox visibleBB = new BoundingBox(b2.getX(),
-                                                b2.getY(),
-                                                b2.getX() + b2.getWidth(),
-                                                b2.getY() + b2.getHeight());
-        BoundingBox result = boundsBB.add(visibleBB);
+        BoundingBox boundsBB = BoundingBox.fromDoubles(b1.getX(),
+                                                       b1.getY(),
+                                                       b1.getX() + b1.getWidth(),
+                                                       b1.getY() + b1.getHeight());
+        BoundingBox visibleBB = BoundingBox.fromDoubles(b2.getX(),
+                                                        b2.getY(),
+                                                        b2.getX() + b2.getWidth(),
+                                                        b2.getY() + b2.getHeight());
+        BoundingBox result = boundsBB.addBoundingBox(visibleBB);
         return Bounds.build(result.getX(),
                             result.getY(),
                             result.getWidth(),

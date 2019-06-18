@@ -19,10 +19,13 @@ package com.ait.lienzo.client.core.image.filter;
 import com.ait.lienzo.client.core.shape.Movie;
 import com.ait.lienzo.client.core.shape.Picture;
 import com.ait.lienzo.client.core.shape.json.IJSONSerializable;
-import com.ait.lienzo.client.core.types.ImageData;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
-import com.ait.tooling.nativetools.client.collection.NFastDoubleArrayJSO;
-import com.google.gwt.core.client.JavaScriptObject;
+import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
+
+import elemental2.core.JsArray;
+import elemental2.dom.ImageData;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 
 /**
  * Interface to be used to create {@link Picture} and {@link Movie} filters.
@@ -51,23 +54,23 @@ public interface ImageDataFilter<T extends ImageDataFilter<T>> extends IJSONSeri
 
     public ImageFilterType getType();
 
-    public static final class FilterTableArray extends JavaScriptObject
+    @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
+    public static final class FilterTableArray extends JsArray<Integer>
     {
-        protected FilterTableArray()
+        protected FilterTableArray(int... items)
         {
         }
     }
 
-    public static final class FilterTransformFunction extends JavaScriptObject
+    public static interface FilterTransformFunction
     {
-        protected FilterTransformFunction()
-        {
-        }
+        void transform(int x, int y, int[] out);
     }
 
-    public static final class FilterConvolveMatrix extends NFastDoubleArrayJSO
+    @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
+    public static final class FilterConvolveMatrix extends JsArray<Double>
     {
-        protected FilterConvolveMatrix()
+        public FilterConvolveMatrix()
         {
         }
     }

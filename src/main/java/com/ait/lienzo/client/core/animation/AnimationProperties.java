@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import com.ait.lienzo.client.core.types.BoundedListIterator;
 import com.ait.lienzo.client.core.types.IBoundedList;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public class AnimationProperties implements IBoundedList<AnimationProperty>
 {

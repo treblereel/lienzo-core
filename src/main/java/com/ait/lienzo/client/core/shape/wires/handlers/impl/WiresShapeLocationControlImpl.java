@@ -73,8 +73,7 @@ public class WiresShapeLocationControlImpl implements WiresShapeLocationControl 
             y = (int) m_mouseStartY;
         }
 
-        return new Point2D(x, y)
-                .offset(m_delta);
+        return new Point2D(x, y).offset(m_delta.getX(), m_delta.getY());
     }
 
     @Override
@@ -129,7 +128,7 @@ public class WiresShapeLocationControlImpl implements WiresShapeLocationControl 
     }
 
     public Point2D getShapeLocation() {
-        return getShapeInitialLocation().copy().offset(getCurrentDelta());
+        return getShapeInitialLocation().copy().offset(m_delta.getX(), m_delta.getY());
     }
 
     @Override

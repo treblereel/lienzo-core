@@ -20,7 +20,7 @@ import java.util.List;
 
 public enum AutoScaleType implements EnumWithValue
 {
-    NONE("scale-none"), MIN("scale-min"), MAX("scale-max"), WIDTH("scale-width"), HEIGHT("scale-height");
+    NONE("scaleWithXY-none"), MIN("scaleWithXY-min"), MAX("scaleWithXY-max"), WIDTH("scaleWithXY-width"), HEIGHT("scaleWithXY-height");
 
     private final String m_value;
 

@@ -81,10 +81,6 @@ public interface IPrimitive<T extends IPrimitive<T>> extends IDrawable<T>, ICont
      */
     public boolean isDraggable();
 
-    public boolean isEditable();
-
-    public T setEditable(boolean editable);
-
     /**
      * Sets whether this node can be dragged.
      * 
@@ -94,14 +90,14 @@ public interface IPrimitive<T extends IPrimitive<T>> extends IDrawable<T>, ICont
     public T setDraggable(boolean draggable);
 
     /**
-     * Gets this node's scale as a Point2D
+     * Gets this node's scaleWithXY as a Point2D
      * 
      * @return Point2D
      */
     public Point2D getScale();
 
     /**
-     * Sets the node's scale
+     * Sets the node's scaleWithXY
      * 
      * @param scale Point2D
      * @return this IPrimitive
@@ -109,7 +105,7 @@ public interface IPrimitive<T extends IPrimitive<T>> extends IDrawable<T>, ICont
     public T setScale(Point2D scale);
 
     /**
-     * Sets the node's scale, with the same value for x and y
+     * Sets the node's scaleWithXY, with the same value for x and y
      * 
      * @param xy
      * @return this IPrimitive
@@ -117,7 +113,7 @@ public interface IPrimitive<T extends IPrimitive<T>> extends IDrawable<T>, ICont
     public T setScale(double xy);
 
     /**
-     * Sets the node's scale, with the given x and y coordinates
+     * Sets the node's scaleWithXY, with the given x and y coordinates
      * 
      * @param x
      * @param y

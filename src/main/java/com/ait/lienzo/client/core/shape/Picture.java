@@ -19,6 +19,8 @@ package com.ait.lienzo.client.core.shape;
 import java.util.Collection;
 import java.util.List;
 
+import org.gwtproject.resources.client.ImageResource;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.config.LienzoCore;
@@ -37,13 +39,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.shared.core.types.ImageSelectionMode;
 import com.ait.lienzo.shared.core.types.ImageSerializationMode;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.ait.tooling.nativetools.client.collection.MetaData;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONBoolean;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
-import com.google.gwt.json.client.JSONValue;
-import com.google.gwt.resources.client.ImageResource;
+import com.ait.lienzo.tools.client.collection.MetaData;
+
+import jsinterop.annotations.JsProperty;
 
 /**
  * Image Support for Canvas
@@ -61,7 +59,25 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public class Picture extends AbstractImageShape<Picture> implements ImageDataFilterable<Picture>, IDestroyable
 {
-    protected Picture(JSONObject node, ValidationContext ctx) throws ValidationException
+    @JsProperty
+    private int clippedImageStartX;
+
+    @JsProperty
+    private int clippedImageStartY;
+
+    @JsProperty
+    private int clippedImageWidth;
+
+    @JsProperty
+    private int clippedImageHeight;
+
+    @JsProperty
+    private int clippedImageDestinationWidth;
+
+    @JsProperty
+    private int clippedImageDestinationHeight;
+
+    protected Picture(Object node, ValidationContext ctx) throws ValidationException
     {
         super(ShapeType.PICTURE, node, ctx);
     }
@@ -129,13 +145,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * 
      * @param url
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, true, LienzoCore.get().getDefaultImageSelectionMode());
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -179,13 +195,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * 
      * @param url
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, true, mode);
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -233,13 +249,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -287,13 +303,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, mode);
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -349,7 +365,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
@@ -363,7 +379,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageHeight(sh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -419,7 +435,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, mode);
 
@@ -433,7 +449,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageHeight(sh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -485,7 +501,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
@@ -503,7 +519,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -555,7 +571,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     * @param listening When set to false, the Picture can't be dragged or picked,
     *      but it will be drawn faster and use less memory.
     */
-    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, mode);
 
@@ -573,7 +589,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -625,7 +641,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(String url, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
@@ -635,7 +651,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -687,7 +703,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     * @param listening When set to false, the Picture can't be dragged or picked,
     *      but it will be drawn faster and use less memory.
     */
-    public Picture(String url, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(String url, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, url, listening, mode);
 
@@ -697,7 +713,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(url);
     }
@@ -765,13 +781,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     * 
     * @param resource ImageResource
     */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, true, LienzoCore.get().getDefaultImageSelectionMode());
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -815,13 +831,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * 
      * @param resource ImageResource
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, true, mode);
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -869,13 +885,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -923,13 +939,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     * @param listening When set to false, the Picture can't be dragged or picked,
     *      but it will be drawn faster and use less memory.
     */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, mode);
 
         onLoaded(loadedHandler);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -983,7 +999,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
@@ -997,7 +1013,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageHeight(sh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -1051,7 +1067,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, mode);
 
@@ -1065,7 +1081,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageHeight(sh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -1117,7 +1133,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
@@ -1135,7 +1151,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -1187,7 +1203,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int sx, int sy, int sw, int sh, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, mode);
 
@@ -1205,7 +1221,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -1255,7 +1271,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     * @param listening When set to false, the Picture can't be dragged or picked,
     *      but it will be drawn faster and use less memory.
     */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, LienzoCore.get().getDefaultImageSelectionMode());
 
@@ -1265,7 +1281,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
@@ -1315,7 +1331,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param listening When set to false, the Picture can't be dragged or picked,
      *      but it will be drawn faster and use less memory.
      */
-    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture(ImageResource resource, PictureLoadedHandler loadedHandler, int dw, int dh, boolean listening, ImageSelectionMode mode, ImageDataFilter<?>... filters)
     {
         super(ShapeType.PICTURE, resource, listening, mode);
 
@@ -1325,31 +1341,31 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
         setClippedImageDestinationHeight(dh);
 
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         getImageProxy().load(resource);
     }
 
     @Override
-    public Picture setFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture setFilters(ImageDataFilter<?>... filters)
     {
-        getImageProxy().setFilters(filter, filters);
+        getImageProxy().setFilters(filters);
 
         return this;
     }
 
     @Override
-    public Picture addFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture addFilters(ImageDataFilter<?>... filters)
     {
-        getImageProxy().addFilters(filter, filters);
+        getImageProxy().addFilters(filters);
 
         return this;
     }
 
     @Override
-    public Picture removeFilters(ImageDataFilter<?> filter, ImageDataFilter<?>... filters)
+    public Picture removeFilters(ImageDataFilter<?>... filters)
     {
-        getImageProxy().removeFilters(filter, filters);
+        getImageProxy().removeFilters(filters);
 
         return this;
     }
@@ -1406,76 +1422,79 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
         return this;
     }
 
-    /**
-     * Serializes this shape as a {@link JSONObject}
-     * 
-     * @return JSONObject
-     */
-    @Override
-    public JSONObject toJSONObject()
-    {
-        JSONObject attr = new JSONObject(getAttributes().getJSO());
-
-        if (getImageSerializationMode() == ImageSerializationMode.DATA_URL)
-        {
-            String url = getImageProxy().getImageElementURL();
-
-            if (null == url)
-            {
-                url = getAttributes().getURL();
-            }
-            if (url.startsWith("data:"))
-            {
-                attr.put("url", new JSONString(url));
-            }
-            else
-            {
-                attr.put("url", new JSONString(toDataURL(false)));
-            }
-        }
-        JSONObject object = new JSONObject();
-
-        object.put("type", new JSONString(getShapeType().getValue()));
-
-        if (hasMetaData())
-        {
-            final MetaData meta = getMetaData();
-
-            if (false == meta.isEmpty())
-            {
-                object.put("meta", new JSONObject(meta.getJSO()));
-            }
-        }
-        object.put("attributes", attr);
-
-        ImageDataFilterChain chain = getImageProxy().getFilterChain();
-
-        if ((null != chain) && (chain.size() > 0))
-        {
-            JSONArray filters = new JSONArray();
-
-            JSONObject filter = new JSONObject();
-
-            filter.put("active", JSONBoolean.getInstance(chain.isActive()));
-
-            for (ImageDataFilter<?> ifilter : chain.getFilters())
-            {
-                if (null != ifilter)
-                {
-                    JSONObject make = ifilter.toJSONObject();
-
-                    if (null != make)
-                    {
-                        filters.set(filters.size(), make);
-                    }
-                }
-            }
-            filter.put("filters", filters);
-
-            object.put("filter", filter);
-        }
-        return object;
-    }
+    // @FIXME serialization (mdp)
+//    /**
+//     * Serializes this shape as a {@link JSONObject}
+//     *
+//     * @return JSONObject
+//     */
+//    @Override
+//    public JSONObject toJSONObject()
+//    {
+//        //JSONObject attr = new JSONObject(getAttributes().getJSO());
+//        JSONObject attr = new JSONObject();
+//
+//        if (getImageSerializationMode() == ImageSerializationMode.DATA_URL)
+//        {
+//            String url = getImageProxy().getImageElementURL();
+//
+//            if (null == url)
+//            {
+//                url = getURL();
+//            }
+//            if (url.startsWith("data:"))
+//            {
+//                attr.put("url", new JSONString(url));
+//            }
+//            else
+//            {
+//                attr.put("url", new JSONString(toDataURL(false)));
+//            }
+//        }
+//        JSONObject object = new JSONObject();
+//
+//        object.put("type", new JSONString(getShapeType().getValue()));
+//
+//        if (hasMetaData())
+//        {
+//            final MetaData meta = getMetaData();
+//
+//            if (false == meta.isEmpty())
+//            {
+//                // @FIXME (mdp)
+//                // object.putString("meta", new JSONObject(meta.getJSO()));
+//            }
+//        }
+//        object.put("attributes", attr);
+//
+//        ImageDataFilterChain chain = getImageProxy().getFilterChain();
+//
+//        if ((null != chain) && (chain.size() > 0))
+//        {
+//            JSONArray filters = new JSONArray();
+//
+//            JSONObject filter = new JSONObject();
+//
+//            filter.put("active", JSONBoolean.getInstance(chain.isActive()));
+//
+//            for (ImageDataFilter<?> ifilter : chain.getFilters())
+//            {
+//                if (null != ifilter)
+//                {
+//                    JSONObject make = ifilter.toJSONObject();
+//
+//                    if (null != make)
+//                    {
+//                        filters.set(filters.size(), make);
+//                    }
+//                }
+//            }
+//            filter.put("filters", filters);
+//
+//            object.put("filter", filter);
+//        }
+//        return object;
+//    }
 
     /**
      * Draws the image on the canvas.
@@ -1483,7 +1502,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * @param context
      */
     @Override
-    protected boolean prepare(Context2D context, Attributes attr, double alpha)
+    protected boolean prepare(Context2D context, double alpha)
     {
         context.save();
 
@@ -1491,9 +1510,9 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
         {
             context.setGlobalAlpha(alpha);
 
-            if (attr.hasShadow())
+            if (getShadow() != null)
             {
-                doApplyShadow(context, attr);
+                doApplyShadow(context);
             }
         }
         getImageProxy().drawImage(context);
@@ -1511,7 +1530,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public int getClippedImageStartX()
     {
-        return getAttributes().getClippedImageStartX();
+        return this.clippedImageStartX;
     }
 
     /**
@@ -1523,7 +1542,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public Picture setClippedImageStartX(int sx)
     {
-        getAttributes().setClippedImageStartX(sx);
+        this.clippedImageStartX = sx;
 
         return this;
     }
@@ -1536,7 +1555,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public int getClippedImageStartY()
     {
-        return getAttributes().getClippedImageStartY();
+        return this.clippedImageStartY;
     }
 
     /**
@@ -1547,7 +1566,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public Picture setClippedImageStartY(int clippedImageStartY)
     {
-        getAttributes().setClippedImageStartY(clippedImageStartY);
+        this.clippedImageStartY = clippedImageStartY;
 
         return this;
     }
@@ -1561,7 +1580,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public int getClippedImageWidth()
     {
-        return getAttributes().getClippedImageWidth();
+        return this.clippedImageWidth;
     }
 
     /**
@@ -1574,7 +1593,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public Picture setClippedImageWidth(int clippedImageWidth)
     {
-        getAttributes().setClippedImageWidth(clippedImageWidth);
+        this.clippedImageWidth = clippedImageWidth;
 
         return this;
     }
@@ -1588,7 +1607,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public int getClippedImageHeight()
     {
-        return getAttributes().getClippedImageHeight();
+        return this.clippedImageHeight;
     }
 
     /**
@@ -1601,7 +1620,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public Picture setClippedImageHeight(int clippedImageHeight)
     {
-        getAttributes().setClippedImageHeight(clippedImageHeight);
+        this.clippedImageHeight = clippedImageHeight;
 
         return this;
     }
@@ -1614,7 +1633,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public int getClippedImageDestinationWidth()
     {
-        return getAttributes().getClippedImageDestinationWidth();
+        return this.clippedImageDestinationWidth;
     }
 
     /**
@@ -1626,7 +1645,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public Picture setClippedImageDestinationWidth(int clippedImageDestinationWidth)
     {
-        getAttributes().setClippedImageDestinationWidth(clippedImageDestinationWidth);
+        this.clippedImageDestinationWidth = clippedImageDestinationWidth;
 
         return this;
     }
@@ -1639,14 +1658,14 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * This can be used to reduce the memory footprint of the Image
      * used in the selection layer. 
      * <p>
-     * Note that further scaling can be achieved via the <code>scale</code>
+     * Note that further scaling can be achieved via the <code>scaleWithXY</code>
      * or <code>transform</code> attributes, which apply to all Shapes.
      * 
      * @return int
      */
     public int getClippedImageDestinationHeight()
     {
-        return getAttributes().getClippedImageDestinationHeight();
+        return this.clippedImageDestinationHeight;
     }
 
     /**
@@ -1657,7 +1676,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      * This can be used to reduce the memory footprint of the Image
      * used in the selection layer. 
      * <p>
-     * Note that further scaling can be achieved via the <code>scale</code>
+     * Note that further scaling can be achieved via the <code>scaleWithXY</code>
      * or <code>transform</code> attributes, which apply to all Shapes.
      * 
      * @param clippedImageDestinationHeight
@@ -1665,7 +1684,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
      */
     public Picture setClippedImageDestinationHeight(int clippedImageDestinationHeight)
     {
-        getAttributes().setClippedImageDestinationHeight(clippedImageDestinationHeight);
+        this.clippedImageDestinationHeight = clippedImageDestinationHeight;
 
         return this;
     }
@@ -1740,30 +1759,31 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
         }
 
         @Override
-        public Picture create(JSONObject node, ValidationContext ctx) throws ValidationException
+        public Picture create(Object node, ValidationContext ctx) throws ValidationException
         {
             Picture picture = new Picture(node, ctx);
 
-            JSONValue jval = node.get("filter");
-
-            if (null != jval)
-            {
-                JSONObject object = jval.isObject();
-
-                if (null != object)
-                {
-                    JSONDeserializer.get().deserializeFilters(picture, object, ctx);
-
-                    jval = object.get("active");
-
-                    JSONBoolean active = jval.isBoolean();
-
-                    if (null != active)
-                    {
-                        picture.setFiltersActive(active.booleanValue());
-                    }
-                }
-            }
+            // @FIXME serialization (mdp)
+//            JSONValue jval = node.get("filter");
+//
+//            if (null != jval)
+//            {
+//                JSONObject object = jval.isObject();
+//
+//                if (null != object)
+//                {
+//                    JSONDeserializer.get().deserializeFilters(picture, object, ctx);
+//
+//                    jval = object.get("active");
+//
+//                    JSONBoolean active = jval.isBoolean();
+//
+//                    if (null != active)
+//                    {
+//                        picture.setFiltersActive(active.booleanValue());
+//                    }
+//                }
+//            }
             return picture;
         }
 

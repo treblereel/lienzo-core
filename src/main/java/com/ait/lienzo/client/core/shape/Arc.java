@@ -24,13 +24,26 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.google.gwt.json.client.JSONObject;
+
+import jsinterop.annotations.JsProperty;
 
 /**
  * Arcs are defined by a center point, a radius, a starting angle, an ending angle, and the drawing direction (either clockwise or counterclockwise).
  */
 public class Arc extends Shape<Arc>
 {
+    @JsProperty
+    private double radius;
+
+    @JsProperty
+    private double startAngle;
+
+    @JsProperty
+    private double endAngle;
+
+    @JsProperty
+    private boolean counterClockwise;
+
     /**
      * Constructor. Creates an instance of an arc.
      * 
@@ -63,7 +76,7 @@ public class Arc extends Shape<Arc>
         setRadius(radius).setStartAngle(startAngle).setEndAngle(endAngle).setCounterClockwise(false);
     }
 
-    protected Arc(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected Arc(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(ShapeType.ARC, node, ctx);
     }
@@ -73,7 +86,7 @@ public class Arc extends Shape<Arc>
     {
         final double radius = getRadius();
 
-        return new BoundingBox(0 - radius, 0 - radius, radius, radius);
+        return BoundingBox.fromDoubles(0 - radius, 0 - radius, radius, radius);
     }
 
     /**
@@ -82,15 +95,15 @@ public class Arc extends Shape<Arc>
      * @param context the {@link Context2D} used to draw this arc.
      */
     @Override
-    protected boolean prepare(final Context2D context, final Attributes attr, final double alpha)
+    protected boolean prepare(final Context2D context, final double alpha)
     {
-        final double r = attr.getRadius();
+        final double r = getRadius();
 
         if (r > 0)
         {
             context.beginPath();
 
-            context.arc(0, 0, r, attr.getStartAngle(), attr.getEndAngle(), attr.isCounterClockwise());
+            context.arc(0, 0, r, getStartAngle(), getEndAngle(), isCounterClockwise());
 
             return true;
         }
@@ -98,26 +111,26 @@ public class Arc extends Shape<Arc>
     }
 
     /**
+     * Sets this arc's radius.
+     *
+     * @param radius
+     * @return this Circle
+     */
+    public Arc setRadius(final double radius)
+    {
+        this.radius = radius;
+
+        return this;
+    }
+
+    /**
      * Gets this arc's radius.
-     * 
+     *
      * @return double
      */
     public double getRadius()
     {
-        return getAttributes().getRadius();
-    }
-
-    /**
-     * Sets this arc's radius.
-     * 
-     * @param radius
-     * @return this Arc
-     */
-    public Arc setRadius(final double radius)
-    {
-        getAttributes().setRadius(radius);
-
-        return this;
+        return this.radius;
     }
 
     /**
@@ -127,7 +140,7 @@ public class Arc extends Shape<Arc>
      */
     public double getStartAngle()
     {
-        return getAttributes().getStartAngle();
+        return this.startAngle;
     }
 
     /**
@@ -138,7 +151,7 @@ public class Arc extends Shape<Arc>
      */
     public Arc setStartAngle(final double angle)
     {
-        getAttributes().setStartAngle(angle);
+        this.startAngle = angle;
 
         return this;
     }
@@ -150,7 +163,7 @@ public class Arc extends Shape<Arc>
      */
     public double getEndAngle()
     {
-        return getAttributes().getEndAngle();
+        return this.endAngle;
     }
 
     /**
@@ -161,7 +174,7 @@ public class Arc extends Shape<Arc>
      */
     public Arc setEndAngle(final double angle)
     {
-        getAttributes().setEndAngle(angle);
+        this.endAngle = angle;
 
         return this;
     }
@@ -173,7 +186,7 @@ public class Arc extends Shape<Arc>
      */
     public boolean isCounterClockwise()
     {
-        return getAttributes().isCounterClockwise();
+        return this.counterClockwise;
     }
 
     /**
@@ -184,7 +197,7 @@ public class Arc extends Shape<Arc>
      */
     public Arc setCounterClockwise(final boolean counterClockwise)
     {
-        getAttributes().setCounterClockwise(counterClockwise);
+        this.counterClockwise = counterClockwise;
 
         return this;
     }
@@ -211,7 +224,7 @@ public class Arc extends Shape<Arc>
         }
 
         @Override
-        public Arc create(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public Arc create(final Object node, final ValidationContext ctx) throws ValidationException
         {
             return new Arc(node, ctx);
         }

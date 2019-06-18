@@ -16,6 +16,9 @@
 
 package com.ait.lienzo.client.core.shape.guides;
 
+import org.gwtproject.core.client.Scheduler;
+import org.gwtproject.core.client.Scheduler.RepeatingCommand;
+
 import com.ait.lienzo.client.core.shape.GroupOf;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Rectangle;
@@ -31,11 +34,9 @@ import com.ait.lienzo.shared.core.types.GroupType;
 import com.ait.lienzo.shared.core.types.IColor;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
-import com.ait.tooling.common.api.java.util.StringOps;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
-import com.google.gwt.json.client.JSONObject;
-import com.google.gwt.json.client.JSONString;
+import com.ait.lienzo.tools.client.StringOps;
+import com.ait.lienzo.client.core.animation.AnimationScheduler;
+import com.ait.lienzo.client.core.animation.AnimationScheduler.AnimationCallback;
 
 public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePrimitive<ToolTip>
 {
@@ -51,33 +52,33 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
 
     private final Rectangle     m_body;
 
-    private final Triangle      m_tail;
+    private final        Triangle         m_tail;
 
-    private final Triangle      m_mask;
+    private final        Triangle         m_mask;
 
-    private final Text          m_text;
+    private final        Text             m_text;
 
-    private final Text          m_labl;
+    private final        Text             m_labl;
 
-    private int                 m_wait;
+    private              int              m_wait;
 
-    private boolean             m_show;
+    private              boolean          m_show;
 
-    private double              m_oldx;
+    private              double           m_oldx;
 
-    private double              m_oldy;
+    private              double           m_oldy;
 
-    private double              m_padding;
+    private              double           m_padding;
 
-    private double              m_tailValue;
+    private              double           m_tailValue;
 
-    private String              m_textValue;
+    private              String           m_textValue;
 
-    private String              m_lablValue;
+    private              String           m_lablValue;
 
-    private RepeatingCommand    m_autoHider;
+    private              RepeatingCommand m_autoHider;
 
-    private static final Shadow SHADOW          = new Shadow(ColorName.BLACK.getColor().setA(0.80), 10, 3, 3);
+    private static final Shadow           SHADOW          = new Shadow(ColorName.BLACK.getColor().setA(0.80), 10, 3, 3);
 
     public ToolTip()
     {
@@ -375,22 +376,24 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
     @Override
     public String toJSONString()
     {
-        final JSONObject object = super.toJSONObject();
-
-        if (null != object)
-        {
-            object.put("type", new JSONString("ToolTip"));
-
-            return object.toString();
-        }
+        // @FIXME serialization (mdp)
+//        final JSONObject object = super.toJSONObject();
+//
+//        if (null != object)
+//        {
+//            object.put("type", new JSONString("ToolTip"));
+//
+//            return object.toString();
+//        }
         return null;
     }
 
-    @Override
-    public JSONObject toJSONObject()
-    {
-        return null;
-    }
+    // @FIXME serialization (mdp)
+//    @Override
+//    public JSONObject toJSONObject()
+//    {
+//        return null;
+//    }
 
     @Override
     public IStorageEngine<IPrimitive<?>> getDefaultStorageEngine()

@@ -19,11 +19,14 @@ package com.ait.lienzo.client.core.image.filter;
 import com.ait.lienzo.client.core.shape.json.IFactory;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
-import com.ait.lienzo.client.core.types.ImageData;
+import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
-import com.google.gwt.canvas.dom.client.CanvasPixelArray;
-import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.json.client.JSONObject;
+
+import elemental2.core.JsArray;
+import elemental2.core.Uint8ClampedArray;
+import elemental2.dom.ImageData;
+import jsinterop.base.Js;
+import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of a Light Gray Scale Image Filter.
@@ -35,7 +38,7 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
         super(ImageFilterType.LightnessGrayScaleImageDataFilterType);
     }
 
-    protected LightnessGrayScaleImageDataFilter(JSONObject node, ValidationContext ctx) throws ValidationException
+    protected LightnessGrayScaleImageDataFilter(Object node, ValidationContext ctx) throws ValidationException
     {
         super(ImageFilterType.LightnessGrayScaleImageDataFilterType, node, ctx);
     }
@@ -49,13 +52,13 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
         }
         if (copy)
         {
-            source = source.copy();
+            source = ImageDataUtil.copy(source);
         }
         if (false == isActive())
         {
             return source;
         }
-        final CanvasPixelArray data = source.getData();
+        final Uint8ClampedArray data = source.data;
 
         if (null == data)
         {
@@ -66,15 +69,18 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
         return source;
     }
 
-    private final native void filter_(JavaScriptObject data, int length)
-    /*-{
-    	for (var i = 0; i < length; i += 4) {
-    		var r = data[  i  ];
-    		var g = data[i + 1];
-    		var b = data[i + 2];
-    		data[  i  ] = data[i + 1] = data[i + 2] = ((((Math.max(Math.max(r, g), b) + Math.min(Math.min(r, g), b))) / 2.0) + 0.5) | 0;
+    private final void filter_(Uint8ClampedArray dataArray, int length)
+    {
+        //int[] data = Uint8ClampedArray.ConstructorLengthUnionType.of(dataArray).asIntArray();
+        int[] data = Js.uncheckedCast(dataArray);
+    	for (int i = 0; i < length; i += 4) {
+    		int r = data[  i  ];
+            int g = data[i + 1];
+            int b = data[i + 2];
+            int v = Js.coerceToInt((((Math.max(Math.max(r, g), b) + Math.min(Math.min(r, g), b))) / 2.0) + 0.5);
+    		data[  i  ] = data[i + 1] = data[i + 2] = v;
     	}
-    }-*/;
+    };
 
     @Override
     public IFactory<LightnessGrayScaleImageDataFilter> getFactory()
@@ -90,7 +96,7 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
         }
 
         @Override
-        public LightnessGrayScaleImageDataFilter create(JSONObject node, ValidationContext ctx) throws ValidationException
+        public LightnessGrayScaleImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
         {
             return new LightnessGrayScaleImageDataFilter(node, ctx);
         }

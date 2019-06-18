@@ -30,13 +30,13 @@ public final class PathPartListPathClipper extends AbstractPathClipper
     {
         super(clip);
 
-        if (null == getValue())
+        if (null == getPathPartList())
         {
             m_path = null;
         }
         else
         {
-            m_path = new PathPartList((PathPartListJSO) getValue().cast(), true);
+            m_path = PathPartList.make(getPathPartList().getJSO(), true);
         }
     }
 

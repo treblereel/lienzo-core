@@ -19,19 +19,19 @@ package com.ait.lienzo.client.widget.panel.event;
 import com.ait.lienzo.client.widget.panel.AbstractLienzoPanelEvent;
 
 public class LienzoPanelBoundsChangedEvent
-        extends AbstractLienzoPanelEvent<LienzoPanelBoundsChangedEventHandler>
+//        extends AbstractLienzoPanelEvent<LienzoPanelBoundsChangedEventHandler>
 {
-    public static final Type<LienzoPanelBoundsChangedEventHandler> TYPE = new Type<>();
-
-    @Override
-    public Type<LienzoPanelBoundsChangedEventHandler> getAssociatedType()
-    {
-        return TYPE;
-    }
-
-    @Override
-    protected void dispatch(final LienzoPanelBoundsChangedEventHandler handler)
-    {
-        handler.onBoundsChanged(this);
-    }
+//    public static final Type<LienzoPanelBoundsChangedEventHandler> TYPE = new Type<>();
+//
+//    @Override
+//    public Type<LienzoPanelBoundsChangedEventHandler> getAssociatedType()
+//    {
+//        return TYPE;
+//    }
+//
+//    @Override
+//    protected void dispatch(final LienzoPanelBoundsChangedEventHandler handler)
+//    {
+//        handler.onBoundsChanged(this);
+//    }
 }

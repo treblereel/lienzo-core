@@ -1,8 +1,8 @@
 package com.ait.lienzo.client.core.image;
 
 import com.ait.lienzo.client.core.Context2D;
-import com.ait.tooling.common.api.java.util.function.Supplier;
-import com.ait.tooling.nativetools.client.collection.NFastStringMap;
+import com.ait.lienzo.tools.client.collection.NFastStringMap;
+import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 
 public class ImageStrips {
 

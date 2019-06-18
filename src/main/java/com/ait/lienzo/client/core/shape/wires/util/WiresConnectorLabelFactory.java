@@ -9,7 +9,7 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.shared.core.types.TextAlign;
-import com.ait.tooling.common.api.java.util.function.BiConsumer;
+import com.ait.lienzo.tools.common.api.java.util.function.BiConsumer;
 
 public class WiresConnectorLabelFactory
 {
@@ -53,7 +53,7 @@ public class WiresConnectorLabelFactory
                     // Wrap the text.
                     final double         maxDistanceX = distance > TEXT_WRAP_MAX_WIDTH ? TEXT_WRAP_MAX_WIDTH : distance;
                     final double         maxDistanceY = distance > TEXT_WRAP_MAX_HEIGHT ? TEXT_WRAP_MAX_HEIGHT : distance;
-                    final BoundingBox    wrap         = new BoundingBox(0, 0, maxDistanceX, maxDistanceY);
+                    final BoundingBox    wrap         = BoundingBox.fromDoubles(0, 0, maxDistanceX, maxDistanceY);
                     text.setTextAlign(TextAlign.LEFT);
                     final TextBoundsAndLineBreaksWrap textWrap     = new TextBoundsAndLineBreaksWrap(text, wrap);
                     text.setWrapper(textWrap);
@@ -64,7 +64,7 @@ public class WiresConnectorLabelFactory
                     final double  tbbw   = maxDistanceX / 2;
                     final double  tox    = Math.abs(tbbw * cos);
                     final Point2D offset = new Point2D(Math.abs(OFFSET * sin), Math.abs(OFFSET * cos) * -1);
-                    text.setLocation(center.minus(tox, tbb.getHeight()).add(offset));
+                    text.setLocation(center.subXY(tox, tbb.getHeight()).add(offset));
                 }
             };
         }

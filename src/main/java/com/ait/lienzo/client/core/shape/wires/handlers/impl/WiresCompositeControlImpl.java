@@ -30,7 +30,7 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresCompositeControl;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresLayerIndex;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeControl;
 import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.tooling.common.api.java.util.function.Supplier;
+import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 
 /**
  * The default WiresCompositeControl implementation.
@@ -164,7 +164,7 @@ public class WiresCompositeControlImpl
                 parentPickerControl.getParent().getComputedLocation().add(candidate) :
                 candidate;
         if (null != parentPickerControl.getInitialParent()) {
-            co = co.minus(parentPickerControl.getInitialParent().getComputedLocation());
+            co = co.sub(parentPickerControl.getInitialParent().getComputedLocation());
         }
         return co;
     }

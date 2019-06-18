@@ -16,9 +16,12 @@
 
 package com.ait.lienzo.client.core.event;
 
+import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.widget.DragContext;
 
-public class NodeDragMoveEvent extends AbstractNodeDragEvent<NodeDragMoveHandler>
+import elemental2.dom.HTMLElement;
+
+public class NodeDragMoveEvent extends AbstractNodeHumanInputEvent<NodeDragMoveHandler, Node>
 {
     private static final Type<NodeDragMoveHandler> TYPE = new Type<NodeDragMoveHandler>();
 
@@ -27,9 +30,9 @@ public class NodeDragMoveEvent extends AbstractNodeDragEvent<NodeDragMoveHandler
         return TYPE;
     }
 
-    public NodeDragMoveEvent(final DragContext drag)
+    public NodeDragMoveEvent(final HTMLElement relativeElement)
     {
-        super(drag);
+        super(relativeElement);
     }
 
     @Override
@@ -39,7 +42,7 @@ public class NodeDragMoveEvent extends AbstractNodeDragEvent<NodeDragMoveHandler
     }
 
     @Override
-    protected void dispatch(final NodeDragMoveHandler handler)
+    public void dispatch(final NodeDragMoveHandler handler)
     {
         handler.onNodeDragMove(this);
     }

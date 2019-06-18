@@ -17,9 +17,8 @@
 package com.ait.lienzo.client.core.shape.storage;
 
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.tooling.nativetools.client.collection.MetaData;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.google.gwt.json.client.JSONObject;
+import com.ait.lienzo.tools.client.collection.MetaData;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public interface IStorageEngine<M> extends IStorageEngineIterable<M>
 {
@@ -57,7 +56,8 @@ public interface IStorageEngine<M> extends IStorageEngineIterable<M>
 
     public void moveToBottom(M item);
 
-    public JSONObject toJSONObject();
+    // @FIXME serialisation (mdp)
+    //public JSONObject toJSONObject();
 
     public void migrate(IStorageEngine<M> storage);
 }

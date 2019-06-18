@@ -16,7 +16,7 @@
 
 package com.ait.lienzo.client.core.shape.storage;
 
-import com.ait.tooling.common.api.types.IStringValued;
+import com.ait.lienzo.tools.common.api.types.IStringValued;
 
 public class StorageEngineType implements IStringValued
 {

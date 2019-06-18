@@ -16,23 +16,25 @@
 
 package com.ait.lienzo.client.core.image;
 
-import com.ait.tooling.nativetools.client.collection.NFastStringMap;
-import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.resources.client.ImageResource;
+import org.gwtproject.resources.client.ImageResource;
+
+import com.ait.lienzo.tools.client.collection.NFastStringMap;
+
+import elemental2.dom.HTMLImageElement;
 
 public final class ImageCache
 {
-    private static final ImageCache            INSTANCE   = new ImageCache();
+    private static final ImageCache                INSTANCE   = new ImageCache();
 
-    private final NFastStringMap<String>       m_messages = new NFastStringMap<String>();
+    private final NFastStringMap<String>           m_messages = new NFastStringMap<String>();
 
-    private final NFastStringMap<ImageElement> m_url_hmap = new NFastStringMap<ImageElement>();
+    private final NFastStringMap<HTMLImageElement> m_url_hmap = new NFastStringMap<HTMLImageElement>();
 
-    private final NFastStringMap<ImageElement> m_key_hmap = new NFastStringMap<ImageElement>();
+    private final NFastStringMap<HTMLImageElement> m_key_hmap = new NFastStringMap<HTMLImageElement>();
 
-    private int                                m_counting = -1;
+    private int                                    m_counting = -1;
 
-    private Runnable                           m_callback = null;
+    private Runnable                               m_callback = null;
 
     public static final ImageCache get()
     {
@@ -59,7 +61,7 @@ public final class ImageCache
         new ImageLoader(url)
         {
             @Override
-            public final void onImageElementLoad(final ImageElement elem)
+            public final void onImageElementLoad(final HTMLImageElement elem)
             {
                 done(key, url, elem, "success");
             }
@@ -84,7 +86,7 @@ public final class ImageCache
         new ImageLoader(resource)
         {
             @Override
-            public final void onImageElementLoad(final ImageElement elem)
+            public final void onImageElementLoad(final HTMLImageElement elem)
             {
                 done(key, resource.getName(), elem, "success");
             }
@@ -98,7 +100,7 @@ public final class ImageCache
         return this;
     }
 
-    private final void done(String key, String url, ImageElement image, String message)
+    private final void done(String key, String url, HTMLImageElement image, String message)
     {
         if (null != image)
         {
@@ -118,12 +120,12 @@ public final class ImageCache
         }
     }
 
-    public final ImageElement getImageByKey(String key)
+    public final HTMLImageElement getImageByKey(String key)
     {
         return m_key_hmap.get(key);
     }
 
-    public final ImageElement getImageByURL(String url)
+    public final HTMLImageElement getImageByURL(String url)
     {
         return m_url_hmap.get(url);
     }

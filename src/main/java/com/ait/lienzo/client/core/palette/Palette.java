@@ -22,9 +22,7 @@ import com.ait.lienzo.client.core.shape.json.JSONDeserializer;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.shared.core.types.PaletteType;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.google.gwt.json.client.JSONArray;
-import com.google.gwt.json.client.JSONObject;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public final class Palette extends AbstractPaletteBase<Palette>
 {
@@ -35,7 +33,7 @@ public final class Palette extends AbstractPaletteBase<Palette>
         super(PaletteType.PALETTE);
     }
 
-    protected Palette(final JSONObject node, final ValidationContext ctx) throws ValidationException
+    protected Palette(final Object node, final ValidationContext ctx) throws ValidationException
     {
         super(PaletteType.PALETTE, node, ctx);
     }
@@ -73,33 +71,33 @@ public final class Palette extends AbstractPaletteBase<Palette>
         return m_list;
     }
 
-    @Override
-    public JSONObject toJSONObject()
-    {
-        final int size = size();
-
-        final JSONArray list = new JSONArray();
-
-        for (int i = 0; i < size; i++)
-        {
-            final PaletteItem item = m_list.get(i);
-
-            if (null != item)
-            {
-                final JSONObject make = item.toJSONObject();
-
-                if (null != make)
-                {
-                    list.set(list.size(), make);
-                }
-            }
-        }
-        final JSONObject object = super.toJSONObject();
-
-        object.put("items", list);
-
-        return object;
-    }
+//    @Override
+//    public JSONObject toJSONObject()
+//    {
+//        final int size = size();
+//
+//        final JSONArray list = new JSONArray();
+//
+//        for (int i = 0; i < size; i++)
+//        {
+//            final PaletteItem item = m_list.get(i);
+//
+//            if (null != item)
+//            {
+//                final JSONObject make = item.toJSONObject();
+//
+//                if (null != make)
+//                {
+//                    list.set(list.size(), make);
+//                }
+//            }
+//        }
+//        final JSONObject object = super.toJSONObject();
+//
+//        object.put("items", list);
+//
+//        return object;
+//    }
 
     public static final class PaletteFactory extends AbstractPalettebaseFactory<Palette>
     {
@@ -109,7 +107,7 @@ public final class Palette extends AbstractPaletteBase<Palette>
         }
 
         @Override
-        public Palette create(final JSONObject node, final ValidationContext ctx) throws ValidationException
+        public Palette create(final Object node, final ValidationContext ctx) throws ValidationException
         {
             Palette palette = new Palette(node, ctx);
 

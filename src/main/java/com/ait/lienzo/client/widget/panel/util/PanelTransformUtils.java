@@ -22,44 +22,44 @@ import com.ait.lienzo.client.widget.panel.Bounds;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 
 public class PanelTransformUtils {
-
-    public static void setScaleLevel(final Viewport viewport,
-                                     final double level) {
-        final Transform viewportTransform = viewport.getTransform();
-        final Transform transform = new Transform();
-        transform.translate(viewportTransform.getTranslateX(),
-                            viewportTransform.getTranslateY());
-        transform.scale(level);
-        viewport.setTransform(transform);
-    }
-
-    public static void reset(final Viewport viewport) {
-        viewport.setTransform(new Transform());
-    }
-
-    public static double computeZoomLevelFitToWidth(final LienzoBoundsPanel panel) {
-        final double panelWidth = panel.getWidthPx();
-        final double panelHeight = panel.getHeightPx();
-        return computeZoomLevelFitToWidth(panelWidth, panelHeight, panel);
-    }
-
-    public static double computeZoomLevelFitToWidth(final double width,
-                                                    final double height,
-                                                    final LienzoBoundsPanel panel) {
-        final Bounds layerBounds = panel.getLayerBounds();
-        final double layerWidth = layerBounds.getWidth();
-        final double layerHeight = layerBounds.getHeight();
-        double widthRatio = width / layerWidth;
-        double heightRatio = height / layerHeight;
-        final double level = widthRatio < heightRatio ? widthRatio : heightRatio;
-        return level < 1 ? level : 1;
-    }
-
-    public static double computeLevel(final Viewport viewport) {
-        final Transform transform = viewport.getTransform();
-        final double scaleX = transform.getScaleX();
-        final double scaleY = transform.getScaleY();
-        return scaleX < scaleY ? scaleX : scaleY;
-    }
+//
+//    public static void setScaleLevel(final Viewport viewport,
+//                                     final double level) {
+//        final Transform viewportTransform = viewport.getTransform();
+//        final Transform transform = new Transform();
+//        transform.translate(viewportTransform.getTranslateX(),
+//                            viewportTransform.getTranslateY());
+//        transform.scale(level);
+//        viewport.setTransform(transform);
+//    }
+//
+//    public static void reset(final Viewport viewport) {
+//        viewport.setTransform(new Transform());
+//    }
+//
+//    public static double computeZoomLevelFitToWidth(final LienzoBoundsPanel panel) {
+//        final double panelWidth = panel.getWidthPx();
+//        final double panelHeight = panel.getHeightPx();
+//        return computeZoomLevelFitToWidth(panelWidth, panelHeight, panel);
+//    }
+//
+//    public static double computeZoomLevelFitToWidth(final double width,
+//                                                    final double height,
+//                                                    final LienzoBoundsPanel panel) {
+//        final Bounds layerBounds = panel.getLayerBounds();
+//        final double layerWidth = layerBounds.getWidth();
+//        final double layerHeight = layerBounds.getHeight();
+//        double widthRatio = width / layerWidth;
+//        double heightRatio = height / layerHeight;
+//        final double level = widthRatio < heightRatio ? widthRatio : heightRatio;
+//        return level < 1 ? level : 1;
+//    }
+//
+//    public static double computeLevel(final Viewport viewport) {
+//        final Transform transform = viewport.getTransform();
+//        final double scaleX = transform.getScaleX();
+//        final double scaleY = transform.getScaleY();
+//        return scaleX < scaleY ? scaleX : scaleY;
+//    }
 
 }

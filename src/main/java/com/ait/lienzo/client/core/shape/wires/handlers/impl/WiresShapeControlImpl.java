@@ -38,8 +38,8 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeControl;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.util.Geometry;
-import com.ait.tooling.common.api.java.util.function.Consumer;
-import com.ait.tooling.common.api.java.util.function.Supplier;
+import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 
 /**
  * The default WiresShapeControl implementation.
@@ -49,19 +49,19 @@ public class WiresShapeControlImpl
         implements WiresShapeControl,
                    WiresBoundsConstraintControl.SupportsOptionalBounds<WiresShapeControlImpl> {
 
-    private final WiresParentPickerControl parentPickerControl;
-    private Supplier<WiresLayerIndex> index;
-    private WiresMagnetsControl m_magnetsControl;
-    private WiresDockingControl m_dockingAndControl;
-    private WiresContainmentControl m_containmentControl;
-    private AlignAndDistributeControl m_alignAndDistributeControl;
-    private BoundingBox absoluteShapeBounds;
-    private WiresShapeLocationBounds locationBounds;
-    private Point2D m_adjust;
-    private boolean c_accept;
-    private boolean d_accept;
-    private WiresConnector[] m_connectorsWithSpecialConnections;
-    private Collection<WiresConnector> m_connectors;
+    private final WiresParentPickerControl  parentPickerControl;
+    private       Supplier<WiresLayerIndex> index;
+    private       WiresMagnetsControl       m_magnetsControl;
+    private       WiresDockingControl       m_dockingAndControl;
+    private       WiresContainmentControl   m_containmentControl;
+    private       AlignAndDistributeControl m_alignAndDistributeControl;
+    private       BoundingBox               absoluteShapeBounds;
+    private       WiresShapeLocationBounds  locationBounds;
+    private       Point2D                   m_adjust;
+    private       boolean                   c_accept;
+    private       boolean                    d_accept;
+    private       WiresConnector[]           m_connectorsWithSpecialConnections;
+    private       Collection<WiresConnector> m_connectors;
 
     public WiresShapeControlImpl(WiresShape shape) {
         parentPickerControl = new WiresParentPickerControlImpl(shape,

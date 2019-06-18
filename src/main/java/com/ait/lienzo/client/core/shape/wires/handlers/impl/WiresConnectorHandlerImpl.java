@@ -29,20 +29,22 @@ import com.ait.lienzo.client.core.shape.wires.WiresConnector;
 import com.ait.lienzo.client.core.shape.wires.WiresManager;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresConnectorHandler;
 import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.tooling.common.api.java.util.function.Consumer;
-import com.google.gwt.user.client.Timer;
+import com.ait.lienzo.tools.client.Timer;
+import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
 
 public class WiresConnectorHandlerImpl implements WiresConnectorHandler
 {
     static final int MOUSE_DOWN_TIMER_DELAY = 350;
 
-    private final WiresConnector                    m_connector;
+    private final WiresConnector        m_connector;
 
-    private final WiresManager                      m_wiresManager;
+    private final  WiresManager         m_wiresManager;
+    private final  Consumer<Event>      mouseDownEventConsumer;
+    private        Timer                clickTimer;
+    private        Event                event;
+    private        boolean              ownToken;
 
-    private final Consumer<Event>                   mouseDownEventConsumer;
-
-    private final Consumer<Event>                   mouseClickEventConsumer;
+    private final Consumer<Event>      mouseClickEventConsumer;
 
     Timer                             mouseDownTimer;
 

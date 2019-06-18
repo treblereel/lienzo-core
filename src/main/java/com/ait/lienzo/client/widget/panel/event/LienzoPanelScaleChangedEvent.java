@@ -20,31 +20,31 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.panel.AbstractLienzoPanelEvent;
 
 public class LienzoPanelScaleChangedEvent
-        extends AbstractLienzoPanelEvent<LienzoPanelScaleChangedEventHandler>
+//        extends AbstractLienzoPanelEvent<LienzoPanelScaleChangedEventHandler>
 {
-    public static final Type<LienzoPanelScaleChangedEventHandler> TYPE = new Type<>();
-
-    private final Point2D factor;
-
-    public LienzoPanelScaleChangedEvent(final Point2D factor)
-    {
-        this.factor = factor;
-    }
-
-    @Override
-    public Type<LienzoPanelScaleChangedEventHandler> getAssociatedType()
-    {
-        return TYPE;
-    }
-
-    @Override
-    protected void dispatch(final LienzoPanelScaleChangedEventHandler handler)
-    {
-        handler.onScale(this);
-    }
-
-    public Point2D getFactor()
-    {
-        return factor;
-    }
+//    public static final Type<LienzoPanelScaleChangedEventHandler> TYPE = new Type<>();
+//
+//    private final Point2D factor;
+//
+//    public LienzoPanelScaleChangedEvent(final Point2D factor)
+//    {
+//        this.factor = factor;
+//    }
+//
+//    @Override
+//    public Type<LienzoPanelScaleChangedEventHandler> getAssociatedType()
+//    {
+//        return TYPE;
+//    }
+//
+//    @Override
+//    protected void dispatch(final LienzoPanelScaleChangedEventHandler handler)
+//    {
+//        handler.onScale(this);
+//    }
+//
+//    public Point2D getFactor()
+//    {
+//        return factor;
+//    }
 }

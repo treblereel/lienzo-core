@@ -16,11 +16,9 @@
 
 package com.ait.lienzo.client.core.shape.json;
 
-import com.google.gwt.json.client.JSONObject;
-
 /**
  * In order to serialize / deserialize a {@link Node}, this interface must be implemented.
- * If you add new types of said objects, and would like to take advantage of JSON serialization,
+ * If you addBoundingBox new types of said objects, and would like to take advantage of JSON serialization,
  * the new object will need to implement this interface, and register its factory with the
  * {@link FactoryRegistry}
  * 
@@ -30,7 +28,8 @@ public interface IJSONSerializable<T extends IJSONSerializable<T>>
 {
     public String toJSONString();
 
-    public JSONObject toJSONObject();
+    // @FIXME serialisation (mdp)
+    //public JSONObject toJSONObject();
 
     public IFactory<?> getFactory();
 }

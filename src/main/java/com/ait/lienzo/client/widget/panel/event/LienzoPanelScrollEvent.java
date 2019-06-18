@@ -16,43 +16,43 @@
 
 package com.ait.lienzo.client.widget.panel.event;
 
-import com.ait.lienzo.client.widget.panel.AbstractLienzoPanelEvent;
+//import com.ait.lienzo.client.widget.panel.AbstractLienzoPanelEvent;
 
 public class LienzoPanelScrollEvent
-        extends AbstractLienzoPanelEvent<LienzoPanelScrollEventHandler>
+//        extends AbstractLienzoPanelEvent<LienzoPanelScrollEventHandler>
 {
-    public static final Type<LienzoPanelScrollEventHandler> TYPE = new Type<>();
-
-    private final double pctX;
-
-    private final double pctY;
-
-    public LienzoPanelScrollEvent(final double pctX,
-                                  final double pctY)
-    {
-        this.pctX = pctX;
-        this.pctY = pctY;
-    }
-
-    @Override
-    public Type<LienzoPanelScrollEventHandler> getAssociatedType()
-    {
-        return TYPE;
-    }
-
-    @Override
-    protected void dispatch(final LienzoPanelScrollEventHandler handler)
-    {
-        handler.onScroll(this);
-    }
-
-    public double getPctX()
-    {
-        return pctX;
-    }
-
-    public double getPctY()
-    {
-        return pctY;
-    }
+//    public static final Type<LienzoPanelScrollEventHandler> TYPE = new Type<>();
+//
+//    private final double pctX;
+//
+//    private final double pctY;
+//
+//    public LienzoPanelScrollEvent(final double pctX,
+//                                  final double pctY)
+//    {
+//        this.pctX = pctX;
+//        this.pctY = pctY;
+//    }
+//
+//    @Override
+//    public Type<LienzoPanelScrollEventHandler> getAssociatedType()
+//    {
+//        return TYPE;
+//    }
+//
+//    @Override
+//    protected void dispatch(final LienzoPanelScrollEventHandler handler)
+//    {
+//        handler.onScroll(this);
+//    }
+//
+//    public double getPctX()
+//    {
+//        return pctX;
+//    }
+//
+//    public double getPctY()
+//    {
+//        return pctY;
+//    }
 }

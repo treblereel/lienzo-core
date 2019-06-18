@@ -19,8 +19,9 @@ package com.ait.lienzo.client.core.shape.wires.handlers.impl;
 import com.ait.lienzo.client.core.shape.wires.SelectionManager;
 import com.ait.lienzo.client.core.shape.wires.WiresConnector;
 import com.ait.lienzo.client.core.shape.wires.WiresManager;
-import com.ait.tooling.common.api.java.util.function.Consumer;
-import com.ait.tooling.common.api.java.util.function.Predicate;
+import com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresConnectorHandlerImpl.Event;
+import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
 
 public class WiresConnectorEventFunctions
 {
@@ -49,8 +50,8 @@ public class WiresConnectorEventFunctions
         };
     }
 
-    public static Consumer<WiresConnectorHandlerImpl.Event> select(final WiresManager wiresManager,
-                                                                   final WiresConnector connector)
+    public static Consumer<Event> select(final WiresManager wiresManager,
+                                         final WiresConnector connector)
     {
         return new Consumer<WiresConnectorHandlerImpl.Event>()
         {

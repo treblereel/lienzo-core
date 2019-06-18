@@ -17,19 +17,23 @@
 package com.ait.lienzo.client.core.shape.wires.event;
 
 import com.ait.lienzo.client.core.event.AbstractNodeDragEvent;
-import com.ait.lienzo.client.core.event.INodeXYEvent;
+import com.ait.lienzo.client.core.event.NodeDragMoveHandler;
+import com.ait.lienzo.client.core.event.NodeDragStartHandler;
+import com.ait.lienzo.tools.client.event.INodeXYEvent;
 import com.ait.lienzo.client.core.shape.wires.WiresContainer;
+
+import elemental2.dom.HTMLElement;
 
 /**
  * <p>Event that is fired when a wires container drag moves.</p>
  */
-public class WiresDragMoveEvent extends AbstractWiresDragEvent<WiresDragMoveHandler> implements INodeXYEvent
+public class WiresDragMoveEvent extends AbstractWiresDragEvent<WiresDragMoveHandler, NodeDragMoveHandler>
 {
     public static final Type<WiresDragMoveHandler> TYPE = new Type<WiresDragMoveHandler>();
 
-    public WiresDragMoveEvent(final WiresContainer shape, final AbstractNodeDragEvent<?> nodeDragEvent)
+    public WiresDragMoveEvent(final HTMLElement relativeElement)
     {
-        super(shape, nodeDragEvent);
+        super(relativeElement);
     }
 
     @Override
@@ -39,7 +43,7 @@ public class WiresDragMoveEvent extends AbstractWiresDragEvent<WiresDragMoveHand
     }
 
     @Override
-    protected void dispatch(final WiresDragMoveHandler shapeMovedHandler)
+    public void dispatch(final WiresDragMoveHandler shapeMovedHandler)
     {
         shapeMovedHandler.onShapeDragMove(this);
     }

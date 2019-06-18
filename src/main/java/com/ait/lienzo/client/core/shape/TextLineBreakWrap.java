@@ -67,14 +67,12 @@ public class TextLineBreakWrap extends TextNoWrap {
 
     @Override
     public void drawString(final Context2D context,
-                           final Attributes attr,
                            final IDrawString drawCommand) {
-        final String text = attr.getText();
-        if (text == null || text.isEmpty()) {
+        if (text == null || text.getText().isEmpty()) {
             return;
         }
 
-        final String[] lines = text.split("\\r?\\n");
+        final String[] lines = text.getText().split("\\r?\\n");
         final BoundingBox bb = getBoundingBox();
 
         double xOffset = 0;

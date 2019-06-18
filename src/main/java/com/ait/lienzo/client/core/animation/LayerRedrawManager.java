@@ -16,10 +16,12 @@
 package com.ait.lienzo.client.core.animation;
 
 import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.tooling.nativetools.client.collection.NFastArrayList;
-import com.google.gwt.animation.client.AnimationScheduler;
-import com.google.gwt.animation.client.AnimationScheduler.AnimationCallback;
-import com.google.gwt.dom.client.Element;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+
+import com.ait.lienzo.client.core.animation.AnimationScheduler.AnimationCallback;
+
+import elemental2.dom.HTMLElement;
+import jsinterop.base.Js;
 
 public final class LayerRedrawManager
 {
@@ -71,11 +73,12 @@ public final class LayerRedrawManager
         return layer;
     }
 
-    private void kick(Element layerElement)
+    private void kick(HTMLElement layerElement)
     {
         if (!m_layers.isEmpty())
         {
-            AnimationScheduler.get().requestAnimationFrame(m_redraw, layerElement);
+            // @TODO check this works (mdp)
+            AnimationScheduler.get().requestAnimationFrame(m_redraw, Js.uncheckedCast(layerElement));
         }
     }
 }
