@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+		xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kie</groupId>
 	<artifactId>lienzo-core</artifactId>
-	<version>7.24.0-SNAPSHOT</version>
+	<version>7.15.0-SNAPSHOT</version>
 	<name>[KIE] Lienzo - Core Framework</name>
 	<description>[KIE] Lienzo - Core Framework</description>
 	<packaging>war</packaging>
 
-    <properties>
-        <webappdir>${project.build.directory}/webapp</webappdir>
-        <webapp.libdir>${webappdir}/WEB-INF/lib</webapp.libdir>
-        <j2cl.maven.plugin.version>0.1.1-SNAPSHOT</j2cl.maven.plugin.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+	<properties>
+		<webappdir>${project.build.directory}/webapp</webappdir>
+		<webapp.libdir>${webappdir}/WEB-INF/lib</webapp.libdir>
+		<j2cl.maven.plugin.version>0.1-SNAPSHOT</j2cl.maven.plugin.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-        <url>http://www.kiegroup.org</url>
-        <inceptionYear>2001</inceptionYear>
-        <organization>
-          <name>JBoss by Red Hat</name>
-          <url>http://www.jboss.org/</url>
-        </organization>
-        <licenses>
-          <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-          </license>
-        </licenses>
-        <developers>
-          <developer>
-            <name>All developers are listed on the team website</name>
-            <url>http://www.drools.org/community/team.html</url>
-          </developer>
-        </developers>
+	<url>http://www.kiegroup.org</url>
+	<inceptionYear>2001</inceptionYear>
+	<organization>
+		<name>JBoss by Red Hat</name>
+		<url>http://www.jboss.org/</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>All developers are listed on the team website</name>
+			<url>http://www.drools.org/community/team.html</url>
+		</developer>
+	</developers>
 
 	<repositories>
 		<repository>
@@ -105,72 +105,9 @@
 	</pluginRepositories>
 
 	<dependencies>
-		<!--dependency>
-			<groupId>com.ahome-it</groupId>
-			<artifactId>ahome-tooling-nativetools</artifactId>
-			<version>1.0.195-RELEASE</version>
-			<scope>compile</scope>
-		</dependency-->
-		<!--dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>2.8.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-dev</artifactId>
-			<version>2.8.2</version>
-			<scope>provided</scope>
-		</dependency!-->
-
-		<!--dependency>
-			<groupId>org.gwtproject</groupId>
-			<artifactId>i18n</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency-->
-
-		<!--dependency>
-			<groupId>com.google.jsinterop</groupId>
-			<artifactId>base</artifactId>
-			<version>1.0.0-RC1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.elemental2</groupId>
-			<artifactId>elemental2-core</artifactId>
-			<version>1.0.0-RC1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.elemental2</groupId>
-			<artifactId>elemental2-dom</artifactId>
-			<version>1.0.0-RC1</version>
-		</dependency-->
-
 		<dependency>
 			<groupId>com.vertispan.jsinterop</groupId>
 			<artifactId>base</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.vertispan.elemental2</groupId>
-			<artifactId>elemental2-core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.vertispan.elemental2</groupId>
-			<artifactId>elemental2-dom</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.vertispan.elemental2</groupId>
-			<artifactId>elemental2-promise</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
@@ -178,7 +115,6 @@
 			<groupId>org.gwtproject.regexp</groupId>
 			<artifactId>gwt-regexp</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.elemental2</groupId>
@@ -203,7 +139,6 @@
 			<groupId>org.gwtproject.safehtml</groupId>
 			<artifactId>gwt-safehtml</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.elemental2</groupId>
@@ -224,31 +159,6 @@
 			</exclusions>
 		</dependency>
 
-		<!--dependency>
-			<groupId>org.gwtproject.dom</groupId>
-			<artifactId>gwt-dom-style-definitions</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-dev</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency-->
-
 		<dependency>
 			<groupId>org.gwtproject.resources</groupId>
 			<artifactId>gwt-resources-api</artifactId>
@@ -256,10 +166,6 @@
 			<exclusions>
 				<exclusion>
 					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-dom</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
 					<artifactId>elemental2-core</artifactId>
 				</exclusion>
 				<exclusion>
@@ -273,6 +179,10 @@
 				<exclusion>
 					<groupId>com.google.jsinterop</groupId>
 					<artifactId>base</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.xml.bind</groupId>
+					<artifactId>jaxb-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -281,12 +191,7 @@
 			<groupId>org.gwtproject.dom</groupId>
 			<artifactId>gwt-dom</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>provided</scope>
 			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-dom</artifactId>
-				</exclusion>
 				<exclusion>
 					<groupId>com.google.elemental2</groupId>
 					<artifactId>elemental2-core</artifactId>
@@ -317,22 +222,22 @@
 
 
 	<scm>
-          <connection>scm:git:https://github.com/kiegroup/lienzo-core.git</connection>
-          <developerConnection>scm:git:git@github.com:kiegroup/lienzo-core.git</developerConnection>
-          <url>https://github.com/kiegroup/lienzo-core</url>
-        </scm>
+		<connection>scm:git:https://github.com/kiegroup/lienzo-core.git</connection>
+		<developerConnection>scm:git:git@github.com:kiegroup/lienzo-core.git</developerConnection>
+		<url>https://github.com/kiegroup/lienzo-core</url>
+	</scm>
 
 	<distributionManagement>
-	  <repository>
-	    <id>jboss-public-repository-group</id>
-	    <name>JBoss Public Repository Group</name>
-	    <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-	  </repository>
-	  <snapshotRepository>
-	    <id>jboss-snapshots-repository</id>
-	    <name>JBoss Snapshot Repository</name>
-	    <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-	  </snapshotRepository>
+		<repository>
+			<id>jboss-public-repository-group</id>
+			<name>JBoss Public Repository Group</name>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		<snapshotRepository>
+			<id>jboss-snapshots-repository</id>
+			<name>JBoss Snapshot Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
@@ -347,33 +252,56 @@
 				<directory>src/main/resources</directory>
 			</resource>
 		</resources>
-        <plugins>
+		<plugins>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.vertispan.j2cl</groupId>
+				<artifactId>j2cl-maven-plugin</artifactId>
+				<version>0.8-SNAPSHOT</version>
+				<executions>
+					<execution>
+						<id>build-js</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
 
-            <!--plugin>
+				<configuration>
+					<entrypoint>org.roger600.lienzo.client.LienzoExamples</entrypoint>
+					<webappDirectory>${webappdir}/</webappDirectory>
+					<externs>
+						<extern>${project.basedir}/src/main/externs/svg.js</extern>
+					</externs>
+					<compilationLevel>BUNDLE</compilationLevel>
+				</configuration>
+			</plugin>
+
+			<!--plugin>
               <groupId>org.codehaus.mojo</groupId>
               <artifactId>gwt-maven-plugin</artifactId>
               <version>2.7.0</version>
@@ -388,8 +316,8 @@
                 </execution>
               </executions>
             </plugin-->
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 
 	<profiles>
 		<profile>
@@ -446,69 +374,6 @@
 						</configuration>
 					</plugin>
 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<version>3.0.2</version>
-						<executions>
-							<execution>
-								<id>build-java-classpath</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>build-classpath</goal>
-								</goals>
-								<configuration>
-									<includeTypes>jar</includeTypes>
-									<outputProperty>java-classpath</outputProperty>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-bootstrap</id>
-								<goals>
-									<goal>copy</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>target/webapp/WEB-INF/lib</outputDirectory>
-									<artifactItems>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>jre</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<classifier>jszip</classifier>
-											<type>zip</type>
-											<destFileName>jre.js.zip</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>jre</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<destFileName>jre.jar</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>gwt-internal-annotations</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<destFileName>gwt-internal-annotations.jar</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>bootstrap</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<classifier>jszip</classifier>
-											<type>zip</type>
-											<destFileName>bootstrap.js.zip</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>javac-bootstrap-classpath</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<destFileName>javac-bootstrap-classpath.jar</destFileName>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
 						<groupId>org.eclipse.jetty</groupId>
 						<artifactId>jetty-maven-plugin</artifactId>
 						<version>9.4.14.v20181114</version>
@@ -534,48 +399,6 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>org.treblereel.gwt.j2cl</groupId>
-						<artifactId>j2cl-maven-plugin</artifactId>
-						<version>${j2cl.maven.plugin.version}</version>
-						<executions>
-							<execution>
-								<id>run-devmode</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>run</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<bytecodeClasspath>
-								<param>${java-classpath}</param>
-								<param>${webapp.libdir}/jre.jar</param>
-								<param>${webapp.libdir}/gwt-internal-annotations.jar</param>
-								<param>${webapp.libdir}/javac-bootstrap-classpath.jar</param>
-							</bytecodeClasspath>
-							<javacBootClasspath>${webapp.libdir}/javac-bootstrap-classpath.jar</javacBootClasspath>
-							<j2clClasspath>
-								<param>${webapp.libdir}/bootstrap.js.zip</param>
-								<param>${webapp.libdir}/jre.js.zip</param>
-							</j2clClasspath>
-							<dependencyMode>PRUNE</dependencyMode>
-							<outputJsPathDir>${webappdir}/</outputJsPathDir>
-							<sourceDir>
-								<param>${project.basedir}/src/main/java</param>
-							</sourceDir>
-							<jsZipCacheDir>${project.basedir}/jsZipCache</jsZipCacheDir>
-							<entrypoint>org.roger600.lienzo.client.LienzoExamples</entrypoint>
-							<outputJsFilename>app.js</outputJsFilename>
-							<intermediateJsPath>${webappdir}/sources</intermediateJsPath>
-							<recompileIfFilesChanged>false</recompileIfFilesChanged>
-							<externs>
-								<extern>${project.basedir}/src/main/externs/w3c_clipboardevent.js</extern>
-								<extern>${project.basedir}/src/main/externs/svg.js</extern>
-							</externs>
-							<compilationLevel>BUNDLE</compilationLevel>
-						</configuration>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -595,110 +418,6 @@
 						<artifactId>maven-compiler-plugin</artifactId>
 						<configuration>
 							<outputDirectory>${webappdir}/classes</outputDirectory>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-dependency-plugin</artifactId>
-						<version>3.0.2</version>
-						<executions>
-							<execution>
-								<id>build-java-classpath</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>build-classpath</goal>
-								</goals>
-								<configuration>
-									<includeTypes>jar</includeTypes>
-									<outputProperty>java-classpath</outputProperty>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-bootstrap</id>
-								<goals>
-									<goal>copy</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>target/webapp/WEB-INF/lib</outputDirectory>
-									<artifactItems>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>jre</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<classifier>jszip</classifier>
-											<type>zip</type>
-											<destFileName>jre.js.zip</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>jre</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<destFileName>jre.jar</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>gwt-internal-annotations</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<destFileName>gwt-internal-annotations.jar</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>bootstrap</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<classifier>jszip</classifier>
-											<type>zip</type>
-											<destFileName>bootstrap.js.zip</destFileName>
-										</artifactItem>
-										<artifactItem>
-											<groupId>com.vertispan.j2cl</groupId>
-											<artifactId>javac-bootstrap-classpath</artifactId>
-											<version>0.3-SNAPSHOT</version>
-											<destFileName>javac-bootstrap-classpath.jar</destFileName>
-										</artifactItem>
-									</artifactItems>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-
-					<plugin>
-						<groupId>org.treblereel.gwt.j2cl</groupId>
-						<artifactId>j2cl-maven-plugin</artifactId>
-						<version>${j2cl.maven.plugin.version}</version>
-						<executions>
-							<execution>
-								<id>run-devmode</id>
-								<phase>process-classes</phase>
-								<goals>
-									<goal>build</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<bytecodeClasspath>
-								<param>${java-classpath}</param>
-								<param>${webapp.libdir}/jre.jar</param>
-								<param>${webapp.libdir}/gwt-internal-annotations.jar</param>
-								<param>${webapp.libdir}/javac-bootstrap-classpath.jar</param>
-							</bytecodeClasspath>
-							<javacBootClasspath>${webapp.libdir}/javac-bootstrap-classpath.jar</javacBootClasspath>
-							<j2clClasspath>
-								<param>${webapp.libdir}/bootstrap.js.zip</param>
-								<param>${webapp.libdir}/jre.js.zip</param>
-							</j2clClasspath>
-							<intermediateJsPath>${webappdir}/js/sources</intermediateJsPath>
-							<outputJsPathDir>${webappdir}/js</outputJsPathDir>
-							<outputJsFilename>app.js</outputJsFilename>
-							<sourceDir>
-								<param>${project.basedir}/src/main/java</param>
-							</sourceDir>
-							<jsZipCacheDir>${project.basedir}/jsZipCache</jsZipCacheDir>
-							<entrypoint>org.treblereel.client.App</entrypoint>
-							<externs>
-								<extern>${project.basedir}/src/main/externs/w3c_clipboardevent.js</extern>
-								<extern>${project.basedir}/src/main/externs/svg.js</extern>
-							</externs>
-							<compilationLevel>BUNDLE</compilationLevel>
 						</configuration>
 					</plugin>
 					<plugin>
