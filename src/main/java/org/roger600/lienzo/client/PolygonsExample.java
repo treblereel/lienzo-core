@@ -1,6 +1,6 @@
 package org.roger600.lienzo.client;
 
-import org.roger600.Util;
+import org.roger600.lienzo.client.util.Util;
 
 import com.ait.lienzo.client.core.shape.RegularPolygon;
 import com.ait.lienzo.client.core.types.Shadow;

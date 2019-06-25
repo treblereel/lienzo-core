@@ -17,7 +17,7 @@
 package com.ait.lienzo.client.core.event;
 
 import com.ait.lienzo.client.core.shape.Node;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 import elemental2.dom.HTMLElement;
 

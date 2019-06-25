@@ -18,7 +18,7 @@ package com.ait.lienzo.client.core.shape.wires.event;
 
 import com.ait.lienzo.client.core.event.AbstractNodeEvent;
 import com.ait.lienzo.tools.client.event.INodeEvent;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 
 import elemental2.dom.HTMLElement;

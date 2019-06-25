@@ -23,7 +23,6 @@ import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.config.LienzoCore;
 import com.ait.lienzo.client.core.event.EventReceiver;
-import com.ait.lienzo.client.core.shape.ContainerNode.ContainerNodeFactory;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.client.core.event.OnEventHandlers;
@@ -36,7 +35,6 @@ import com.ait.lienzo.client.core.event.ResizeEndHandler;
 import com.ait.lienzo.client.core.event.ResizeStartEvent;
 import com.ait.lienzo.client.core.event.ResizeStartHandler;
 import com.ait.lienzo.client.core.event.ViewportTransformChangedEvent;
-import com.ait.lienzo.client.core.event.ViewportTransformChangedHandler;
 import com.ait.lienzo.client.core.mediator.IMediator;
 import com.ait.lienzo.client.core.mediator.Mediators;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
@@ -48,20 +46,18 @@ import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.core.util.ScratchPad;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.NodeType;
-import com.ait.lienzo.tools.client.collection.MetaData;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
 import org.gwtproject.dom.style.shared.Display;
 import org.gwtproject.dom.style.shared.Position;
 import org.gwtproject.dom.style.shared.Unit;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLCanvasElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
-import jsinterop.annotations.JsProperty;
 
 /**
  * Serves as a container for {@link Scene}

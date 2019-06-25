@@ -31,11 +31,10 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.util.ScratchPad;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.NodeType;
-import com.ait.lienzo.tools.client.collection.MetaData;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
 import org.gwtproject.dom.style.shared.Unit;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;

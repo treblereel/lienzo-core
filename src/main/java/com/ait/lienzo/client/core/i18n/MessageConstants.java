@@ -16,7 +16,7 @@
 
 package com.ait.lienzo.client.core.i18n;
 
-import com.gwtlienzo.i18n.Constants;
+import com.ait.lienzo.gwtlienzo.i18n.Constants;
 
 /**
  * An I18 based interface used for Lienzo Constants.

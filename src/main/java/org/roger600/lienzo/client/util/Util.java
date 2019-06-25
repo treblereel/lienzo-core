@@ -1,4 +1,4 @@
-package org.roger600;
+package org.roger600.lienzo.client.util;
 
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.core.types.BoundingBox;

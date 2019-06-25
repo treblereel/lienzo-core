@@ -1,9 +1,7 @@
 package org.roger600.lienzo.client;
 
-import java.util.ArrayList;
-
 import org.gwtproject.dom.style.shared.Display;
-import org.roger600.Util;
+import org.roger600.lienzo.client.util.Util;
 
 import com.ait.lienzo.client.core.image.PictureLoadedHandler;
 import com.ait.lienzo.client.core.image.filter.AbstractImageDataFilter;
@@ -30,26 +28,17 @@ import com.ait.lienzo.client.core.image.filter.RGBIgnoreAlphaImageDataFilter;
 import com.ait.lienzo.client.core.image.filter.SharpenImageDataFilter;
 import com.ait.lienzo.client.core.image.filter.SolarizeImageDataFilter;
 import com.ait.lienzo.client.core.image.filter.StackBlurImageDataFilter;
-import com.ait.lienzo.client.core.shape.IPrimitive;
-import com.ait.lienzo.client.core.shape.Movie;
 import com.ait.lienzo.client.core.shape.Picture;
-import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.lienzo.client.core.types.Shadow;
 import com.ait.lienzo.client.widget.LienzoPanel2;
-import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.shared.core.types.ColorName;
-import com.ait.lienzo.shared.core.types.TextAlign;
 
 import elemental2.core.JsArray;
 import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLInputElement;
 import elemental2.dom.HTMLOptionElement;
 import elemental2.dom.HTMLSelectElement;
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
 
 import static elemental2.dom.DomGlobal.document;
 

@@ -1,10 +1,7 @@
 package com.ait.lienzo.tools.client.event;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 import elemental2.core.JsArray;
 import elemental2.core.JsMap;

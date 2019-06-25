@@ -1,14 +1,10 @@
 package org.roger600.lienzo.client;
 
-import org.roger600.Util;
-
-import com.ait.lienzo.client.core.shape.Circle;
 import com.ait.lienzo.client.core.shape.Rectangle;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.shared.core.types.ColorName;
-import com.ait.lienzo.shared.core.types.TextAlign;
 
 public class PanAndZoomExample extends BaseExample implements Example
 {

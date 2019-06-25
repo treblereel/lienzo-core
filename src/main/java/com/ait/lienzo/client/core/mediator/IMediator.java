@@ -18,9 +18,8 @@ package com.ait.lienzo.client.core.mediator;
 
 import elemental2.dom.UIEvent;
 
-import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 /**
  * IMediator is used in the {@link Mediators} list of a {@link Viewport}.

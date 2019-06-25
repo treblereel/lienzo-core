@@ -30,7 +30,7 @@ import com.ait.lienzo.client.core.shape.Star;
 import com.ait.lienzo.client.core.shape.Triangle;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.ColorName;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 public class EventExample extends BaseExample implements Example
 {

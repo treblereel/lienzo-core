@@ -1,32 +1,22 @@
 package org.roger600.lienzo.client;
 
 import org.gwtproject.dom.style.shared.Display;
-import org.roger600.Util;
+import org.roger600.lienzo.client.util.Util;
 
 import com.ait.lienzo.client.core.shape.Arc;
 import com.ait.lienzo.client.core.shape.Circle;
 import com.ait.lienzo.client.core.shape.Ellipse;
-import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Rectangle;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.core.shape.Star;
-import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.lienzo.client.core.types.Point2DArray;
-import com.ait.lienzo.client.widget.DragConstraintEnforcer;
-import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.Color;
-import com.ait.lienzo.shared.core.types.ColorName;
 import com.ait.lienzo.shared.core.types.DragConstraint;
 
 import elemental2.core.JsArray;
-import elemental2.dom.DomGlobal;
-import elemental2.dom.HTMLButtonElement;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLOptionElement;
 import elemental2.dom.HTMLSelectElement;
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
 
 import static elemental2.dom.DomGlobal.document;
 

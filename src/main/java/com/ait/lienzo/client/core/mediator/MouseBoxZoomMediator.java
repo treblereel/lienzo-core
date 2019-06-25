@@ -18,7 +18,6 @@ package com.ait.lienzo.client.core.mediator;
 
 import elemental2.dom.UIEvent;
 
-import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.client.core.event.NodeMouseDownEvent;
 import com.ait.lienzo.client.core.event.NodeMouseMoveEvent;
 import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
@@ -29,7 +28,7 @@ import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 /**
  * MouseBoxZoomMediator zooms in when the user drags a rectangular area.
  * <p>

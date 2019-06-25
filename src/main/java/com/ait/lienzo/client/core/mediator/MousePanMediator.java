@@ -24,7 +24,7 @@ import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 /**
  * MousePanMediator provides pan behavior similar to dragging the mouse in Google Maps.

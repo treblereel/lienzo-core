@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.gwtlienzo.i18n;
+package com.ait.lienzo.gwtlienzo.i18n;
 
 
 import java.lang.annotation.Documented;
@@ -23,7 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.gwtlienzo.i18n.client.LocalizableResource;
+import com.ait.lienzo.gwtlienzo.i18n.client.LocalizableResource;
 
 /**
  * A tag interface that facilitates locale-sensitive, compile-time binding of

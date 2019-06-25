@@ -1,4 +1,4 @@
-package com.gwtlienzo.i18n.client;
+package com.ait.lienzo.gwtlienzo.i18n.client;
 
 /*
  * Copyright 2008 Google Inc.

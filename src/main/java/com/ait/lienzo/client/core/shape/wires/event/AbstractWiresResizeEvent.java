@@ -16,13 +16,12 @@
 
 package com.ait.lienzo.client.core.shape.wires.event;
 
-import com.ait.lienzo.client.core.event.AbstractNodeDragEvent;
 import com.ait.lienzo.client.core.event.AbstractNodeEvent;
 import com.ait.lienzo.client.core.event.AbstractNodeHumanInputEvent;
 import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.tools.client.event.INodeXYEvent;
 import com.ait.lienzo.client.core.shape.wires.WiresShape;
-import com.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 import elemental2.dom.Event;
 import elemental2.dom.HTMLElement;

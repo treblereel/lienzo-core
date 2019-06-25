@@ -6,7 +6,7 @@ import com.ait.lienzo.client.core.config.LienzoCoreEntryPoint;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.client.widget.LienzoPanel2;
-import com.google.gwt.core.client.EntryPoint;
+import org.gwtproject.core.client.EntryPoint;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;

@@ -3,14 +3,11 @@ package org.roger600.lienzo.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.roger600.Util;
-
 import com.ait.lienzo.client.core.animation.IAnimation;
 import com.ait.lienzo.client.core.animation.IAnimationCallback;
 import com.ait.lienzo.client.core.animation.IAnimationHandle;
 import com.ait.lienzo.client.core.animation.IndefiniteAnimation;
 import com.ait.lienzo.client.core.shape.Circle;
-import com.ait.lienzo.client.widget.LienzoPanel2;
 import com.ait.lienzo.shared.core.types.Color;
 
 import jsinterop.annotations.JsType;

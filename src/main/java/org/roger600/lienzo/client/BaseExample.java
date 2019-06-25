@@ -1,7 +1,6 @@
 package org.roger600.lienzo.client;
 
-import org.gwtproject.dom.style.shared.Display;
-import org.roger600.Util;
+import org.roger600.lienzo.client.util.Util;
 
 import com.ait.lienzo.client.core.mediator.EventFilter;
 import com.ait.lienzo.client.core.mediator.MousePanMediator;
