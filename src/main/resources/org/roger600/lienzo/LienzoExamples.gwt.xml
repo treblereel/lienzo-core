@@ -16,13 +16,16 @@
    limitations under the License.
 -->
 <module>
-  
+
+  <inherits name='com.google.gwt.user.User' />
+
+
   <inherits name="org.gwtproject.core.Core" />
   
   <inherits name="com.ait.lienzo.Lienzo" />
-  <inherits name="elemental2.dom.Dom"/>
+ <!-- <inherits name="elemental2.dom.Dom"/>-->
 
-  <entry-point class="org.roger600.lienzo.client.LienzoExamples" />
+  <entry-point class="org.roger600.lienzo.client.LienzoGWT2Examples" />
   <!--entry-point class="org.roger600.lienzo.client.CanvasReplicationTests" /-->
   <!--<entry-point class="org.roger600.lienzo.client.CanvasToDataImageTests" />-->
   <!--<entry-point class="org.roger600.lienzo.client.LienzoKeyboardTests" />-->

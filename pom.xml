@@ -15,6 +15,9 @@
 		<webapp.libdir>${webappdir}/WEB-INF/lib</webapp.libdir>
 		<j2cl.maven.plugin.version>0.1-SNAPSHOT</j2cl.maven.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<gwt.version>2.8.2</gwt.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<url>http://www.kiegroup.org</url>
@@ -219,14 +222,20 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-core</artifactId>
+			<version>1.0.0-RC1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.gwtproject.dom</groupId>
 			<artifactId>gwt-dom</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<exclusions>
-				<exclusion>
+<!--				<exclusion>
 					<groupId>com.google.elemental2</groupId>
 					<artifactId>elemental2-core</artifactId>
-				</exclusion>
+				</exclusion>-->
 				<exclusion>
 					<groupId>com.google.gwt</groupId>
 					<artifactId>gwt-user</artifactId>
@@ -245,7 +254,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -275,36 +288,56 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<build>
+		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+
+		<resources>
+			<!-- Include src/main/java in order not to break the Eclipse GWT plug-in -->
+			<resource>
+				<directory>src/main/java</directory>
+			</resource>
+			<!-- Include module descriptors from src/main/resources in order not to break the Intellij GWT plug-in -->
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}</directory>
+							<includes>
+								<include>src/main/webapp/app/</include>
+								<include>src/main/webapp/org.roger600.lienzo.LienzoExamples/</include>
+								<include>src/main/gwt-unitCache/</include>
+								<include>src/main/webapp/WEB-INF/deploy/</include>
+								<include>src/main/webapp/WEB-INF/classes/</include>
+								<include>src/main/webapp/WEB-INF/lib/*</include>
+								<include>src/main/webapp/WEB-INF/lib/**/*</include>
+								<include>.errai/</include>
+							</includes>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 
 	<profiles>
 		<profile>
 			<id>GWT2</id>
 			<dependencies>
-				<!--<dependency>-->
-					<!--<groupId>com.google.jsinterop</groupId>-->
-					<!--<artifactId>base</artifactId>-->
-					<!--<version>1.0.0-RC1</version>-->
-				<!--</dependency>-->
 			</dependencies>
 			<build>
-
-				<resources>
-					<!-- Include src/main/java in order not to break the Eclipse GWT plug-in -->
-					<resource>
-						<directory>src/main/java</directory>
-					</resource>
-					<!-- Include module descriptors from src/main/resources in order not to break the Intellij GWT plug-in -->
-					<resource>
-						<directory>src/main/resources</directory>
-					</resource>
-				</resources>
-
 				<plugins>
 
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.2</version>
 						<configuration>
 							<source>1.8</source>
 							<target>1.8</target>
@@ -315,9 +348,6 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>gwt-maven-plugin</artifactId>
 						<version>2.8.2</version>
-						<configuration>
-							<runTarget>LienzoExamples.html</runTarget>
-						</configuration>
 						<executions>
 							<execution>
 								<goals>
@@ -325,8 +355,43 @@
 								</goals>
 							</execution>
 						</executions>
+						<!-- Plugin configuration. There are many available options, see
+              gwt-maven-plugin documentation at codehaus.org -->
+						<configuration>
+							<runTarget>LienzoExamples.html</runTarget>
+							<modules>
+								<module>org.roger600.lienzo.LienzoGWT2Examples</module>
+							</modules>
+						</configuration>
 					</plugin>
-
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>gwt-maven-plugin</artifactId>
+						<version>${gwt.version}</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<runTarget>LienzoExamples.html</runTarget>
+							<modules>
+								<module>org.roger600.lienzo.LienzoExamples</module>
+							</modules>
+							<logLevel>INFO</logLevel>
+							<noServer>false</noServer>
+							<extraJvmArgs>-Xmx2048m -XX:CompileThreshold=7000 -Djava.io.tmpdir=${project.build.directory}
+							</extraJvmArgs>
+							<disableCastChecking>true</disableCastChecking>
+							<soycDetailed>false</soycDetailed>
+							<hostedWebapp>src/main/webapp</hostedWebapp>
+							<strict>true</strict>
+							<compileReport>true</compileReport>
+							<saveSource>true</saveSource>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>

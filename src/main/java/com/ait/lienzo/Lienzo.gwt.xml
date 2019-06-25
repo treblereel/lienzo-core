@@ -34,7 +34,7 @@
 
 
 
-	<entry-point class='com.ait.lienzo.client.core.config.LienzoCoreEntryPoint' />
+	<entry-point class='com.ait.lienzo.client.core.config.LienzoGWT2CoreEntryPoint' />
 	<source path='client' />
 	<source path='shared' />
 	<source path='tools' />

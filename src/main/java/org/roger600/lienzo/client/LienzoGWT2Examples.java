@@ -1,29 +1,32 @@
 package org.roger600.lienzo.client;
 
+import com.ait.lienzo.client.core.config.LienzoGWT2CoreEntryPoint;
+import com.google.gwt.core.client.EntryPoint;
 import org.gwtproject.dom.style.shared.Display;
 
-import com.ait.lienzo.client.core.config.LienzoCoreEntryPoint;
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.client.widget.LienzoPanel2;
-import org.gwtproject.core.client.EntryPoint;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
-import jsinterop.annotations.JsMethod;
 
 import static elemental2.dom.DomGlobal.document;
 
-public class LienzoExamples implements EntryPoint {
+public class LienzoGWT2Examples implements EntryPoint {
+
+    private Example test;
+
     HTMLDivElement panelDiv;
 
     LienzoPanel2   lienzo;
 
-    private Example test;
 
+    @Override
     public void onModuleLoad() {
-        new LienzoCoreEntryPoint().onModuleLoad();
+
+        new LienzoGWT2CoreEntryPoint().onModuleLoad();
         createTests(new StrokeAndFillingExample("Stroke and Filling"),
                     new GradientsAndShadowsExample("Gradients and Shadows"),
                     new ColorsAndTransparencyExample("Colors and Transparency"),
@@ -54,9 +57,9 @@ public class LienzoExamples implements EntryPoint {
                     new SpriteExample("Sprite Example"),
                     new AsteroidsGameExample("Asteroids Game")
         );
+
     }
 
-    @JsMethod
     public void createTests(Example... tests)
     {
         for ( Example test : tests)
@@ -65,8 +68,6 @@ public class LienzoExamples implements EntryPoint {
         }
     }
 
-
-    @JsMethod
     public void createTest(Example test)
     {
         HTMLDivElement e1 = (HTMLDivElement) document.createElement("div");
@@ -117,7 +118,7 @@ public class LienzoExamples implements EntryPoint {
                 .setAlpha( 0.2 );
 
         line2.setDashArray( 2,
-                            2 );
+                2 );
 
         GridLayer gridLayer = new GridLayer(100, line1, 25, line2 );
 

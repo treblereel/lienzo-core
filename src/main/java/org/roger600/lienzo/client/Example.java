@@ -1,7 +1,5 @@
 package org.roger600.lienzo.client;
 
-import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.LienzoPanel2;
 
 import elemental2.dom.HTMLDivElement;
