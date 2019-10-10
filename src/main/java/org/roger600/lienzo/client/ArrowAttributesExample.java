@@ -2,6 +2,7 @@ package org.roger600.lienzo.client;
 
 import static elemental2.dom.DomGlobal.document;
 
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import org.gwtproject.dom.style.shared.Display;
 
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
@@ -82,7 +83,7 @@ public class ArrowAttributesExample extends BaseExample implements Example {
         console.log("Destroying Arrow Attributes --->>");
 	}
 
-	@Override public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv) {
+	@Override public void init(final LienzoPanel panel, final HTMLDivElement topDiv) {
 		super.init(panel, topDiv);
 		
         topDiv.style.display = Display.INLINE_BLOCK.getCssName();

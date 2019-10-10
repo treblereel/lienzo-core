@@ -16,18 +16,12 @@
 
 package com.ait.lienzo.client.widget.panel;
 
-import org.gwtproject.dom.client.Style;
 
 import com.ait.lienzo.client.core.shape.Layer;
-//import com.google.gwt.dom.client.Style;
-//import com.google.gwt.user.client.ui.FocusPanel;
-//import com.google.gwt.user.client.ui.ProvidesResize;
-//import com.google.gwt.user.client.ui.RequiresResize;
+import com.ait.lienzo.client.core.shape.Viewport;
+import org.gwtproject.dom.client.Style;
 
 public abstract class LienzoPanel<P extends LienzoPanel>
-//        extends FocusPanel
-//        implements RequiresResize,
-//                   ProvidesResize
 {
     public abstract P add(Layer layer);
 
@@ -35,9 +29,13 @@ public abstract class LienzoPanel<P extends LienzoPanel>
 
     public abstract P setCursor(Style.Cursor cursor);
 
+    public abstract void onResize();
+
     public abstract int getWidthPx();
 
     public abstract int getHeightPx();
+
+    public abstract Viewport getViewport();
 
     public abstract void destroy();
 }

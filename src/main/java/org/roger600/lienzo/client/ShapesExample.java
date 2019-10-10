@@ -1,6 +1,7 @@
 package org.roger600.lienzo.client;
 
 
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import org.gwtproject.dom.style.shared.Display;
 
 import com.ait.lienzo.client.widget.LienzoPanel2;
@@ -86,7 +87,7 @@ public class ShapesExample extends BaseExample implements Example {
 		
     }
     
-    @Override public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv) {
+    @Override public void init(final LienzoPanel panel, final HTMLDivElement topDiv) {
 	    super.init(panel, topDiv);
 	    topDiv.style.display = Display.INLINE_BLOCK.getCssName();
 	    
@@ -150,7 +151,7 @@ public class ShapesExample extends BaseExample implements Example {
     }
     
     private OnclickFn addSubExample(Example example) {
-    	panel.removeAll();
+    	panel.destroy();
     	example.init(panel,  topDiv);
     	example.run();
     	

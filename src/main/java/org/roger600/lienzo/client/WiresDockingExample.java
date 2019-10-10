@@ -1,5 +1,6 @@
 package org.roger600.lienzo.client;
 
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import org.gwtproject.dom.style.shared.Display;
 
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
@@ -50,7 +51,7 @@ public class WiresDockingExample extends BaseExample implements Example
     }
 
     @Override
-    public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv)
+    public void init(final LienzoPanel panel, final HTMLDivElement topDiv)
     {
         super.init(panel, topDiv);
 

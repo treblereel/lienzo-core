@@ -2,6 +2,7 @@ package org.roger600.lienzo.client;
 
 import java.util.LinkedHashMap;
 
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import org.gwtproject.dom.style.shared.Display;
 
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
@@ -48,7 +49,7 @@ public class CornerRadiusExample extends BaseExample implements Example
     }
 
     @Override
-    public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv)
+    public void init(final LienzoPanel panel, final HTMLDivElement topDiv)
     {
         super.init(panel, topDiv);
         topDiv.style.display = Display.INLINE_BLOCK.getCssName();

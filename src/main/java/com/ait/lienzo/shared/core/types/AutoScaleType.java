@@ -18,6 +18,7 @@ package com.ait.lienzo.shared.core.types;
 
 import java.util.List;
 
+// TODO: Really used? can be removed?
 public enum AutoScaleType implements EnumWithValue
 {
     NONE("scaleWithXY-none"), MIN("scaleWithXY-min"), MAX("scaleWithXY-max"), WIDTH("scaleWithXY-width"), HEIGHT("scaleWithXY-height");

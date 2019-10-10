@@ -1,5 +1,6 @@
 package org.roger600.lienzo.client;
 
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import org.roger600.lienzo.client.util.Util;
 
 import com.ait.lienzo.client.core.mediator.EventFilter;
@@ -14,7 +15,7 @@ import elemental2.dom.HTMLDivElement;
 public abstract class BaseExample implements Example
 {
     private String title;
-    protected LienzoPanel2 panel;
+    protected LienzoPanel panel;
     protected Layer        layer;
 
     protected Console      console;
@@ -45,7 +46,7 @@ public abstract class BaseExample implements Example
     }
 
     @Override
-    public void init(final LienzoPanel2 panel, HTMLDivElement topDiv)
+    public void init(final LienzoPanel panel, HTMLDivElement topDiv)
     {
         this.topDiv = topDiv;
 
@@ -53,8 +54,8 @@ public abstract class BaseExample implements Example
         this.layer = new Layer();
         this.panel.add(this.layer);
 
-        width = panel.getWidth();
-        height = panel.getHeight();
+        width = panel.getWidthPx();
+        height = panel.getHeightPx();
 
         MouseWheelZoomMediator zoom = new MouseWheelZoomMediator(EventFilter.SHIFT);
         panel.getViewport().pushMediator(zoom);
@@ -88,7 +89,7 @@ public abstract class BaseExample implements Example
     @Override
     public void onResize()
     {
-        width = panel.getWidth();
-        height = panel.getHeight();
+        width = panel.getWidthPx();
+        height = panel.getHeightPx();
     }
 }

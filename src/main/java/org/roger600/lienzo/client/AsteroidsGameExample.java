@@ -16,6 +16,7 @@ import com.ait.lienzo.client.core.shape.Rectangle;
 import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.widget.LienzoPanel2;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.ColorName;
 
 import elemental2.dom.DomGlobal;
@@ -53,7 +54,7 @@ public class AsteroidsGameExample extends BaseExample implements Example
         super(title);
     }
 
-    @Override public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv)
+    @Override public void init(final LienzoPanel panel, final HTMLDivElement topDiv)
     {
         super.init(panel, topDiv);
 

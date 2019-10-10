@@ -73,8 +73,6 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     private       int            m_high    = 0;
 
-    private       HTMLElement    m_owns    = null;
-
     private final HTMLDivElement m_element = (HTMLDivElement) DomGlobal.document.createElement("div");;
 
     private       Scene          m_drag    = new Scene();
@@ -192,22 +190,6 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
             setTransform(new Transform());
         }
         m_element.id = "viewPort_div" + idCounter++;
-    }
-
-    public final boolean adopt(final HTMLElement owns)
-    {
-        if (null == m_owns)
-        {
-            m_owns = owns;
-
-            return true;
-        }
-        return false;
-    }
-
-    public HTMLElement getOwnerHTMLElement()
-    {
-        return m_owns;
     }
 
     @Override

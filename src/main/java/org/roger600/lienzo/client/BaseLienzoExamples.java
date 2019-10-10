@@ -1,5 +1,8 @@
 package org.roger600.lienzo.client;
 
+import com.ait.lienzo.client.core.shape.Viewport;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
+import com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl;
 import org.gwtproject.dom.style.shared.Display;
 
 import com.ait.lienzo.client.core.shape.GridLayer;
@@ -16,12 +19,13 @@ import static elemental2.dom.DomGlobal.document;
 public class BaseLienzoExamples {
     HTMLDivElement panelDiv;
 
-    LienzoPanel2   lienzo;
+    LienzoPanel lienzo;
 
     private Example test;
 
     public void doLoad() {
-        createTests(new StrokeAndFillingExample("Stroke and Filling"),
+        createTests(new BasicExample("Basic"),
+                    new StrokeAndFillingExample("Stroke and Filling"),
                     new GradientsAndShadowsExample("Gradients and Shadows"),
                     new ColorsAndTransparencyExample("Colors and Transparency"),
                     new HorizontalTextAlignmentExample("Horizontal Text Alignment"),
@@ -93,7 +97,8 @@ public class BaseLienzoExamples {
         HTMLDivElement main = (HTMLDivElement) document.getElementById("main");
         main.appendChild(panelDiv);
 
-        lienzo = new LienzoPanel2(panelDiv, true, test.getWidthOffset(), test.getHeightOffset());
+        // TODO: lienzo = new LienzoPanelImpl(panelDiv, new Viewport(), test.getWidthOffset(), test.getHeightOffset());
+        lienzo = new LienzoPanelImpl(panelDiv, new Viewport());
         applyGrid(lienzo);
 
         DomGlobal.window.addEventListener("resize", (e) ->
@@ -102,7 +107,7 @@ public class BaseLienzoExamples {
         });
     }
 
-    private void applyGrid( final LienzoPanel2 panel) {
+    private void applyGrid( final LienzoPanel panel) {
         // Grid.
         Line line1 = new Line(0, 0, 0, 0 )
                 .setStrokeColor( "#0000FF" )

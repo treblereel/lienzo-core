@@ -18,6 +18,7 @@ import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.types.Shadow;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.LienzoPanel2;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.ColorName;
 import com.ait.lienzo.tools.client.Console;
 
@@ -51,7 +52,7 @@ public class Transform3PointsExample extends BaseExample implements Example
     }
 
     @Override
-    public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv) {
+    public void init(final LienzoPanel panel, final HTMLDivElement topDiv) {
         super.init(panel, topDiv);
 
         node = new SliceGroup(WIDTH, "red");

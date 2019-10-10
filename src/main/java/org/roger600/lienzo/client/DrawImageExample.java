@@ -1,5 +1,6 @@
 package org.roger600.lienzo.client;
 
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import org.gwtproject.dom.style.shared.Display;
 import org.roger600.lienzo.client.util.Util;
 
@@ -58,7 +59,7 @@ public class DrawImageExample extends BaseExample implements Example
         super(title);
     }
 
-    @Override public void init(final LienzoPanel2 panel, final HTMLDivElement topDiv)
+    @Override public void init(final LienzoPanel panel, final HTMLDivElement topDiv)
     {
         super.init(panel, topDiv);
         topDiv.style.display = Display.INLINE_BLOCK.getCssName();
