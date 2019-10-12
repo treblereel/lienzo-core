@@ -15,24 +15,11 @@
  */
 package com.ait.lienzo.client.widget.panel.impl;
 
-import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.Viewport;
-import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.lienzo.client.core.types.Transform;
-import com.ait.lienzo.client.widget.panel.Bounds;
-import com.ait.lienzo.client.widget.panel.BoundsProvider;
-import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
-import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.ait.lienzo.client.widget.panel.event.*;
-import com.ait.lienzo.client.widget.panel.scrollbars.ScrollBars;
-import com.ait.lienzo.client.widget.panel.scrollbars.ScrollablePanel;
 //import com.ait.tooling.common.api.java.util.function.Supplier;
 //import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
 //import com.google.gwt.dom.client.Style;
 //import com.google.gwt.event.shared.HandlerManager;
 //import com.google.gwt.event.shared.HandlerRegistration;
-
-import java.util.Objects;
 
 public class PreviewPanel // extends ScalablePanel
 {
@@ -199,8 +186,8 @@ public class PreviewPanel // extends ScalablePanel
 //                }));
 //
 //        // Use actual panel's size.
-//        resize(panel.getWidthPx(),
-//               panel.getHeightPx());
+//        resize(panel.getWidePx(),
+//               panel.getHighPx());
 //
 //        // Use actual panel's scroll position.
 //        final ScrollBars scrollBars = panel.getScrollHandler().scrollBars();

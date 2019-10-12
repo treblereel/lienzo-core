@@ -38,8 +38,8 @@ public class PanelTransformUtils {
 //    }
 //
 //    public static double computeZoomLevelFitToWidth(final LienzoBoundsPanel panel) {
-//        final double panelWidth = panel.getWidthPx();
-//        final double panelHeight = panel.getHeightPx();
+//        final double panelWidth = panel.getWidePx();
+//        final double panelHeight = panel.getHighPx();
 //        return computeZoomLevelFitToWidth(panelWidth, panelHeight, panel);
 //    }
 //

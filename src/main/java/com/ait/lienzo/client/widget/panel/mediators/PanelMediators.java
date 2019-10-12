@@ -16,18 +16,6 @@
 
 package com.ait.lienzo.client.widget.panel.mediators;
 
-import com.ait.lienzo.client.core.mediator.AbstractMediator;
-import com.ait.lienzo.client.core.mediator.EventFilter;
-import com.ait.lienzo.client.core.mediator.IEventFilter;
-import com.ait.lienzo.client.core.mediator.MousePanMediator;
-import com.ait.lienzo.client.core.mediator.MouseWheelZoomMediator;
-import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.Viewport;
-import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
-import com.ait.lienzo.client.widget.panel.scrollbars.ScrollablePanel;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
-
 public class PanelMediators {
 //
 //    static final IEventFilter                EVENT_FILTER_ZOOM = EventFilter.CONTROL;

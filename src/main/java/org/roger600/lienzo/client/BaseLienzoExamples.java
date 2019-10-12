@@ -1,14 +1,12 @@
 package org.roger600.lienzo.client;
 
-import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl;
+import com.ait.lienzo.client.widget.panel.impl.BoundsProviderFactory;
+import com.ait.lienzo.client.widget.panel.impl.ScrollablePanel;
 import org.gwtproject.dom.style.shared.Display;
 
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
-import com.ait.lienzo.client.widget.LienzoPanel2;
-import com.google.gwt.core.client.EntryPoint;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
@@ -97,8 +95,10 @@ public class BaseLienzoExamples {
         HTMLDivElement main = (HTMLDivElement) document.getElementById("main");
         main.appendChild(panelDiv);
 
-        // TODO: lienzo = new LienzoPanelImpl(panelDiv, new Viewport(), test.getWidthOffset(), test.getHeightOffset());
-        lienzo = new LienzoPanelImpl(panelDiv, new Viewport());
+        // lienzo = new LienzoPanelImpl(panelDiv, new Viewport(), test.getWidthOffset(), test.getHeightOffset());
+        // lienzo = LienzoFitPanel.newPanel(panelDiv);
+        lienzo = ScrollablePanel.newPanel(panelDiv, new BoundsProviderFactory.PrimitivesBoundsProvider());
+
         applyGrid(lienzo);
 
         DomGlobal.window.addEventListener("resize", (e) ->

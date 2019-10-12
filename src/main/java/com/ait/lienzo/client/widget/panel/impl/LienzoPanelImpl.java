@@ -25,36 +25,52 @@ import com.ait.lienzo.client.core.shape.Scene;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.DragMouseControl;
-import com.ait.lienzo.client.widget.panel.HTMLLienzoPanel;
-import com.ait.lienzo.client.widget.panel.PanelPxSize;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
 import com.google.gwt.dom.client.Style;
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 
-public class LienzoPanelImpl extends HTMLLienzoPanel<LienzoPanelImpl>
+import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelHeight;
+import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelWidth;
+
+public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
 {
     private final Viewport                  m_view;
+
+    private final HTMLDivElement m_elm;
+
+    private int widePx;
+    private int highPx;
 
     private       LienzoPanelHandlerManager m_events;
 
     private       DragMouseControl          m_drag_mouse_control;
 
-    public LienzoPanelImpl(final HTMLDivElement element,
-                           final Viewport view)
-    {
-        super(element);
-
-        m_view = view;
-
-        doPostCTOR();
+    public static LienzoPanelImpl newPanel(HTMLDivElement element,
+                                           int wide,
+                                           int high) {
+        return new LienzoPanelImpl(element,
+                                   new Viewport(),
+                                   wide,
+                                   high);
     }
 
+    public LienzoPanelImpl(final HTMLDivElement element,
+                           final Viewport view,
+                           final int wide,
+                           final int high)
+    {
+        this.m_elm = element;
+        this.m_elm.tabIndex = 0;
+        this.m_view = view;
+        doPostCTOR(wide, high);
+    }
 
-    private final void doPostCTOR()
+    private final void doPostCTOR(final int wide,
+                                  final int high)
     {
         m_drag_mouse_control = DragMouseControl.LEFT_MOUSE_ONLY;
 
@@ -65,7 +81,7 @@ public class LienzoPanelImpl extends HTMLLienzoPanel<LienzoPanelImpl>
 
             getElement().appendChild(divElement);
 
-            setPixelSize(getWidthPx(), getHeightPx());
+            setPixelSize(wide, high);
 
             m_events = new LienzoPanelHandlerManager(this);
         }
@@ -79,21 +95,27 @@ public class LienzoPanelImpl extends HTMLLienzoPanel<LienzoPanelImpl>
         getElement().style.outlineStyle = Style.OutlineStyle.NONE.getCssName();
     }
 
-    @Override
-    public void onResize()
-    {
-        PanelPxSize parentSize = PanelPxSize.getPanelSize(getParent());
-        setPixelSize(parentSize.getWidthPx(), parentSize.getHeightPx());
+    public int getWidePx() {
+        return widePx;
+    }
+
+    public int getHighPx() {
+        return highPx;
     }
 
     @Override
     public void destroy()
     {
-        super.destroy();
+        m_elm.remove();
         removeAll();
         m_events.destroy();
         m_events = null;
         m_drag_mouse_control = null;
+    }
+
+    @Override
+    public HTMLDivElement getElement() {
+        return m_elm;
     }
 
     public LienzoPanelImpl setDragMouseButtons(DragMouseControl controls)
@@ -191,23 +213,15 @@ public class LienzoPanelImpl extends HTMLLienzoPanel<LienzoPanelImpl>
         return this;
     }
 
-    /**
-     * Sets the size in pixels of the {@link com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl} Sets the size in
-     * pixels of the {@link com.ait.lienzo.client.core.shape.Viewport} contained and automatically added to the instance
-     * of the {@link com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl}
-     */
-    public void setPixelSize(final int wide, final int high)
-    {
-        if (wide >= 0) {
-            setWidthPx(wide);
+    public void setPixelSize(final int wide, final int high) {
+        if (widePx != wide || highPx != high) {
+            widePx = wide;
+            highPx = high;
+            setPanelWidth(m_elm, wide);
+            setPanelHeight(m_elm, high);
+            getViewport().setPixelSize(wide, high);
+            getViewport().draw();
         }
-        if (high >= 0) {
-            setHeightPx(high);
-        }
-
-        getViewport().setPixelSize(wide, high);
-
-        getViewport().draw();
     }
 
     /**

@@ -8,7 +8,6 @@ import com.ait.lienzo.client.core.mediator.MousePanMediator;
 import com.ait.lienzo.client.core.mediator.MouseWheelZoomMediator;
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Shape;
-import com.ait.lienzo.client.widget.LienzoPanel2;
 
 import elemental2.dom.HTMLDivElement;
 
@@ -54,8 +53,8 @@ public abstract class BaseExample implements Example
         this.layer = new Layer();
         this.panel.add(this.layer);
 
-        width = panel.getWidthPx();
-        height = panel.getHeightPx();
+        width = panel.getWidePx();
+        height = panel.getHighPx();
 
         MouseWheelZoomMediator zoom = new MouseWheelZoomMediator(EventFilter.SHIFT);
         panel.getViewport().pushMediator(zoom);
@@ -89,7 +88,7 @@ public abstract class BaseExample implements Example
     @Override
     public void onResize()
     {
-        width = panel.getWidthPx();
-        height = panel.getHeightPx();
+        width = panel.getWidePx();
+        height = panel.getHighPx();
     }
 }

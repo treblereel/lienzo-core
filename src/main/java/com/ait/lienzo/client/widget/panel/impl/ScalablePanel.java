@@ -63,8 +63,8 @@ public class ScalablePanel //extends LienzoBoundsPanel
 //        final Layer layer = getLayer();
 //        if (null != layer)
 //        {
-//            final double  width    = getLienzoPanel().getWidthPx();
-//            final double  height   = getLienzoPanel().getHeightPx();
+//            final double  width    = getLienzoPanel().getWidePx();
+//            final double  height   = getLienzoPanel().getHighPx();
 //            final Bounds  current  = getBounds();
 //            final double  toWidth  = current.getX() + current.getWidth();
 //            final double  toHeight = current.getY() + current.getHeight();

@@ -16,6 +16,8 @@
 
 package com.ait.lienzo.client.widget.panel;
 
+import com.ait.lienzo.client.core.shape.Viewport;
+import com.ait.lienzo.client.core.types.Transform;
 import org.gwtproject.dom.client.Style;
 
 import com.ait.lienzo.client.core.shape.Layer;
@@ -113,7 +115,6 @@ public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         return cast();
     }
 
-    @Override
     public void onResize()
     {
         refresh();
@@ -127,19 +128,15 @@ public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         }
     }
 
+    protected abstract void doDestroy();
+
     @Override
     public final void destroy()
     {
         doDestroy();
         getLienzoPanel().destroy();
-        // TODO removeFromParent();
         layer = null;
         defaultBounds = null;
-    }
-
-    protected void doDestroy()
-    {
-
     }
 
     public Bounds getDefaultBounds()
@@ -157,21 +154,30 @@ public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         return layer;
     }
 
+    @Override
+    public Viewport getViewport() {
+        return null != layer ? layer.getViewport() : null;
+    }
+
+    protected Transform getTransform() {
+        return null != getViewport() ? getViewport().getTransform() : null;
+    }
+
     public LienzoPanel getLienzoPanel()
     {
         return lienzoPanel;
     }
 
     @Override
-    public int getHeightPx()
+    public int getHighPx()
     {
-        return lienzoPanel.getHeightPx();
+        return lienzoPanel.getHighPx();
     }
 
     @Override
-    public int getWidthPx()
+    public int getWidePx()
     {
-        return lienzoPanel.getWidthPx();
+        return lienzoPanel.getWidePx();
     }
 
     public BoundsProvider getBoundsProvider()

@@ -16,20 +16,6 @@
 
 package com.ait.lienzo.client.widget.panel.mediators;
 
-import com.ait.lienzo.client.core.mediator.MouseBoxZoomMediator;
-import com.ait.lienzo.client.core.shape.Rectangle;
-import com.ait.lienzo.client.core.shape.Viewport;
-import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.lienzo.client.core.types.Transform;
-import com.ait.lienzo.client.widget.panel.Bounds;
-import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
-import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl;
-import com.ait.lienzo.client.widget.panel.impl.PreviewLayer;
-import com.ait.lienzo.client.widget.panel.scrollbars.ScrollablePanel;
-import com.ait.lienzo.client.widget.panel.util.PanelTransformUtils;
-import com.ait.lienzo.shared.core.types.ColorName;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
 //import com.ait.tooling.common.api.java.util.function.Consumer;
 //import com.ait.tooling.common.api.java.util.function.Supplier;
 //import com.google.gwt.dom.client.Style;
@@ -119,8 +105,8 @@ public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMe
 //    @Override
 //    protected void onEnable() {
 //        final LienzoBoundsPanel panel = getPanel();
-//        final int panelWidthPx = panel.getWidthPx();
-//        final int panelHeightPx = panel.getHeightPx();
+//        final int panelWidthPx = panel.getWidePx();
+//        final int panelHeightPx = panel.getHighPx();
 //        final Style style = previewPanel.getElement().getStyle();
 //        style.setPosition(Style.Position.ABSOLUTE);
 //        style.setTop(0, Style.Unit.PX);
@@ -236,8 +222,8 @@ public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMe
 //            public Bounds get() {
 //                return Bounds.build(0,
 //                                    0,
-//                                    getPanel().getWidthPx(),
-//                                    getPanel().getHeightPx());
+//                                    getPanel().getWidePx(),
+//                                    getPanel().getHighPx());
 //            }
 //        };
 //    }

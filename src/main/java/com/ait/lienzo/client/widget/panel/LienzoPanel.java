@@ -19,6 +19,7 @@ package com.ait.lienzo.client.widget.panel;
 
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
+import elemental2.dom.HTMLDivElement;
 import org.gwtproject.dom.client.Style;
 
 public abstract class LienzoPanel<P extends LienzoPanel>
@@ -29,13 +30,13 @@ public abstract class LienzoPanel<P extends LienzoPanel>
 
     public abstract P setCursor(Style.Cursor cursor);
 
-    public abstract void onResize();
+    public abstract int getWidePx();
 
-    public abstract int getWidthPx();
-
-    public abstract int getHeightPx();
+    public abstract int getHighPx();
 
     public abstract Viewport getViewport();
+
+    public abstract HTMLDivElement getElement();
 
     public abstract void destroy();
 }

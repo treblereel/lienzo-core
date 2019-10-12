@@ -40,7 +40,7 @@ public class BoundsProviderFactory
             {
                 for (IPrimitive<?> shape : shapes.asList())
                 {
-                    BoundingBox boundingBox = shape.getBoundingBox();
+                    BoundingBox boundingBox = shape.getComputedBoundingPoints().getBoundingBox();
                     result.add(boundingBox);
                 }
             }
