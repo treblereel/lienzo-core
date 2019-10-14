@@ -124,67 +124,54 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         return null;
     }
 
-    void addScrollEventListener(EventListener eventListener) {
-        scrollPanel.addEventListener("scroll", eventListener);
+    public void addBoundsChangedEventListener(EventListener eventListener) {
+        LienzoPanelEvents.addBoundsChangedEventListener(this, eventListener);
     }
 
-    void removeScrollEventListener(EventListener eventListener) {
-        scrollPanel.removeEventListener("scroll", eventListener);
+    public void removeBoundsChangedEventListener(EventListener eventListener) {
+        LienzoPanelEvents.removeBoundsChangedEventListener(this, eventListener);
     }
 
-    // TODO: Custom GWT event handling
-
-    /*public final HandlerRegistration addLienzoPanelBoundsChangedEventHandler(final LienzoPanelBoundsChangedEventHandler handler)
-    {
-        Objects.requireNonNull(handler);
-
-        return m_events.addHandler(LienzoPanelBoundsChangedEvent.TYPE, handler);
+    private void fireBoundsChangedEvent() {
+        LienzoPanelEvents.fireBoundsChangedEvent(this);
     }
 
-    void fireLienzoPanelBoundsChangedEvent()
-    {
-        m_events.fireEvent(new LienzoPanelBoundsChangedEvent());
+    public void addResizeEventListener(EventListener eventListener) {
+        LienzoPanelEvents.addResizeEventListener(this, eventListener);
     }
 
-    public final HandlerRegistration addLienzoPanelScrollEventHandler(final LienzoPanelScrollEventHandler handler)
-    {
-        Objects.requireNonNull(handler);
-
-        return m_events.addHandler(LienzoPanelScrollEvent.TYPE, handler);
+    public void removeResizeEventListener(EventListener eventListener) {
+        LienzoPanelEvents.removeResizeEventListener(this, eventListener);
     }
 
-    void fireLienzoPanelScrollEvent(final double pctX,
-                                    final double pctY)
-    {
-        m_events.fireEvent(new LienzoPanelScrollEvent(pctX, pctY));
+    private void fireResizeChangedEvent() {
+        LienzoPanelEvents.fireResizeEvent(this);
     }
 
-    public final HandlerRegistration addLienzoPanelResizeEventHandler(final LienzoPanelResizeEventHandler handler)
-    {
-        Objects.requireNonNull(handler);
-
-        return m_events.addHandler(LienzoPanelResizeEvent.TYPE, handler);
+    public void addScaleEventListener(EventListener eventListener) {
+        LienzoPanelEvents.addScaleEventListener(this, eventListener);
     }
 
-    void fireLienzoPanelResizeEvent(final double width,
-                                    final double height)
-    {
-        m_events.fireEvent(new LienzoPanelResizeEvent(width, height));
+    public void removeScaleEventListener(EventListener eventListener) {
+        LienzoPanelEvents.removeScaleEventListener(this, eventListener);
     }
 
-    public final HandlerRegistration addLienzoPanelScaleChangedEventHandler(final LienzoPanelScaleChangedEventHandler handler)
-    {
-        Objects.requireNonNull(handler);
-
-        return m_events.addHandler(LienzoPanelScaleChangedEvent.TYPE, handler);
+    public void fireScaleEvent() {
+        LienzoPanelEvents.fireScaleEvent(this);
     }
 
-    void fireLienzoPanelScaleChangedEvent()
-    {
-        final Transform transform = getLayer().getViewport().getTransform();
-        m_events.fireEvent(new LienzoPanelScaleChangedEvent(new Point2D(transform.getScaleX(),
-                                                                        transform.getScaleY())));
-    }*/
+    public void addScrollEventListener(EventListener eventListener) {
+        LienzoPanelEvents.addScrollEventListener(this, eventListener);
+    }
+
+    public void removeScrollEventListener(EventListener eventListener) {
+        LienzoPanelEvents.removeScrollEventListener(this, eventListener);
+    }
+
+    public void fireScrollEvent(double px,
+                                double py) {
+        LienzoPanelEvents.fireScrollEvent(this, px, py);
+    }
 
     private void fitToParentSize() {
         HTMLDivElement parent = (HTMLDivElement) rootPanel.parentNode;
@@ -200,7 +187,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         this.widePx = widePx;
         this.highPx = highPx;
         updatePanelsSizes(widePx, highPx);
-        // TODO fireLienzoPanelResizeEvent(widePx, highPx);
+        fireResizeChangedEvent();
     }
 
     @Override
@@ -269,7 +256,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         rootPanel.addEventListener("mouseout", mouseOutListener);
         rootPanel.addEventListener("mousemove", mouseMoveListener);
         domElementContainer.addEventListener("mousewheel", mouseWheelListener);
-        addScrollEventListener(scrollListener);
+        scrollPanel.addEventListener("scroll", scrollListener);
     }
 
     @Override
@@ -284,7 +271,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         rootPanel.removeEventListener("mouseout", mouseOutListener);
         rootPanel.removeEventListener("mousemove", mouseMoveListener);
         domElementContainer.removeEventListener("mousewheel", mouseWheelListener);
-        removeScrollEventListener(scrollListener);
+        scrollPanel.removeEventListener("scroll", scrollListener);
     }
 
     private void enablePointerEvents() {
@@ -324,7 +311,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         final double width = calculateInternalScrollPanelWidth();
         final double height = calculateInternalScrollPanelHeight();
         setPanelSize(internalScrollPanel, (int) width, (int) height);
-        // TODO getPanel().fireLienzoPanelBoundsChangedEvent();
+        fireBoundsChangedEvent();
     }
 
     private void refreshScrollPosition() {
@@ -421,7 +408,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         final Transform newTransform = oldTransform.copy().translate(dx, dy);
         getViewport().setTransform(newTransform);
         getLayer().batch();
-        // TODO getPanel().fireLienzoPanelScrollEvent(percentageX, percentageY);
+        fireScrollEvent(px, py);
     }
 
     // -- Scroll Bounds --

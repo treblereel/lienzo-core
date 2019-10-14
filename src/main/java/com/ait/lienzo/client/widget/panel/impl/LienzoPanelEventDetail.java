@@ -14,12 +14,25 @@
  * limitations under the License.
  */
 
-package com.ait.lienzo.client.widget.panel.event;
+package com.ait.lienzo.client.widget.panel.impl;
 
-//import com.google.gwt.event.shared.EventHandler;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
+import elemental2.dom.CustomEvent;
+import elemental2.dom.Event;
 
-public interface LienzoPanelResizeEventHandler
-//        extends EventHandler
+public class LienzoPanelEventDetail
 {
-    public void onResize(LienzoPanelResizeEvent event);
+    private final LienzoPanel panel;
+
+    public static LienzoPanelEventDetail getDetail(Event event) {
+        return (LienzoPanelEventDetail) ((CustomEvent) event).detail;
+    }
+
+    public LienzoPanelEventDetail(LienzoPanel panel) {
+        this.panel = panel;
+    }
+
+    public LienzoPanel getLienzoPanel() {
+        return panel;
+    }
 }

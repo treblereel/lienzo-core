@@ -1,16 +1,16 @@
 package org.roger600.lienzo.client;
 
-import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.ait.lienzo.client.widget.panel.impl.BoundsProviderFactory;
-import com.ait.lienzo.client.widget.panel.impl.ScrollablePanel;
-import org.gwtproject.dom.style.shared.Display;
-
 import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
-
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
+import com.ait.lienzo.client.widget.panel.impl.BoundsProviderFactory;
+import com.ait.lienzo.client.widget.panel.impl.LienzoPanelEventDetail;
+import com.ait.lienzo.client.widget.panel.impl.LienzoPanelScrollEventDetail;
+import com.ait.lienzo.client.widget.panel.impl.ScrollablePanel;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
+import org.gwtproject.dom.style.shared.Display;
 
 import static elemental2.dom.DomGlobal.document;
 
@@ -97,7 +97,33 @@ public class BaseLienzoExamples {
 
         // lienzo = new LienzoPanelImpl(panelDiv, new Viewport(), test.getWidthOffset(), test.getHeightOffset());
         // lienzo = LienzoFitPanel.newPanel(panelDiv);
-        lienzo = ScrollablePanel.newPanel(panelDiv, new BoundsProviderFactory.PrimitivesBoundsProvider());
+        ScrollablePanel scrollablePanel = ScrollablePanel.newPanel(panelDiv, new BoundsProviderFactory.PrimitivesBoundsProvider());
+
+        // TODO: REMOVE ALL BELOW EVENT LISTENERS
+
+        scrollablePanel.addBoundsChangedEventListener(evt -> {
+            DomGlobal.console.log("BOUNDS CHANGED!!! YEAH!");
+            LienzoPanelEventDetail detail = LienzoPanelEventDetail.getDetail(evt);
+            DomGlobal.console.log("DETAIL = " + detail.toString());
+        });
+
+        scrollablePanel.addResizeEventListener(evt -> {
+            DomGlobal.console.log("RESIZE!!! YEAH!");
+            LienzoPanelEventDetail detail = LienzoPanelEventDetail.getDetail(evt);
+            int widePx = detail.getLienzoPanel().getWidePx();
+            int highPx = detail.getLienzoPanel().getHighPx();
+            DomGlobal.console.log("DETAIL = " + detail.toString());
+            DomGlobal.console.log("W/H = " + widePx + ", " + highPx);
+        });
+
+        scrollablePanel.addScrollEventListener(evt -> {
+            DomGlobal.console.log("SCROLL!!! YEAH!");
+            LienzoPanelScrollEventDetail detail = LienzoPanelScrollEventDetail.getScrollDetail(evt);
+            DomGlobal.console.log("DETAIL = " + detail.toString());
+            DomGlobal.console.log("Px/Py = " + detail.getPx() + ", " + detail.getPy());
+        });
+
+        lienzo = scrollablePanel;
 
         applyGrid(lienzo);
 

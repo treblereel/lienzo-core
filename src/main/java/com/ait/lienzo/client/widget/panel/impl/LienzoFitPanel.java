@@ -31,6 +31,7 @@ public class LienzoFitPanel extends LienzoPanel<LienzoFitPanel> {
         {
             onResize();
         };
+        // TODO: Adding the event listener for the whole window - may cause issues when multiple live instances running
         window.addEventListener("resize", m_resizeListener);
     }
 
