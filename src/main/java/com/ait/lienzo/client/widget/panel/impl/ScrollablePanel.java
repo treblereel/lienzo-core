@@ -50,27 +50,35 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     private RestrictedMousePanMediator panMediator;
 
     public static ScrollablePanel newPanel(final HTMLDivElement parent,
-                                           final BoundsProvider layerBoundsProvider) {
+                                                     final BoundsProvider layerBoundsProvider) {
         final int[] panelPxSize = LienzoPanelUtils.getParentFitSize(parent);
         final int wide = panelPxSize[0];
         final int high = panelPxSize[1];
-        return new ScrollablePanel(parent,
-                                   LienzoPanelImpl.newPanel(createDiv(),
-                                                            wide,
-                                                            high),
-                                   layerBoundsProvider,
-                                   wide,
-                                   high);
+        ScrollablePanel panel = new ScrollablePanel(layerBoundsProvider,
+                                                    wide,
+                                                    high);
+        parent.appendChild(panel.getElement());
+        return panel;
     }
 
-    public ScrollablePanel(final HTMLDivElement parent,
-                            final LienzoPanel lienzoPanel,
+    public ScrollablePanel(final BoundsProvider layerBoundsProvider,
+                           final int wide,
+                           final int high) {
+        this(LienzoPanelImpl.newPanel(createDiv(),
+                                       wide,
+                                       high),
+              layerBoundsProvider,
+             wide,
+             high);
+    }
+
+    public ScrollablePanel(final LienzoPanel lienzoPanel,
                             final BoundsProvider layerBoundsProvider,
                             final int wide,
                             final int high) {
         super(lienzoPanel,
               layerBoundsProvider);
-        setupPanels(parent);
+        setupPanels();
         setPxSize(wide, high);
     }
 
@@ -235,14 +243,14 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         isMouseDown = false;
     }
 
-    private void setupPanels(final HTMLDivElement parent) {
+    private void setupPanels() {
         // DOM tree.
         scrollPanel.appendChild(internalScrollPanel);
         domElementContainer.appendChild(getLienzoPanel().getElement());
         rootPanel.appendChild(domElementContainer);
         rootPanel.appendChild(scrollPanel);
         rootPanel.style.outlineStyle = "none";
-        parent.appendChild(rootPanel);
+
         // Event listeners.
         mouseDownListener = e -> ScrollablePanel.this.onStart();
         mouseUpListener = e -> ScrollablePanel.this.onComplete();

@@ -14,7 +14,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<gwt.version>2.8.2</gwt.version>
+		<com.google.jsinterop.base.version>1.0.0-RC1</com.google.jsinterop.base.version>
+		<com.google.jsinterop.annotations.version>1.0.2</com.google.jsinterop.annotations.version>
+		<com.google.elemental2.version>1.0.0-RC1</com.google.elemental2.version>
+		<com.google.gwt.version>2.8.2</com.google.gwt.version>
+		<org.gwtproject.version>1.0-SNAPSHOT</org.gwtproject.version>
+		<junit.version>4.12</junit.version>
 	</properties>
 
 	<url>http://www.kiegroup.org</url>
@@ -105,140 +110,17 @@
 	</pluginRepositories>
 
 	<dependencies>
-
+		<!-- GWT -->
 		<dependency>
-			<groupId>com.google.jsinterop</groupId>
-			<artifactId>base</artifactId>
-			<version>1.0.0-RC1</version>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${com.google.gwt.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.gwtproject.regexp</groupId>
-			<artifactId>gwt-regexp</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-dev</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.vertispan.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.gwtproject.safehtml</groupId>
-			<artifactId>gwt-safehtml</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-dev</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.gwtproject.resources</groupId>
-			<artifactId>gwt-resources-api</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-dev</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.gwtproject.core</groupId>
-			<artifactId>gwt-core</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-dev</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.elemental2</groupId>
-			<artifactId>elemental2-core</artifactId>
-			<version>1.0.0-RC1</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.gwtproject.dom</groupId>
 			<artifactId>gwt-dom</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${org.gwtproject.version}</version>
 			<exclusions>
-<!--				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>-->
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-user</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.gwt</groupId>
-					<artifactId>gwt-dev</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.jsinterop</groupId>
-					<artifactId>base</artifactId>
-				</exclusion>
 				<exclusion>
 					<groupId>org.realityforge.com.google.jsinterop</groupId>
 					<artifactId>base</artifactId>
@@ -246,19 +128,54 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${gwt.version}</version>
+			<groupId>org.gwtproject.regexp</groupId>
+			<artifactId>gwt-regexp</artifactId>
+			<version>${org.gwtproject.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.gwtproject.safehtml</groupId>
+			<artifactId>gwt-safehtml</artifactId>
+			<version>${org.gwtproject.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.resources</groupId>
+			<artifactId>gwt-resources-api</artifactId>
+			<version>${org.gwtproject.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.core</groupId>
+			<artifactId>gwt-core</artifactId>
+			<version>${org.gwtproject.version}</version>
+		</dependency>
+		<!-- JsInterop & Elemental2 -->
+		<dependency>
+			<groupId>com.google.jsinterop</groupId>
+			<artifactId>base</artifactId>
+			<version>${com.google.jsinterop.base.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-core</artifactId>
+			<version>${com.google.elemental2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-dom</artifactId>
+			<version>${com.google.elemental2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.elemental2</groupId>
+			<artifactId>elemental2-promise</artifactId>
+			<version>${com.google.elemental2.version}</version>
+		</dependency>
+		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 
 	<scm>
 		<connection>scm:git:https://github.com/kiegroup/lienzo-core.git</connection>
@@ -281,11 +198,9 @@
 
 	<build>
 		<resources>
-			<!-- Include src/main/java in order not to break the Eclipse GWT plug-in -->
 			<resource>
 				<directory>src/main/java</directory>
 			</resource>
-			<!-- Include module descriptors from src/main/resources in order not to break the Intellij GWT plug-in -->
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>

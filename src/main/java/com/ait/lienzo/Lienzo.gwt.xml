@@ -32,8 +32,6 @@
 
 	<inherits name="org.gwtproject.regexp.RegExp"/>
 
-
-
 	<entry-point class='com.ait.lienzo.client.core.config.LienzoGWT2CoreEntryPoint' />
 	<source path='client' />
 	<source path='shared' />
