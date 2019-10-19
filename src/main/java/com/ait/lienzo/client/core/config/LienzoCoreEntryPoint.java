@@ -16,9 +16,7 @@
 
 package com.ait.lienzo.client.core.config;
 
-import org.gwtproject.core.client.EntryPoint;
-
-import com.ait.lienzo.tools.client.Console;
+import com.google.gwt.core.client.EntryPoint;
 
 public final class LienzoCoreEntryPoint implements EntryPoint
 {

@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-import org.gwtproject.dom.style.shared.Cursor;
+import com.google.gwt.dom.client.Style.Cursor;
 
 public final class CursorMap
 {

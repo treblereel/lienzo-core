@@ -19,11 +19,6 @@ package com.ait.lienzo.client.core.shape;
 import java.util.Collection;
 import java.util.List;
 
-import org.gwtproject.core.client.Scheduler;
-import org.gwtproject.core.client.Scheduler.ScheduledCommand;
-import org.gwtproject.dom.client.MediaElement;
-import org.gwtproject.safehtml.shared.UriUtils;
-
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.animation.IAnimation;
@@ -35,7 +30,6 @@ import com.ait.lienzo.client.core.image.ImageLoader;
 import com.ait.lienzo.client.core.image.filter.ImageDataFilter;
 import com.ait.lienzo.client.core.image.filter.ImageDataFilterChain;
 import com.ait.lienzo.client.core.image.filter.ImageDataFilterable;
-import com.ait.lienzo.client.core.shape.json.JSONDeserializer;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.BoundingBox;
@@ -46,21 +40,22 @@ import com.ait.lienzo.shared.core.types.ShapeType;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 import com.ait.lienzo.shared.core.types.TextUnit;
-import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
-//import com.google.gwt.media.client.Video;
-//import com.google.gwt.dom.client.Document;
-//import com.google.gwt.user.client.ui.RootPanel;
-
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.MediaElement;
+import com.google.gwt.safehtml.shared.UriUtils;
 import elemental2.dom.DomGlobal;
-import elemental2.dom.Element;
-import elemental2.dom.HTMLDocument;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLVideoElement;
 import elemental2.dom.MediaError;
 import elemental2.dom.TextMetrics;
 import jsinterop.annotations.JsProperty;
 import jsinterop.base.Js;
+
+//import com.google.gwt.media.client.Video;
+//import com.google.gwt.dom.client.Document;
+//import com.google.gwt.user.client.ui.RootPanel;
 
 /**
  * Movie provides a mechanism for viewing and controlling videos in a Canvas.

@@ -1,6 +1,5 @@
 package com.ait.lienzo.client.core.animation;
 
-import org.gwtproject.core.client.Duration;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;

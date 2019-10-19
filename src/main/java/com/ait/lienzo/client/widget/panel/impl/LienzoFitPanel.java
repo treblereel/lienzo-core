@@ -3,9 +3,9 @@ package com.ait.lienzo.client.widget.panel.impl;
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
+import com.google.gwt.dom.client.Style;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
-import org.gwtproject.dom.client.Style;
 
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.getParentFitSize;
 import static elemental2.dom.DomGlobal.window;

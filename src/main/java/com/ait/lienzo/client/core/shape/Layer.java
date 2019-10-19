@@ -39,11 +39,7 @@ import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
-import org.gwtproject.dom.style.shared.Display;
-import org.gwtproject.dom.style.shared.Position;
-import org.gwtproject.dom.style.shared.Unit;
-import org.gwtproject.dom.style.shared.Visibility;
-
+import com.google.gwt.dom.client.Style;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLCanvasElement;
@@ -119,9 +115,9 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
         {
             m_wrapper = (HTMLDivElement) DomGlobal.document.createElement("div"); //Document.get().createDivElement();
 
-            m_wrapper.style.position = Position.ABSOLUTE.getCssName();
+            m_wrapper.style.position = Style.Position.ABSOLUTE.getCssName();
 
-            m_wrapper.style.display = Display.INLINE_BLOCK.getCssName();
+            m_wrapper.style.display = Style.Display.INLINE_BLOCK.getCssName();
 
             m_wrapper.id = "layer_wrapper_div" + idCounter++;
 
@@ -447,9 +443,9 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
         {
             if (false == isSelection())
             {
-                getElement().style.width = CSSProperties.WidthUnionType.of(wide + Unit.PX.getType());
+                getElement().style.width = CSSProperties.WidthUnionType.of(wide + Style.Unit.PX.getType());
 
-                getElement().style.height= CSSProperties.HeightUnionType.of(high + Unit.PX.getType());
+                getElement().style.height= CSSProperties.HeightUnionType.of(high + Style.Unit.PX.getType());
             }
 
             final HTMLCanvasElement element = getCanvasElement();
@@ -647,9 +643,9 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
             {
                 m_element = (HTMLCanvasElement) DomGlobal.document.createElement("canvas"); //Document.get().createCanvasElement();
 
-                m_element.style.position = Position.ABSOLUTE.getCssName();
+                m_element.style.position = Style.Position.ABSOLUTE.getCssName();
 
-                m_element.style.display = Display.INLINE_BLOCK.getCssName();
+                m_element.style.display = Style.Display.INLINE_BLOCK.getCssName();
 
                 m_element.id = "layer_canvas" + idCounter++;
             }
@@ -814,7 +810,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
     {
         super.setVisible(visible);
 
-        getElement().style.visibility = visible ?  Visibility.VISIBLE.getCssName() : Visibility.HIDDEN.getCssName();
+        getElement().style.visibility = visible ?  Style.Visibility.VISIBLE.getCssName() : Style.Visibility.HIDDEN.getCssName();
 
         return this;
     }

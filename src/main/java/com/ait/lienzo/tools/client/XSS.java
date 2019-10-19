@@ -16,7 +16,7 @@
 
 package com.ait.lienzo.tools.client;
 
-import org.gwtproject.safehtml.shared.SimpleHtmlSanitizer;
+import com.google.gwt.safehtml.shared.SimpleHtmlSanitizer;
 
 public final class XSS
 {

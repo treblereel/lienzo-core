@@ -18,20 +18,9 @@ package com.ait.lienzo.client.widget;
 
 import java.util.List;
 
-import org.gwtproject.dom.client.Style;
-import org.gwtproject.dom.style.shared.Cursor;
-
 import com.ait.lienzo.client.core.config.LienzoCore;
 import com.ait.lienzo.client.core.event.AbstractNodeHumanInputEvent;
 import com.ait.lienzo.client.core.event.EventReceiver;
-import com.ait.lienzo.client.core.event.NodeMouseMoveEvent;
-import com.ait.lienzo.client.core.event.NodeMouseOutEvent;
-import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
-import com.ait.lienzo.client.core.event.NodeMouseWheelEvent;
-import com.ait.lienzo.client.core.event.NodeTouchCancelEvent;
-import com.ait.lienzo.client.core.event.NodeTouchEndEvent;
-import com.ait.lienzo.tools.client.event.EventType;
-import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragMoveEvent;
 import com.ait.lienzo.client.core.event.NodeDragStartEvent;
@@ -40,7 +29,13 @@ import com.ait.lienzo.client.core.event.NodeMouseDoubleClickEvent;
 import com.ait.lienzo.client.core.event.NodeMouseDownEvent;
 import com.ait.lienzo.client.core.event.NodeMouseEnterEvent;
 import com.ait.lienzo.client.core.event.NodeMouseExitEvent;
+import com.ait.lienzo.client.core.event.NodeMouseMoveEvent;
+import com.ait.lienzo.client.core.event.NodeMouseOutEvent;
 import com.ait.lienzo.client.core.event.NodeMouseOverEvent;
+import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
+import com.ait.lienzo.client.core.event.NodeMouseWheelEvent;
+import com.ait.lienzo.client.core.event.NodeTouchCancelEvent;
+import com.ait.lienzo.client.core.event.NodeTouchEndEvent;
 import com.ait.lienzo.client.core.event.NodeTouchMoveEvent;
 import com.ait.lienzo.client.core.event.NodeTouchStartEvent;
 import com.ait.lienzo.client.core.event.TouchPoint;
@@ -49,22 +44,24 @@ import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.core.shape.Viewport;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.shared.core.types.DragMode;
 import com.ait.lienzo.shared.core.types.EventPropagationMode;
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.event.EventType;
+import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
-import com.ait.lienzo.tools.client.collection.NFastArrayList;
-import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
-
+import com.google.gwt.dom.client.Style;
 import elemental2.dom.AddEventListenerOptions;
-import elemental2.dom.EventListener;
-import elemental2.dom.TouchEvent;
-import elemental2.dom.Touch;
 import elemental2.dom.Event;
-import elemental2.dom.TouchList;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
+import elemental2.dom.Touch;
+import elemental2.dom.TouchEvent;
+import elemental2.dom.TouchList;
 import elemental2.dom.UIEvent;
 import jsinterop.base.Js;
 
@@ -570,7 +567,7 @@ final public class LienzoHandlerManager
         {
             doDragMove(x, y, mouseEvent, touchEvent);
 
-            Cursor cursor = m_lienzo.getNormalCursor();
+            Style.Cursor cursor = m_lienzo.getNormalCursor();
 
             if (null == cursor)
             {
@@ -621,7 +618,7 @@ final public class LienzoHandlerManager
         {
             doDragCancel(x, y, mouseEvent, touchEvent);
         }
-        Cursor cursor = m_lienzo.getSelectCursor();
+        Style.Cursor cursor = m_lienzo.getSelectCursor();
 
         if (null == cursor)
         {

@@ -30,6 +30,7 @@ import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
 import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 
@@ -230,7 +231,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      * @param cursor
      */
     @Override
-    public LienzoPanelImpl setCursor(final org.gwtproject.dom.client.Style.Cursor cursor)
+    public LienzoPanelImpl setCursor(final Cursor cursor)
     {
         // TODO
         /*getElement().getStyle().setCursor(cursor);

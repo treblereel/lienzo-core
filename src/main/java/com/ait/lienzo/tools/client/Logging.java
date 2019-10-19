@@ -19,8 +19,6 @@ package com.ait.lienzo.tools.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.gwtproject.core.client.GWT;
-
 public final class Logging implements ILogging
 {
     private static Logging INSTANCE;

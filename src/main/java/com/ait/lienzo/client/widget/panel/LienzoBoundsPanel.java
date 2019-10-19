@@ -16,12 +16,11 @@
 
 package com.ait.lienzo.client.widget.panel;
 
+import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.core.types.Transform;
-import org.gwtproject.dom.client.Style;
-
-import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.widget.panel.impl.BoundsProviderFactory;
+import com.google.gwt.dom.client.Style.Cursor;
 
 public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         extends LienzoPanel<P>
@@ -110,7 +109,7 @@ public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
     }
 
     @Override
-    public P setCursor(final Style.Cursor cursor) {
+    public P setCursor(final Cursor cursor) {
         lienzoPanel.setCursor(cursor);
         return cast();
     }

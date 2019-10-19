@@ -1,6 +1,6 @@
 package com.ait.lienzo.client.core.image;
 
-import org.gwtproject.resources.client.ImageResource;
+import com.google.gwt.resources.client.ImageResource;
 
 public class ImageStrip {
 

@@ -29,15 +29,10 @@ import com.ait.lienzo.client.core.util.CursorMap;
 import com.ait.lienzo.shared.core.types.AutoScaleType;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
-import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
-
-import org.gwtproject.core.client.Scheduler;
-import org.gwtproject.core.client.Scheduler.ScheduledCommand;
-import org.gwtproject.dom.client.Style;
-import org.gwtproject.dom.style.shared.Cursor;
-//import com.google.gwt.user.client.Window;
-
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.core.JsNumber;
 import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
@@ -47,6 +42,8 @@ import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.ViewCSS;
 import jsinterop.base.Js;
+
+//import com.google.gwt.user.client.Window;
 
 /**
  * LienzoPanel acts as a Container for a {@link com.ait.lienzo.client.core.shape.Viewport}.
@@ -363,7 +360,7 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
             // Need to defer this, sometimes, if the browser is busy, etc, changing cursors does not take effect till events are done processing
 
-            Scheduler.get().scheduleDeferred(new ScheduledCommand()
+            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand()
             {
                 @Override
                 public void execute()

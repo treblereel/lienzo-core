@@ -96,7 +96,7 @@ public abstract class NArrayBase<M> implements JsIterable<M>, JsArrayLike<M>
         {
             return true;
         }
-        return getAnyAt(index) == null;
+        return getAt(index) == null;
     }
 
     @JsOverlay
