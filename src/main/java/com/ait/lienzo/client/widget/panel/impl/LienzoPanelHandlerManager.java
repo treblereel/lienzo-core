@@ -31,7 +31,7 @@ import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 import elemental2.dom.AddEventListenerOptions;
 import elemental2.dom.EventListener;
 import elemental2.dom.TouchEvent;

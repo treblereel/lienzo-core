@@ -22,7 +22,7 @@ import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.wires.layout.AbstractContainerLayout;
 import com.ait.lienzo.client.core.shape.wires.layout.size.SizeConstraints.Type;
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.lienzo.tools.common.api.java.util.function.BiFunction;
+import java.util.function.BiFunction;
 
 public class SizeConstraintsContainerLayout extends AbstractContainerLayout<SizeConstraints>
         implements IMaxSizeLayout<SizeConstraints>

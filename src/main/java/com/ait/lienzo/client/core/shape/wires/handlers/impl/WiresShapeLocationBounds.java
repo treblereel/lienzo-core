@@ -18,7 +18,7 @@ package com.ait.lienzo.client.core.shape.wires.handlers.impl;
 
 import com.ait.lienzo.client.core.shape.wires.OptionalBounds;
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 
 public class WiresShapeLocationBounds {
 

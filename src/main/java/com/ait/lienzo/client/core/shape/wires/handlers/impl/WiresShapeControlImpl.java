@@ -38,8 +38,8 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeControl;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.util.Geometry;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * The default WiresShapeControl implementation.

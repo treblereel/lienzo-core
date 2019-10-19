@@ -25,7 +25,7 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.panel.Bounds;
 import com.ait.lienzo.client.widget.panel.BoundsProvider;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
-import com.ait.lienzo.tools.common.api.java.util.function.Function;
+import java.util.function.Function;
 
 public class BoundsProviderFactory
 {

@@ -20,8 +20,8 @@ import com.ait.lienzo.client.core.shape.wires.SelectionManager;
 import com.ait.lienzo.client.core.shape.wires.WiresConnector;
 import com.ait.lienzo.client.core.shape.wires.WiresManager;
 import com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresConnectorHandlerImpl.Event;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class WiresConnectorEventFunctions
 {

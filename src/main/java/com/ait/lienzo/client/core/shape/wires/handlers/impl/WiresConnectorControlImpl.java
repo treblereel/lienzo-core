@@ -40,7 +40,7 @@ import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.widget.DefaultDragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragContext;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import java.util.function.Consumer;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import jsinterop.annotations.JsConstructor;

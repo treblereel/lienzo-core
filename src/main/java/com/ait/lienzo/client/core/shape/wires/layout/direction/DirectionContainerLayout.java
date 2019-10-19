@@ -21,7 +21,7 @@ import com.ait.lienzo.client.core.shape.wires.layout.IContainerLayout;
 import com.ait.lienzo.client.core.shape.wires.layout.direction.DirectionLayout.Direction;
 import com.ait.lienzo.client.core.shape.wires.layout.direction.DirectionLayout.Orientation;
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.lienzo.tools.common.api.java.util.function.Function;
+import java.util.function.Function;
 
 public class DirectionContainerLayout extends AbstractContainerLayout<DirectionLayout>
 {

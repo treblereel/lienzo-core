@@ -43,7 +43,7 @@ import com.ait.lienzo.shared.core.types.GroupType;
 import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.MetaData;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;

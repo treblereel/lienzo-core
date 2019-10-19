@@ -48,7 +48,7 @@ import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.INodeEvent;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;

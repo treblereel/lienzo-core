@@ -28,7 +28,7 @@ import com.ait.lienzo.client.widget.DragMouseControl;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.HTMLDivElement;

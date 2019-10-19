@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 
 public final class Flows
 {

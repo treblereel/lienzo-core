@@ -26,7 +26,7 @@ import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.client.widget.panel.Bounds;
 import com.ait.lienzo.shared.core.types.ColorName;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 //import com.ait.tooling.common.api.java.util.function.Supplier;
 //import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
 

@@ -26,6 +26,15 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
 public final class NFastArrayList<M> extends NArrayBase<M>
 {
+    @JsOverlay
+    public static <M> NFastArrayList<M> fromObjects(M... objects) {
+        final NFastArrayList<M> list = new NFastArrayList<M>();
+        for (M item : objects) {
+            list.add(item);
+        }
+        return list;
+    }
+
     //private final FastArrayListJSO<M> m_jso;
 
     public NFastArrayList()

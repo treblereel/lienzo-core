@@ -9,7 +9,7 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.shared.core.types.TextAlign;
-import com.ait.lienzo.tools.common.api.java.util.function.BiConsumer;
+import java.util.function.BiConsumer;
 
 public class WiresConnectorLabelFactory
 {

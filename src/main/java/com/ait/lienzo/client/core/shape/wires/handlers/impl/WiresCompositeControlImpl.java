@@ -30,7 +30,7 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresCompositeControl;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresLayerIndex;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeControl;
 import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 
 /**
  * The default WiresCompositeControl implementation.

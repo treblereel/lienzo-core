@@ -1,6 +1,6 @@
 package com.ait.lienzo.client.core.shape.wires;
 
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import java.util.function.Consumer;
 
 public class DefaultSelectionListener implements SelectionListener
 {

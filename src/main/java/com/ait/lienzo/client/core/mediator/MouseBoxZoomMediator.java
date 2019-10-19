@@ -27,7 +27,7 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import java.util.function.Consumer;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 /**
  * MouseBoxZoomMediator zooms in when the user drags a rectangular area.

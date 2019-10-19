@@ -17,7 +17,7 @@
 package com.ait.lienzo.client.core.mediator;
 
 import com.ait.lienzo.tools.client.event.INodeEvent;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 
 import elemental2.dom.MouseEvent;
 import elemental2.dom.UIEvent;

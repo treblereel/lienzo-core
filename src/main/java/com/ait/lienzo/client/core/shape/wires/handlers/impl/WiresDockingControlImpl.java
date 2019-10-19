@@ -33,7 +33,7 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 
 public class WiresDockingControlImpl extends AbstractWiresControl<WiresDockingControlImpl>
         implements WiresDockingControl {

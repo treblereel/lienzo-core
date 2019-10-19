@@ -6,8 +6,8 @@ import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.core.shape.wires.WiresConnector;
 import com.ait.lienzo.client.core.shape.wires.event.WiresConnectorPointsChangedEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresConnectorPointsChangedHandler;
-import com.ait.lienzo.tools.common.api.java.util.function.BiConsumer;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 public class WiresConnectorLabel implements IDestroyable

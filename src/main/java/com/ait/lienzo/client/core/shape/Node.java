@@ -96,7 +96,7 @@ import com.ait.lienzo.shared.core.types.EventPropagationMode;
 import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.common.api.java.util.UUID;
 import com.ait.lienzo.tools.client.collection.MetaData;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 import jsinterop.annotations.JsProperty;

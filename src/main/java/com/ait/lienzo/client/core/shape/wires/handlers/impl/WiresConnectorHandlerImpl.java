@@ -30,7 +30,7 @@ import com.ait.lienzo.client.core.shape.wires.WiresManager;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresConnectorHandler;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.tools.client.Timer;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import java.util.function.Consumer;
 
 public class WiresConnectorHandlerImpl implements WiresConnectorHandler
 {

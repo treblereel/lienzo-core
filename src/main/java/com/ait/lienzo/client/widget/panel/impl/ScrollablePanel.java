@@ -132,8 +132,9 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         return null;
     }
 
-    public void addBoundsChangedEventListener(EventListener eventListener) {
+    public EventListener addBoundsChangedEventListener(EventListener eventListener) {
         LienzoPanelEvents.addBoundsChangedEventListener(this, eventListener);
+        return eventListener;
     }
 
     public void removeBoundsChangedEventListener(EventListener eventListener) {
@@ -144,8 +145,9 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         LienzoPanelEvents.fireBoundsChangedEvent(this);
     }
 
-    public void addResizeEventListener(EventListener eventListener) {
+    public EventListener addResizeEventListener(EventListener eventListener) {
         LienzoPanelEvents.addResizeEventListener(this, eventListener);
+        return eventListener;
     }
 
     public void removeResizeEventListener(EventListener eventListener) {
@@ -156,8 +158,9 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         LienzoPanelEvents.fireResizeEvent(this);
     }
 
-    public void addScaleEventListener(EventListener eventListener) {
+    public EventListener addScaleEventListener(EventListener eventListener) {
         LienzoPanelEvents.addScaleEventListener(this, eventListener);
+        return eventListener;
     }
 
     public void removeScaleEventListener(EventListener eventListener) {
@@ -168,8 +171,9 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         LienzoPanelEvents.fireScaleEvent(this);
     }
 
-    public void addScrollEventListener(EventListener eventListener) {
+    public EventListener addScrollEventListener(EventListener eventListener) {
         LienzoPanelEvents.addScrollEventListener(this, eventListener);
+        return eventListener;
     }
 
     public void removeScrollEventListener(EventListener eventListener) {

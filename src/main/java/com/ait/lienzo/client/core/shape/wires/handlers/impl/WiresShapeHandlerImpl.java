@@ -31,9 +31,9 @@ import com.ait.lienzo.client.core.shape.wires.handlers.WiresShapeHighlight;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.DragContext;
 import static com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresShapeControlUtils.excludeFromIndex;
-import com.ait.lienzo.tools.common.api.java.util.function.Consumer;
+import java.util.function.Consumer;
 import com.ait.lienzo.tools.client.Console;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 
 /**
  * This handler's goals are:

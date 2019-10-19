@@ -18,7 +18,7 @@ package com.ait.lienzo.client.core.config;
 
 import com.ait.lienzo.client.core.shape.json.IFactory;
 import com.ait.lienzo.tools.client.StringOps;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
 import com.ait.lienzo.tools.common.api.types.IStringValued;
 

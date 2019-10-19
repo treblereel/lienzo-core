@@ -24,7 +24,7 @@ import com.ait.lienzo.client.core.shape.wires.WiresShape;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresContainmentControl;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresParentPickerControl;
 import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.lienzo.tools.common.api.java.util.function.Supplier;
+import java.util.function.Supplier;
 
 public class WiresContainmentControlImpl extends AbstractWiresControl<WiresContainmentControlImpl>
         implements WiresContainmentControl {

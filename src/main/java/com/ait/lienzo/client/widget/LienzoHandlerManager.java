@@ -52,7 +52,7 @@ import com.ait.lienzo.tools.client.event.EventType;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
-import com.ait.lienzo.tools.common.api.java.util.function.Predicate;
+import java.util.function.Predicate;
 import com.google.gwt.dom.client.Style;
 import elemental2.dom.AddEventListenerOptions;
 import elemental2.dom.Event;
