@@ -22,7 +22,7 @@ import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.AttributeType;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
-//import com.google.gwt.json.client.JSONObject;
+//import org.gwtproject.json.client.JSONObject;
 
 /**
  * IFactory provides meta information for serialization support.

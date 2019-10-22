@@ -3,7 +3,7 @@ package com.ait.lienzo.client.widget.panel.impl;
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.google.gwt.dom.client.Style;
+import org.gwtproject.dom.client.Style;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 

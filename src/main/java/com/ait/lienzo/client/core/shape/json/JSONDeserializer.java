@@ -31,11 +31,11 @@ import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.tools.client.StringOps;
-//import com.google.gwt.json.client.JSONArray;
-//import com.google.gwt.json.client.JSONObject;
-//import com.google.gwt.json.client.JSONParser;
-//import com.google.gwt.json.client.JSONString;
-//import com.google.gwt.json.client.JSONValue;
+//import org.gwtproject.json.client.JSONArray;
+//import org.gwtproject.json.client.JSONObject;
+//import org.gwtproject.json.client.JSONParser;
+//import org.gwtproject.json.client.JSONString;
+//import org.gwtproject.json.client.JSONValue;
 
 /**
  * JSONDeserializer deserializes {@link IJSONSerializable} objects from JSON strings.

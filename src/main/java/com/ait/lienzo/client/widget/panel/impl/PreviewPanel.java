@@ -17,9 +17,9 @@ package com.ait.lienzo.client.widget.panel.impl;
 
 //import com.ait.tooling.common.api.java.util.function.Supplier;
 //import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
-//import com.google.gwt.dom.client.Style;
-//import com.google.gwt.event.shared.HandlerManager;
-//import com.google.gwt.event.shared.HandlerRegistration;
+//import org.gwtproject.dom.client.Style;
+//import org.gwtproject.event.shared.HandlerManager;
+//import org.gwtproject.event.shared.HandlerRegistration;
 
 public class PreviewPanel // extends ScalablePanel
 {

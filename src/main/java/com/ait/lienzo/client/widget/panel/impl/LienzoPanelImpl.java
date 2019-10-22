@@ -29,10 +29,14 @@ import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
 import java.util.function.Predicate;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Cursor;
+
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;
+import jsinterop.annotations.JsFunction;
 import jsinterop.base.Js;
+import org.gwtproject.core.client.Scheduler;
+import org.gwtproject.dom.client.Style;
+import org.gwtproject.dom.style.shared.Cursor;
 
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.createDiv;
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelHeight;
@@ -242,18 +246,9 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     @Override
     public LienzoPanelImpl setCursor(final Cursor cursor)
     {
-        // TODO
-        /*getElement().getStyle().setCursor(cursor);
 
         // Need to defer this, sometimes, if the browser is busy, etc, changing cursors does not take effect till events are done processing
-        Scheduler.get().scheduleDeferred(new ScheduledCommand()
-        {
-            @Override
-            public void execute()
-            {
-                getElement().getStyle().setCursor(cursor);
-            }
-        });*/
+        Scheduler.get().scheduleDeferred(() -> getElement().style.cursor =  cursor.name());
         return this;
     }
 
@@ -399,11 +394,13 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
         return this;
     }
 
-    public static native void enableWindowMouseWheelScroll(boolean enabled)
-    /*-{
-        $wnd.mousewheel = function ()
-        {
-            return enabled;
-        }
-    }-*/;
+    public static void enableWindowMouseWheelScroll(boolean enabled) {
+        Js.asPropertyMap(DomGlobal.window).set("mousewheel", (Fn) () -> enabled);
+    }
+
+    @FunctionalInterface
+    @JsFunction
+    public interface Fn {
+        boolean onInvoke();
+    }
 }

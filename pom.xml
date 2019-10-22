@@ -78,11 +78,6 @@
 
 	<dependencies>
 		<!-- GWT -->
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${com.google.gwt.version}</version>
-		</dependency>
 		<!-- JsInterop & Elemental2 -->
 		<dependency>
 			<groupId>com.google.jsinterop</groupId>
@@ -104,6 +99,22 @@
 			<artifactId>elemental2-promise</artifactId>
 			<version>${com.google.elemental2.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.safehtml</groupId>
+			<artifactId>gwt-safehtml</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.dom</groupId>
+			<artifactId>gwt-dom</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.widgets</groupId>
+			<artifactId>gwt-widgets</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

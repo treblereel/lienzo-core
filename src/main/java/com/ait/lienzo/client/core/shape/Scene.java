@@ -34,7 +34,7 @@ import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.INodeEvent;
 import java.util.function.Predicate;
-import com.google.gwt.dom.client.Style.Unit;
+import org.gwtproject.dom.client.Style.Unit;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLDivElement;

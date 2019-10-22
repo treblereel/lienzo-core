@@ -18,8 +18,8 @@ package com.ait.lienzo.client.widget.panel.mediators;
 
 //import com.ait.tooling.common.api.java.util.function.Consumer;
 //import com.ait.tooling.common.api.java.util.function.Supplier;
-//import com.google.gwt.dom.client.Style;
-//import com.google.gwt.user.client.ui.IsWidget;
+//import org.gwtproject.dom.client.Style;
+//import org.gwtproject.user.client.ui.IsWidget;
 
 public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMediator>
 {
