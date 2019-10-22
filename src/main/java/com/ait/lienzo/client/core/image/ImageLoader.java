@@ -25,11 +25,6 @@ import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.Image;
 
-//import com.google.gwt.dom.client.Element;
-//import com.google.gwt.dom.client.ImageElement;
-//import com.google.gwt.user.client.ui.RootPanel;
-//import com.google.gwt.user.client.ui.Widget;
-
 public abstract class ImageLoader
 {
     public ImageLoader(final String url)

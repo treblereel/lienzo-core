@@ -4,12 +4,8 @@ import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.config.LienzoCore;
 import com.ait.lienzo.client.widget.RootPanel;
 
-import elemental2.dom.Event;
 import elemental2.dom.HTMLImageElement;
-import jsinterop.base.Js;
 
-// TODO lienzo-to-native
-// @FIXME need rogoer to help me understand this, before I continue (mdp)
 public class ImageElementProxy {
     private HTMLImageElement imageElement;
 
@@ -24,8 +20,7 @@ public class ImageElementProxy {
                      final Runnable callback) {
         assert null == imageElement;
 
-        new ImageLoader(url,
-                        imageElement) {
+        new ImageLoader(url) {
 
             @Override
             public void onImageElementLoad(final HTMLImageElement image) {
