@@ -13,12 +13,12 @@ import static elemental2.dom.DomGlobal.window;
 /**
  * Automatically fits its size to the parent's one.
  */
-public class LienzoFitPanel extends LienzoPanel<LienzoFitPanel> {
+public class LienzoFitPanel extends LienzoPanelDelegate<LienzoFitPanel> {
 
     private final LienzoPanelImpl panel;
     private final EventListener m_resizeListener;
 
-    public static LienzoFitPanel newPanel(HTMLDivElement element) {
+    public static LienzoFitPanel newPanelForParent(HTMLDivElement element) {
         int[] parentPxSize = getParentFitSize(element);
         return new LienzoFitPanel(LienzoPanelImpl.newPanel(element,
                                                            parentPxSize[0],
@@ -31,20 +31,8 @@ public class LienzoFitPanel extends LienzoPanel<LienzoFitPanel> {
         {
             onResize();
         };
-        // TODO: Adding the event listener for the whole window - may cause issues when multiple live instances running
+        // TODO: lienzo-to-native - Adding the event listener for the whole window - may cause issues when multiple live instances running
         window.addEventListener("resize", m_resizeListener);
-    }
-
-    @Override
-    public LienzoFitPanel add(Layer layer) {
-        panel.add(layer);
-        return this;
-    }
-
-    @Override
-    public LienzoFitPanel setBackgroundLayer(Layer layer) {
-        panel.setBackgroundLayer(layer);
-        return this;
     }
 
     public void onResize() {
@@ -53,35 +41,14 @@ public class LienzoFitPanel extends LienzoPanel<LienzoFitPanel> {
     }
 
     @Override
-    public LienzoFitPanel setCursor(Style.Cursor cursor) {
-        panel.setCursor(cursor);
-        return this;
-    }
-
-    @Override
-    public int getWidePx() {
-        return panel.getWidePx();
-    }
-
-    @Override
-    public int getHighPx() {
-        return panel.getHighPx();
-    }
-
-    @Override
-    public Viewport getViewport() {
-        return panel.getViewport();
-    }
-
-    @Override
-    public HTMLDivElement getElement() {
-        return panel.getElement();
+    protected LienzoPanel getPanel() {
+        return panel;
     }
 
     @Override
     public void destroy() {
         window.removeEventListener("resize", m_resizeListener);
-        panel.destroy();
+        super.destroy();
     }
 
     private int[] getFitSize() {

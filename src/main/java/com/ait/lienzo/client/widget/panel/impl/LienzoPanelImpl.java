@@ -34,6 +34,7 @@ import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.HTMLDivElement;
 import jsinterop.base.Js;
 
+import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.createDiv;
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelHeight;
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelWidth;
 
@@ -49,6 +50,14 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     private       LienzoPanelHandlerManager m_events;
 
     private       DragMouseControl          m_drag_mouse_control;
+
+    public static LienzoPanelImpl newPanel(int wide,
+                                           int high) {
+        return new LienzoPanelImpl(createDiv(),
+                                   new Viewport(),
+                                   wide,
+                                   high);
+    }
 
     public static LienzoPanelImpl newPanel(HTMLDivElement element,
                                            int wide,
@@ -343,7 +352,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     {
         if (null != color)
         {
-            // TODO getElement().getStyle().setBackgroundColor(color);
+            // TODO: lienzo-to-native - getElement().getStyle().setBackgroundColor(color);
         }
         return this;
     }

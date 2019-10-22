@@ -8,6 +8,7 @@ import elemental2.dom.Event;
 import elemental2.dom.HTMLImageElement;
 import jsinterop.base.Js;
 
+// TODO lienzo-to-native
 // @FIXME need rogoer to help me understand this, before I continue (mdp)
 public class ImageElementProxy {
     private HTMLImageElement imageElement;

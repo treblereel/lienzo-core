@@ -1,0 +1,51 @@
+Links
+=====
+- [JIRA] https://issues.jboss.org/browse/JBPM-8623
+- [Lienzo-core] https://github.com/romartin/lienzo-core/tree/JBPM-8623
+- [Lienzo-webapp] https://github.com/romartin/lienzo-webapp
+
+
+Tasks
+=====
+- Lienzo Panels
+    - Refactor LienzoPanel* mediators
+    - Refactor Scalable & Preview panels
+
+- Stunner integ
+    - INativeContext2D stuff (removed??) / DelegateNativeContext
+
+- Check/Fix
+    - All TODO lienzo-to-native
+    - All @FIXME (mdp)
+
+
+Sandbox
+=======
+- Lienzo
+    - AttributesChangedHandler disabled - See WiresLayoutContainer
+    - LienzoPanel#setCursor -> use of gwt Cursor?
+    - Multimodule - core + tests + webapp + (wires?)
+    - Lienzo KIE style conventions (double check with Mark)
+    - fix TODOs in toJSONObject / toJSONString
+    - Expose LienzoPanel's as native JsTypes - Refactor CustomEvents' associated
+- Replace all instances of "empty" bounding boxes for a singleton instance
+- Stunner - reuse ALSO a single event instance (eg: org.kie.workbench.common.stunner.client.lienzo.shape.view.ViewEventHandlerManager)
+- Move stunner-lienzo-extensions to lienzo modules scope
+
+
+
+Issues
+======
+- Lienzo showcase
+    - "Pan and Zoom" -> Cmd key now working (in linux, missing cmd key), fix & test mediators properly
+    - "Drag circles" - while dragging a circle, the cursor is not being changed as it as before (to a "+" icon...)
+    - "Tweening" -> does nothing
+    - "Polygon Lion with Clipping" -> doesn't work?
+    - "Wires General"
+        - Connector bendpoint while moving mouse over is not properly working
+        - Connector bendpoints handling (click, dbl-click) not working properly
+    - "Wires Docking" -> doesn't work
+    - "Corner radius" -> doesn't work
+    - "Sprite Example" -> doesn't work
+    - "Video" -> not showing the video now?
+- Stunner

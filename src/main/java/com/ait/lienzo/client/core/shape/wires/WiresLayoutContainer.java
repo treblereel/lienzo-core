@@ -124,7 +124,7 @@ public class WiresLayoutContainer implements LayoutContainer
 
             final ChildEntry entry = new ChildEntry(child.getID(), layout);
             children.add(entry);
-// disabling attribute change handler (mdp) (roger)
+// TODO: lienzo-to-native: disabling attribute change handler (mdp) (roger)
 //            for (Attribute attribute : child.getTransformingAttributes()) {
 //                HandlerRegistration reg = child.addAttributesChangedHandler(attribute, shapeAttributesChangedHandler);
 //                registrations.put(new ObjectAttribute(child,attribute), reg);
