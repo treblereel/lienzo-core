@@ -291,8 +291,9 @@ public final class BoundingBox
 
     public final String toJSONString()
     {
-        // @FIXME (mdp)
-        throw new UnsupportedOperationException();
+        // TODO: lienzo-to-native
+
+        return "{" + getX() + ", " + getY() + ", " + getWidth() + ", " + getHeight() + "}";
 
 //        JSONObject object = new JSONObject();
 //

@@ -15,7 +15,6 @@
  *    limitations under the License.
  *
  */
-// TODO - review DSJ
 
 package com.ait.lienzo.client.core.shape.wires;
 
@@ -92,10 +91,11 @@ public class WiresShapeControlHandleList implements IControlHandleList
         this.m_registrationManager = registrationManager;
         this.parent = null;
 
-        HTMLElement relativeDiv = parent.getLayer().getViewport().getElement();
+        // TODO: lienzo-to-native
+        /*HTMLElement relativeDiv = parent.getLayer().getViewport().getElement();
         wiresResizeStartEvent = new WiresResizeStartEvent(relativeDiv);
         wiresResizeStepEvent = new WiresResizeStepEvent(relativeDiv);
-        wiresResizeEndEvent = new WiresResizeEndEvent(relativeDiv);
+        wiresResizeEndEvent = new WiresResizeEndEvent(relativeDiv);*/
 
         updateParentLocation();
         initControlsListeners();
