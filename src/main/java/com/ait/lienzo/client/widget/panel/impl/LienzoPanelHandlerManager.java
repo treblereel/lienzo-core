@@ -758,13 +758,12 @@ public final class LienzoPanelHandlerManager
 
     private <H extends EventHandler, S extends EventReceiver> void fireEvent(final MouseEvent mouseEvent, final TouchEvent touchEvent, final int x, final int y, DragContext drag, Node<?> node, AbstractNodeHumanInputEvent<H, S> nodeEvent)
     {
-        if (node == null)
-        {
-            node = m_viewport;
-        }
+        if (node == null) {
 
-        if (node.isListening() && node.isVisible() && node.isEventHandled(nodeEvent.getAssociatedType()))
-        {
+            // TODO: lienzo-to-native: create a test case for this, otherwise events for layer are not being fired.
+            m_viewport.fireEvent(nodeEvent);
+
+        } else if (node.isListening() && node.isVisible() && node.isEventHandled(nodeEvent.getAssociatedType())) {
 
             if (!nodeEvent.isAlive())
             {
