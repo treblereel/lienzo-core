@@ -66,7 +66,6 @@ public class ButtonItemImpl
                 .getPrimitive()
                 .setDraggable(true)
                 .addNodeDragStartHandler(handler);
-        item.registrations().register(dragStartHandlerRegistration);
         return this;
     }
 
@@ -77,7 +76,6 @@ public class ButtonItemImpl
                 .getPrimitive()
                 .setDraggable(true)
                 .addNodeDragMoveHandler(handler);
-        item.registrations().register(dragMoveHandlerRegistration);
         return this;
     }
 
@@ -88,7 +86,6 @@ public class ButtonItemImpl
                 .getPrimitive()
                 .setDraggable(true)
                 .addNodeDragEndHandler(handler);
-        item.registrations().register(dragEndHandlerRegistration);
         return this;
     }
 
@@ -100,7 +97,6 @@ public class ButtonItemImpl
                 .getPrimitive()
                 .setListening(true)
                 .addNodeMouseClickHandler(handler);
-        item.registrations().register(clickHandlerRegistration);
         return this;
     }
 
@@ -121,24 +117,28 @@ public class ButtonItemImpl
     private void removeClickHandlerRegistration() {
         if (null != clickHandlerRegistration) {
             clickHandlerRegistration.removeHandler();
+            clickHandlerRegistration = null;
         }
     }
 
     private void removeDragStartHandlerRegistration() {
         if (null != dragStartHandlerRegistration) {
             dragStartHandlerRegistration.removeHandler();
+            dragStartHandlerRegistration = null;
         }
     }
 
     private void removeDragMoveHandlerRegistration() {
         if (null != dragMoveHandlerRegistration) {
             dragMoveHandlerRegistration.removeHandler();
+            dragMoveHandlerRegistration = null;
         }
     }
 
     private void removeDragEndHandlerRegistration() {
         if (null != dragEndHandlerRegistration) {
             dragEndHandlerRegistration.removeHandler();
+            dragEndHandlerRegistration = null;
         }
     }
 }

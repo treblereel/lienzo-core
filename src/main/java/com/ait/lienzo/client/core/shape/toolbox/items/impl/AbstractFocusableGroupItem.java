@@ -19,6 +19,7 @@ package com.ait.lienzo.client.core.shape.toolbox.items.impl;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
 import com.ait.lienzo.client.core.shape.toolbox.GroupItem;
 import com.ait.lienzo.client.core.shape.toolbox.ToolboxVisibilityExecutors;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.google.gwt.user.client.Timer;
 
 public abstract class AbstractFocusableGroupItem<T extends AbstractFocusableGroupItem>
@@ -28,6 +29,8 @@ public abstract class AbstractFocusableGroupItem<T extends AbstractFocusableGrou
     static final double ALPHA_FOCUSED = 1d;
     static final double ALPHA_UNFOCUSED = 0.75d;
 
+    private HandlerRegistration mouseEnterHandlerRegistration;
+    private HandlerRegistration mouseExitHandlerRegistration;
     private FocusGroupExecutor focusGroupExecutor;
     private int focusDelay;
     private int unFocusDelay;
@@ -107,6 +110,14 @@ public abstract class AbstractFocusableGroupItem<T extends AbstractFocusableGrou
     @Override
     public void destroy() {
         cancelTimers();
+        if (null != mouseEnterHandlerRegistration) {
+            mouseEnterHandlerRegistration.removeHandler();
+            mouseEnterHandlerRegistration = null;
+        }
+        if (null != mouseExitHandlerRegistration) {
+            mouseExitHandlerRegistration.removeHandler();
+            mouseExitHandlerRegistration = null;
+        }
         super.destroy();
     }
 
@@ -116,8 +127,8 @@ public abstract class AbstractFocusableGroupItem<T extends AbstractFocusableGrou
     }
 
     protected T setupFocusingHandlers() {
-        registerMouseEnterHandler(event -> focus());
-        registerMouseExitHandler(event -> unFocus());
+        mouseEnterHandlerRegistration = registerMouseEnterHandler(event -> focus());
+        mouseExitHandlerRegistration = registerMouseExitHandler(event -> unFocus());
         return cast();
     }
 

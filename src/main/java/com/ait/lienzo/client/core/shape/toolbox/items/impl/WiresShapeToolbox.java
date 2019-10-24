@@ -36,7 +36,7 @@ import com.ait.lienzo.client.core.shape.wires.event.WiresMoveEvent;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.Direction;
-import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 
 /**
  * A LayerToolbox implementation for WiresShape's.
@@ -48,26 +48,29 @@ import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 public class WiresShapeToolbox
         implements LayerToolbox {
 
-    private final HandlerRegistrationManager registrations;
     private final ToolboxImpl toolbox;
     private final Point2D toolboxOffset;
     private final Point2D gridOffset;
+    private HandlerRegistration wiresMoveHandlerReg;
+    private HandlerRegistration wiresDragStartHandlerReg;
+    private HandlerRegistration wiresDragMoveHandlerReg;
+    private HandlerRegistration wiresDragEndHandlerReg;
+    private HandlerRegistration wiresResizeStartHandlerReg;
+    private HandlerRegistration wiresResizeStepHandlerReg;
+    private HandlerRegistration wiresResizeEndHandlerReg;
 
     public WiresShapeToolbox(final WiresShape shape) {
         this(shape,
-             new ToolboxImpl(() -> shape.getPath().getBoundingBox()),
-             new HandlerRegistrationManager());
+             new ToolboxImpl(() -> shape.getPath().getBoundingBox()));
     }
 
     WiresShapeToolbox(final WiresShape shape,
-                      final ToolboxImpl toolbox,
-                      final HandlerRegistrationManager registrations) {
+                      final ToolboxImpl toolbox) {
         this.gridOffset = new Point2D(0,
                                       0);
         this.toolboxOffset = new Point2D(0,
                                          0);
         this.toolbox = toolbox;
-        this.registrations = registrations;
         initHandlers(shape);
         shapeOffset(shape);
         hide();
@@ -185,27 +188,13 @@ public class WiresShapeToolbox
     }
 
     private void initHandlers(final WiresShape shape) {
-        registrations.register(
-                shape.addWiresMoveHandler(this::onMove)
-        );
-        registrations.register(
-                shape.addWiresDragStartHandler(this::onMove)
-        );
-        registrations.register(
-                shape.addWiresDragMoveHandler(this::onMove)
-        );
-        registrations.register(
-                shape.addWiresDragEndHandler(this::onMove)
-        );
-        registrations.register(
-                shape.addWiresResizeStartHandler(this::onResize)
-        );
-        registrations.register(
-                shape.addWiresResizeStepHandler(this::onResize)
-        );
-        registrations.register(
-                shape.addWiresResizeEndHandler(this::onResize)
-        );
+        wiresMoveHandlerReg = shape.addWiresMoveHandler(this::onMove);
+        wiresDragStartHandlerReg = shape.addWiresDragStartHandler(this::onMove);
+        wiresDragMoveHandlerReg = shape.addWiresDragMoveHandler(this::onMove);
+        wiresDragEndHandlerReg = shape.addWiresDragEndHandler(this::onMove);
+        wiresResizeStartHandlerReg = shape.addWiresResizeStartHandler(this::onResize);
+        wiresResizeStepHandlerReg = shape.addWiresResizeStepHandler(this::onResize);
+        wiresResizeEndHandlerReg = shape.addWiresResizeEndHandler(this::onResize);
     }
 
     WiresShapeToolbox reposition() {
@@ -223,7 +212,20 @@ public class WiresShapeToolbox
 
     private void doDestroy() {
         toolbox.destroy();
-        registrations.removeHandler();
+        wiresMoveHandlerReg.removeHandler();
+        wiresDragStartHandlerReg.removeHandler();
+        wiresDragMoveHandlerReg.removeHandler();
+        wiresDragEndHandlerReg.removeHandler();
+        wiresResizeStartHandlerReg.removeHandler();
+        wiresResizeStepHandlerReg.removeHandler();
+        wiresResizeEndHandlerReg.removeHandler();
+        wiresMoveHandlerReg = null;
+        wiresDragStartHandlerReg = null;
+        wiresDragMoveHandlerReg = null;
+        wiresDragEndHandlerReg = null;
+        wiresResizeStartHandlerReg = null;
+        wiresResizeStepHandlerReg = null;
+        wiresResizeEndHandlerReg = null;
     }
 
     private void onResize(final AbstractWiresResizeEvent event) {

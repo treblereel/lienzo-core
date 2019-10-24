@@ -31,13 +31,11 @@ import com.ait.lienzo.client.core.shape.toolbox.items.TooltipItem;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
-import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 public abstract class AbstractGroupItem<T extends AbstractGroupItem>
         extends AbstractDecoratedItem<T> {
 
     private final GroupItem groupItem;
-    private final HandlerRegistrationManager registrations = new HandlerRegistrationManager();
     private DecoratorItem<?> decorator;
     private TooltipItem<?> tooltip;
     private HandlerRegistration mouseEnterHandlerRegistration;
@@ -118,15 +116,6 @@ public abstract class AbstractGroupItem<T extends AbstractGroupItem>
         return null != this.tooltip;
     }
 
-    public HandlerRegistrationManager registrations() {
-        return registrations;
-    }
-
-    protected T register(final HandlerRegistration registration) {
-        registrations.register(registration);
-        return cast();
-    }
-
     @Override
     public void destroy() {
         groupItem.destroy();
@@ -148,9 +137,6 @@ public abstract class AbstractGroupItem<T extends AbstractGroupItem>
 
     @Override
     public T onMouseEnter(final NodeMouseEnterHandler handler) {
-        if (null != mouseEnterHandlerRegistration) {
-            mouseEnterHandlerRegistration.removeHandler();
-        }
         mouseEnterHandlerRegistration = registerMouseEnterHandler(handler);
         return cast();
     }
@@ -158,9 +144,6 @@ public abstract class AbstractGroupItem<T extends AbstractGroupItem>
     @Override
     public T onMouseExit(final NodeMouseExitHandler handler) {
         assert null != handler;
-        if (null != mouseExitHandlerRegistration) {
-            mouseExitHandlerRegistration.removeHandler();
-        }
         mouseExitHandlerRegistration = registerMouseExitHandler(handler);
         return cast();
     }
@@ -171,23 +154,15 @@ public abstract class AbstractGroupItem<T extends AbstractGroupItem>
     }
 
     protected HandlerRegistration registerMouseEnterHandler(final NodeMouseEnterHandler handler) {
-        assert null != handler;
-        HandlerRegistration reg =
-                getPrimitive()
+        return getPrimitive()
                         .setListening(true)
                         .addNodeMouseEnterHandler(handler);
-        register(reg);
-        return reg;
     }
 
     protected HandlerRegistration registerMouseExitHandler(final NodeMouseExitHandler handler) {
-        assert null != handler;
-        HandlerRegistration reg =
-                getPrimitive()
+        return getPrimitive()
                         .setListening(true)
                         .addNodeMouseExitHandler(handler);
-        register(reg);
-        return reg;
     }
 
     protected GroupItem getGroupItem() {
@@ -267,7 +242,14 @@ public abstract class AbstractGroupItem<T extends AbstractGroupItem>
     }
 
     private void destroyHandlers() {
-        registrations.removeHandler();
+        if (null != mouseEnterHandlerRegistration) {
+            mouseEnterHandlerRegistration.removeHandler();
+            mouseEnterHandlerRegistration = null;
+        }
+        if (null != mouseExitHandlerRegistration) {
+            mouseExitHandlerRegistration.removeHandler();
+            mouseExitHandlerRegistration = null;
+        }
     }
 
     @SuppressWarnings("unchecked")

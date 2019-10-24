@@ -38,8 +38,8 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.Direction;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
-import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import com.google.gwt.user.client.Timer;
+import elemental2.core.JsArray;
 
 /**
  * A ButtonGridItem implementation.
@@ -54,6 +54,9 @@ public class ButtonGridItemImpl
     static final int TIMER_DELAY_MILLIS = 500;
 
     private final HandlerRegistration[] decoratorHandlers = new HandlerRegistration[2];
+    private final JsArray<HandlerRegistration> itemHandlers = new JsArray<>();
+    private HandlerRegistration buttonFocusHandlerReg;
+    private HandlerRegistration buttonUnFocusHandlerReg;
     private final ButtonItemImpl button;
     private final ToolboxImpl toolbox;
     private final MultiPath arrow;
@@ -124,8 +127,6 @@ public class ButtonGridItemImpl
                     .setListening(true)
                     .addNodeMouseEnterHandler(event -> itemFocusCallback.run());
             decoratorHandlers[1] = instance.asPrimitive().addNodeMouseExitHandler(event -> itemUnFocusCallback.run());
-            registrations().register(decoratorHandlers[0]);
-            registrations().register(decoratorHandlers[1]);
         }
         return this;
     }
@@ -175,16 +176,10 @@ public class ButtonGridItemImpl
     public ButtonGridItemImpl add(final DecoratedItem... items) {
         toolbox.add(items);
         for (final DecoratedItem item : items) {
-            try {
                 final AbstractDecoratedItem primitiveItem = (AbstractDecoratedItem) item;
-                registerItemFocusHandler(primitiveItem,
-                                         itemFocusCallback);
-                registerItemUnFocusHandler(primitiveItem,
-                                           itemUnFocusCallback);
-            } catch (final ClassCastException e) {
-                throw new UnsupportedOperationException("The button only supports subtypes " +
-                                                                "of " + AbstractDecoratedItem.class.getName());
-            }
+                HandlerRegistration itemFocusHandlerReg = registerItemFocusHandler(primitiveItem, itemFocusCallback);
+                HandlerRegistration itemUnFocusHandlerReg = registerItemUnFocusHandler(primitiveItem, itemUnFocusCallback);
+                itemHandlers.push(itemFocusHandlerReg, itemUnFocusHandlerReg);
         }
         return this;
     }
@@ -221,6 +216,11 @@ public class ButtonGridItemImpl
     @Override
     public void destroy() {
         removeDecoratorHandlers();
+        removeItemHandlers();
+        buttonFocusHandlerReg.removeHandler();
+        buttonUnFocusHandlerReg.removeHandler();
+        buttonFocusHandlerReg = null;
+        buttonUnFocusHandlerReg = null;
         button.destroy();
         toolbox.destroy();
         arrow.removeFromParent();
@@ -249,10 +249,8 @@ public class ButtonGridItemImpl
     private void init() {
         button.getWrapped().setUnFocusDelay(TIMER_DELAY_MILLIS);
         // Register custom focus/un-focus behaviors.
-        registerItemFocusHandler(button,
-                                 focusCallback);
-        registerItemUnFocusHandler(button,
-                                   unFocusCallback);
+        buttonFocusHandlerReg = registerItemFocusHandler(button, focusCallback);
+        buttonUnFocusHandlerReg = registerItemUnFocusHandler(button, unFocusCallback);
         // Attach the toolbox's primiitive and the arrow into the button group.
         this.button.asPrimitive()
                 .setDraggable(false)
@@ -262,25 +260,14 @@ public class ButtonGridItemImpl
         positionArrow();
     }
 
-    private void registerItemFocusHandler(final AbstractDecoratedItem item,
+    private HandlerRegistration registerItemFocusHandler(final AbstractDecoratedItem item,
                                           final Runnable callback) {
-        registrations()
-                .register(
-                        item.getPrimitive().addNodeMouseEnterHandler(event -> callback.run())
-                );
+        return item.getPrimitive().addNodeMouseEnterHandler(event -> callback.run());
     }
 
-    private void registerItemUnFocusHandler(final AbstractDecoratedItem item,
+    private HandlerRegistration registerItemUnFocusHandler(final AbstractDecoratedItem item,
                                             final Runnable callback) {
-        registrations()
-                .register(
-                        item.getPrimitive().addNodeMouseExitHandler(event -> callback.run())
-                );
-    }
-
-    private HandlerRegistrationManager registrations() {
-        return button.getWrapped()
-                .registrations();
+        return item.getPrimitive().addNodeMouseExitHandler(event -> callback.run());
     }
 
     ButtonGridItemImpl focus() {
@@ -323,12 +310,21 @@ public class ButtonGridItemImpl
         button.asPrimitive().batch();
     }
 
+    private void removeItemHandlers() {
+        while (itemHandlers.length > 0) {
+            HandlerRegistration reg = itemHandlers.pop();
+            reg.removeHandler();
+        }
+    }
+
     private void removeDecoratorHandlers() {
         if (null != decoratorHandlers[0]) {
             decoratorHandlers[0].removeHandler();
+            decoratorHandlers[0] = null;
         }
         if (null != decoratorHandlers[1]) {
             decoratorHandlers[1].removeHandler();
+            decoratorHandlers[1] = null;
         }
     }
 

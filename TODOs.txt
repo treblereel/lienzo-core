@@ -18,11 +18,13 @@ Tasks
 - Check/Fix
     - All TODO lienzo-to-native
     - All @FIXME (mdp)
-
+    - Move toolbox tests from stunner-lienzo-extensions to lienzo-tests
 
 Sandbox
 =======
 - Lienzo
+    - Remove use of HandlerRegistrationManager ??? Causing issues when adding handlers into a Node on the removeHandler() method...
+    - Lienzo-webapp example screens -> refactor to use Mark's Console instead of DomGlobal.console (browser)
     - LienzoPanel#setCursor -> use of gwt Cursor?
     - Lienzo KIE style conventions (double check with Mark)
     - fix TODOs in toJSONObject / toJSONString
