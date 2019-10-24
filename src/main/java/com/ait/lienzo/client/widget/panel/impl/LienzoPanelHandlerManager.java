@@ -15,7 +15,29 @@
  */
 package com.ait.lienzo.client.widget.panel.impl;
 
-import com.ait.lienzo.client.core.event.*;
+import java.util.List;
+import java.util.function.Predicate;
+
+import com.ait.lienzo.client.core.event.AbstractNodeHumanInputEvent;
+import com.ait.lienzo.client.core.event.EventReceiver;
+import com.ait.lienzo.client.core.event.NodeDragEndEvent;
+import com.ait.lienzo.client.core.event.NodeDragMoveEvent;
+import com.ait.lienzo.client.core.event.NodeDragStartEvent;
+import com.ait.lienzo.client.core.event.NodeMouseClickEvent;
+import com.ait.lienzo.client.core.event.NodeMouseDoubleClickEvent;
+import com.ait.lienzo.client.core.event.NodeMouseDownEvent;
+import com.ait.lienzo.client.core.event.NodeMouseEnterEvent;
+import com.ait.lienzo.client.core.event.NodeMouseExitEvent;
+import com.ait.lienzo.client.core.event.NodeMouseMoveEvent;
+import com.ait.lienzo.client.core.event.NodeMouseOutEvent;
+import com.ait.lienzo.client.core.event.NodeMouseOverEvent;
+import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
+import com.ait.lienzo.client.core.event.NodeMouseWheelEvent;
+import com.ait.lienzo.client.core.event.NodeTouchCancelEvent;
+import com.ait.lienzo.client.core.event.NodeTouchEndEvent;
+import com.ait.lienzo.client.core.event.NodeTouchMoveEvent;
+import com.ait.lienzo.client.core.event.NodeTouchStartEvent;
+import com.ait.lienzo.client.core.event.TouchPoint;
 import com.ait.lienzo.client.core.mediator.Mediators;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Node;
@@ -28,22 +50,18 @@ import com.ait.lienzo.shared.core.types.EventPropagationMode;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.EventType;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-
 import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
-import java.util.function.Predicate;
 import elemental2.dom.AddEventListenerOptions;
-import elemental2.dom.EventListener;
-import elemental2.dom.TouchEvent;
-import elemental2.dom.Touch;
 import elemental2.dom.Event;
-import elemental2.dom.TouchList;
+import elemental2.dom.EventListener;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
+import elemental2.dom.Touch;
+import elemental2.dom.TouchEvent;
+import elemental2.dom.TouchList;
 import elemental2.dom.UIEvent;
 import jsinterop.base.Js;
-
-import java.util.List;
 
 public final class LienzoPanelHandlerManager
 {
@@ -756,46 +774,40 @@ public final class LienzoPanelHandlerManager
         }
     }
 
-    private <H extends EventHandler, S extends EventReceiver> void fireEvent(final MouseEvent mouseEvent, final TouchEvent touchEvent, final int x, final int y, DragContext drag, Node<?> node, AbstractNodeHumanInputEvent<H, S> nodeEvent)
-    {
+    // TODO: lienzo-to-native: create a test case for this, otherwise events for layer are not being fired.
+    private <H extends EventHandler, S extends EventReceiver> void fireEvent(final MouseEvent mouseEvent,
+                                                                             final TouchEvent touchEvent,
+                                                                             final int x,
+                                                                             final int y,
+                                                                             final DragContext drag, Node<?> node,
+                                                                             final AbstractNodeHumanInputEvent<H, S> nodeEvent) {
+        boolean canBeHandled;
         if (node == null) {
+            node = m_viewport;
+            canBeHandled = true;
+        } else {
+            canBeHandled = node.isListening() && node.isVisible() && node.isEventHandled(nodeEvent.getAssociatedType());
+        }
 
-            // TODO: lienzo-to-native: create a test case for this, otherwise events for layer are not being fired.
-            m_viewport.fireEvent(nodeEvent);
-
-        } else if (node.isListening() && node.isVisible() && node.isEventHandled(nodeEvent.getAssociatedType())) {
-
-            if (!nodeEvent.isAlive())
-            {
+        if (canBeHandled) {
+            if (!nodeEvent.isAlive()) {
                 nodeEvent.revive();
             }
-
-            S oldNode  = nodeEvent.getSource();
-
+            S oldNode = nodeEvent.getSource();
             UIEvent oldEvent = nodeEvent.getNativeEvent();
+            int oldX = nodeEvent.getX();
+            int oldY = nodeEvent.getY();
 
-            int        oldX     = nodeEvent.getX();
-            int        oldY     = nodeEvent.getY();
-
-            try
-            {
+            try {
                 nodeEvent.override((S) node, mouseEvent, touchEvent, x, y, drag);
                 node.fireEvent(nodeEvent);
-            }
-            finally
-            {
-                if (oldNode == null)
-                {
+            } finally {
+                if (oldNode == null) {
                     nodeEvent.kill();
-                }
-                else
-                {
-                    if(mouseEvent != null)
-                    {
+                } else {
+                    if (mouseEvent != null) {
                         nodeEvent.override(oldNode, (MouseEvent) oldEvent, null, oldX, oldY, drag);
-                    }
-                    else
-                    {
+                    } else {
                         nodeEvent.override(oldNode, null, (TouchEvent) oldEvent, oldX, oldY, drag);
                     }
                 }

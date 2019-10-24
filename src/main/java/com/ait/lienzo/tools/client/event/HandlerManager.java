@@ -23,7 +23,7 @@ public class HandlerManager
 
     public <H extends EventHandler> boolean isEventHandled(final Type<H> type)
     {
-        return map.has(type);
+        return null != map && map.has(type);
     }
 
     public <H extends EventHandler> HandlerRegistration addHandler(final Type<H> type, final EventHandler handler)
