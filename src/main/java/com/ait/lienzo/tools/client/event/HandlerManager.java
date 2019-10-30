@@ -1,17 +1,19 @@
 package com.ait.lienzo.tools.client.event;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
-
-import elemental2.core.JsArray;
-import elemental2.core.JsMap;
-import elemental2.core.JsSet;
 
 public class HandlerManager
 {
     private Object source;
 
-    JsMap<Type<?>, JsArray<EventHandler>> map;
+    public Map<Type<?>, LinkedList<EventHandler>> map; //TODO
 
     private int firingDepth = 0;
 
@@ -23,20 +25,20 @@ public class HandlerManager
 
     public <H extends EventHandler> boolean isEventHandled(final Type<H> type)
     {
-        return map.has(type);
+        return map.containsKey(type);
     }
 
     public <H extends EventHandler> HandlerRegistration addHandler(final Type<H> type, final EventHandler handler)
     {
         if (map == null)
         {
-            map  = new JsMap<>();
+            map  = new HashMap<>();
         }
-        JsArray<EventHandler> handlers = map.get(type);
+        LinkedList<EventHandler> handlers = map.get(type);
         if (handlers == null)
         {
-            handlers = new JsArray<>();
-            map.set(type, handlers);
+            handlers = new LinkedList<>();
+            map.put(type, handlers);
         }
         handlers.push(handler);
 
@@ -46,20 +48,20 @@ public class HandlerManager
     }
 
     protected <H> void removeHandler(Type<H> type, EventHandler handler) {
-        JsArray<EventHandler> handlers = map.get(type);
+        LinkedList<EventHandler> handlers = map.get(type);
         if ( handlers != null )
         {
             int index = handlers.indexOf(handler);
-            handlers.splice(index, 1);
+            handlers.subList(index, 1);
         }
 
         // no more handlers, so prune map.
-        if ( handlers.length == 0)
+        if ( handlers.size() == 0)
         {
-            map.delete(type);
+            map.remove(type);
         }
 
-        if (map.size == 0)
+        if (map.size() == 0)
         {
             map = null;
         }
@@ -79,26 +81,26 @@ public class HandlerManager
             return;
         }
 
-        JsArray<EventHandler> handlers = map.get(event.getAssociatedType());
+        LinkedList<EventHandler> handlers = map.get(event.getAssociatedType());
         if (handlers==null)
         {
             // no handlers for this type have been added yet
             return;
         }
-        JsSet<Throwable>      causes   = null;
+        Set<Throwable> causes   = null;
         try
         {
             firingDepth++;
-            for(int i=0, length=handlers.length; i < length; i++)
+            for(int i=0, length=handlers.size(); i < length; i++)
             {
                 try
                 {
-                    event.dispatch(handlers.getAt(i));
+                    event.dispatch(handlers.get(i));
                 }
                 catch (Throwable var11)
                 {
                     if (causes == null) {
-                        causes = new JsSet<>();
+                        causes = new HashSet<>();
                     }
                     causes.add(var11);
                 }

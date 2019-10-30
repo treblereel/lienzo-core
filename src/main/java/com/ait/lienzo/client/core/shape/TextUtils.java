@@ -36,7 +36,7 @@ public class TextUtils
 
     static ScratchPad                       FORBOUNDS = new ScratchPad(1, 1);
 
-    static NFastStringMap<NFastDoubleArray> OFFSCACHE = new NFastStringMap<NFastDoubleArray>();
+    static NFastStringMap<NFastDoubleArray> OFFSCACHE = new NFastStringMap<>();
 
     static NFastDoubleArray getTextOffsets(Uint8ClampedArray data, int wide, int high, int base)
     {
@@ -68,6 +68,10 @@ public class TextUtils
 
     public static final NFastDoubleArray getTextOffsets(final String font, final TextBaseLine baseline)
     {
+        if(FORBOUNDS.getContext() == null) {
+            throw new Error();
+        }
+
         FORBOUNDS.getContext().setTextFont(font);
 
         FORBOUNDS.getContext().setTextAlign(TextAlign.LEFT);
@@ -121,6 +125,7 @@ public class TextUtils
         {
             return BoundingBox.fromDoubles(0, 0, 0, 0);
         }
+
         FORBOUNDS.getContext().setTextFont(font);
 
         FORBOUNDS.getContext().setTextAlign(TextAlign.LEFT);

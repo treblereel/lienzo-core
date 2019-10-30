@@ -349,7 +349,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
         }
     }
 
-    private final boolean hasComplexTransformAttributes()
+    public final boolean hasComplexTransformAttributes()
     {
         //JSONObject attr = new JSONObject(getAttributes().getJSO());
         //JSONObject attr = new JSONObject();

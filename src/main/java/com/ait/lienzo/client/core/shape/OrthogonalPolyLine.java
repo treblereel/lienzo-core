@@ -147,6 +147,7 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
 
         Point2D p1, p2;
 
+        points.push(new Point2D(1,1), new Point2D(1,1));
         final int size = cPoints.size();
 
         for (int i = 0; i < size - 1; i++)

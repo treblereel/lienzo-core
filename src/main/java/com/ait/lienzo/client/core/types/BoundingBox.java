@@ -16,6 +16,8 @@
 
 package com.ait.lienzo.client.core.types;
 
+import java.util.Objects;
+
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
@@ -308,9 +310,8 @@ public final class BoundingBox
     }
 
     @Override
-    public final String toString()
-    {
-        return toJSONString();
+    public int hashCode() {
+        return Objects.hash(minx, miny, maxx, maxy);
     }
 
     @Override
@@ -329,12 +330,6 @@ public final class BoundingBox
         return ((that.getX() == getX()) && (that.getY() == getY()) && (that.getWidth() == getWidth()) && (that.getHeight() == getHeight()));
     }
 
-    @Override
-    public final int hashCode()
-    {
-        return toJSONString().hashCode();
-    }
-
     public void offset(int dx, int dy)
     {
         this.minx = this.minx + dx;
@@ -343,4 +338,13 @@ public final class BoundingBox
         this.maxy = this.maxy + dy;
     }
 
+    @Override
+    public String toString() {
+        return "BoundingBox{" +
+                "minx=" + minx +
+                ", miny=" + miny +
+                ", maxx=" + maxx +
+                ", maxy=" + maxy +
+                '}';
+    }
 }

@@ -28,7 +28,7 @@ import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import jsinterop.base.JsArrayLike;
 
-public final class PathPartList
+public class PathPartList
 {
     private       double          m_cpx;
 

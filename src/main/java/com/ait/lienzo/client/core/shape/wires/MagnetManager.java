@@ -17,9 +17,6 @@
 
 package com.ait.lienzo.client.core.shape.wires;
 
-import java.util.List;
-
-import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;

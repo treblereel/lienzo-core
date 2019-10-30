@@ -134,7 +134,7 @@ public class Context2D
 
     public void setFillColor(final String color)
     {
-        m_jso.fillStyle = FillStyleUnionType.of(color);
+        //m_jso.fillStyle = FillStyleUnionType.of(color);
     }
 
     /**
@@ -177,7 +177,7 @@ public class Context2D
     public void setStrokeColor(final String color)
     {
         //m_jso.setStrokeColor(color);
-        m_jso.strokeStyle = StrokeStyleUnionType.of(color);
+        //m_jso.strokeStyle = StrokeStyleUnionType.of(color);
     }
 
     /**

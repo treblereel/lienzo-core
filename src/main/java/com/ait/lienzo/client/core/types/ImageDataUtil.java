@@ -165,8 +165,11 @@ public class ImageDataUtil
      */
     private static int getColorAt(ImageData image, int x, int y, int offset)
     {
-        return (int) image.data.getAt(4 * (x + y * image.width) + offset).doubleValue();
-    };
+        if(image != null && image.data != null) {
+            return (int) image.data.getAt(4 * (x + y * image.width) + offset).doubleValue();
+        }
+        return 0;
+    }
 
     /**
      * Sets the color value at position (x,y) with the specified offset.

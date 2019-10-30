@@ -82,19 +82,19 @@ public abstract class AbstractMultiPathPartShape<T extends AbstractMultiPathPart
     private static final int BOTTOM_LEFT  = 3;
 
     @JsProperty
-    private double                       cornerRadius;
+    private Double cornerRadius = 0d;
 
     @JsProperty
-    private double minWidth  = -1;
+    private Double minWidth  = -1d;
 
     @JsProperty
-    private double maxWidth  = -1;
+    private Double maxWidth  = -1d;
 
     @JsProperty
-    private double minHeight = -1;
+    private Double minHeight = -1d;
 
     @JsProperty
-    private double maxHeight = -1;
+    private Double maxHeight = -1d;
 
     protected AbstractMultiPathPartShape(final ShapeType type)
     {
@@ -133,6 +133,7 @@ public abstract class AbstractMultiPathPartShape<T extends AbstractMultiPathPart
         {
             m_box.addBoundingBox(points.get(i).getBoundingBox());
         }
+
         return m_box;
     }
 

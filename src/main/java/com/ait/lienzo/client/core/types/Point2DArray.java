@@ -24,7 +24,6 @@ import java.util.Iterator;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 
 import elemental2.core.Global;
-import elemental2.core.JsArray;
 import elemental2.core.JsIterable;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
@@ -36,12 +35,10 @@ import jsinterop.base.JsArrayLike;
  * Point2DArray represents an array (or List) with {@link Point2D} objects.
  */
 
-@JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
 public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
 {
     //private final JsArray<Point2D> m_jso;
 
-    @JsOverlay
     public static final Point2DArray fromArrayOfDouble(final double... array)
     {
         final Point2DArray points = new Point2DArray();
@@ -67,7 +64,6 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
         return points;
     }
 
-    @JsOverlay
     public static final Point2DArray fromNFastDoubleArray(final NFastDoubleArray array)
     {
         final Point2DArray points = new Point2DArray();
@@ -298,7 +294,9 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
             Point2D p = getAt(i);
             no.push(p.copy());
         }
-        return no;
+        throw new UnsupportedOperationException();
+
+        //return no;
     };
 
     @JsOverlay
@@ -313,6 +311,11 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
             list.add(get(i));
         }
         return Collections.unmodifiableCollection(list);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getCanonicalName();
     }
 
     @JsOverlay

@@ -16,6 +16,8 @@
 
 package com.ait.lienzo.client.core.types;
 
+import java.util.Objects;
+
 import com.ait.lienzo.client.core.util.GeometryException;
 
 import elemental2.core.Global;
@@ -53,7 +55,6 @@ public final class Point2D
         this.x = x;
         this.y = y;
     }
-
 
     public final Point2D copy()
     {
@@ -332,12 +333,6 @@ public final class Point2D
     }
 
     @Override
-    public String toString()
-    {
-        return toJSONString();
-    }
-
-    @Override
     public boolean equals(final Object other)
     {
         if ((other == null) || (false == (other instanceof Point2D)))
@@ -364,9 +359,8 @@ public final class Point2D
 //    }
 
     @Override
-    public int hashCode()
-    {
-        return toJSONString().hashCode();
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 
     public final double dot(final Point2D p)
@@ -415,6 +409,14 @@ public final class Point2D
     public static final Point2D polar(final double radius, final double angle)
     {
         return new Point2D(radius * Math.cos(angle), radius * Math.sin(angle));
+    }
+
+    @Override
+    public String toString() {
+        return "Point2D{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 
 //    @JsType()

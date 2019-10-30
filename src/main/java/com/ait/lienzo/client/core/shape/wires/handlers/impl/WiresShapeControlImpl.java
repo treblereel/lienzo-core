@@ -127,19 +127,11 @@ public class WiresShapeControlImpl
 
         // index nested shapes that have special m_connectors, to avoid searching during drag.
         m_connectorsWithSpecialConnections = WiresShapeControlUtils.collectionSpecialConnectors(getShape());
-
         //setting the child connectors that should be moved with the Shape
         m_connectors = getShape().getChildShapes() != null && !getShape().getChildShapes().isEmpty() ?
                        WiresShapeControlUtils.lookupChildrenConnectorsToUpdate(getShape()).values() :
-                       Collections.<WiresConnector>emptyList();
-
-        forEachConnectorControl(new Consumer<WiresConnectorControl>() {
-            @Override
-            public void accept(WiresConnectorControl control)
-            {
-                control.onMoveStart(x, y);
-            }
-        });
+                       Collections.emptyList();
+        forEachConnectorControl(control -> control.onMoveStart(x, y));
 
     }
 

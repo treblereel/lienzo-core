@@ -23,7 +23,7 @@ import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 @JsType
-public final class PathPartEntryJSO
+public class PathPartEntryJSO
 {
     public static final int UNDEFINED_PATH_PART        = 0;
 

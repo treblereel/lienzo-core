@@ -895,6 +895,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         {
             node.addParentsLocations(locn);
         }
+
         locn.offset(getX(), getY());
     }
 

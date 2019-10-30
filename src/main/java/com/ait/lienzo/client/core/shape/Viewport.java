@@ -59,11 +59,11 @@ import elemental2.dom.HTMLDivElement;
 
 /**
  * Serves as a container for {@link Scene}
- * 
+ *
  * <ul>
  * <li>A {@link Viewport} containsBoundingBox three {@link Scene} (Main, Drag and Back Scene)</li>
  * <li>The main {@link Scene} can contain multiple {@link Layer}.</li>
- * </ul> 
+ * </ul>
  */
 public class Viewport extends ContainerNode<Scene, Viewport> implements EventReceiver
 {
@@ -107,7 +107,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Constructor. Creates an instance of a viewport.
-     * 
+     *
      * @param wide
      * @param high
      */
@@ -147,11 +147,12 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     public final Viewport setTransform(final Transform transform)
     {
         super.setTransform(transform);
-
-        viewportTransformChangedEvent.revive();
-        viewportTransformChangedEvent.override(this);
-        super.fireEvent(viewportTransformChangedEvent);
-        viewportTransformChangedEvent.kill();
+        if(viewportTransformChangedEvent != null) {
+            viewportTransformChangedEvent.revive();
+            viewportTransformChangedEvent.override(this);
+            super.fireEvent(viewportTransformChangedEvent);
+            viewportTransformChangedEvent.kill();
+        }
         return this;
     }
 
@@ -198,7 +199,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Returns the viewport width in pixels.
-     * 
+     *
      * @return int
      */
     public final int getWidth()
@@ -208,7 +209,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Returns the viewport height in pixels.
-     * 
+     *
      * @return int
      */
     public final int getHeight()
@@ -218,7 +219,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Returns the {@link HTMLDivElement}
-     * 
+     *
      * @return {@link HTMLDivElement}
      */
     public final HTMLDivElement getElement()
@@ -228,7 +229,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Sets size of the {@link Viewport} in pixels
-     * 
+     *
      * @param wide
      * @param high
      * @return Viewpor this viewport
@@ -271,7 +272,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Adds a {@link Scene} to this viewport.
-     * 
+     *
      * @param scene
      */
     @Override
@@ -289,7 +290,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
             }
             HTMLDivElement element = scene.getElement();
 
-            scene.setPixelSize(m_wide, m_high);
+            setScenePixelSize(scene, m_wide, m_high);
 
             element.style.position = Position.ABSOLUTE.getCssName();
 
@@ -300,6 +301,11 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
             super.add(scene);
         }
         return this;
+    }
+
+    public Scene setScenePixelSize(Scene scene, int h, int w) {
+        scene.setPixelSize(h, w);
+        return scene;
     }
 
     @Override
@@ -386,7 +392,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Returns the main Scene for the {@link Viewport}
-     * 
+     *
      * @return {@link Scene}
      */
     @Override
@@ -397,7 +403,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Sets the background layer
-     * 
+     *
      * @param layer
      * @return this Viewport
      */
@@ -412,8 +418,8 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * Returns the Drag Layer.
-     * 
-     * @return {@link Layer} 
+     *
+     * @return {@link Layer}
      */
     public final Layer getDragLayer()
     {
@@ -460,7 +466,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -471,7 +477,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -482,7 +488,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -493,7 +499,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
 
     /**
      * No-op.
-     * 
+     *
      * @return this Viewport
      */
     @Override
@@ -505,7 +511,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     /**
      * Change the viewport's transform so that the specified area (in global or canvas coordinates)
      * is visible.
-     * 
+     *
      * @param x
      * @param y
      * @param width
@@ -545,7 +551,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     /**
      * Change the viewport's transform so that the specified area (in local or world coordinates)
      * is visible.
-     * 
+     *
      * @param x
      * @param y
      * @param width
@@ -673,7 +679,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     /**
      * Returns the {@link Mediators} for this viewport.
      * Mediators can be used to e.g. to addBoundingBox zoom operations.
-     * 
+     *
      * @return Mediators
      */
     public final Mediators getMediators()
@@ -684,9 +690,9 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     /**
      * Add a mediator to the stack of {@link Mediators} for this viewport.
      * The one that is added last, will be called first.
-     * 
+     *
      * Mediators can be used to e.g. to addBoundingBox zoom operations.
-     * 
+     *
      * @param mediator IMediator
      */
     public final void pushMediator(final IMediator mediator)

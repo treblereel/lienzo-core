@@ -48,6 +48,7 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
+import elemental2.dom.HTMLDivElement;
 import elemental2.dom.HTMLElement;
 
 /**
@@ -92,13 +93,18 @@ public class WiresShapeControlHandleList implements IControlHandleList
         this.m_registrationManager = registrationManager;
         this.parent = null;
 
-        HTMLElement relativeDiv = parent.getLayer().getViewport().getElement();
-        wiresResizeStartEvent = new WiresResizeStartEvent(relativeDiv);
-        wiresResizeStepEvent = new WiresResizeStepEvent(relativeDiv);
-        wiresResizeEndEvent = new WiresResizeEndEvent(relativeDiv);
-
         updateParentLocation();
         initControlsListeners();
+        setupEvents(parent);
+    }
+
+    protected void setupEvents(Group parent) {
+        if(parent != null && parent.getLayer().getViewport() != null) {
+            HTMLDivElement div = parent.getLayer().getViewport().getElement();
+            wiresResizeStartEvent = new WiresResizeStartEvent(div);
+            wiresResizeStepEvent = new WiresResizeStepEvent(div);
+            wiresResizeEndEvent = new WiresResizeEndEvent(div);
+        }
     }
 
     @Override

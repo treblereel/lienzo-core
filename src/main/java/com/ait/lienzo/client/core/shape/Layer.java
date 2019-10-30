@@ -433,7 +433,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
      * @param wide
      * @param high
      */
-    void setPixelSize(final int wide, final int high)
+    public void setPixelSize(final int wide, final int high)
     {
         m_wide = wide;
 
