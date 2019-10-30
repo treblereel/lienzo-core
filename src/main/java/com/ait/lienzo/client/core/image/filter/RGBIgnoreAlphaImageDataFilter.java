@@ -22,13 +22,10 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 import com.ait.lienzo.shared.core.types.IColor;
-import com.ait.lienzo.tools.client.Console;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * An Image filter to convert all pixels in the CanvasPixelArray to an RGB color.
@@ -80,7 +77,7 @@ public class RGBIgnoreAlphaImageDataFilter extends AbstractRGBImageDataFilter<RG
         {
             source =  ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -107,7 +104,7 @@ public class RGBIgnoreAlphaImageDataFilter extends AbstractRGBImageDataFilter<RG
     			data[i + 3] = 255;
     		}
     	}
-    };
+    }
 
     @Override
     public IFactory<RGBIgnoreAlphaImageDataFilter> getFactory()

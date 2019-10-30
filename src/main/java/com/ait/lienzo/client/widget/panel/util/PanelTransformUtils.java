@@ -23,6 +23,11 @@ import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 
 public class PanelTransformUtils {
 
+    private PanelTransformUtils()
+    {
+
+    }
+
     public static void setScaleLevel(final Viewport viewport,
                                      final double level) {
         final Transform viewportTransform = viewport.getTransform();

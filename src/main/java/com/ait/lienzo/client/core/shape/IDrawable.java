@@ -64,131 +64,131 @@ import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
  */
 public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONSerializable<T> //NObjectOnWire,
 {
-    public T copy();
+    T copy();
 
-    public T draw();
+    T draw();
 
-    public T batch();
+    T batch();
     
-    public boolean hasMetaData();
+    boolean hasMetaData();
 
-    public MetaData getMetaData();
+    MetaData getMetaData();
 
-    public Collection<Attribute> getAttributeSheet();
+    Collection<Attribute> getAttributeSheet();
 
-    public Collection<Attribute> getRequiredAttributes();
+    Collection<Attribute> getRequiredAttributes();
 
-    public Node<?> getParent();
+    Node<?> getParent();
 
-    public NodeType getNodeType();
+    NodeType getNodeType();
 
-    public List<Attribute> getBoundingBoxAttributes();
+    List<Attribute> getBoundingBoxAttributes();
     
-    public T refresh();
+    T refresh();
 
-    public T setID(String id);
+    T setID(String id);
 
-    public String getID();
+    String getID();
     
-    public T setUserData(Object data);
+    T setUserData(Object data);
     
-    public Object getUserData();
+    Object getUserData();
 
-    public T cancelAttributesChangedBatcher();
+    T cancelAttributesChangedBatcher();
 
-    public BoundingBox getBoundingBox();
+    BoundingBox getBoundingBox();
 
-    public BoundingPoints getBoundingPoints();
+    BoundingPoints getBoundingPoints();
 
-    public BoundingPoints getComputedBoundingPoints();
+    BoundingPoints getComputedBoundingPoints();
     
-    public Point2D getComputedLocation();
+    Point2D getComputedLocation();
 
-    public Point2D getAbsoluteLocation();
+    Point2D getAbsoluteLocation();
     
-    public Transform getAbsoluteTransform();
+    Transform getAbsoluteTransform();
 
-    public HandlerRegistration addNodeMouseClickHandler(NodeMouseClickHandler handler);
+    HandlerRegistration addNodeMouseClickHandler(NodeMouseClickHandler handler);
 
-    public HandlerRegistration addNodeMouseDoubleClickHandler(NodeMouseDoubleClickHandler handler);
+    HandlerRegistration addNodeMouseDoubleClickHandler(NodeMouseDoubleClickHandler handler);
 
-    public HandlerRegistration addNodeMouseDownHandler(NodeMouseDownHandler handler);
+    HandlerRegistration addNodeMouseDownHandler(NodeMouseDownHandler handler);
 
-    public HandlerRegistration addNodeMouseMoveHandler(NodeMouseMoveHandler handler);
+    HandlerRegistration addNodeMouseMoveHandler(NodeMouseMoveHandler handler);
 
-    public HandlerRegistration addNodeMouseOutHandler(NodeMouseOutHandler handler);
+    HandlerRegistration addNodeMouseOutHandler(NodeMouseOutHandler handler);
 
-    public HandlerRegistration addNodeMouseOverHandler(NodeMouseOverHandler handler);
+    HandlerRegistration addNodeMouseOverHandler(NodeMouseOverHandler handler);
 
-    public HandlerRegistration addNodeMouseExitHandler(NodeMouseExitHandler handler);
+    HandlerRegistration addNodeMouseExitHandler(NodeMouseExitHandler handler);
 
-    public HandlerRegistration addNodeMouseEnterHandler(NodeMouseEnterHandler handler);
+    HandlerRegistration addNodeMouseEnterHandler(NodeMouseEnterHandler handler);
 
-    public HandlerRegistration addNodeMouseUpHandler(NodeMouseUpHandler handler);
+    HandlerRegistration addNodeMouseUpHandler(NodeMouseUpHandler handler);
 
-    public HandlerRegistration addNodeMouseWheelHandler(NodeMouseWheelHandler handler);
+    HandlerRegistration addNodeMouseWheelHandler(NodeMouseWheelHandler handler);
 
-    public HandlerRegistration addNodeTouchCancelHandler(NodeTouchCancelHandler handler);
+    HandlerRegistration addNodeTouchCancelHandler(NodeTouchCancelHandler handler);
 
-    public HandlerRegistration addNodeTouchEndHandler(NodeTouchEndHandler handler);
+    HandlerRegistration addNodeTouchEndHandler(NodeTouchEndHandler handler);
 
-    public HandlerRegistration addNodeTouchMoveHandler(NodeTouchMoveHandler handler);
+    HandlerRegistration addNodeTouchMoveHandler(NodeTouchMoveHandler handler);
 
-    public HandlerRegistration addNodeTouchStartHandler(NodeTouchStartHandler handler);
+    HandlerRegistration addNodeTouchStartHandler(NodeTouchStartHandler handler);
 
-    public HandlerRegistration addNodeGestureStartHandler(NodeGestureStartHandler handler);
+    HandlerRegistration addNodeGestureStartHandler(NodeGestureStartHandler handler);
 
-    public HandlerRegistration addNodeGestureEndHandler(NodeGestureEndHandler handler);
+    HandlerRegistration addNodeGestureEndHandler(NodeGestureEndHandler handler);
 
-    public HandlerRegistration addNodeGestureChangeHandler(NodeGestureChangeHandler handler);
+    HandlerRegistration addNodeGestureChangeHandler(NodeGestureChangeHandler handler);
 
-    public HandlerRegistration addNodeDragEndHandler(NodeDragEndHandler handler);
+    HandlerRegistration addNodeDragEndHandler(NodeDragEndHandler handler);
 
-    public HandlerRegistration addNodeDragMoveHandler(NodeDragMoveHandler handler);
+    HandlerRegistration addNodeDragMoveHandler(NodeDragMoveHandler handler);
 
-    public HandlerRegistration addNodeDragStartHandler(NodeDragStartHandler handler);
+    HandlerRegistration addNodeDragStartHandler(NodeDragStartHandler handler);
 
     /**
      * Gets the object's {@link Layer} 
      * 
      * @return Layer
      */
-    public Layer getLayer();
+    Layer getLayer();
 
     /**
      * Gets the object's {@link Scene}
      * 
      * @return Scene
      */
-    public Scene getScene();
+    Scene getScene();
 
     /**
      * Gets the object's {@link Viewport}
      * 
      * @return Viewport
      */
-    public Viewport getViewport();
+    Viewport getViewport();
 
     /**
      * Gets the viewport's Over Layer {@link Layer}
      * 
      * @return Layer
      */
-    public Layer getOverLayer();
+    Layer getOverLayer();
 
     /**
      * Gets the object's {@link ScratchPad}
      * 
      * @return ScratchPad
      */
-    public ScratchPad getScratchPad();
+    ScratchPad getScratchPad();
 
     /**
      * Returns this object as a {@link Node}
      * 
      * @return Node
      */
-    public Node<?> asNode();
+    Node<?> asNode();
 
     /**
      * Returns this object as a {@link Scene}
@@ -196,7 +196,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return Scene
      */
-    public Viewport asViewport();
+    Viewport asViewport();
 
     /**
      * Returns this object as a {@link Scene}
@@ -204,7 +204,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return Scene
      */
-    public Scene asScene();
+    Scene asScene();
 
     /**
      * Returns this object as a {@link Scene}
@@ -212,7 +212,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return Scene
      */
-    public Layer asLayer();
+    Layer asLayer();
 
     /**
      * Returns this object as a {@link Scene}
@@ -220,7 +220,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return Scene
      */
-    public GroupOf<IPrimitive<?>, ?> asGroupOf();
+    GroupOf<IPrimitive<?>, ?> asGroupOf();
 
     /**
      * Returns this object as a {@link Scene}
@@ -228,7 +228,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return Scene
      */
-    public Group asGroup();
+    Group asGroup();
 
     /**
      * Returns this object as a {@link Scene}
@@ -236,9 +236,9 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return Scene
      */
-    public Shape<?> asShape();
+    Shape<?> asShape();
 
-    public IMultiPointShape<?> asMultiPointShape();
+    IMultiPointShape<?> asMultiPointShape();
 
     /**
      * Returns this object as an {@link IContainer}
@@ -246,9 +246,9 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return IContainer
      */
-    public IContainer<?, ?> asContainer();
+    IContainer<?, ?> asContainer();
 
-    public ContainerNode<?, ?> asContainerNode();
+    ContainerNode<?, ?> asContainerNode();
 
     /**
      * Returns this object as an {@link IPrimitive}
@@ -256,27 +256,27 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @return IPrimitive
      */
-    public IPrimitive<?> asPrimitive();
+    IPrimitive<?> asPrimitive();
 
-    public IGuidePrimitive<?> asGuide();
+    IGuidePrimitive<?> asGuide();
 
-    public T setVisible(boolean visible);
+    T setVisible(boolean visible);
 
     /**
      * Returns whether the object is visible.
      * 
      * @return boolean
      */
-    public boolean isVisible();
+    boolean isVisible();
 
-    public T setListening(boolean listening);
+    T setListening(boolean listening);
 
     /**
      * Returns whether the object is listening (i.e. not ignoring) for events
      * 
      * @return boolean
      */
-    public boolean isListening();
+    boolean isListening();
 
     /**
      * Returns whether the given event type has a handler implementation in this
@@ -285,7 +285,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * @param type the event type
      * @return boolean
      */
-    public <H extends EventHandler> boolean isEventHandled(Type<H> type);
+    <H extends EventHandler> boolean isEventHandled(Type<H> type);
 
 
     /**
@@ -293,37 +293,37 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @param context
      */
-    public void drawWithTransforms(Context2D context, double alpha, BoundingBox bounds);
+    void drawWithTransforms(Context2D context, double alpha, BoundingBox bounds);
 
     /**
      * Move the object's {@link Layer} one level up
      * 
      * @return T instance of the drawn object
      */
-    public T moveUp();
+    T moveUp();
 
     /**
      * Move the object's {@link Layer} one level down
      * 
      * @return T instance of the drawn object
      */
-    public T moveDown();
+    T moveDown();
 
     /**
      * Move the object's {@link Layer} to the top of the layer stack
      * 
      * @return T instance of the drawn object
      */
-    public T moveToTop();
+    T moveToTop();
 
     /**
      * Move the object's {@link Layer} to the bottom of the layer stack
      * 
      * @return T instance of the drawn object
      */
-    public T moveToBottom();
+    T moveToBottom();
 
-    public boolean removeFromParent();
+    boolean removeFromParent();
 
     /**
      * Animates this node using a tweening animation that runs for the specified duration.
@@ -336,7 +336,7 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * @param duration in milliseconds
      * @return {@link IAnimationHandle}
      */
-    public IAnimationHandle animate(AnimationTweener tweener, AnimationProperties properties, double duration /* milliseconds */);
+    IAnimationHandle animate(AnimationTweener tweener, AnimationProperties properties, double duration /* milliseconds */);
 
     /**
      * Animates this node using a tweening animation that runs for the specified duration.
@@ -354,9 +354,9 @@ public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONS
      * 
      * @see {@link AnimationManager#add(IPrimitive, AnimationTweener, AnimationProperties, int, IAnimationCallback)}
      */
-    public IAnimationHandle animate(AnimationTweener tweener, AnimationProperties properties, double duration /* milliseconds */, IAnimationCallback callback);
+    IAnimationHandle animate(AnimationTweener tweener, AnimationProperties properties, double duration /* milliseconds */, IAnimationCallback callback);
 
-    public List<Attribute> getTransformingAttributes();
+    List<Attribute> getTransformingAttributes();
 
-    public String uuid();
+    String uuid();
 }

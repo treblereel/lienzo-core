@@ -218,13 +218,10 @@ public class WiresShape extends WiresContainer
         Objects.requireNonNull(handler);
 
         return getHandlerManager().addHandler(WiresResizeEndEvent.TYPE,
-                                              new WiresResizeEndHandler() {
-                                                  @Override
-                                                  public void onShapeResizeEnd(WiresResizeEndEvent event) {
-                                                      handler.onShapeResizeEnd(event);
-                                                      m_innerLayoutContainer.refresh();
-                                                      refresh();
-                                                  }
+                                              (WiresResizeEndHandler) event -> {
+                                                  handler.onShapeResizeEnd(event);
+                                                  m_innerLayoutContainer.refresh();
+                                                  refresh();
                                               });
     }
 
@@ -316,7 +313,8 @@ public class WiresShape extends WiresContainer
         return m_innerLayoutContainer;
     }
 
-    @Override public boolean equals(Object o)
+    @Override
+    public boolean equals(Object o)
     {
         if (this == o)
         {
@@ -332,7 +330,8 @@ public class WiresShape extends WiresContainer
         return getGroup().uuid().equals(that.getGroup().uuid());
     }
 
-    @Override public int hashCode()
+    @Override
+    public int hashCode()
     {
         return getGroup().uuid().hashCode();
     }

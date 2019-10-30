@@ -100,7 +100,7 @@ public final class PatternGradient implements FillGradient
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof PatternGradient)))
+        if ((other == null) || (!(other instanceof PatternGradient)))
         {
             return false;
         }

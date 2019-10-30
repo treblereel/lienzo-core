@@ -45,7 +45,7 @@ public class TweeningAnimation extends TimedAnimation
     {
         if ((null != m_properties) && (m_properties.size() > 0))
         {
-            m_workingset = new NFastArrayList<AnimationProperty>();
+            m_workingset = new NFastArrayList<>();
 
             final Node<?> node = getNode();
 

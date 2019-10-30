@@ -27,27 +27,13 @@ public class WiresConnectorEventFunctions
 {
     public static Predicate<WiresConnector> canShowControlPoints()
     {
-        return new Predicate<WiresConnector>()
-        {
-            @Override
-            public boolean test(WiresConnector connector)
-            {
-                return !connector.getControl().areControlPointsVisible();
-            }
-        };
+        return connector -> !connector.getControl().areControlPointsVisible();
     }
 
     public static Predicate<WiresConnector> canHideControlPoints(final WiresManager wiresManager)
     {
-        return new Predicate<WiresConnector>()
-        {
-            @Override
-            public boolean test(WiresConnector connector)
-            {
-                return null == wiresManager.getSelectionManager() ||
-                       !wiresManager.getSelectionManager().getSelectedItems().getConnectors().contains(connector);
-            }
-        };
+        return connector -> null == wiresManager.getSelectionManager() ||
+               !wiresManager.getSelectionManager().getSelectedItems().getConnectors().contains(connector);
     }
 
     public static Consumer<Event> select(final WiresManager wiresManager,
@@ -67,13 +53,6 @@ public class WiresConnectorEventFunctions
 
     public static Consumer<WiresConnectorHandlerImpl.Event> addControlPoint(final WiresConnector connector)
     {
-        return new Consumer<WiresConnectorHandlerImpl.Event>()
-        {
-            @Override
-            public void accept(WiresConnectorHandlerImpl.Event event)
-            {
-                connector.getControl().addControlPoint(event.x, event.y);
-            }
-        };
+        return event -> connector.getControl().addControlPoint(event.x, event.y);
     }
 }

@@ -57,7 +57,7 @@ public class Scene extends ContainerNode<Layer, Scene>
 
     private static long idCounter;
 
-    private final HTMLDivElement m_element = (HTMLDivElement) DomGlobal.document.createElement("div");;
+    private final HTMLDivElement m_element = (HTMLDivElement) DomGlobal.document.createElement("div");
 
     /**
      * Constructor. Creates an instance of a scene.

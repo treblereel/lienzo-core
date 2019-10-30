@@ -142,7 +142,7 @@ public class Spline extends AbstractMultiPointShape<Spline>
         {
             closed = false;
         }
-        final NFastArrayList<PathPoint[]> carray = new NFastArrayList<PathPoint[]>();
+        final NFastArrayList<PathPoint[]> carray = new NFastArrayList<>();
 
         for (int i = begindex; i < endindex; i++)
         {
@@ -272,7 +272,7 @@ public class Spline extends AbstractMultiPointShape<Spline>
         }
     }
 
-    private final static PathPoint[] getPathPoints(final Point2DArray array)
+    private static final PathPoint[] getPathPoints(final Point2DArray array)
     {
         if ((null == array) || (array.size() < 2))
         {

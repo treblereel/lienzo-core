@@ -231,7 +231,7 @@ public final class Shadow
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof Shadow)))
+        if ((other == null) || (!(other instanceof Shadow)))
         {
             return false;
         }
@@ -281,37 +281,37 @@ public final class Shadow
         public final String getColor()
         {
 			return this.color;
-        };
+        }
 
         public final void setColor(String color)
         {
 			this.color = color;
-        };
+        }
 
         public final int getBlur()
         {
 			return this.blur;
-        };
+        }
 
         public final void setBlur(int blur)
         {
 			this.blur = blur;
-        };
+        }
 
         public final boolean getOnFill()
         {
 			return this.onfill ;
-        };
+        }
 
         public final void setOnFill(boolean onfill)
         {
 			this.onfill = onfill;
-        };
+        }
 
         public final Point2D getOffset()
         {
 			return this.offset;
-        };
+        }
 
         public final void setOffset(Point2D offset)
         {

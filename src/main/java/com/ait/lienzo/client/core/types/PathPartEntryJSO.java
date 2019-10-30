@@ -17,13 +17,11 @@
 package com.ait.lienzo.client.core.types;
 
 import elemental2.core.Global;
-import elemental2.core.JsArray;
-import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 @JsType
-public final class PathPartEntryJSO
+public class PathPartEntryJSO
 {
     public static final int UNDEFINED_PATH_PART        = 0;
 
@@ -50,7 +48,7 @@ public final class PathPartEntryJSO
     public static final PathPartEntryJSO make(int command, double[] points)
     {
         return new PathPartEntryJSO(command, points);
-    };
+    }
 
     public PathPartEntryJSO(int command, double[] points)
     {
@@ -66,12 +64,12 @@ public final class PathPartEntryJSO
     public final int getCommand()
     {
         return this.command;
-    };
+    }
 
     public final double[] getPoints()
     {
         return this.points;
-    };
+    }
 
     public final PathPartEntryJSO copy()
     {

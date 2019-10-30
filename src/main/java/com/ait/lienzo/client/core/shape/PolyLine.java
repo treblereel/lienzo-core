@@ -72,7 +72,6 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
     public PolyLine(final Point2DArray points, final double corner)
     {
         this(points);
-
         setCornerRadius(corner);
     }
 
@@ -100,7 +99,7 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
     @Override
     public boolean parse()
     {
-        Point2DArray list = getPoints();
+        Point2DArray list = super.getPoints();
 
         list = list.noAdjacentPoints();
         final int size = list.size();

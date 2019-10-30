@@ -16,12 +16,10 @@
 
 package com.ait.lienzo.tools.client.collection;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import elemental2.core.Global;
 import elemental2.core.JsArray;
 import elemental2.core.JsIterable;
 import elemental2.core.JsIteratorIterable;
@@ -31,7 +29,6 @@ import elemental2.core.JsMap.JsIterableTypeParameterArrayUnionType;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
-import jsinterop.base.Js;
 
 public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogram.NFastStringHistogramJSO>, NJSONStringify
 {
@@ -279,7 +276,7 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
 			    val = 1;
 			}
             set(key, val);
-        };
+        }
 
         @JsOverlay
         private final void dec(String key)
@@ -291,7 +288,7 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
             } else {
                 set(key, val);
             }
-        };
+        }
 
 
         @JsOverlay
@@ -304,7 +301,7 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
                 i = i + val;
             }
 			return i;
-        };
+        }
 
         @JsOverlay
         private final int total(String key)
@@ -314,12 +311,12 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
                 val = get(key);
 			}
 			return val;
-        };
+        }
 
         @JsOverlay
         private final boolean isEmpty()
         {
 			return size == 0;
-        };
+        }
     }
 }

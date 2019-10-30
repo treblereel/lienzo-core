@@ -90,7 +90,7 @@ public class TextBoundsWrap extends TextNoWrap implements ITextWrapperWithBounda
 
         final double        wrapWidth  = getWrapBoundaries().getWidth();
         final String        firstWord  = words[0];
-        double              width      = getBoundingBoxForString(firstWord).getWidth();
+        double              width;
         final StringBuilder nextLine   = new StringBuilder(firstWord);
         int                 numOfLines = 1;
         double              maxWidth = 0;
@@ -141,6 +141,7 @@ public class TextBoundsWrap extends TextNoWrap implements ITextWrapperWithBounda
 
     protected void drawLines(Context2D context, IDrawString drawCommand, List<String> lines, double boundariesWidth)
     {
+
         double xOffset = 0;
 
         switch (textAlignSupplier.get())
@@ -163,6 +164,7 @@ public class TextBoundsWrap extends TextNoWrap implements ITextWrapperWithBounda
         for (int i = 0; i < lines.size(); i++)
         {
             String line = lines.get(i);
+
             if (line.length() == 0)
             {
                 continue;
@@ -170,7 +172,7 @@ public class TextBoundsWrap extends TextNoWrap implements ITextWrapperWithBounda
             final int toPad = (int) Math
                     .round((boundariesWidth - getBoundingBoxForString(line).getWidth()) / getBoundingBoxForString(" ")
                             .getWidth());
-            line = TextUtils.padString(line, line.length() + toPad, ' ', textAlignSupplier.get());
+            line = textUtils.padString(line, line.length() + toPad, ' ', textAlignSupplier.get());
             drawCommand.draw(context, line, xOffset, i + Y_OFFSET);
         }
     }

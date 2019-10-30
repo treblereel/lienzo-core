@@ -16,11 +16,7 @@
 
 package com.ait.lienzo.client.core.shape.wires.event;
 
-import com.ait.lienzo.client.core.event.AbstractNodeDragEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
-import com.ait.lienzo.client.core.event.NodeDragStartHandler;
-import com.ait.lienzo.tools.client.event.INodeXYEvent;
-import com.ait.lienzo.client.core.shape.wires.WiresShape;
 
 import elemental2.dom.HTMLElement;
 
@@ -29,7 +25,7 @@ import elemental2.dom.HTMLElement;
  */
 public class WiresResizeEndEvent extends AbstractWiresResizeEvent<WiresResizeEndHandler, NodeDragEndHandler>
 {
-    public static final Type<WiresResizeEndHandler> TYPE = new Type<WiresResizeEndHandler>();
+    public static final Type<WiresResizeEndHandler> TYPE = new Type<>();
 
     public WiresResizeEndEvent(final HTMLElement relativeElement)
     {

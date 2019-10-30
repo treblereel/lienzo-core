@@ -29,7 +29,7 @@ public class OrientationChangeEvent extends AbstractNodeHumanInputEvent<Orientat
 
     private ScreenOrientation                     m_orientation;
 
-    private static final Type<OrientationChangeHandler> TYPE = new Type<OrientationChangeHandler>();
+    private static final Type<OrientationChangeHandler> TYPE = new Type<>();
 
     public static final Type<OrientationChangeHandler> getType()
     {

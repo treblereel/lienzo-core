@@ -64,7 +64,7 @@ public class ControlHandleList extends Activatable implements IControlHandleList
     @Override
     public final boolean contains(final IControlHandle handle)
     {
-        if ((null != handle) && (false == isEmpty()))
+        if ((null != handle) && (!isEmpty()))
         {
             return m_chlist.contains(handle);
         }
@@ -74,7 +74,7 @@ public class ControlHandleList extends Activatable implements IControlHandleList
     @Override
     public final void add(final IControlHandle handle)
     {
-        if ((null != handle) && (false == contains(handle)))
+        if ((null != handle) && (!contains(handle)))
         {
             m_chlist.add(handle);
         }
@@ -161,7 +161,7 @@ public class ControlHandleList extends Activatable implements IControlHandleList
     @Override
     public final Iterator<IControlHandle> iterator()
     {
-        return new NFastArrayListIterator<IControlHandle>(m_chlist);
+        return new NFastArrayListIterator<>(m_chlist);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class ControlHandleList extends Activatable implements IControlHandleList
 
     void showOn(final IContainer<?, IPrimitive<?>> container)
     {
-        if ((null != container) && (false == isVisible()))
+        if ((null != container) && (!isVisible()))
         {
             int totl = 0;
 

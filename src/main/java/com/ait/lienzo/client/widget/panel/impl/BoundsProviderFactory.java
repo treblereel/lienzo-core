@@ -29,6 +29,11 @@ import java.util.function.Function;
 
 public class BoundsProviderFactory
 {
+    private BoundsProviderFactory()
+    {
+
+    }
+
     public static class PrimitivesBoundsProvider extends FunctionalBoundsProvider<PrimitivesBoundsProvider>
     {
         @Override
@@ -77,7 +82,7 @@ public class BoundsProviderFactory
         }
     }
 
-    public static abstract class FunctionalBoundsProvider<T extends FunctionalBoundsProvider>
+    public abstract static class FunctionalBoundsProvider<T extends FunctionalBoundsProvider>
             implements BoundsProvider
     {
         public static final double                        PADDING = 25d;
@@ -89,14 +94,7 @@ public class BoundsProviderFactory
         protected FunctionalBoundsProvider()
         {
             this.padding = PADDING;
-            this.boundsBuilder = new Function<BoundingBox, Bounds>()
-            {
-                @Override
-                public Bounds apply(final BoundingBox boundingBox)
-                {
-                    return buildBounds(boundingBox);
-                }
-            };
+            this.boundsBuilder = boundingBox -> buildBounds(boundingBox);
         }
 
         public T setBoundsBuilder(final Function<BoundingBox, Bounds> boundsBuilder)

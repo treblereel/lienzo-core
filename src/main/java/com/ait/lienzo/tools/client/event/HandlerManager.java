@@ -2,7 +2,6 @@ package com.ait.lienzo.tools.client.event;
 
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
-
 import elemental2.core.JsArray;
 import elemental2.core.JsMap;
 import elemental2.core.JsSet;
@@ -80,7 +79,7 @@ public class HandlerManager
         }
 
         JsArray<EventHandler> handlers = map.get(event.getAssociatedType());
-        if (handlers==null)
+        if (handlers == null)
         {
             // no handlers for this type have been added yet
             return;

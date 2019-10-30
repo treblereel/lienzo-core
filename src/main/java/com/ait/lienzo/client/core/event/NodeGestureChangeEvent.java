@@ -20,7 +20,7 @@ import elemental2.dom.HTMLElement;
 
 public class NodeGestureChangeEvent extends AbstractNodeGestureEvent<NodeGestureChangeHandler>
 {
-    private static final Type<NodeGestureChangeHandler> TYPE = new Type<NodeGestureChangeHandler>();
+    private static final Type<NodeGestureChangeHandler> TYPE = new Type<>();
 
     public static final Type<NodeGestureChangeHandler> getType()
     {

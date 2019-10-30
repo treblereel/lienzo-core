@@ -93,7 +93,7 @@ public class Parallelogram extends Shape<Parallelogram>
     {
         if (m_list.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return false;
             }

@@ -46,13 +46,13 @@ public class SharpenImageDataFilter extends AbstractConvolveImageDataFilter<Shar
         super(ImageFilterType.SharpenImageDataFilterType, node, ctx);
     }
 
-    public static enum SharpenType
+    public enum SharpenType
     {
         HARD(0.0, -1, 0, -1, 5, -1, 0, -1, 0), SOFT(0, -0.2, 0, -0.2, 1.8, -0.2, 0, -0.2, 0);
 
         private final double[] m_matrix;
 
-        private SharpenType(double... matrix)
+        SharpenType(double... matrix)
         {
             m_matrix = matrix;
         }

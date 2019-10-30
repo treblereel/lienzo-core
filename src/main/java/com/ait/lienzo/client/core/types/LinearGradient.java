@@ -98,7 +98,7 @@ public final class LinearGradient implements FillGradient
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof LinearGradient)))
+        if ((other == null) || (!(other instanceof LinearGradient)))
         {
             return false;
         }
@@ -145,14 +145,12 @@ public final class LinearGradient implements FillGradient
             grad.ex = ex;
             grad.ey = ey;
 
-            grad.colorStops = new JsArray<Object[]>();
+            grad.colorStops = new JsArray<>();
         }
-
-        ;
 
         public final void addColorStop(double stop, String color)
         {
 			this.colorStops.push(JsArray.<Object>of(stop, color));
-        };
+        }
     }
 }

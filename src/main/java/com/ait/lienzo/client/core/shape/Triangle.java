@@ -94,7 +94,7 @@ public class Triangle extends AbstractMultiPointShape<Triangle>
         PathPartList plist = getPathPartList();
         if (plist.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return false;
             }

@@ -81,7 +81,7 @@ public class PosterizeImageDataFilter extends AbstractValueTableImageDataFilter<
             table[i] = k;
         }
         return new FilterTableArray(table);
-    };
+    }
 
     @Override
     public IFactory<PosterizeImageDataFilter> getFactory()

@@ -18,7 +18,6 @@ package com.ait.lienzo.client.core.shape;
 
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.types.PathPartList;
-import com.ait.lienzo.client.core.types.PathPartList.PathPartListJSO;
 
 public final class PathPartListPathClipper extends AbstractPathClipper
 {

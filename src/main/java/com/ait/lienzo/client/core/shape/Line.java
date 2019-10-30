@@ -29,8 +29,6 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.shared.core.types.ShapeType;
 
-import jsinterop.annotations.JsProperty;
-
 /**
  * Line is a line segment between two points.
  * The class can be used to draw regular lines as well as dashed lines.
@@ -100,7 +98,7 @@ public class Line extends AbstractOffsetMultiPointShape<Line>
         {
             if (getDashArray() != null)
             {
-                if (false == LienzoCore.get().isNativeLineDashSupported())
+                if (!LienzoCore.get().isNativeLineDashSupported())
                 {
                     DashArray dash = getDashArray();
 

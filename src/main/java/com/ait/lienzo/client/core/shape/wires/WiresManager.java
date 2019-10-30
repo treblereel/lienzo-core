@@ -16,13 +16,12 @@
 
 package com.ait.lienzo.client.core.shape.wires;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndEvent;
-import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndHandler;
-import com.ait.lienzo.client.core.shape.wires.event.WiresResizeStartEvent;
-import com.ait.lienzo.client.core.shape.wires.event.WiresResizeStartHandler;
 import com.ait.lienzo.client.core.shape.wires.handlers.AlignAndDistributeControl;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresConnectorControl;
 import com.ait.lienzo.client.core.shape.wires.handlers.WiresConnectorHandler;
@@ -44,23 +43,22 @@ import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import elemental2.core.JsArray;
 import jsinterop.base.Js;
 
-
 import static com.ait.lienzo.client.core.util.JsInteropUtils.toValuesJsArray;
 
 public final class WiresManager
 {
 
-    private static final NFastStringMap<WiresManager>        MANAGER_MAP           = new NFastStringMap<WiresManager>();
+    private static final Map<String, WiresManager> MANAGER_MAP           = new HashMap<>();
 
     private final MagnetManager                              m_magnetManager       = new MagnetManager();
 
     private final AlignAndDistribute                         m_index;
 
-    private final NFastStringMap<WiresShape>                 m_shapesMap           = new NFastStringMap<WiresShape>();
+    private final NFastStringMap<WiresShape>                 m_shapesMap           = new NFastStringMap<>();
 
-    private final NFastStringMap<HandlerRegistrationManager> m_shapeHandlersMap    = new NFastStringMap<HandlerRegistrationManager>();
+    private final NFastStringMap<HandlerRegistrationManager> m_shapeHandlersMap    = new NFastStringMap<>();
 
-    private final NFastArrayList<WiresConnector>             m_connectorList       = new NFastArrayList<WiresConnector>();
+    private final NFastArrayList<WiresConnector>             m_connectorList       = new NFastArrayList<>();
 
     private final WiresLayer                                 m_layer;
 
@@ -240,22 +238,9 @@ public final class WiresManager
         final AlignAndDistributeControl alignAndDistrControl = addToIndex(shape);
         handler.getControl().setAlignAndDistributeControl(alignAndDistrControl);
 
-        registrationManager.register(shape.addWiresResizeStartHandler(new WiresResizeStartHandler()
-        {
-            @Override public void onShapeResizeStart(final WiresResizeStartEvent event)
-            {
-                alignAndDistrControl.dragStart();
-            }
-        }));
+        registrationManager.register(shape.addWiresResizeStartHandler(event -> alignAndDistrControl.dragStart()));
 
-        registrationManager.register(shape.addWiresResizeEndHandler(new WiresResizeEndHandler()
-        {
-            @Override
-            public void onShapeResizeEnd(WiresResizeEndEvent event)
-            {
-                alignAndDistrControl.dragEnd();
-            }
-        }));
+        registrationManager.register(shape.addWiresResizeEndHandler(event -> alignAndDistrControl.dragEnd()));
     }
 
     public static void addWiresShapeHandler(final WiresShape shape,

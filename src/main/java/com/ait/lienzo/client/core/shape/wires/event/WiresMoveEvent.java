@@ -33,7 +33,7 @@ import elemental2.dom.HTMLElement;
  */
 public class WiresMoveEvent extends AbstractNodeEvent<WiresMoveHandler, WiresContainer> implements INodeXYEvent<WiresMoveHandler, WiresContainer>
 {
-    public static final Type<WiresMoveHandler> TYPE = new Type<WiresMoveHandler>();
+    public static final Type<WiresMoveHandler> TYPE = new Type<>();
 
     private int                                   x;
 

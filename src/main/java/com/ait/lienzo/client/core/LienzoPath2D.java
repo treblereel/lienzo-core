@@ -3,7 +3,6 @@ package com.ait.lienzo.client.core;
 import elemental2.dom.Path2D;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 /**
@@ -17,7 +16,7 @@ public class LienzoPath2D extends Path2D
     @JsOverlay
     public final boolean isClosed()
     {
-        return closed == true;
+        return closed;
     }
 
 }

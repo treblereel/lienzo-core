@@ -16,27 +16,29 @@
 
 package com.ait.lienzo.client.core.shape.wires.picker;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.shape.MultiPath;
 import com.ait.lienzo.client.core.shape.wires.*;
 import com.ait.lienzo.client.core.types.ColorKeyRotor;
 import com.ait.lienzo.client.core.types.ImageDataPixelColor;
-import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.util.ScratchPad;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
-import com.ait.lienzo.tools.client.collection.NFastStringMap;
 
 public class ColorMapBackedPicker
 {
     public static final ColorKeyRotor          m_colorKeyRotor = new ColorKeyRotor();
 
-    private final Context2D                  m_ctx;
 
-    private final ScratchPad                 m_scratchPad;
+    private final Context2D                    m_ctx;
 
-    private final NFastStringMap<PickerPart> m_colorMap = new NFastStringMap<>();
+    private final ScratchPad                   m_scratchPad;
 
-    private final NFastArrayList<WiresShape> m_shapesMap = new NFastArrayList<>();
+    private final Map<String, PickerPart>      m_colorMap = new HashMap();
+
+    private final NFastArrayList<WiresShape>   m_shapesMap = new NFastArrayList<>();
 
     private final PickerOptions                m_options;
 
@@ -108,7 +110,6 @@ public class ColorMapBackedPicker
 
     protected void drawShape(String color, double strokeWidth, PickerPart pickerPart, boolean fill) {
         m_colorMap.put(color, pickerPart);
-
         BackingColorMapUtils.drawShapeToBacking(m_ctx, pickerPart.getShape(), color, strokeWidth, fill);
     }
 
@@ -120,7 +121,6 @@ public class ColorMapBackedPicker
 
     public PickerPart findShapeAt(int x, int y)
     {
-
         ImageDataPixelColor color = m_ctx.getImageDataPixelColor(x, y);
         if (color != null)
         {
@@ -150,7 +150,7 @@ public class ColorMapBackedPicker
 
         public PickerOptions(final boolean hotspotsEnabled,
                              final double hotspotWidth) {
-            this.shapesToSkip = new NFastArrayList<WiresContainer>();
+            this.shapesToSkip = new NFastArrayList<>();
             this.hotspotsEnabled = hotspotsEnabled;
             this.hotspotWidth = hotspotWidth;
         }

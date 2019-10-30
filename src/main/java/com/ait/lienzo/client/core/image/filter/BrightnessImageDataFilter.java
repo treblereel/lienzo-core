@@ -22,11 +22,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of Brightness Filters.
@@ -77,7 +75,7 @@ public class BrightnessImageDataFilter extends AbstractValueImageDataFilter<Brig
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -102,7 +100,7 @@ public class BrightnessImageDataFilter extends AbstractValueImageDataFilter<Brig
             data[i + 1] = Js.coerceToInt(Math.max(Math.min(data[i + 1] + v, 255), 0));
             data[i + 2] = Js.coerceToInt(Math.max(Math.min(data[i + 2] + v, 255), 0));
     	}
-    };
+    }
 
     @Override
     public IFactory<BrightnessImageDataFilter> getFactory()

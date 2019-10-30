@@ -62,7 +62,7 @@ public class MouseWheelZoomMediator extends AbstractMediator
         {
             final IEventFilter filter = getEventFilter();
 
-            if ((null == filter) || (false == filter.isEnabled()) || (filter.test(event)))
+            if ((null == filter) || (!filter.isEnabled()) || (filter.test(event)))
             {
                 onMouseWheel((WheelEvent) event, x, y);
 
@@ -207,7 +207,6 @@ public class MouseWheelZoomMediator extends AbstractMediator
         }
         double scaleDelta;
 
-
         if (event.deltaY < 0 == m_downZoomOut) // down
         {
             // zoom out
@@ -235,9 +234,11 @@ public class MouseWheelZoomMediator extends AbstractMediator
 
         if (m_scaleAboutPoint)
         {
+
             Point2D p = new Point2D(x, y);
 
             transform.getInverse().transform(p, p);
+
 
             transform = transform.copy();
 

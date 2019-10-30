@@ -131,7 +131,7 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
 
         if (plist.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return false;
             }

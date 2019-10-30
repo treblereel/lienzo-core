@@ -193,7 +193,7 @@ public final class DragBounds
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof DragBounds)))
+        if ((other == null) || (!(other instanceof DragBounds)))
         {
             return false;
         }
@@ -228,7 +228,7 @@ public final class DragBounds
         static final DragBoundsJSO make()
         {
 			return new DragBoundsJSO();
-        };
+        }
 
         static DragBoundsJSO make(double x1, double y1, double x2, double y2)
         {
@@ -239,7 +239,7 @@ public final class DragBounds
             jso.y2 = y2;
 
             return jso;
-        };
+        }
 
         protected DragBoundsJSO()
         {
@@ -248,61 +248,61 @@ public final class DragBounds
         final boolean isX1()
         {
             return this.x1 != null;
-        };
+        }
 
         final boolean isX2()
         {
             return this.x2 != null;
-        };
+        }
 
         final boolean isY1()
         {
             return this.y1 != null;
-        };
+        }
 
         final boolean isY2()
         {
             return this.y2 != null;
-        };
+        }
 
         final void setX1(double x1)
         {
 			this.x1 = x1;
-        };
+        }
 
         final double getX1()
         {
 			return this.x1;
-        };
+        }
 
         final void setX2(double x2)
         {
 			this.x2 = x2;
-        };
+        }
 
         final double getX2()
         {
 			return this.x2;
-        };
+        }
 
         final void setY1(double y1)
         {
 			this.y1 = y1;
-        };
+        }
 
         final double getY1()
         {
 			return this.y1;
-        };
+        }
 
         final void setY2(double y2)
         {
 			this.y2 = y2;
-        };
+        }
 
         final double getY2()
         {
 			return this.y2;
-        };
+        }
     }
 }

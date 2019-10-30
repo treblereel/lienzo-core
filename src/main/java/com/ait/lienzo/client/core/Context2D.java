@@ -33,7 +33,6 @@ import com.ait.lienzo.shared.core.types.LineJoin;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 
-import elemental2.core.Function;
 import elemental2.dom.CanvasRenderingContext2D.FillStyleUnionType;
 import elemental2.dom.CanvasRenderingContext2D.StrokeStyleUnionType;
 import elemental2.dom.HTMLCanvasElement;
@@ -42,8 +41,6 @@ import elemental2.dom.HTMLVideoElement;
 import elemental2.dom.ImageData;
 import elemental2.dom.Path2D;
 import elemental2.dom.TextMetrics;
-import jsinterop.base.Js;
-import jsinterop.base.JsPropertyMap;
 
 /**
  * Wrapper around a JSO that serves as a proxy to access the native capabilities of Canvas 2D.
@@ -215,12 +212,12 @@ public class Context2D
     public void setTransform(final double d0, final double d1, final double d2, final double d3, final double d4, final double d5)
     {
         m_jso.setTransform(d0, d1, d2, d3, d4, d5);
-    };
+    }
 
     public void setToIdentityTransform()
     {
         m_jso.setToIdentityTransform();
-    };
+    }
 
     public void moveTo(final double x, final double y)
     {

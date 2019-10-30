@@ -45,9 +45,7 @@ public abstract class ImageLoader
             setCrossOrigin(image, crossOrigin);
         }
 
-        //final HandlerRegistrationManager m_HandlerRegManager = new HandlerRegistrationManager();
-
-        image.onload = (e) ->
+        image.onload = e ->
         {
             image.onload = null;
             image.onerror = null;
@@ -55,7 +53,7 @@ public abstract class ImageLoader
             return null;
         };
 
-        image.onerror = (e) ->
+        image.onerror = e ->
         {
             image.onload = null;
             image.onerror = null;
@@ -92,7 +90,7 @@ public abstract class ImageLoader
     {
         setVisible(image, false);
 
-        image.onload = (e) ->
+        image.onload = e ->
         {
             image.onload = null;
             image.onerror = null;
@@ -100,7 +98,7 @@ public abstract class ImageLoader
             return null;
         };
 
-        image.onerror = (e) ->
+        image.onerror = e ->
         {
             image.onload = null;
             image.onerror = null;
@@ -141,7 +139,7 @@ public abstract class ImageLoader
         if ((w < 1) || (h < 1))
         {
 
-            image.onload = (e) ->
+            image.onload = e ->
             {
                 image.onload = null;
                 image.onerror = null;
@@ -161,7 +159,7 @@ public abstract class ImageLoader
                 return null;
             };
 
-            image.onerror = (e) ->
+            image.onerror = e ->
             {
                 image.onload = null;
                 image.onerror = null;
@@ -188,7 +186,7 @@ public abstract class ImageLoader
 
     public boolean isValidDataURL(final String url)
     {
-        if ((url.startsWith("data:")) && (url.length() > 6) && (false == ("data:,".equals(url))))
+        if ((url.startsWith("data:")) && (url.length() > 6) && (!("data:,".equals(url))))
         {
             return true;
         }
@@ -203,7 +201,7 @@ public abstract class ImageLoader
     private final void setCrossOrigin(HTMLImageElement element, String value)
     {
 		element.crossOrigin = value;
-    };
+    }
 
     public abstract void onImageElementLoad(HTMLImageElement elem);
 

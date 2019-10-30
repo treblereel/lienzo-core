@@ -159,14 +159,12 @@ public class WiresConnectionControlImpl implements WiresConnectionControl {
                 connection.setAutoConnection(false);
             }
         }
-        boolean accept = allowedMagnetAndUpdateAutoConnections(m_manager,
+        return allowedMagnetAndUpdateAutoConnections(m_manager,
                                                                connection,
                                                                m_head,
                                                                shape,
                                                                m_current_magnet,
                                                                true);
-
-        return accept;
     }
 
     public static boolean allowedMagnetAndUpdateAutoConnections(WiresManager wiresManager,

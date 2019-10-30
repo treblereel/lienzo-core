@@ -32,12 +32,8 @@ import com.ait.lienzo.client.core.shape.wires.IControlHandle.ControlHandleType;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleFactory;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleList;
 import com.ait.lienzo.client.core.types.BoundingBox;
-import com.ait.lienzo.client.core.types.DragBounds;
-import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.DefaultDragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragConstraintEnforcer;
-import com.ait.lienzo.shared.core.types.DragConstraint;
-import com.ait.lienzo.shared.core.types.DragMode;
 import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.shared.core.types.ProxyType;
 
@@ -298,7 +294,7 @@ public abstract class CompositeProxy<C extends CompositeProxy<C, P>, P extends I
     @Override
     protected void drawWithoutTransforms(final Context2D context, double alpha, final BoundingBox bounds)
     {
-        if ((context.isSelection()) && (false == isListening()))
+        if ((context.isSelection()) && (!isListening()))
         {
             return;
         }
@@ -311,7 +307,7 @@ public abstract class CompositeProxy<C extends CompositeProxy<C, P>, P extends I
         getProxy().drawWithTransforms(context, alpha, bounds);
     }
 
-    protected static abstract class CompositeProxyFactory<C extends CompositeProxy<C, P>, P extends IPrimitive<?>> extends NodeFactory<C>
+    protected abstract static class CompositeProxyFactory<C extends CompositeProxy<C, P>, P extends IPrimitive<?>> extends NodeFactory<C>
     {
         protected CompositeProxyFactory(final ProxyType type)
         {

@@ -69,9 +69,8 @@ public class DiffusionImageDataFilter extends AbstractValueTransformImageDataFil
 			ctabl[i] = Js.coerceToInt(value * Math.cos(a));
 		}
 
-        FilterTransformFunction transformer = new DiffusionImageDataFilterFilterTransformer(stabl, ctabl);
-		return transformer;
-    };
+        return new DiffusionImageDataFilterFilterTransformer(stabl, ctabl);
+    }
 
     public static class DiffusionImageDataFilterFilterTransformer implements FilterTransformFunction
     {

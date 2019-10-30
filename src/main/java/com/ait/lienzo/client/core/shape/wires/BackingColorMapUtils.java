@@ -31,6 +31,11 @@ import elemental2.dom.ImageData;
 
 public class BackingColorMapUtils
 {
+    private BackingColorMapUtils()
+    {
+
+    }
+
     public static ImageData drawShapesToBacking(NFastArrayList<WiresShape> prims, ScratchPad scratch, WiresContainer skip, NFastStringMap<WiresShape> shape_color_map)
     {
         scratch.clear();
@@ -178,8 +183,6 @@ public class BackingColorMapUtils
         {
             return null;
         }
-        String color = Color.rgbToBrowserHexColor(red, green, blue);
-
-        return color;
+        return Color.rgbToBrowserHexColor(red, green, blue);
     }
 }

@@ -62,7 +62,7 @@ public final class StringOps
         {
             return EMPTY_STRING_ARRAY;
         }
-        final LinkedHashSet<String> uniq = new LinkedHashSet<String>();
+        final LinkedHashSet<String> uniq = new LinkedHashSet<>();
 
         for (String s : collection)
         {
@@ -80,7 +80,7 @@ public final class StringOps
         {
             return EMPTY_STRING_ARRAY;
         }
-        final LinkedHashSet<String> uniq = new LinkedHashSet<String>();
+        final LinkedHashSet<String> uniq = new LinkedHashSet<>();
 
         for (int i = 0; i < collection.length; i++)
         {
@@ -102,7 +102,7 @@ public final class StringOps
         {
             return collection;
         }
-        final LinkedHashSet<String> uniq = new LinkedHashSet<String>();
+        final LinkedHashSet<String> uniq = new LinkedHashSet<>();
 
         for (String s : collection)
         {
@@ -214,7 +214,7 @@ public final class StringOps
         }
         for (int i = 0; i < leng; i++)
         {
-            if (false == Character.isDigit(string.charAt(i)))
+            if (!Character.isDigit(string.charAt(i)))
             {
                 return false;
             }
@@ -236,7 +236,7 @@ public final class StringOps
         }
         for (int i = 0; i < leng; i++)
         {
-            if (false == Character.isLetter(string.charAt(i)))
+            if (!Character.isLetter(string.charAt(i)))
             {
                 return false;
             }
@@ -258,7 +258,7 @@ public final class StringOps
         }
         for (int i = 0; i < leng; i++)
         {
-            if (false == Character.isLetterOrDigit(string.charAt(i)))
+            if (!Character.isLetterOrDigit(string.charAt(i)))
             {
                 return false;
             }
@@ -278,13 +278,13 @@ public final class StringOps
         {
             return false;
         }
-        if (false == Character.isLetter(string.charAt(0)))
+        if (!Character.isLetter(string.charAt(0)))
         {
             return false;
         }
         for (int i = 1; i < leng; i++)
         {
-            if (false == Character.isLetterOrDigit(string.charAt(i)))
+            if (!Character.isLetterOrDigit(string.charAt(i)))
             {
                 return false;
             }
@@ -312,11 +312,11 @@ public final class StringOps
         {
             char c = string.charAt(i);
 
-            if (false == Character.isDigit(c))
+            if (!Character.isDigit(c))
             {
                 if (c == '.')
                 {
-                    if (false == digi)
+                    if (!digi)
                     {
                         return false;
                     }
@@ -334,7 +334,7 @@ public final class StringOps
                 digi = true;
             }
         }
-        return ((true == digi) && (dots > 0));
+        return ((digi) && (dots > 0));
     }
 
     public static final String reverse(final String string)

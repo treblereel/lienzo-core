@@ -32,7 +32,6 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.DragContext;
 import static com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresShapeControlUtils.excludeFromIndex;
 import java.util.function.Consumer;
-import com.ait.lienzo.tools.client.Console;
 import java.util.function.Supplier;
 
 /**
@@ -55,13 +54,10 @@ public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler impleme
         this.indexBuilder = indexBuilder;
         this.shape = shape;
         this.highlight = highlight;
-        this.clickEventConsumer = new Consumer<NodeMouseClickEvent>() {
-            @Override
-            public void accept(NodeMouseClickEvent event) {
-                if (getWiresManager().getSelectionManager() != null) {
-                    getWiresManager().getSelectionManager().selected(getShape(),
-                                                                     event.isShiftKeyDown());
-                }
+        this.clickEventConsumer = event -> {
+            if (getWiresManager().getSelectionManager() != null) {
+                getWiresManager().getSelectionManager().selected(getShape(),
+                                                                 event.isShiftKeyDown());
             }
         };
     }
@@ -87,12 +83,7 @@ public class WiresShapeHandlerImpl extends WiresManager.WiresDragHandler impleme
         final WiresLayerIndex index = indexBuilder.get();
         excludeFromIndex(index, getShape());
         index.build(wiresManager.getLayer());
-        getControl().useIndex(new Supplier<WiresLayerIndex>() {
-            @Override
-            public WiresLayerIndex get() {
-                return index;
-            }
-        });
+        getControl().useIndex(() -> index);
 
         // Delegate start dragging to shape control.
         final Point2D startAdjusted = dragContext.getStartAdjusted();

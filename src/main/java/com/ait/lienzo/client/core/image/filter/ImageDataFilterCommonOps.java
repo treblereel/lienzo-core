@@ -20,12 +20,9 @@ import com.ait.lienzo.client.core.image.filter.ImageDataFilter.FilterConvolveMat
 import com.ait.lienzo.client.core.image.filter.ImageDataFilter.FilterTableArray;
 import com.ait.lienzo.client.core.image.filter.ImageDataFilter.FilterTransformFunction;
 
-import elemental2.core.JsArray;
-import elemental2.core.JsNumber;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * this class has lots of "wierd' coercion, this is mostly in an attempt to preserve
@@ -125,7 +122,7 @@ public class ImageDataFilterCommonOps
                  break;
         }
         return new int[] {Js.coerceToInt(r * 255), Js.coerceToInt(g * 255), Js.coerceToInt(b * 255)};
-    };
+    }
 
      public int[] RGBtoHSV(int r, int g, int b) {
          r = r/255;
@@ -157,7 +154,7 @@ public class ImageDataFilterCommonOps
             h /= 6;
         }
         return new int[] {Js.coerceToInt(h), Js.coerceToInt(s), Js.coerceToInt(v)};
-     };
+     }
 
      // MDP set correct parameters....
      public void filterTable(Uint8ClampedArray dataArray, FilterTableArray tableArray, int w, int h) {
@@ -181,7 +178,7 @@ public class ImageDataFilterCommonOps
              int v = Js.coerceToInt((((data[j] * 0.21) + (data[j + 1] * 0.72) + (data[j + 2] * 0.07)) + 0.5));
              data[j] = data[j + 1] = data[j + 2] = v;
          }
-     };
+     }
 
      public int[] getPixel(Uint8ClampedArray dataArray, double x, double y, double w, double h) {
          //int[] data = Uint8ClampedArray.ConstructorLengthUnionType.of(dataArray).asIntArray();
@@ -204,7 +201,7 @@ public class ImageDataFilterCommonOps
 
      public double clamp(double val, double min, double max) {
          return (val < min) ? min : (val > max) ? max : val;
-     };
+     }
 
     public void filterTransform(Uint8ClampedArray dataArray, Uint8ClampedArray buffArray, FilterTransformFunction transformer, int w, int h) {
 //        int[] data = Uint8ClampedArray.ConstructorLengthUnionType.of(dataArray).asIntArray();
@@ -244,7 +241,7 @@ public class ImageDataFilterCommonOps
                 buff[p + 3] = rgba[3];
             }
         }
-    };
+    }
 
     public void filterConvolve(Uint8ClampedArray dataArray, Uint8ClampedArray buffArray,
                                FilterConvolveMatrix matrix, double w, double h) {
@@ -288,7 +285,7 @@ public class ImageDataFilterCommonOps
                 buff[ (int) p + 3] =  (int) data[(int) p + 3];
             }
         }
-    };
+    }
 
     public double[] mixColors(double t, double[] rgb1, double[] rgb2) {
         double r = this.linearInterpolate(t, rgb1[0], rgb2[0]);
@@ -296,7 +293,7 @@ public class ImageDataFilterCommonOps
         double b = this.linearInterpolate(t, rgb1[2], rgb2[2]);
         double a = this.linearInterpolate(t, rgb1[3], rgb2[3]);
         return new double[] {r, g, b, a};
-    };
+    }
 
     public double luminocity(double r, double g, double b) {
         return (r * 0.21) + (g * 0.72) + (b * 0.07);
@@ -311,7 +308,7 @@ public class ImageDataFilterCommonOps
             }
         }
         return false;
-    };
+    }
 
     public static int[] bilinearInterpolate(double x, double y, int[] nw, int[] ne, int[] sw, int[] se) {
         double m0, m1;
@@ -350,7 +347,7 @@ public class ImageDataFilterCommonOps
         m1 = cx * b2 + x * b3;
         int b = Js.coerceToInt(cy * m0 + y * m1);
         return new int[] {r, g, b, a};
-    };
+    }
 
 
     public static double linearInterpolate(double t, double a, double b) {
@@ -370,15 +367,15 @@ public class ImageDataFilterCommonOps
     public final void doFilterTable(Uint8ClampedArray data, FilterTableArray table, int w, int h)
     {
         filterTable(data, table, w, h);
-    };
+    }
 
     public final void doFilterConvolve(Uint8ClampedArray data, Uint8ClampedArray buff, FilterConvolveMatrix matrix, int w, int h)
     {
         filterConvolve(data, buff, matrix, w, h);
-    };
+    }
 
     public final void doFilterTransform(Uint8ClampedArray data, Uint8ClampedArray buff, FilterTransformFunction transform, int w, int h)
     {
         filterTransform(data, buff, transform, w, h);
-    };
+    }
 }

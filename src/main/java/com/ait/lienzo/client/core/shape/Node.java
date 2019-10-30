@@ -112,7 +112,7 @@ import jsinterop.base.Js;
  */
 public abstract class Node<T extends Node<T>> implements IDrawable<T>
 {
-    private static final HashSet<Type<?>> ALL_EVENTS = new HashSet<Type<?>>();
+    private static final HashSet<Type<?>> ALL_EVENTS = new HashSet<>();
 
     private final OptionalNodeFields      m_opts     = OptionalNodeFields.make();
 
@@ -204,7 +204,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
     public static final List<Attribute> asAttributes(final List<Attribute> base, final Attribute... list)
     {
-        final ArrayList<Attribute> make = new ArrayList<Attribute>(base);
+        final ArrayList<Attribute> make = new ArrayList<>(base);
 
         make.addAll(asList(list));
 
@@ -334,14 +334,12 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     public final T setX(final double x)
     {
         this.x = x;
-
         return cast();
     }
 
     public final T setY(final double y)
     {
         this.y = y;
-
         return cast();
     }
 
@@ -849,11 +847,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         drawWithTransforms(context,
                            alpha,
                            bounds,
-                           new Supplier<Transform>() {
-                               @Override
-                               public Transform get() {
-                                   return getPossibleNodeTransform();
-                               }});
+                           this::getPossibleNodeTransform);
     }
 
     public void drawWithTransforms(final Context2D context, final double alpha, final BoundingBox bounds, final Supplier<Transform> transformSupplier)
@@ -889,7 +883,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
      * 
      * @param context
      */
-    abstract protected void drawWithoutTransforms(Context2D context, double alpha, BoundingBox bounds);
+    protected abstract void drawWithoutTransforms(Context2D context, double alpha, BoundingBox bounds);
 
     @Override
     public Point2D getAbsoluteLocation()
@@ -919,6 +913,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         {
             node.addParentsLocations(locn);
         }
+
         locn.offset(getX(), getY());
     }
 
@@ -972,7 +967,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     protected Transform getPossibleNodeTransform()
     {
 
-        if (false == hasAnyTransformAttributes() && null == transform)
+        if (!hasAnyTransformAttributes() && null == transform)
         {
             return null;
         }
@@ -987,7 +982,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
         }
 
-        if (false == hasComplexTransformAttributes())
+        if (!hasComplexTransformAttributes())
         {
             return cachedXfrm;
         }
@@ -1061,6 +1056,93 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         }
         return cachedXfrm;
     }
+
+
+/*    protected Transform getPossibleNodeTransform1()
+    {
+        if (!hasAnyTransformAttributes())
+        {
+            return null;
+        }
+        final Transform xfrm = Transform.fromXY(cachedXfrm, getX(), getY());
+        //cachedXfrm = Transform.fromXY(cachedXfrm, getX(), getY());
+
+
+
+        if (!hasComplexTransformAttributes())
+        {
+            return xfrm;
+        }
+        // Otherwise use ROTATION, SCALE, OFFSET and SHEAR
+
+        double ox = 0;
+
+        double oy = 0;
+
+        final Point2D offset = getOffset();
+
+        if (null != offset)
+        {
+            ox = offset.getX();
+
+            oy = offset.getY();
+        }
+        final double r = getRotation();
+
+        if (r != 0)
+        {
+            if ((ox != 0) || (oy != 0))
+            {
+                xfrm.translate(ox, oy);
+
+                xfrm.rotate(r);
+
+                xfrm.translate(-ox, -oy);
+            }
+            else
+            {
+                xfrm.rotate(r);
+            }
+        }
+        final Point2D scale = getScale();
+
+        if (null != scale)
+        {
+            final double sx = scale.getX();
+
+            final double sy = scale.getY();
+
+            if ((sx != 1) || (sy != 1))
+            {
+                if ((ox != 0) || (oy != 0))
+                {
+                    xfrm.translate(ox, oy);
+
+                    xfrm.scaleWithXY(sx, sy);
+
+                    xfrm.translate(-ox, -oy);
+                }
+                else
+                {
+                    xfrm.scaleWithXY(sx, sy);
+                }
+            }
+        }
+        final Point2D shear = getShear();
+
+        if (null != shear)
+        {
+            final double sx = shear.getX();
+
+            final double sy = shear.getY();
+
+            if ((sx != 0) || (sy != 0))
+            {
+                xfrm.shear(sx, sy);
+            }
+        }
+        return xfrm;
+    }*/
 
     @Override
     public BoundingPoints getComputedBoundingPoints()
@@ -1293,7 +1375,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
         if ((null != hand) && (isEventHandledGlobally(type)) && (isListening()))
         {
-            if (false == isVisible())
+            if (!isVisible())
             {
                 final IPrimitive<?> prim = asPrimitive();
 
@@ -1488,7 +1570,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         return m_opts.hashCode();
     }
 
-    public static abstract class NodeFactory<N extends IJSONSerializable<N>>extends AbstractFactory<N>
+    public abstract static class NodeFactory<N extends IJSONSerializable<N>>extends AbstractFactory<N>
     {
         protected NodeFactory(final NodeType type)
         {
@@ -1581,33 +1663,33 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         protected final void setUserData(Object userData)
         {
             this.userData = userData;
-        };
+        }
 
         protected final HandlerManager getHandlerManager()
         {
 			return this.hand;
-        };
+        }
 
         protected final void setHandlerManager(HandlerManager hand)
         {
             this.hand = hand;
-        };
+        }
 
         protected final boolean isAnimating()
         {
 			return anim > 0;
-        };
+        }
 
         protected final void doAnimating()
         {
             this.anim = this.anim + 1;
-        };
+        }
 
         protected final void unAnimating()
         {
 			if (this.anim > 0) {
 				this.anim = this.anim - 1;
 			}
-        };
+        }
     }
 }

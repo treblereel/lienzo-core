@@ -81,7 +81,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
 
     private final ColorKeyRotor            m_c_rotor         = new ColorKeyRotor();
 
-    private final NFastStringMap<Shape<?>> m_shape_color_map = new NFastStringMap<Shape<?>>();
+    private final NFastStringMap<Shape<?>> m_shape_color_map = new NFastStringMap<>();
 
     private static long idCounter;
 
@@ -125,7 +125,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
 
             if (null != element)
             {
-                if (false == isSelection())
+                if (!isSelection())
                 {
                     m_wrapper.appendChild(element);
                 }
@@ -433,7 +433,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
      * @param wide
      * @param high
      */
-    void setPixelSize(final int wide, final int high)
+    public void setPixelSize(final int wide, final int high)
     {
         m_wide = wide;
 
@@ -441,7 +441,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
 
         if (LienzoCore.IS_CANVAS_SUPPORTED)
         {
-            if (false == isSelection())
+            if (!isSelection())
             {
                 getElement().style.width = CSSProperties.WidthUnionType.of(wide + Style.Unit.PX.getType());
 
@@ -454,12 +454,12 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
 
             element.height= high;
 
-            if (false == isSelection())
+            if (!isSelection())
             {
                 getContext().getNativeContext().initDeviceRatio();
             }
 
-            if ((false == isSelection()) && (null != m_select))
+            if ((!isSelection()) && (null != m_select))
             {
                 m_select.setPixelSize(wide, high);
             }
@@ -512,7 +512,7 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
 
     private final Layer doShowSelectionLayer(final boolean shower)
     {
-        if (false == isSelection())
+        if (!isSelection())
         {
             if (null != m_select)
             {
@@ -1047,12 +1047,12 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
     private static final String toDataURL(HTMLCanvasElement element)
     {
 		return element.toDataURL(null);
-    };
+    }
 
     private static final String toDataURL(HTMLCanvasElement element, String mimetype)
     {
 		return element.toDataURL(mimetype);
-    };
+    }
 
     public static class SelectionLayer extends Layer
     {

@@ -99,7 +99,7 @@ public class Star extends Shape<Star>
     {
         if (m_list.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return false;
             }
@@ -266,7 +266,7 @@ public class Star extends Shape<Star>
     {
         if (m_list.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return null;
             }

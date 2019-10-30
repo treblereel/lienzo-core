@@ -15,8 +15,6 @@
  */
 package com.ait.lienzo.tools.client;
 
-import elemental2.core.Global;
-import elemental2.dom.Window;
 import elemental2.dom.DomGlobal;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
@@ -146,25 +144,25 @@ public abstract class Timer
   private static DomGlobal.SetIntervalCallbackFn createCallback(Timer timer, int cancelCounter)
   {
     return e -> timer.fire( cancelCounter );
-  };
+  }
 
   private static int setInterval(DomGlobal.SetIntervalCallbackFn func, int time)
   {
     return Js.coerceToInt(DomGlobal.setInterval(func, time));
-  };
+  }
 
   private static int setTimeout(DomGlobal.SetTimeoutCallbackFn func, int time)
   {
     return Js.coerceToInt(DomGlobal.setTimeout(func, time));
-  };
+  }
 
   private static void clearInterval(int timerId)
   {
     DomGlobal.clearInterval(timerId);
-  };
+  }
 
   private static void clearTimeout(int timerId)
   {
     DomGlobal.clearTimeout(timerId);
-  };
+  }
 }

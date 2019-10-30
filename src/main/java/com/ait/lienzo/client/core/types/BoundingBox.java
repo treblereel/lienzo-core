@@ -16,14 +16,14 @@
 
 package com.ait.lienzo.client.core.types;
 
+import java.util.Objects;
+
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 
 @JsType
 public final class BoundingBox
 {
-    //private final BoundingBoxJSO m_jso;
-
     @JsProperty
     private double minx;
 
@@ -47,9 +47,7 @@ public final class BoundingBox
 
     public static BoundingBox fromBoundingBox(final BoundingBox bbox)
     {
-        BoundingBox thisBbox = fromDoubles(bbox.minx, bbox.miny, bbox.maxx,bbox.maxy);
-
-        return thisBbox;
+        return fromDoubles(bbox.minx, bbox.miny, bbox.maxx,bbox.maxy);
     }
 
     public static BoundingBox fromDoubles(final double minx, final double miny, final double maxx, final double maxy)
@@ -309,15 +307,14 @@ public final class BoundingBox
     }
 
     @Override
-    public final String toString()
-    {
-        return toJSONString();
+    public int hashCode() {
+        return Objects.hash(minx, miny, maxx, maxy);
     }
 
     @Override
     public final boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof BoundingBox)))
+        if ((other == null) || (!(other instanceof BoundingBox)))
         {
             return false;
         }
@@ -328,12 +325,6 @@ public final class BoundingBox
         final BoundingBox that = ((BoundingBox) other);
 
         return ((that.getX() == getX()) && (that.getY() == getY()) && (that.getWidth() == getWidth()) && (that.getHeight() == getHeight()));
-    }
-
-    @Override
-    public final int hashCode()
-    {
-        return toJSONString().hashCode();
     }
 
     public BoundingBox copy() {
@@ -353,4 +344,13 @@ public final class BoundingBox
         this.maxy = this.maxy + dy;
     }
 
+    @Override
+    public String toString() {
+        return "BoundingBox{" +
+                "minx=" + minx +
+                ", miny=" + miny +
+                ", maxx=" + maxx +
+                ", maxy=" + maxy +
+                '}';
+    }
 }

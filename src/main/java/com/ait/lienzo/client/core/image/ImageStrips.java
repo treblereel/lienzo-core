@@ -9,12 +9,7 @@ public class ImageStrips {
     public static final String URL_PATTERN = "data:text/lienzo-strip,";
     public static final char URL_SEPARATOR = '~';
 
-    private static final ImageStrips INSTANCE = new ImageStrips(new Supplier<ImageElementProxy>() {
-        @Override
-        public ImageElementProxy get() {
-            return new ImageElementProxy();
-        }
-    });
+    private static final ImageStrips INSTANCE = new ImageStrips(() -> new ImageElementProxy());
 
     private final NFastStringMap<ImageStrip> strips;
     private final NFastStringMap<ImageElementProxy> proxies;
@@ -44,14 +39,9 @@ public class ImageStrips {
         if (strips.length > index) {
             final ImageStrip strip = strips[index];
             register(strip,
-                     new Runnable() {
-                         @Override
-                         public void run() {
-                             register(strips,
-                                      index + 1,
-                                      loadCallback);
-                         }
-                     });
+                     () -> register(strips,
+                              index + 1,
+                              loadCallback));
         } else {
             loadCallback.run();
         }
@@ -62,13 +52,10 @@ public class ImageStrips {
                                 final Runnable loadCallback) {
         final ImageElementProxy handler = proxySupplier.get();
         handler.load(strip.getUrl(),
-                     new Runnable() {
-                         @Override
-                         public void run() {
-                             registerStrip(strip, handler);
-                             loadCallback.run();
-                         }
-                         });
+                     () -> {
+                         registerStrip(strip, handler);
+                         loadCallback.run();
+                     });
         return this;
     }
 

@@ -23,7 +23,7 @@ import elemental2.dom.HTMLElement;
 
 public class ViewportTransformChangedEvent extends AbstractNodeHumanInputEvent<ViewportTransformChangedHandler, Node>
 {
-    private static final Type<ViewportTransformChangedHandler> TYPE = new Type<ViewportTransformChangedHandler>();
+    private static final Type<ViewportTransformChangedHandler> TYPE = new Type<>();
     
     private Viewport m_viewport;
 

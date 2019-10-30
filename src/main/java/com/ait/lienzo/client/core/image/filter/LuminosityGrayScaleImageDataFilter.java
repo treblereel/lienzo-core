@@ -51,7 +51,7 @@ public class LuminosityGrayScaleImageDataFilter extends AbstractImageDataFilter<
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }

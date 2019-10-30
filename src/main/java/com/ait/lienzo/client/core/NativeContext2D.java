@@ -18,13 +18,12 @@ package com.ait.lienzo.client.core;
 
 import com.ait.lienzo.client.core.types.LinearGradient.LinearGradientJSO;
 import com.ait.lienzo.client.core.types.PathPartEntryJSO;
-import com.ait.lienzo.client.core.types.PathPartList.PathPartListJSO;
+import com.ait.lienzo.client.core.types.PathPartListJSO;
 import com.ait.lienzo.client.core.types.PatternGradient.PatternGradientJSO;
 import com.ait.lienzo.client.core.types.RadialGradient.RadialGradientJSO;
 import com.ait.lienzo.client.core.types.Shadow.ShadowJSO;
 import com.ait.lienzo.client.core.types.Transform;
 
-import elemental2.core.Global;
 import elemental2.core.JsArray;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.CanvasGradient;
@@ -64,7 +63,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
     private static final NativeContext2D make_0(HTMLCanvasElement element)
     {
 		return Js.uncheckedCast(element.getContext("2d"));
-    };
+    }
 
     @JsOverlay
     public static final NativeContext2D make(final HTMLCanvasElement element, final boolean enableHidpi)
@@ -107,7 +106,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
             scale(this.scalingRatio, this.scalingRatio);
         }
 
-    };
+    }
 
     @JsOverlay
     private final NativeContext2D init(boolean enableHidpi)
@@ -186,13 +185,13 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 //			};
 //		}
 		return this;
-    };
+    }
 
     @JsOverlay
     public final boolean isHidpiEnabled()
     {
         return this.hidpiEnabled;
-    };
+    }
 
     @JsOverlay
     public final void saveContainer(String id) {
@@ -243,7 +242,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
     public final void setGlobalCompositeOperation(String operation)
     {
 		this.globalCompositeOperation = operation != null ? operation : "source-over";
-    };
+    }
 
 //    public final native void setLineCap(String lineCap)
 //    /*-{
@@ -339,7 +338,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
         this.fillStyle = CanvasRenderingContext2D.FillStyleUnionType.of(grad);
 
 		this.fillText(text, x, y);
-    };
+    }
 
 //    public final native void fillText(String text, double x, double y, double maxWidth)
 //    /*-{
@@ -403,7 +402,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 		} else {
 			this.fillStyle = null;
 		}
-    };
+    }
 
     @JsOverlay
     public final void setFillGradient(PatternGradientJSO grad)
@@ -415,7 +414,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
         }
         CanvasPattern pattern =  this.createPattern(grad.image, grad.repeat);
         this.fillStyle = FillStyleUnionType.of(pattern);
-    };
+    }
 
     @JsOverlay
     public final void setFillGradient(RadialGradientJSO grad)
@@ -434,7 +433,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 		} else {
 			this.fillStyle = null;
 		}
-    };
+    }
 
     @JsOverlay
     public final void transform(Transform jso)
@@ -442,7 +441,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 		if (jso != null) {
 			this.transform(jso.v[0], jso.v[1], jso.v[2], jso.v[3], jso.v[4], jso.v[5]);
 		}
-    };
+    }
 
 //    public final native void transform(double d0, double d1, double d2, double d3, double d4, double d5)
 //    /*-{
@@ -455,7 +454,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 		if (jso != null ) {
 			this.setTransform(jso.v[0], jso.v[1], jso.v[2], jso.v[3], jso.v[4], jso.v[5]);
 		}
-    };
+    }
 
 //    public final native void setTransform(double d0, double d1, double d2, double d3, double d4, double d5)
 //    /*-{
@@ -514,14 +513,14 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 			this.shadowOffsetY = 0;
 			this.shadowBlur = 0;
 		}
-    };
+    }
 
     @JsOverlay
     public final boolean isSupported(String feature)
     {
         JsPropertyMap<Object> map = Js.uncheckedCast(this);
         return map.has(feature);
-    };
+    }
 
 //    public final native boolean isPointInPath(double x, double y)
 //    /*-{
@@ -616,7 +615,7 @@ public class NativeContext2D extends CanvasRenderingContext2D {
     public final double getBackingStorePixelRatio()
     {
 		return this.backingStorePixelRatio;
-    };
+    }
 
     @JsOverlay
     public final boolean path(PathPartListJSO list)
@@ -674,13 +673,13 @@ public class NativeContext2D extends CanvasRenderingContext2D {
 			}
 		}
 		return fill;
-    };
+    }
 
     @JsOverlay
     public final boolean clip(PathPartListJSO list)
     {
         return path(list, false);
-    };
+    }
 
 //    public final native void fill(NativePath2D path)
 //    /*-{

@@ -303,7 +303,7 @@ public class WiresConnector
                 intersectPoint = new Point2D(0,0 );
             }
 
-            Direction   d                 = MagnetManager.getDirection(intersectPoint, box);
+            Direction   d = MagnetManager.getDirection(intersectPoint, box);
 
             Point2D loc = path.getComputedLocation().copy();
 
@@ -727,7 +727,8 @@ public class WiresConnector
 
     public void moveControlPoint(final int index,
                                  final Point2D location) {
-        getControlPoints().get(index).set(location);
+        getControlPoints().set(index, location);
+
         final IPrimitive<?> point = getControlPoint(index);
         if (null != point) {
             point.setLocation(location);
@@ -798,7 +799,7 @@ public class WiresConnector
                                                  final int mouseX,
                                                  final int mouseY,
                                                  final Point2DArray oldPoints) {
-        NFastStringMap<Integer> colorMap = new NFastStringMap<Integer>();
+        NFastStringMap<Integer> colorMap = new NFastStringMap<>();
 
         IDirectionalMultiPointShape<?> line = connector.getLine();
         ScratchPad scratch = line.getScratchPad();

@@ -59,7 +59,7 @@ public final class SpriteBehaviorMap
         {
             throw new IllegalStateException("must be at least 2 frames for behavior " + behavior);
         }
-        final JsArray<BoundingBox> ajso = new JsArray<BoundingBox>();
+        final JsArray<BoundingBox> ajso = new JsArray<>();
 
         for (int i = 0; i < frames.length; i++)
         {
@@ -82,7 +82,7 @@ public final class SpriteBehaviorMap
         {
             throw new IllegalStateException("must be at least 2 frames for behavior " + behavior);
         }
-        final JsArray<BoundingBox> ajso = new JsArray<BoundingBox>();
+        final JsArray<BoundingBox> ajso = new JsArray<>();
 
         for (BoundingBox frame : frames)
         {
@@ -129,7 +129,7 @@ public final class SpriteBehaviorMap
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof SpriteBehaviorMap)))
+        if ((other == null) || (!(other instanceof SpriteBehaviorMap)))
         {
             return false;
         }

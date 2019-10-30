@@ -50,7 +50,7 @@ public final class ImageDataPixelColor
     private final double color(Uint8ClampedArray data, int i)
     {
 		return data.getAt(i);
-    };
+    }
 
     public final int getR()
     {

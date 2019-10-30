@@ -20,8 +20,6 @@ import com.ait.lienzo.client.core.shape.GridLayer;
 import com.ait.lienzo.client.core.shape.Line;
 import com.ait.lienzo.shared.core.types.ColorName;
 
-import elemental2.dom.CSSProperties;
-
 public class BluePrintBackgroundGridLayer extends GridLayer
 {
     public BluePrintBackgroundGridLayer()

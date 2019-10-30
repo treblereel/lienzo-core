@@ -22,11 +22,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of a Light Gray Scale Image Filter.
@@ -54,7 +52,7 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -80,7 +78,7 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
             int v = Js.coerceToInt((((Math.max(Math.max(r, g), b) + Math.min(Math.min(r, g), b))) / 2.0) + 0.5);
     		data[  i  ] = data[i + 1] = data[i + 2] = v;
     	}
-    };
+    }
 
     @Override
     public IFactory<LightnessGrayScaleImageDataFilter> getFactory()

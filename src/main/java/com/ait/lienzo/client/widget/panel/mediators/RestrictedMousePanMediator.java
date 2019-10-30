@@ -15,10 +15,6 @@
  */
 package com.ait.lienzo.client.widget.panel.mediators;
 
-import com.ait.lienzo.client.core.event.NodeMouseDownEvent;
-import com.ait.lienzo.client.core.event.NodeMouseMoveEvent;
-import com.ait.lienzo.client.core.event.NodeMouseOutEvent;
-import com.ait.lienzo.client.core.event.NodeMouseUpEvent;
 import com.ait.lienzo.client.core.mediator.AbstractMediator;
 import com.ait.lienzo.client.core.mediator.IEventFilter;
 import com.ait.lienzo.client.core.shape.Layer;
@@ -27,8 +23,6 @@ import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.tools.client.event.INodeEvent;
-import elemental2.dom.Console;
-import elemental2.dom.DomGlobal;
 import elemental2.dom.UIEvent;
 
 /**
@@ -85,8 +79,6 @@ public class RestrictedMousePanMediator extends AbstractMediator
                                                         UIEvent event,
                                                         int x,
                                                         int y) {
-        DomGlobal.console.log("Handling some event");
-
         if ("mouseMove".equals(event.type)) {
             if (isDragging())
             {
@@ -95,7 +87,7 @@ public class RestrictedMousePanMediator extends AbstractMediator
         } else if ("mouseDown".equals(event.type)) {
             final IEventFilter filter = getEventFilter();
 
-            if ((null == filter) || (false == filter.isEnabled()) || (filter.test(event)))
+            if ((null == filter) || (!filter.isEnabled()) || (filter.test(event)))
             {
                 onMouseDown(x, y);
             }

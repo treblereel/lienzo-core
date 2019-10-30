@@ -30,7 +30,7 @@ public class JsInteropUtils {
     }
 
     public static <V> JsArray<V> toValuesJsArray(NFastStringMap<V> map) {
-        JsArray<V> result = new JsArray<V>();
+        JsArray<V> result = new JsArray<>();
         if (!map.isEmpty()) {
             JsIteratorIterable<V> values = map.values();
             JsIIterableResult<V> next1 = values.next();

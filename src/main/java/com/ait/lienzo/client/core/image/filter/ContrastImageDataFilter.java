@@ -21,7 +21,6 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import jsinterop.base.Js;
 
 public class ContrastImageDataFilter extends AbstractValueTableImageDataFilter<ContrastImageDataFilter>
@@ -81,7 +80,7 @@ public class ContrastImageDataFilter extends AbstractValueTableImageDataFilter<C
 		}
 
 		return new FilterTableArray(table);
-    };
+    }
 
     @Override
     public IFactory<ContrastImageDataFilter> getFactory()

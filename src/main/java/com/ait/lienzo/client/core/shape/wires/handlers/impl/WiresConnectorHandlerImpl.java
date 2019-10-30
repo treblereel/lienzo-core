@@ -148,48 +148,31 @@ public class WiresConnectorHandlerImpl implements WiresConnectorHandler
     @Override
     public void onNodeMouseEnter(NodeMouseEnterEvent event)
     {
-        ifControlPointsBuilder(new Consumer<WiresConnectorControlPointBuilder>() {
-            @Override
-            public void accept(WiresConnectorControlPointBuilder builder)
-            {
-                builder.enable();
-            }
-        });
+        ifControlPointsBuilder(builder -> builder.enable());
     }
 
     @Override
     public void onNodeMouseExit(NodeMouseExitEvent event)
     {
-        ifControlPointsBuilder(new Consumer<WiresConnectorControlPointBuilder>() {
-            @Override
-            public void accept(WiresConnectorControlPointBuilder builder)
-            {
-                builder.disable();
-            }
-        });
+        ifControlPointsBuilder(builder -> builder.disable());
     }
 
     @Override
     public void onNodeMouseDown(final NodeMouseDownEvent event)
     {
-        ifControlPointsBuilder(new Consumer<WiresConnectorControlPointBuilder>()
-        {
-            @Override
-            public void accept(final WiresConnectorControlPointBuilder builder)
+        ifControlPointsBuilder(builder -> {
+            mouseDownTimer = new Timer()
             {
-                mouseDownTimer = new Timer()
+                @Override
+                public void run()
                 {
-                    @Override
-                    public void run()
-                    {
-                        final Point2D point = WiresShapeControlUtils.getViewportRelativeLocation(getLayer().getViewport(), event);
-                        mouseDownEventConsumer.accept(new Event(point.getX(), point.getY(), false));
-                        builder.createControlPointAt(event.getX(), event.getY());
-                    }
-                };
-                mouseDownTimer.schedule(MOUSE_DOWN_TIMER_DELAY);
-                builder.scheduleControlPointBuildAnimation(MOUSE_DOWN_TIMER_DELAY);
-            }
+                    final Point2D point = WiresShapeControlUtils.getViewportRelativeLocation(getLayer().getViewport(), event);
+                    mouseDownEventConsumer.accept(new Event(point.getX(), point.getY(), false));
+                    builder.createControlPointAt(event.getX(), event.getY());
+                }
+            };
+            mouseDownTimer.schedule(MOUSE_DOWN_TIMER_DELAY);
+            builder.scheduleControlPointBuildAnimation(MOUSE_DOWN_TIMER_DELAY);
         });
     }
 
@@ -201,14 +184,7 @@ public class WiresConnectorHandlerImpl implements WiresConnectorHandler
             mouseDownTimer.run();
             mouseDownTimer = null;
         }
-        ifControlPointsBuilder(new Consumer<WiresConnectorControlPointBuilder>()
-        {
-            @Override
-            public void accept(final WiresConnectorControlPointBuilder builder)
-            {
-                builder.moveControlPointTo(event.getX(), event.getY());
-            }
-        });
+        ifControlPointsBuilder(builder -> builder.moveControlPointTo(event.getX(), event.getY()));
     }
 
     @Override

@@ -25,9 +25,9 @@ import jsinterop.base.Js;
 
 public class SolarizeImageDataFilter extends AbstractTableImageDataFilter<SolarizeImageDataFilter>
 {
-    private final static FilterTableArray CONSTANT_TABLE = table();
+    private static final FilterTableArray CONSTANT_TABLE = table();
 
-    private final static FilterTableArray table()
+    private static final FilterTableArray table()
     {
         int[] table = new int[256];
         for(int i = 0; i < 256; i++) {
@@ -35,7 +35,7 @@ public class SolarizeImageDataFilter extends AbstractTableImageDataFilter<Solari
             table[i] = v;
         }
         return new FilterTableArray(table);
-    };
+    }
 
     public SolarizeImageDataFilter()
     {

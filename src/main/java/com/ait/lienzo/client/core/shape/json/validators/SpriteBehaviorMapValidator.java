@@ -16,13 +16,9 @@
 
 package com.ait.lienzo.client.core.shape.json.validators;
 
-import java.util.Set;
-
-import com.ait.lienzo.tools.common.api.java.util.StringOps;
-
 public class SpriteBehaviorMapValidator extends AbstractAttributeTypeValidator
 {
-    public static SpriteBehaviorMapValidator INSTANCE = new SpriteBehaviorMapValidator();
+    public static final SpriteBehaviorMapValidator INSTANCE = new SpriteBehaviorMapValidator();
 
     public SpriteBehaviorMapValidator()
     {

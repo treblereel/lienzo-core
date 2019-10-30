@@ -23,11 +23,9 @@ import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 import com.ait.lienzo.shared.core.types.IColor;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of a Color Luminosity based Image Filter.
@@ -65,7 +63,7 @@ public class ColorLuminosityImageDataFilter extends AbstractRGBImageDataFilter<C
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -90,7 +88,7 @@ public class ColorLuminosityImageDataFilter extends AbstractRGBImageDataFilter<C
             data[i + 1] = Js.coerceToInt(((g * v) + 0.5));
             data[i + 2] = Js.coerceToInt(((b * v) + 0.5));
     	}
-    };
+    }
 
     @Override
     public IFactory<ColorLuminosityImageDataFilter> getFactory()

@@ -436,7 +436,7 @@ public class WiresLayoutContainer implements LayoutContainer
         }
     }
 
-    private final static class ObjectAttribute
+    private static final class ObjectAttribute
     {
         private final Object obj;
         private final Attribute attr;

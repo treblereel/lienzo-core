@@ -17,14 +17,12 @@
 package com.ait.lienzo.client.core.event;
 
 import com.ait.lienzo.client.core.shape.Node;
-import com.ait.lienzo.client.core.shape.wires.event.AbstractWiresDragEvent;
-import com.ait.lienzo.client.widget.DragContext;
 
 import elemental2.dom.HTMLElement;
 
 public class NodeDragStartEvent extends AbstractNodeHumanInputEvent<NodeDragStartHandler, Node>
 {
-    private static final Type<NodeDragStartHandler> TYPE = new Type<NodeDragStartHandler>();
+    private static final Type<NodeDragStartHandler> TYPE = new Type<>();
 
     public static final Type<NodeDragStartHandler> getType()
     {

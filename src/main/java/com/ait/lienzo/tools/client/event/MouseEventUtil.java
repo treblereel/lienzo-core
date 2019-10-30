@@ -6,6 +6,12 @@ import jsinterop.base.Js;
 
 public class MouseEventUtil
 {
+
+    private MouseEventUtil()
+    {
+
+    }
+
     /**
      * The left mouse button.
      */

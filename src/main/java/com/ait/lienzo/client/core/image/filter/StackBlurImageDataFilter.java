@@ -22,11 +22,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 public class StackBlurImageDataFilter extends AbstractValueImageDataFilter<StackBlurImageDataFilter>
 {
@@ -74,7 +72,7 @@ public class StackBlurImageDataFilter extends AbstractValueImageDataFilter<Stack
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -280,7 +278,7 @@ public class StackBlurImageDataFilter extends AbstractValueImageDataFilter<Stack
                 yi += width;
             }
         }
-    };
+    }
 
     @Override
     public IFactory<StackBlurImageDataFilter> getFactory()

@@ -194,7 +194,7 @@ public class MouseSwipeZoomMediator extends AbstractMediator
         {
             final IEventFilter filter = getEventFilter();
 
-            if ((null == filter) || (false == filter.isEnabled()) || (filter.test(event)))
+            if ((null == filter) || (!filter.isEnabled()) || (filter.test(event)))
             {
                 onMouseDown(x, y);
 

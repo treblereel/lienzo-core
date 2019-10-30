@@ -68,7 +68,7 @@ public final class Mediators implements Iterable<IMediator>
 
     private boolean                         m_enabled   = true;
 
-    private final NFastArrayList<IMediator> m_mediators = new NFastArrayList<IMediator>();
+    private final NFastArrayList<IMediator> m_mediators = new NFastArrayList<>();
 
     public Mediators(final Viewport viewport)
     {
@@ -159,6 +159,6 @@ public final class Mediators implements Iterable<IMediator>
     @Override
     public Iterator<IMediator> iterator()
     {
-        return new NFastArrayListIterator<IMediator>(m_mediators);
+        return new NFastArrayListIterator<>(m_mediators);
     }
 }

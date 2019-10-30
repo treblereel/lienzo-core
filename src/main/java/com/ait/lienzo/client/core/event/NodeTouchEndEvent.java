@@ -16,16 +16,13 @@
 
 package com.ait.lienzo.client.core.event;
 
-import java.util.List;
-
 import com.ait.lienzo.client.core.shape.Node;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.TouchEvent;
 
 public class NodeTouchEndEvent extends AbstractNodeHumanInputEvent<NodeTouchEndHandler, Node>
 {
-    private static final Type<NodeTouchEndHandler> TYPE = new Type<NodeTouchEndHandler>();
+    private static final Type<NodeTouchEndHandler> TYPE = new Type<>();
 
     public static final Type<NodeTouchEndHandler> getType()
     {

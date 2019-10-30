@@ -7,7 +7,7 @@ import elemental2.dom.HTMLElement;
 
 public class WiresConnectorPointsChangedEvent extends AbstractWiresEvent<WiresConnectorPointsChangedHandler, WiresConnector>
 {
-    public static final Type<WiresConnectorPointsChangedHandler> TYPE = new Type<WiresConnectorPointsChangedHandler>();
+    public static final Type<WiresConnectorPointsChangedHandler> TYPE = new Type<>();
 
     public WiresConnectorPointsChangedEvent(final HTMLElement relativeElement)
     {

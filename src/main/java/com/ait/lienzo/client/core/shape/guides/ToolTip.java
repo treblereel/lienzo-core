@@ -130,11 +130,11 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
     {
         m_autoHider = null;
 
-        if ((false == force) && (false == m_show))
+        if ((!force) && (!m_show))
         {
             return this;
         }
-        if (false == m_show)
+        if (!m_show)
         {
             hide();
         }
@@ -242,7 +242,7 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
 
         setY(y - rh);
 
-        if ((false == force) && (getAutoHideTime() > 0))
+        if ((!force) && (getAutoHideTime() > 0))
         {
             m_autoHider = new RepeatingCommand()
             {
@@ -266,7 +266,7 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
     @Override
     public boolean isShowing()
     {
-        return (false == m_show);
+        return (!m_show);
     }
 
     @Override
@@ -346,7 +346,7 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
     @Override
     public ToolTip hide()
     {
-        if (true == m_show)
+        if (m_show)
         {
             return this;
         }

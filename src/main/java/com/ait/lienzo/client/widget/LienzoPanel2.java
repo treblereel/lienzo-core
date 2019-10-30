@@ -43,8 +43,6 @@ import elemental2.dom.HTMLDivElement;
 import elemental2.dom.ViewCSS;
 import jsinterop.base.Js;
 
-//import com.google.gwt.user.client.Window;
-
 /**
  * LienzoPanel acts as a Container for a {@link com.ait.lienzo.client.core.shape.Viewport}.
  *
@@ -106,7 +104,7 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
         if (resize)
         {
-            m_resizeListener = (e) ->
+            m_resizeListener = e ->
             {
                 Size resizeSize = getSize((HTMLDivElement)elm.parentNode);
                 setPixelSize(resizeSize.width, resizeSize.height);
@@ -360,14 +358,7 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 
             // Need to defer this, sometimes, if the browser is busy, etc, changing cursors does not take effect till events are done processing
 
-            Scheduler.get().scheduleDeferred(new Scheduler.ScheduledCommand()
-            {
-                @Override
-                public void execute()
-                {
-                    m_elm.style.cursor = m_active_cursor.getCssName();
-                }
-            });
+            Scheduler.get().scheduleDeferred(() -> m_elm.style.cursor = m_active_cursor.getCssName());
         }
         return this;
     }
@@ -579,7 +570,7 @@ public class LienzoPanel2 //extends FocusPanel implements RequiresResize, Provid
 //		$wnd.mousewheel = function() {
 //			return enabled;
 //		}
-    };
+    }
 
     public void setFocus(boolean focused) {
         if (focused) {

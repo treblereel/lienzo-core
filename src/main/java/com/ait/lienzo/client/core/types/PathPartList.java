@@ -21,14 +21,8 @@ import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 
 import elemental2.core.Global;
-import elemental2.core.JsIterable;
-import elemental2.dom.Path2D;
-import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
-import jsinterop.base.JsArrayLike;
 
-public final class PathPartList
+public class PathPartList
 {
     private       double          m_cpx;
 
@@ -83,7 +77,7 @@ public final class PathPartList
     {
         resetBoundingBox();
 
-        if (false == m_mov)
+        if (!m_mov)
         {
             M(0, 0);
         }
@@ -311,7 +305,7 @@ public final class PathPartList
         return toJSONString();
     }
 
-    public final static NFastDoubleArray convertEndpointToCenterParameterization(final double x1, final double y1, final double x2, final double y2, final double fa, final double fs, double rx, double ry, final double pv)
+    public static final NFastDoubleArray convertEndpointToCenterParameterization(final double x1, final double y1, final double x2, final double y2, final double fa, final double fs, double rx, double ry, final double pv)
     {
         final NFastDoubleArray points = new NFastDoubleArray();
 
@@ -561,32 +555,4 @@ public final class PathPartList
         return points;
     }
 
-
-    @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
-    public static class PathPartListJSO implements JsIterable<PathPartEntryJSO>, JsArrayLike<PathPartEntryJSO>
-    {
-        @JsOverlay
-        public static final PathPartListJSO make()
-        {
-            return new PathPartListJSO();
-        }
-
-        protected PathPartListJSO()
-        {
-        }
-
-        public native int push(PathPartEntryJSO... var_args);
-
-        @JsOverlay
-        public final PathPartEntryJSO get(final int i)
-        {
-            return getAt(i);
-        }
-
-        @JsOverlay
-        public final int length()
-        {
-            return getLength();
-        }
-    }
 }

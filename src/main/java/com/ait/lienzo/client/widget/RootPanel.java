@@ -1,17 +1,17 @@
 package com.ait.lienzo.client.widget;
 
-import elemental2.core.Global;
 import elemental2.core.JsArray;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
-import elemental2.dom.HTMLBodyElement;
+
+
 
 public class RootPanel
 {
 
     static RootPanel INSTANCE = new RootPanel();
 
-    private JsArray<Element> elements = new JsArray<Element>();
+    private JsArray<Element> elements = new JsArray<>();
 
     public static RootPanel get()
     {

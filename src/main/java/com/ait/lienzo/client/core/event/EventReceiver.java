@@ -5,5 +5,5 @@ import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 
 public interface EventReceiver
 {
-    public <H extends EventHandler, S> void fireEvent(final INodeEvent<H, S> event);
+    <H extends EventHandler, S> void fireEvent(final INodeEvent<H, S> event);
 }

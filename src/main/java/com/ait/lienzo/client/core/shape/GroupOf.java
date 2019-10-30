@@ -32,22 +32,15 @@ import com.ait.lienzo.client.core.shape.storage.IStorageEngine;
 import com.ait.lienzo.client.core.shape.wires.IControlHandle.ControlHandleType;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleFactory;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleList;
-import com.ait.lienzo.client.core.types.DragBounds;
-import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.widget.DefaultDragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragConstraintEnforcer;
-import com.ait.lienzo.shared.core.types.DragConstraint;
-import com.ait.lienzo.shared.core.types.DragMode;
-import com.ait.lienzo.shared.core.types.EventPropagationMode;
 import com.ait.lienzo.shared.core.types.GroupType;
 import com.ait.lienzo.shared.core.types.NodeType;
-import com.ait.lienzo.tools.client.collection.MetaData;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import java.util.function.Predicate;
 
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
-import jsinterop.base.Js;
 
 /**
  * A Container capable of holding a collection of T objects
@@ -555,7 +548,7 @@ public abstract class GroupOf <T extends IPrimitive<?>, C extends GroupOf<T, C>>
         }
         if (types.size() > 1)
         {
-            types = new ArrayList<ControlHandleType>(new HashSet<ControlHandleType>(types));
+            types = new ArrayList<>(new HashSet<>(types));
         }
         IControlHandleFactory factory = getControlHandleFactory();
 
@@ -606,7 +599,7 @@ public abstract class GroupOf <T extends IPrimitive<?>, C extends GroupOf<T, C>>
         return cast();
     }
 
-    protected static abstract class GroupOfFactory <T extends IPrimitive<?>, C extends GroupOf<T, C>> extends ContainerNodeFactory<C>
+    protected abstract static class GroupOfFactory <T extends IPrimitive<?>, C extends GroupOf<T, C>> extends ContainerNodeFactory<C>
     {
         protected GroupOfFactory(final GroupType type)
         {
@@ -691,31 +684,31 @@ public abstract class GroupOf <T extends IPrimitive<?>, C extends GroupOf<T, C>>
         protected final boolean isDragging()
         {
 			return this.drag;
-        };
+        }
 
         protected final void setDragging(boolean drag)
         {
             this.drag = drag;
-        };
+        }
 
         protected final DragConstraintEnforcer getDragConstraintEnforcer()
         {
 			return this.denf;
-        };
+        }
 
         protected final void setDragConstraintEnforcer(DragConstraintEnforcer denf)
         {
             this.denf = denf;
-        };
+        }
 
         protected final IControlHandleFactory getControlHandleFactory()
         {
 			return this.hand;
-        };
+        }
 
         protected final void setControlHandleFactory(IControlHandleFactory hand)
         {
             this.hand = hand;
-        };
+        }
     }
 }

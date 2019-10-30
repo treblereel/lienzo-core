@@ -95,14 +95,10 @@ public class WiresConnectorLabel implements IDestroyable
         }
     }
 
-    private final WiresConnectorPointsChangedHandler pointsUpdatedHandler = new WiresConnectorPointsChangedHandler()
-    {
-        @Override public void onPointsChanged(WiresConnectorPointsChangedEvent event)
+    private final WiresConnectorPointsChangedHandler pointsUpdatedHandler = event -> {
+        if (isVisible())
         {
-            if (isVisible())
-            {
-                refresh();
-            }
+            refresh();
         }
     };
 }

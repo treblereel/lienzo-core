@@ -23,7 +23,6 @@ import java.util.Set;
 
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.shape.Group;
-import com.ait.lienzo.client.core.shape.IDrawable;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.core.shape.wires.AlignAndDistribute;
@@ -108,7 +107,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
         if (attributes != null)
         {
-            final ArrayList<Attribute> temp = new ArrayList<Attribute>(attributes);
+            final ArrayList<Attribute> temp = new ArrayList<>(attributes);
 
             temp.add(Attribute.X);
 
@@ -116,18 +115,15 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
             final NFastStringSet seen = new NFastStringSet();
 
-            final ArrayList<Attribute> list = new ArrayList<Attribute>();
+            final ArrayList<Attribute> list = new ArrayList<>();
 
             for (Attribute attribute : temp)
             {
-                if (null != attribute)
+                if (null != attribute && false == seen.contains(attribute.getProperty()))
                 {
-                    if (false == seen.contains(attribute.getProperty()))
-                    {
-                        list.add(attribute);
+                    list.add(attribute);
 
-                        seen.add(attribute.getProperty());
-                    }
+                    seen.add(attribute.getProperty());
                 }
             }
             m_bboxOp = any(list);
@@ -164,7 +160,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
         return m_verticalDistEntries;
     }
 
-    public IPrimitive<?> getShape()
+    public IPrimitive getShape()
     {
         return m_group;
     }
@@ -262,7 +258,6 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
             return;
         }
 
-        //BoundingBox box = AlignAndDistribute.getBoundingBox(m_group);
         updateIndex(leftChanged, rightChanged, topChanged, bottomChanged, left, right, top, bottom);
     }
 
@@ -349,10 +344,8 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
         }
     }
 
-    private final boolean hasComplexTransformAttributes()
+    public final boolean hasComplexTransformAttributes()
     {
-        //JSONObject attr = new JSONObject(getAttributes().getJSO());
-        //JSONObject attr = new JSONObject();
         Node       node = m_group.asNode();
 
         if (m_group.asNode().hasComplexTransformAttributes())
@@ -365,21 +358,15 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
             }
             final Point2D scale = node.getScale();
 
-            if (null != scale)
+            if (null != scale && (scale.getX() != 1) || (scale.getY() != 1))
             {
-                if ((scale.getX() != 1) || (scale.getY() != 1))
-                {
-                    return true;
-                }
+                return true;
             }
             final Point2D shear = node.getShear();
 
-            if (null != shear)
+            if (null != shear && (shear.getX() != 0) || (shear.getY() != 0))
             {
-                if ((shear.getX() != 0) || (shear.getY() != 0))
-                {
-                    return true;
-                }
+                return true;
             }
         }
         return false;
@@ -393,7 +380,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
             // We do not want the nested m_indexed shapes to impact the bounding box
             // so remove them, they will be added once the index has been made.
-            List<ShapePair> pairs = new ArrayList<ShapePair>();
+            List<ShapePair> pairs = new ArrayList<>();
             removeChildrenIfIndexed(m_group, pairs);
 
             indexOn(m_group);

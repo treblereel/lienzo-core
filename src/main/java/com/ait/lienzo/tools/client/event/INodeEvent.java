@@ -41,6 +41,6 @@ public interface INodeEvent<H, S>
 
     Type<H> getAssociatedType();
 
-    static class Type<H>  {
+    class Type<H>  {
     }
 }

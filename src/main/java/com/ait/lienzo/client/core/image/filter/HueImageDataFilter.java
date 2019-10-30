@@ -22,11 +22,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of Brightness Filters.
@@ -77,7 +75,7 @@ public class HueImageDataFilter extends AbstractValueImageDataFilter<HueImageDat
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -110,7 +108,7 @@ public class HueImageDataFilter extends AbstractValueImageDataFilter<HueImageDat
                 }
             }   
         }
-    };
+    }
 
     @Override
     public IFactory<HueImageDataFilter> getFactory()
