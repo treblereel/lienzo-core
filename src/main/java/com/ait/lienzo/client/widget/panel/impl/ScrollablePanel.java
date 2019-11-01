@@ -23,7 +23,6 @@ import com.ait.lienzo.client.widget.panel.BoundsProvider;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.client.widget.panel.mediators.RestrictedMousePanMediator;
-import com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
@@ -31,13 +30,17 @@ import elemental2.dom.HTMLDivElement;
 
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.createDiv;
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelSize;
+import static elemental2.dom.DomGlobal.window;
 
 public class ScrollablePanel extends LienzoBoundsPanel {
+
+    private static final Bounds EMPTY = Bounds.empty();
 
     private final HTMLDivElement domElementContainer = createDiv();
     private final HTMLDivElement internalScrollPanel = createDiv();
     private final HTMLDivElement scrollPanel = createDiv();
     private final HTMLDivElement rootPanel = createDiv();
+    private EventListener m_resizeListener;
     private EventListener mouseDownListener;
     private EventListener mouseUpListener;
     private EventListener mouseOutListener;
@@ -49,37 +52,20 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     private boolean isMouseDown = false;
     private RestrictedMousePanMediator panMediator;
 
-    public static ScrollablePanel newPanel(final HTMLDivElement parent,
-                                                     final BoundsProvider layerBoundsProvider) {
-        final int[] panelPxSize = LienzoPanelUtils.getParentFitSize(parent);
-        final int wide = panelPxSize[0];
-        final int high = panelPxSize[1];
-        ScrollablePanel panel = new ScrollablePanel(layerBoundsProvider,
-                                                    wide,
-                                                    high);
-        parent.appendChild(panel.getElement());
-        return panel;
+    public static ScrollablePanel newPanel(final BoundsProvider layerBoundsProvider) {
+        return new ScrollablePanel(layerBoundsProvider);
     }
 
-    public ScrollablePanel(final BoundsProvider layerBoundsProvider,
-                           final int wide,
-                           final int high) {
-        this(LienzoPanelImpl.newPanel(createDiv(),
-                                       wide,
-                                       high),
-              layerBoundsProvider,
-             wide,
-             high);
+    protected ScrollablePanel(final BoundsProvider layerBoundsProvider) {
+        this(LienzoFixedPanel.newPanel(),
+             layerBoundsProvider);
     }
 
     public ScrollablePanel(final LienzoPanel lienzoPanel,
-                            final BoundsProvider layerBoundsProvider,
-                            final int wide,
-                            final int high) {
+                           final BoundsProvider layerBoundsProvider) {
         super(lienzoPanel,
               layerBoundsProvider);
         setupPanels();
-        setPxSize(wide, high);
     }
 
     @Override
@@ -129,7 +115,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
             bounds.setWidth(Math.max(0, viewport.getWidth() / transform.getScaleY()));
             return bounds;
         }
-        return null;
+        return EMPTY;
     }
 
     public EventListener addBoundsChangedEventListener(EventListener eventListener) {
@@ -186,7 +172,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     }
 
     private void fitToParentSize() {
-        HTMLDivElement parent = (HTMLDivElement) rootPanel.parentNode;
+        HTMLDivElement parent = (HTMLDivElement) rootPanel.parentNode.parentNode;
         int offsetWidth = parent.offsetWidth;
         int offsetHeight = parent.offsetHeight;
         if (offsetWidth > 0 && offsetHeight > 0) {
@@ -262,6 +248,8 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         scrollListener = e -> ScrollablePanel.this.onScroll();
         mouseMoveListener = e -> ScrollablePanel.this.enablePointerEvents();
         mouseWheelListener = e -> ScrollablePanel.this.disablePointerEvents();
+        m_resizeListener = e -> ScrollablePanel.this.onResize();
+
         // Attach event listeners.
         rootPanel.addEventListener("mousedown", mouseDownListener);
         rootPanel.addEventListener("mouseup", mouseUpListener);
@@ -269,12 +257,14 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         rootPanel.addEventListener("mousemove", mouseMoveListener);
         domElementContainer.addEventListener("mousewheel", mouseWheelListener);
         scrollPanel.addEventListener("scroll", scrollListener);
+        // TODO: lienzo-to-native - Adding the event listener for the whole window - may cause issues when multiple live instances running
+        window.addEventListener("resize", m_resizeListener);
     }
 
     @Override
-    public LienzoPanelImpl getLienzoPanel()
+    public LienzoFixedPanel getLienzoPanel()
     {
-        return (LienzoPanelImpl) super.getLienzoPanel();
+        return (LienzoFixedPanel) super.getLienzoPanel();
     }
 
     private void removeHandlers() {
@@ -284,6 +274,7 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         rootPanel.removeEventListener("mousemove", mouseMoveListener);
         domElementContainer.removeEventListener("mousewheel", mouseWheelListener);
         scrollPanel.removeEventListener("scroll", scrollListener);
+        window.removeEventListener("resize", m_resizeListener);
     }
 
     private void enablePointerEvents() {
@@ -396,8 +387,6 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         final int scrollbarHeight = 10;
         final int w = widePx - scrollbarWidth;
         final int h = highPx - scrollbarHeight;
-        DomGlobal.console.log("Ext panel [" + widePx + ", " + highPx + "]");
-        DomGlobal.console.log("Int panel [" + w + ", " + h + "]");
         setPanelSize(domElementContainer, w, h);
         getLienzoPanel().setPixelSize(w, h);
     }

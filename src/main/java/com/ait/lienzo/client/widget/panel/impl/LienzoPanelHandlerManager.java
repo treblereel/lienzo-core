@@ -65,7 +65,7 @@ import jsinterop.base.Js;
 
 public final class LienzoPanelHandlerManager
 {
-    private final LienzoPanelImpl m_lienzo;
+    private final LienzoFixedPanel m_lienzo;
 
     private final HTMLElement                m_lienzoElm;
 
@@ -101,7 +101,7 @@ public final class LienzoPanelHandlerManager
 
     private       List<TouchPoint>           m_touches                = null;
 
-    public LienzoPanelHandlerManager(final LienzoPanelImpl panel)
+    public LienzoPanelHandlerManager(final LienzoFixedPanel panel)
     {
         m_lienzo = panel;
         m_lienzoElm = Js.uncheckedCast(panel.getElement());

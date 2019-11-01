@@ -17,18 +17,6 @@ public class LienzoPanelUtils {
         return (HTMLDivElement) document.createElement("div");
     }
 
-    public static HTMLDivElement getParent(HTMLDivElement element) {
-        return (HTMLDivElement) element.parentNode;
-    }
-
-    public static int[] getParentFitSize(final HTMLDivElement element) {
-        HTMLDivElement parent = getParent(element);
-        if (null != parent) {
-            return getPxSize(parent);
-        }
-        return new int[] {0, 0};
-    }
-
     public static int[] getPxSize(final HTMLDivElement element) {
         if (element == null) {
             return new int[] {0, 0};

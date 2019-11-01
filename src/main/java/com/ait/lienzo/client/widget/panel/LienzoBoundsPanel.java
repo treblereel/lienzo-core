@@ -24,6 +24,7 @@ import com.google.gwt.dom.client.Style.Cursor;
 
 public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         extends LienzoPanel<P>
+        implements IsResizable
 {
     private final LienzoPanel    lienzoPanel;
 
@@ -114,6 +115,7 @@ public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         return cast();
     }
 
+    @Override
     public void onResize()
     {
         refresh();
@@ -127,7 +129,8 @@ public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         }
     }
 
-    protected abstract void doDestroy();
+    protected void doDestroy() {
+    }
 
     @Override
     public final void destroy()

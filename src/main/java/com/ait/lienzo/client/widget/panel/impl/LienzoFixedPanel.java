@@ -15,6 +15,8 @@
  */
 package com.ait.lienzo.client.widget.panel.impl;
 
+import java.util.function.Predicate;
+
 import com.ait.lienzo.client.core.config.LienzoCore;
 import com.ait.lienzo.client.core.i18n.MessageConstants;
 import com.ait.lienzo.client.core.mediator.IMediator;
@@ -28,21 +30,13 @@ import com.ait.lienzo.client.widget.DragMouseControl;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
-import java.util.function.Predicate;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.HTMLDivElement;
-import jsinterop.base.Js;
 
-import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.createDiv;
-import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelHeight;
-import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelWidth;
-
-public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
+public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
 {
     private final Viewport                  m_view;
-
-    private final HTMLDivElement m_elm;
 
     private int widePx;
     private int highPx;
@@ -51,47 +45,29 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
 
     private       DragMouseControl          m_drag_mouse_control;
 
-    public static LienzoPanelImpl newPanel(int wide,
-                                           int high) {
-        return new LienzoPanelImpl(createDiv(),
-                                   new Viewport(),
-                                   wide,
-                                   high);
+    public static LienzoFixedPanel newPanel() {
+        return new LienzoFixedPanel(new Viewport());
     }
 
-    public static LienzoPanelImpl newPanel(HTMLDivElement element,
-                                           int wide,
-                                           int high) {
-        return new LienzoPanelImpl(element,
-                                   new Viewport(),
-                                   wide,
-                                   high);
+    public static LienzoFixedPanel newPanel(int wide,
+                                            int high) {
+        final LienzoFixedPanel panel = newPanel();
+        panel.setPixelSize(wide, high);
+        return panel;
     }
 
-    public LienzoPanelImpl(final HTMLDivElement element,
-                           final Viewport view,
-                           final int wide,
-                           final int high)
+    LienzoFixedPanel(final Viewport view)
     {
-        this.m_elm = element;
-        this.m_elm.tabIndex = 0;
         this.m_view = view;
-        doPostCTOR(wide, high);
+        doPostCTOR();
     }
 
-    private final void doPostCTOR(final int wide,
-                                  final int high)
+    private final void doPostCTOR()
     {
         m_drag_mouse_control = DragMouseControl.LEFT_MOUSE_ONLY;
 
         if (LienzoCore.IS_CANVAS_SUPPORTED)
         {
-
-            HTMLDivElement divElement = Js.<HTMLDivElement>uncheckedCast(m_view.getElement());
-
-            getElement().appendChild(divElement);
-
-            setPixelSize(wide, high);
 
             m_events = new LienzoPanelHandlerManager(this);
         }
@@ -116,7 +92,6 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     @Override
     public void destroy()
     {
-        m_elm.remove();
         removeAll();
         m_events.destroy();
         m_events = null;
@@ -125,10 +100,10 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
 
     @Override
     public HTMLDivElement getElement() {
-        return m_elm;
+        return m_view.getElement();
     }
 
-    public LienzoPanelImpl setDragMouseButtons(DragMouseControl controls)
+    public LienzoFixedPanel setDragMouseButtons(DragMouseControl controls)
     {
         m_drag_mouse_control = controls;
 
@@ -140,21 +115,21 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
         return m_drag_mouse_control;
     }
 
-    public LienzoPanelImpl setTransform(final Transform transform)
+    public LienzoFixedPanel setTransform(final Transform transform)
     {
         getViewport().setTransform(transform);
 
         return this;
     }
 
-    public LienzoPanelImpl draw()
+    public LienzoFixedPanel draw()
     {
         getViewport().draw();
 
         return this;
     }
 
-    public LienzoPanelImpl batch()
+    public LienzoFixedPanel batch()
     {
         getViewport().batch();
 
@@ -162,7 +137,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     }
 
     /**
-     * Adds a layer to the {@link com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl}. It should be noted that this
+     * Adds a layer to the {@link LienzoFixedPanel}. It should be noted that this
      * action will cause a {@link com.ait.lienzo.client.core.shape.Layer} draw operation, painting all children in the
      * Layer.
      *
@@ -170,7 +145,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      * @return
      */
     @Override
-    public LienzoPanelImpl add(final Layer layer)
+    public LienzoFixedPanel add(final Layer layer)
     {
         getScene().add(layer);
 
@@ -178,14 +153,14 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     }
 
     /**
-     * Adds a layer to the {@link com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl}. It should be noted that this
+     * Adds a layer to the {@link LienzoFixedPanel}. It should be noted that this
      * action will cause a {@link com.ait.lienzo.client.core.shape.Layer} draw operation, painting all children in the
      * Layer.
      *
      * @param layer
      * @return
      */
-    public LienzoPanelImpl add(final Layer layer, final Layer... layers)
+    public LienzoFixedPanel add(final Layer layer, final Layer... layers)
     {
         add(layer);
 
@@ -197,14 +172,14 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     }
 
     /**
-     * Removes a layer from the {@link com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl}. It should be noted that
+     * Removes a layer from the {@link LienzoFixedPanel}. It should be noted that
      * this action will cause a {@link com.ait.lienzo.client.core.shape.Layer} draw operation, painting all children in
      * the Layer.
      *
      * @param layer
      * @return
      */
-    public LienzoPanelImpl remove(final Layer layer)
+    public LienzoFixedPanel remove(final Layer layer)
     {
         getScene().remove(layer);
 
@@ -212,11 +187,11 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
     }
 
     /**
-     * Removes all layer from the {@link com.ait.lienzo.client.widget.panel.impl.LienzoPanelImpl}.
+     * Removes all layer from the {@link LienzoFixedPanel}.
      *
      * @return
      */
-    public LienzoPanelImpl removeAll()
+    public LienzoFixedPanel removeAll()
     {
         getScene().removeAll();
 
@@ -227,8 +202,6 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
         if (widePx != wide || highPx != high) {
             widePx = wide;
             highPx = high;
-            setPanelWidth(m_elm, wide);
-            setPanelHeight(m_elm, high);
             getViewport().setPixelSize(wide, high);
             getViewport().draw();
         }
@@ -240,7 +213,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      * @param cursor
      */
     @Override
-    public LienzoPanelImpl setCursor(final Cursor cursor)
+    public LienzoFixedPanel setCursor(final Cursor cursor)
     {
         // TODO
         /*getElement().getStyle().setCursor(cursor);
@@ -295,7 +268,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      * @param layer
      */
     @Override
-    public LienzoPanelImpl setBackgroundLayer(final Layer layer)
+    public LienzoFixedPanel setBackgroundLayer(final Layer layer)
     {
         getViewport().setBackgroundLayer(layer);
 
@@ -348,7 +321,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      * @param color String
      * @return this LienzoPanel
      */
-    public LienzoPanelImpl setBackgroundColor(final String color)
+    public LienzoFixedPanel setBackgroundColor(final String color)
     {
         if (null != color)
         {
@@ -363,7 +336,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      * @param color IColor, i.e. ColorName or Color
      * @return this LienzoPanel
      */
-    public LienzoPanelImpl setBackgroundColor(final IColor color)
+    public LienzoFixedPanel setBackgroundColor(final IColor color)
     {
         if (null != color)
         {
@@ -392,7 +365,7 @@ public class LienzoPanelImpl extends LienzoPanel<LienzoPanelImpl>
      *
      * @param mediator IMediator
      */
-    public LienzoPanelImpl pushMediator(final IMediator mediator)
+    public LienzoFixedPanel pushMediator(final IMediator mediator)
     {
         getViewport().pushMediator(mediator);
 

@@ -23,6 +23,9 @@ Tasks
 Sandbox
 =======
 - Lienzo
+    - Resizable panels (resizable,scroll) - fit into parent's size once added as a child
+        - Call to onResize after lienzo panel being appended into the DOM
+        - Check use of js MutationObserver, ResizeObserver...
     - Remove use of HandlerRegistrationManager ??? Causing issues when adding handlers into a Node on the removeHandler() method...
     - Lienzo-webapp example screens -> refactor to use Mark's Console instead of DomGlobal.console (browser)
     - LienzoPanel#setCursor -> use of gwt Cursor?
@@ -53,3 +56,4 @@ Issues
     - "Sprite Example" -> doesn't work
     - "Video" -> not showing the video now?
 - Stunner
+    - Resize shape issues - do not refresh inner text layout
