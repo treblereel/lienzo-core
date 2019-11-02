@@ -213,7 +213,6 @@ public class ScrollablePanel extends LienzoBoundsPanel {
 
     @Override
     public void onResize() {
-        DomGlobal.console.log("Resiziiing");
         super.onResize();
         if (isContainerStillOpened()) {
             onScroll();
@@ -298,7 +297,6 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     }
 
     private void onScroll() {
-        DomGlobal.console.log("Scroooolling");
         // Prevent DOMElements scrolling into view when they receive the focus
         domElementContainer.scrollTop = 0;
         domElementContainer.scrollLeft = 0;

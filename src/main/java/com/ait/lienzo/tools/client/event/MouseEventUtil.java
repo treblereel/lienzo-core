@@ -9,12 +9,12 @@ public class MouseEventUtil
     /**
      * The left mouse button.
      */
-    public static final int BUTTON_LEFT = 1;
+    public static final int BUTTON_LEFT = 0;
 
     /**
      * The middle mouse button.
      */
-    public static final int BUTTON_MIDDLE = 4;
+    public static final int BUTTON_MIDDLE = 1;
 
     /**
      * The right mouse button.

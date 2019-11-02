@@ -3,7 +3,7 @@ Links
 - [JIRA] https://issues.jboss.org/browse/JBPM-8623
 - [Lienzo-core] https://github.com/romartin/lienzo-core/tree/JBPM-8623
 - [Lienzo-webapp] https://github.com/romartin/lienzo-webapp
-
+- Mouse events & coordinates -> https://stackoverflow.com/questions/6073505/what-is-the-difference-between-screenx-y-clientx-y-and-pagex-y
 
 Tasks
 =====

@@ -13,17 +13,12 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
-// TODO - review DSJ
 
 package com.ait.lienzo.client.core.shape.wires;
 
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.wires.event.WiresDragEndEvent;
-import com.ait.lienzo.client.core.shape.wires.event.WiresDragMoveEvent;
-import com.ait.lienzo.client.core.shape.wires.event.WiresDragStartEvent;
-import com.ait.lienzo.client.core.shape.wires.event.WiresMoveEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndEvent;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeEndHandler;
 import com.ait.lienzo.client.core.shape.wires.event.WiresResizeStartEvent;
@@ -45,12 +40,12 @@ import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-import com.ait.lienzo.tools.client.Console;
 
 import elemental2.core.JsArray;
+import jsinterop.base.Js;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
+import static com.ait.lienzo.client.core.util.JsInteropUtils.toValuesJsArray;
 
 public final class WiresManager
 {
@@ -499,6 +494,12 @@ public final class WiresManager
     public NFastStringMap<WiresShape> getShapesMap()
     {
         return m_shapesMap;
+    }
+
+    public WiresShape[] getShapes() {
+        JsArray<WiresShape> array = toValuesJsArray(m_shapesMap);
+        final WiresShape[] shapes = Js.uncheckedCast(array);
+        return shapes;
     }
 
     HandlerRegistrationManager createHandlerRegistrationManager()

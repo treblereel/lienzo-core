@@ -56,7 +56,7 @@ import java.util.function.Supplier;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
 
-import elemental2.core.JsArray;
+import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 
@@ -215,13 +215,15 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
 
     public class OnMouseXEventHandler implements OnMouseEventHandler
     {
-        public void down(MouseEvent event)
+        public void down(MouseEvent event,
+                         int x,
+                         int y)
         {
             if ( getSelectionShape() != null  && !m_selectionShapeProvider.isMultipleSelection(event))
             {
                 // if the mousedown is any where other than the rectangle, and shift was not held,  clear it.
                 // this way, if necessary, a new selection can begin
-                Node<?> node = m_layer.getViewport().findShapeAtPoint( (int) event.x, (int) event.y);
+                Node<?> node = m_layer.getViewport().findShapeAtPoint(x, y);
                 if (node != getSelectionShape())
                 {
                     clearIfSelection();
@@ -232,14 +234,16 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
         @Override
         public boolean onMouseEventBefore(MouseEvent event)
         {
-            if (!isButtonLeft(event))
+            boolean isLeftButton = isButtonLeft(event);
+            if (!isLeftButton)
             {
                 return true;
             }
 
             // CLICK
-            if (event.type.equals(EventType.CLICKED.name()))
+            if (event.type.equals(EventType.CLICKED.getType()))
             {
+                DomGlobal.console.log("[SelectionManager] onMouseEventBefore - CLICK");
                 // this is to differentiate on a drag's mouseup event. It must come before the selection shape null
                 // as it must always cleanup a m_ignoreMouseClick after a mouse down
                 if (m_ignoreMouseClick)
@@ -253,10 +257,14 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
                 }
             }
 
+            HTMLElement relativeElement  = m_layer.getViewport().getElement();
+            final int   x     = MouseEventUtil.getRelativeX(event.clientX, relativeElement);
+            final int   y     = MouseEventUtil.getRelativeY(event.clientY, relativeElement);
+
             // DOWN
-            if (event.type.equalsIgnoreCase( EventType.MOUSE_DOWN.name()))
+            if (event.type.equalsIgnoreCase( EventType.MOUSE_DOWN.getType()))
             {
-                down(event);
+                down(event, x, y);
                 return true;
             }
 
@@ -268,11 +276,11 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
             }
 
             // MOVE
-            if (event.type.equalsIgnoreCase( EventType.MOUSE_MOVE.name()))
+            if (event.type.equalsIgnoreCase( EventType.MOUSE_MOVE.getType()))
             {
                 if (m_selectionCreationInProcess)
                 {
-                    drawSelectionShape(event);
+                    drawSelectionShape(event, x, y);
                     return false;
                 }
                 else
@@ -282,25 +290,24 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
             }
 
             // UP
-            if (event.type.equalsIgnoreCase( EventType.MOUSE_UP.name()))
+            if (event.type.equalsIgnoreCase( EventType.MOUSE_UP.getType()))
             {
-                return selectionEventHandlingComplete(event);
+                return selectionEventHandlingComplete(event, x, y);
             }
             return true;
         }
 
-        void drawSelectionShape(final MouseEvent event)
+        void drawSelectionShape(MouseEvent event,
+                                int x,
+                                int y)
         {
             final double relativeStartX = getSelectionManager().relativeStartX();
             final double relativeStartY = getSelectionManager().relativeStartY();
-            final Point2D untransformedPoint = getSelectionManager().getUntransformedPoint(new Point2D(event.x, event.y));
+            final Point2D untransformedPoint = getSelectionManager().getUntransformedPoint(new Point2D(x, y));
             final double relativeEventX = untransformedPoint.getX();
             final double relativeEventY = untransformedPoint.getY();
-            final Layer overLayer = m_layer.getViewport().getOverLayer();
-
             double width = relativeEventX - relativeStartX;
             double height = relativeEventY - relativeStartY;
-
             // if either width or height is zero, you won't see the line being drawn, so ensure at least 1px separation
             if ( width == 0 )
             {
@@ -311,6 +318,7 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
                 height += 1;
             }
 
+            final Layer overLayer = m_layer.getViewport().getOverLayer();
             getSelectionManager().drawSelectionShape(relativeStartX, relativeStartY, width, height, overLayer);
             overLayer.draw();
         }
@@ -320,7 +328,9 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
             return SelectionManager.this;
         }
 
-        private boolean selectionEventHandlingComplete(MouseEvent event) {
+        private boolean selectionEventHandlingComplete(MouseEvent event,
+                                                       int x,
+                                                       int y) {
             if(m_selectionCreationInProcess)
             {
                 m_selected.clear();
@@ -329,9 +339,6 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
                 {
                     m_ignoreMouseClick = true; // only ignore a mouse click, if there was an actual drag and thus selection shape creation
 
-                    HTMLElement relativeElement  = m_layer.getViewport().getElement();
-                    int   x     = MouseEventUtil.getRelativeX(event.clientX, relativeElement);
-                    int   y     = MouseEventUtil.getRelativeY(event.clientY, relativeElement);
                     Layer layer = getSelectionShape().getLayer(); // this is in the drag layer, so also redraw there
                     if (x != m_start.getX() && y != m_start.getY())
                     {
@@ -1008,7 +1015,7 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
         Map<String, BoundingBox> uuidMap = new HashMap<>();
 
         // first build a map of all shapes that intersect with teh selection rectangle. Nested shapes will be used later.
-        final WiresShape[] shapes = JsArray.from(m_wiresManager.getShapesMap().values());
+        final WiresShape[] shapes = m_wiresManager.getShapes();
         for (WiresShape shape : shapes)
         {
             if ( shape.getDockedTo() != null)
