@@ -26,7 +26,7 @@ public class RootPanel
 
     public void remove(Element child)
     {
-        child.remove();
         DomGlobal.document.body.removeChild(child);
+        child.remove();
     }
 }

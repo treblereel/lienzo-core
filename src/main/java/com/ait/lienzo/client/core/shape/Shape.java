@@ -34,7 +34,6 @@ import com.ait.lienzo.client.core.shape.wires.IControlHandleFactory;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleList;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.DashArray;
-import com.ait.lienzo.client.core.types.DragBounds;
 import com.ait.lienzo.client.core.types.FillGradient;
 import com.ait.lienzo.client.core.types.LinearGradient;
 import com.ait.lienzo.client.core.types.PathPartList;
@@ -48,12 +47,10 @@ import com.ait.lienzo.shared.core.types.LineCap;
 import com.ait.lienzo.shared.core.types.LineJoin;
 import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.shared.core.types.ShapeType;
-
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.Path2D;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
-import jsinterop.base.Js;
 
 /**
  * Shapes are objects that can be drawn on a canvas.
@@ -239,6 +236,29 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
+    // TODO: lienzo-to-native
+    protected Shape<T> copyTo(Shape<T> other) {
+        super.copyTo(other);
+        other.m_type = this.m_type;
+        other.m_ckey = this.m_ckey;
+        other.gradient = this.gradient;
+        other.fillColor = this.fillColor;
+        other.strokeColor = this.strokeColor;
+        other.fillBoundsForSelection = this.fillBoundsForSelection;
+        other.selectionBoundsOffset = this.selectionBoundsOffset;
+        other.fillShapeForSelection = this.fillShapeForSelection;
+        other.selectionStrokeOffset = this.selectionStrokeOffset;
+        other.strokeWidth = this.strokeWidth;
+        other.lineCap = this.lineCap;
+        other.lineJoin = this.lineJoin;
+        other.dashArray = null != dashArray ? new DashArray(this.dashArray.getJSO()) : null;
+        other.dashOffset = this.dashOffset;
+        other.shadow = null != shadow ? this.shadow.copy() : null;
+        other.miterLimit = this.miterLimit;
+        return other;
+    }
+
+    // TODO: lienzo-to-native
     @Override
     public T copy()
     {
@@ -314,13 +334,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
 
     protected abstract boolean prepare(Context2D context, double alpha);
 
-    /**
-     * Fills the Shape using the passed attributes.
-     * This method will silently also fill the Shape to its unique rgb color if the context is a buffer.
-     * 
-     * @param context
-     * @param attr
-     */
     protected boolean fill(final Context2D context, double alpha)
     {
         final boolean filled = hasFill();
@@ -553,13 +566,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return false;
     }
 
-    /**
-     * Sets the Shape Stroke parameters.
-     * 
-     * @param context
-     * @param attr
-     * @return boolean
-     */
     protected boolean setStrokeParams(final Context2D context, double alpha, final boolean filled)
     {
         double width = getStrokeWidth();
@@ -670,12 +676,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return true;
     }
 
-    /**
-     * Sets the Shape stroke.
-     * 
-     * @param context
-     * @param attr
-     */
     protected void stroke(final Context2D context,final double alpha, final boolean filled)
     {
         if (setStrokeParams(context, alpha, filled))
@@ -704,13 +704,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         }
     }
 
-    /**
-     * Applies this shape's Shadow.
-     * 
-     * @param context
-     * @param attr
-     * @return boolean
-     */
     protected final void doApplyShadow(final Context2D context)
     {
         if (false == isAppliedShadow() && getShadow() != null)
@@ -740,22 +733,11 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    /**
-     * Gets the {@link DashArray}. If this is a solid line, the dash array is empty.
-     *
-     * @return {@link DashArray} if this line is not dashed, there will be no elements in the {@link DashArray}
-     */
     public DashArray getDashArray()
     {
         return this.dashArray;
     }
 
-    /**
-     * Sets the dash array.
-     *
-     * @param array containsBoundingBox dash lengths
-     * @return this Line
-     */
     public T setDashArray(final DashArray array)
     {
         this.dashArray = array;
@@ -775,13 +757,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    /**
-     * Sets the dash array with individual dash lengths.
-     *
-     * @param dash length of dash
-     * @param dashes if specified, length of remaining dashes
-     * @return this Line
-     */
     public T setDashArray(final double... dashes)
     {
         setDashArray(new DashArray(dashes));
@@ -789,11 +764,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    /**
-     * Returns this shape cast as an {@link IPrimitive}
-     * 
-     * @return IPrimitive
-     */
     @Override
     public IPrimitive<?> asPrimitive()
     {
@@ -806,21 +776,11 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return this;
     }
 
-    /**
-     * Returns the Shape type.
-     * 
-     * @return {@link ShapeType}
-     */
     public ShapeType getShapeType()
     {
         return m_type;
     }
 
-    /**
-     * Returns unique RGB color assigned to the off-set Shape.
-     * 
-     * @return String
-     */
     public String getColorKey()
     {
         return m_ckey;
@@ -858,11 +818,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return false;
     }
 
-    /**
-     * Moves this shape one layer up.
-     * 
-     * @return T
-     */
     @SuppressWarnings("unchecked")
     @Override
     public T moveUp()
@@ -881,11 +836,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    /**
-     * Moves this shape one layer down.
-     * 
-     * @return T
-     */
     @SuppressWarnings("unchecked")
     @Override
     public T moveDown()
@@ -904,11 +854,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    /**
-     * Moves this shape to the top of the layers stack.
-     * 
-     * @return T
-     */
     @SuppressWarnings("unchecked")
     @Override
     public T moveToTop()
@@ -927,11 +872,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    /**
-     * Moves this shape to the bottomw of the layers stack.
-     * 
-     * @return T
-     */
     @SuppressWarnings("unchecked")
     @Override
     public T moveToBottom()

@@ -26,7 +26,6 @@ import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.animation.AnimationProperties;
 import com.ait.lienzo.client.core.animation.AnimationProperty;
 import com.ait.lienzo.client.core.animation.AnimationTweener;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.event.NodeDragMoveEvent;
@@ -52,6 +51,7 @@ import com.ait.lienzo.client.core.types.PathPartList;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Point2DArray;
 import com.ait.lienzo.client.core.util.Geometry;
+import com.ait.lienzo.client.core.util.JsInteropUtils;
 import com.ait.lienzo.client.widget.DragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.shared.core.types.ColorName;
@@ -59,12 +59,13 @@ import com.ait.lienzo.shared.core.types.DragMode;
 import com.ait.lienzo.shared.core.types.ShapeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-
 import elemental2.core.JsArray;
 import jsinterop.annotations.JsProperty;
 
-public abstract class AbstractMultiPathPartShape<T extends AbstractMultiPathPartShape<T>> extends Shape<T>
+public abstract class AbstractMultiPathPartShape<T extends AbstractMultiPathPartShape<T>>
+        extends Shape<T>
 {
     public static final ColorName CONTROL_POINT_ACTIVE_FILL = ColorName.DARKRED;
     public static final ColorName CONTROL_POINT_DRAG_FILL   = ColorName.GREEN;
@@ -105,6 +106,22 @@ public abstract class AbstractMultiPathPartShape<T extends AbstractMultiPathPart
     {
         super(type, node, ctx);
     }
+
+    // TODO: lienzo-to-native
+    protected AbstractMultiPathPartShape<T> copyTo(AbstractMultiPathPartShape<T> other) {
+        super.copyTo(other);
+        JsInteropUtils.populate(this.m_points, other.m_points, PathPartList::copy);
+        other.m_cornerPoints = JsInteropUtils.clone(this.m_cornerPoints, PathPartList::copy);
+        other.m_pointRatios = this.m_pointRatios;
+        other.m_box = null != m_box ? this.m_box.copy() : null;
+        other.cornerRadius = this.cornerRadius;
+        other.minWidth = this.minWidth;
+        other.maxWidth = this.maxWidth;
+        other.minHeight = this.minHeight;
+        other.maxHeight = this.maxHeight;
+        return other;
+    }
+
 
     @Override
     public BoundingBox getBoundingBox()

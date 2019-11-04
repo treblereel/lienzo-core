@@ -207,6 +207,11 @@ public final class Shadow
         return this;
     }
 
+    public final Shadow copy()
+    {
+        return new Shadow(getJSO().copy());
+    }
+
     public final ShadowJSO getJSO()
     {
         return m_jso;
@@ -312,5 +317,9 @@ public final class Shadow
         {
 			this.offset = offset;
         };
+
+        public ShadowJSO copy() {
+            return make(color, blur, onfill, offset);
+        }
     }
 }

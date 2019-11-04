@@ -18,7 +18,8 @@ package com.ait.lienzo.tools.client.collection;
 
 import jsinterop.annotations.JsType;
 
-// @FIXME I've just commented this out, I don't think anyone uses this, so not sure i want to incur the cost of a J2CL port. So just geting things to compile (mdp)
+// TODO: lienzo-to-native: remove this, not used anywhere...
+
 @JsType
 public final class MetaData //implements NHasJSO<NObjectJSO>, NJSONStringify
 {
@@ -103,7 +104,7 @@ public final class MetaData //implements NHasJSO<NObjectJSO>, NJSONStringify
     public final boolean isEmpty()
     {
 //        return m_jso.isEmpty();
-        throw new UnsupportedOperationException();
+        return true;
     }
 
 //    public final JSONType getNativeTypeOf(final String name)
@@ -253,29 +254,19 @@ public final class MetaData //implements NHasJSO<NObjectJSO>, NJSONStringify
     public final String toString()
     {
 //        return toJSONString();
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
     public final boolean equals(final Object other)
     {
-//        if ((other == null) || (false == (other instanceof MetaData)))
-//        {
-//            return false;
-//        }
-//        if (this == other)
-//        {
-//            return true;
-//        }
-//        return ((MetaData) other).toJSONString().equals(toJSONString());
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     @Override
     public final int hashCode()
     {
-//        return toJSONString().hashCode();
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
 //    @Override

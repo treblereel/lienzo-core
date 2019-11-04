@@ -30,7 +30,14 @@ Sandbox
     - Lienzo-webapp example screens -> refactor to use Mark's Console instead of DomGlobal.console (browser)
     - LienzoPanel#setCursor -> use of gwt Cursor?
     - Lienzo KIE style conventions (double check with Mark)
-    - fix TODOs in toJSONObject / toJSONString
+    - Node/Shape # cloning instances
+        - Remove of copy()
+        - Remove of copyTo()
+        - Implement dynamic assigment by using JsPropertyMap...
+    - Clean old code
+        - fix TODOs in toJSONObject / toJSONString
+        - all classes in shape.json package
+        - Node's Attributes stuff
     - Multimodule - core + tests + webapp + (wires?)
     - Expose LienzoPanel's as native JsTypes - Refactor CustomEvents' associated
 - Replace all instances of "empty" bounding boxes for a singleton instance

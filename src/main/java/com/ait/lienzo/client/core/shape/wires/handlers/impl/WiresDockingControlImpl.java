@@ -33,6 +33,7 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
+
 import java.util.function.Supplier;
 
 public class WiresDockingControlImpl extends AbstractWiresControl<WiresDockingControlImpl>
@@ -193,8 +194,7 @@ public class WiresDockingControlImpl extends AbstractWiresControl<WiresDockingCo
         final PickerPart.ShapePart parentShapePart = getParentPickerControl().getParentShapePart();
         final WiresManager wiresManager = m_layer.getWiresManager();
         final IDockingAcceptor dockingAcceptor = wiresManager.getDockingAcceptor();
-        return null != getParent() &&
-                null != parentShapePart
+        return null != getParent()
                 && parentShapePart == PickerPart.ShapePart.BORDER
                 && dockingAcceptor.acceptDocking(getParent(),
                                                  getShape());

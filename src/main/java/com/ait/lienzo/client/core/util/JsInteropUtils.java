@@ -1,5 +1,8 @@
 package com.ait.lienzo.client.core.util;
 
+import java.util.function.Function;
+
+import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
 import elemental2.core.JsArray;
 import elemental2.core.JsIIterableResult;
@@ -40,4 +43,27 @@ public class JsInteropUtils {
         return result;
     }
 
+    public static <V> NFastArrayList<V> clone(NFastArrayList<V> list,
+                                              Function<V, V> clone) {
+        if (null != list) {
+            final NFastArrayList<V> result = new NFastArrayList<>();
+            if (!list.isEmpty()) {
+                for (int i = 0; i < list.getLength(); i++) {
+                    result.add(clone.apply(list.get(i)));
+                }
+            }
+            return result;
+        }
+        return null;
+    }
+
+    public static <V> void populate(NFastArrayList<V> sourceList,
+                                    NFastArrayList<V> targetList,
+                                    Function<V, V> clone) {
+        if (null != sourceList && !sourceList.isEmpty()) {
+            for (int i = 0; i < sourceList.getLength(); i++) {
+                targetList.add(clone.apply(sourceList.get(i)));
+            }
+        }
+    }
 }

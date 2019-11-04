@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
@@ -32,10 +33,6 @@ import com.ait.lienzo.client.core.animation.IAnimationCallback;
 import com.ait.lienzo.client.core.animation.IAnimationHandle;
 import com.ait.lienzo.client.core.animation.TweeningAnimation;
 import com.ait.lienzo.client.core.config.LienzoCore;
-import com.ait.lienzo.tools.client.event.HandlerManager;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
-import com.ait.lienzo.tools.client.event.INodeEvent;
-import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.event.NodeDragMoveEvent;
@@ -90,15 +87,19 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.client.core.util.ScratchPad;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.shared.core.types.DragConstraint;
 import com.ait.lienzo.shared.core.types.DragMode;
 import com.ait.lienzo.shared.core.types.EventPropagationMode;
 import com.ait.lienzo.shared.core.types.NodeType;
-import com.ait.lienzo.tools.common.api.java.util.UUID;
 import com.ait.lienzo.tools.client.collection.MetaData;
-import java.util.function.Supplier;
-import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
-
+import com.ait.lienzo.tools.client.event.HandlerManager;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
+import com.ait.lienzo.tools.client.event.INodeEvent;
+import com.ait.lienzo.tools.client.event.INodeEvent.Type;
+import com.ait.lienzo.tools.common.api.java.util.UUID;
+import elemental2.core.JsWeakSet;
+import elemental2.dom.DomGlobal;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
@@ -597,9 +598,32 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         return Js.uncheckedCast(this);
     }
 
+    // TODO: lienzo-to-native
     protected final Node<?> copyUnchecked()
     {
         return (Node<?>) JSONDeserializer.get().fromString(toJSONString(), false);// don't validate
+    }
+
+    // TODO: lienzo-to-native
+    protected Node<T> copyTo(Node<T> other) {
+        other.m_type = this.m_type;
+        other.x = this.x;
+        other.y = this.y;
+        other.rotation = this.rotation;
+        other.scale = null != this.scale ? this.scale.copy() : null;
+        other.shear = null != this.shear ? this.shear.copy() : null;
+        other.offset = null != this.offset ? this.offset.copy() : null;
+        other.dragConstraint = this.dragConstraint;
+        other.transform = null != this.transform ? this.transform.copy() : null;
+        other.alpha = this.alpha;
+        other.strokeAlpha = this.strokeAlpha;
+        other.fillAlpha = this.fillAlpha;
+        other.visible = this.visible;
+        other.draggable = this.draggable;
+        other.dragBounds = this.dragBounds;
+        other.dragMode = this.dragMode;
+        other.listening = this.listening;
+        return other;
     }
 
     @Override

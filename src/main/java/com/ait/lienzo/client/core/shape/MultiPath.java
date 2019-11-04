@@ -16,16 +16,15 @@
 
 package com.ait.lienzo.client.core.shape;
 
+import java.util.List;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.PathPartList;
-import com.ait.lienzo.client.core.types.PathPartList.PathPartListJSO;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.ShapeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
-
-import java.util.List;
 
 public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
 {
@@ -91,6 +90,12 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
 //                }
 //            }
 //        }
+    }
+
+    // TODO: lienzo-to-native
+    @Override
+    public MultiPath copy() {
+        return (MultiPath) copyTo(new MultiPath());
     }
 
     public MultiPath M(final double x, final double y)

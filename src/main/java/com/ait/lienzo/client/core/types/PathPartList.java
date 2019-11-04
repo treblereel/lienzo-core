@@ -67,6 +67,18 @@ public final class PathPartList
         return plist;
     }
 
+    public PathPartList copy() {
+        PathPartListJSO jso = PathPartListJSO.make();
+        for (int i = 0; i < getJSO().length(); i++) {
+            jso.push(getJSO().get(i).copy());
+        }
+        return make(jso, isSerialized());
+    }
+
+    private boolean isSerialized() {
+        return m_mov || m_fin;
+    }
+
     public final void push(final PathPartEntryJSO part)
     {
         resetBoundingBox();

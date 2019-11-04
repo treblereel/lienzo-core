@@ -336,6 +336,15 @@ public final class BoundingBox
         return toJSONString().hashCode();
     }
 
+    public BoundingBox copy() {
+        BoundingBox boundingBox = new BoundingBox();
+        boundingBox.minx = this.minx;
+        boundingBox.miny = this.miny;
+        boundingBox.maxx = this.maxx;
+        boundingBox.maxy = this.maxy;
+        return boundingBox;
+    }
+
     public void offset(int dx, int dy)
     {
         this.minx = this.minx + dx;

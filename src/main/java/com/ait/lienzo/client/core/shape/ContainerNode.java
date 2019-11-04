@@ -19,6 +19,7 @@ package com.ait.lienzo.client.core.shape;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
@@ -32,7 +33,6 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.BoundingPoints;
 import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
-import java.util.function.Predicate;
 
 /**
  * ContainerNode acts as a Collection holder for primitives.
@@ -44,7 +44,9 @@ import java.util.function.Predicate;
  * 
  * @param <T>
  */
-public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerNode<M, T>>extends Node<T>implements IContainer<T, M>
+public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerNode<M, T>>
+        extends Node<T>
+        implements IContainer<T, M>
 {
     private BoundingBox       m_bbox;
 
