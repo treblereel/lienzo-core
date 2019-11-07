@@ -64,28 +64,19 @@ public class Text extends Shape<Text>
     @JsProperty
     private TextUnit textUnit = TextUnit.PT;
 
-    private final IDrawString STROKE = new IDrawString() {
-        @Override
-        public void draw(Context2D context, String s,
-                         double xOffset, double lineNum) {
-            context.beginPath();
+    protected TextUtils textUtils = new TextUtils();
 
-            context.strokeText(s, xOffset, getLineHeight(context) * lineNum);
 
-            context.closePath();
+    private final IDrawString STROKE = (context, s, xOffset, lineNum) -> {
+        context.beginPath();
 
-        }
+        context.strokeText(s, xOffset, getLineHeight(context) * lineNum);
+
+        context.closePath();
+
     };
 
-    private final IDrawString FILL = new IDrawString() {
-        @Override
-        public void draw(Context2D context,
-                         String s,
-                         double xOffset,
-                         double lineNum) {
-            context.fillText(s, xOffset, getLineHeight(context) * lineNum);
-        }
-    };
+    private final IDrawString FILL = (context, s, xOffset, lineNum) -> context.fillText(s, xOffset, getLineHeight(context) * lineNum);
 
     private ITextWrapper wrapper = new TextNoWrap(this);
 
@@ -104,7 +95,9 @@ public class Text extends Shape<Text>
         {
             text = "";
         }
-        setText(text).setFontFamily(globals.getDefaultFontFamily()).setFontStyle(globals.getDefaultFontStyle()).setFontSize(globals.getDefaultFontSize());
+        setText(text).setFontFamily(globals.getDefaultFontFamily())
+                .setFontStyle(globals.getDefaultFontStyle())
+                .setFontSize(globals.getDefaultFontSize());
     }
 
     /**
@@ -180,14 +173,18 @@ public class Text extends Shape<Text>
     }
 
     private BoundingBox getBoundingBoxForString(String string) {
-        return TextUtils.getBoundingBox(string, getFontSize(), getFontStyle(), getFontFamily(), getTextUnit(), getTextBaseLine(), getTextAlign());
+        return textUtils.getBoundingBox(string,
+                                        getFontSize(),
+                                        getFontStyle(),
+                                        getFontFamily(),
+                                        getTextUnit(),
+                                        getTextBaseLine(),
+                                        getTextAlign());
     }
 
-    @Deprecated
-    public static final String getFontString(final double size, final TextUnit unit, final String style, final String family)
+    public String getFontString(final double size, final TextUnit unit, final String style, final String family)
     {
-        //public static method preserved for compatibility
-        return TextUtils.getFontString(size, unit, style, family);
+        return textUtils.getFontString(size, unit, style, family);
     }
 
     @Override
@@ -280,14 +277,7 @@ public class Text extends Shape<Text>
                         double high = mWidth - mWidth / 6;
 
                         drawString(context,
-                                   new IDrawString() {
-                                       @Override
-                                       public void draw(Context2D context,
-                                                        String s,
-                                                        double xOffset, double lineNum) {
-                                           context.fillTextWithGradient(s, xOffset, getLineHeight(context) * lineNum, 0, 0, wide + (wide / 6), high + (high / 6), color);
-                                       }
-                                   });
+                                   (context12, s, xOffset, lineNum) -> context12.fillTextWithGradient(s, xOffset, getLineHeight(context12) * lineNum, 0, 0, wide + (wide / 6), high + (high / 6), color));
 
                     }
                     else
@@ -295,14 +285,7 @@ public class Text extends Shape<Text>
                         final Layer layer = getLayer();
 
                         drawString(context,
-                                   new IDrawString() {
-                                       @Override
-                                       public void draw(Context2D context,
-                                                        String s,
-                                                        double xOffset, double lineNum) {
-                                           context.fillTextWithGradient(s, xOffset, getLineHeight(context) * lineNum, 0,0, layer.getWidth(), layer.getHeight(), color);
-                                       }
-                                   });
+                                   (context1, s, xOffset, lineNum) -> context1.fillTextWithGradient(s, xOffset, getLineHeight(context1) * lineNum, 0, 0, layer.getWidth(), layer.getHeight(), color));
                     }
                 }
                 else

@@ -110,7 +110,7 @@ public class TextBoundsAndLineBreaksWrap extends TextBoundsWrap {
         for (int i = 0; i < lines.size(); i++) {
             String line = lines.get(i);
             int toPad = (int) Math.round((wrapBoundaries.getWidth() - getBoundingBoxForString(line).getWidth()) / getBoundingBoxForString(" ").getWidth());
-            line = TextUtils.padString(line,
+            line = textUtils.padString(line,
                                        line.length() + toPad,
                                        ' ',
                                        textAlignSupplier.get());

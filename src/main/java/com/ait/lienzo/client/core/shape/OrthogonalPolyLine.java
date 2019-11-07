@@ -88,8 +88,7 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
     @Override
     public boolean parse()
     {
-        Point2DArray points = getControlPoints();
-        points = correctBreakDistance(points, m_breakDistance);
+        Point2DArray points = correctBreakDistance(getControlPoints(), m_breakDistance);
 
         if (points.size() > 1)
         {
@@ -141,13 +140,12 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
         return false;
     }
 
-    public static final Point2DArray correctBreakDistance(Point2DArray points, double breakDistance)
+    public final Point2DArray correctBreakDistance(Point2DArray points, double breakDistance)
     {
         Point2DArray cPoints = points.copy();
 
         Point2D p1, p2;
 
-        points.push(new Point2D(1,1), new Point2D(1,1));
         final int size = cPoints.size();
 
         for (int i = 0; i < size - 1; i++)

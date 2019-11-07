@@ -103,11 +103,13 @@ public class HandlerManager
                         causes = new HashSet<>();
                     }
                     causes.add(var11);
+
+                    throw new Error(var11);
                 }
             }
             if (causes != null) {
                 // @FIXME make Umbrella Exception work with JsSet (mdp)
-                //throw new UmbrellaException(causes.);
+                //throw new Error(causes.size() + "");
             }
         }
         finally

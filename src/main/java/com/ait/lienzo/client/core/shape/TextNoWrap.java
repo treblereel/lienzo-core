@@ -22,10 +22,6 @@ import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
 import com.ait.lienzo.shared.core.types.TextUnit;
 
-import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
-
 /**
  * ITextWrapper implementation that performs no wrapping.
  */
@@ -41,49 +37,16 @@ public class TextNoWrap implements ITextWrapper {
 
     protected Text text;
 
+    protected TextUtils textUtils = new TextUtils();
+
     public TextNoWrap(final Text text) {
-        this(new ITextWrapper.Supplier<String>() {
-                 @Override
-                 public String get() {
-                     return text.getText();
-                 }
-             },
-             new ITextWrapper.Supplier<Double>() {
-                 @Override
-                 public Double get() {
-                     return text.getFontSize();
-                 }
-             },
-             new ITextWrapper.Supplier<String>() {
-                 @Override
-                 public String get() {
-                     return text.getFontStyle();
-                 }
-             },
-             new ITextWrapper.Supplier<String>() {
-                 @Override
-                 public String get() {
-                     return text.getFontFamily();
-                 }
-             },
-             new ITextWrapper.Supplier<TextUnit>() {
-                 @Override
-                 public TextUnit get() {
-                     return text.getTextUnit();
-                 }
-             },
-             new ITextWrapper.Supplier<TextBaseLine>() {
-                 @Override
-                 public TextBaseLine get() {
-                     return text.getTextBaseLine();
-                 }
-             },
-             new ITextWrapper.Supplier<TextAlign>() {
-                 @Override
-                 public TextAlign get() {
-                     return text.getTextAlign();
-                 }
-             });
+        this(() -> text.getText(),
+             () -> text.getFontSize(),
+             () -> text.getFontStyle(),
+             () -> text.getFontFamily(),
+             () -> text.getTextUnit(),
+             () -> text.getTextBaseLine(),
+             () -> text.getTextAlign());
         this.text = text;
     }
 
@@ -108,8 +71,8 @@ public class TextNoWrap implements ITextWrapper {
         return getBoundingBoxForString(textSupplier.get());
     }
 
-    protected BoundingBox getBoundingBoxForString(final String string) {
-        return TextUtils.getBoundingBox(string,
+    public BoundingBox getBoundingBoxForString(final String string) {
+        return textUtils.getBoundingBox(string,
                                         fontSizeSupplier.get(),
                                         fontStyleSupplier.get(),
                                         fontFamilySupplier.get(),
@@ -128,4 +91,5 @@ public class TextNoWrap implements ITextWrapper {
     {
         return text;
     }
+
 }

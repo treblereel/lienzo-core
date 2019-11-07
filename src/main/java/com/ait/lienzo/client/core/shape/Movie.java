@@ -114,8 +114,11 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
     @JsProperty
     private boolean showPoster;
 
-    public static interface VideoElementOnLoad {
-        public void onLoad(Movie movie, HTMLVideoElement elem);
+
+    private TextUtils textUtils = new TextUtils();
+
+    public interface VideoElementOnLoad {
+        void onLoad(Movie movie, HTMLVideoElement elem);
     }
 
 
@@ -230,7 +233,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
 
         String fm = LienzoCore.get().getDefaultFontFamily();
 
-        String tf = Text.getFontString(pt, TextUnit.PT, st, fm);
+        String tf = textUtils.getFontString(pt, TextUnit.PT, st, fm);
 
         context.save();
 
@@ -252,7 +255,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
             {
                 break;
             }
-            tf = Text.getFontString(pt, TextUnit.PT, st, fm);
+            tf = textUtils.getFontString(pt, TextUnit.PT, st, fm);
         }
         context.restore();
 

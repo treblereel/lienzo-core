@@ -21,7 +21,7 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 /**
  * ITextWrapper implementation that truncates text and appends "..." if there is no space left.
  */
-@SuppressWarnings("Duplicates") public class TextTruncateWrapper extends TextBoundsWrap
+public class TextTruncateWrapper extends TextBoundsWrap
         implements ITextWrapperWithBoundaries
 {
     private BoundingBox             m_wrapBoundaries;
@@ -119,7 +119,6 @@ import com.ait.lienzo.client.core.types.BoundingBox;
     public void drawString(final Context2D context,
                            final IDrawString drawCommand)
     {
-
         final String[] words = text.getText().split("\\s");
 
         if (words.length < 1)
@@ -127,7 +126,7 @@ import com.ait.lienzo.client.core.types.BoundingBox;
             return;
         }
 
-        final ArrayList<String> lines = new ArrayList<String>();
+        final ArrayList<String> lines = new ArrayList<>();
         final double boundariesWidth = getWrapBoundariesWidth();
         StringBuilder currentLine = new StringBuilder();
         String currentWord;
@@ -227,7 +226,6 @@ import com.ait.lienzo.client.core.types.BoundingBox;
                 lines.add(currentLine.toString());
             }
         }
-
         drawLines(context, drawCommand, lines, boundariesWidth);
     }
 

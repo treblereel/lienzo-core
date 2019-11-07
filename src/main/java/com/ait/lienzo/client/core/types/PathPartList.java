@@ -21,12 +21,6 @@ import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 
 import elemental2.core.Global;
-import elemental2.core.JsIterable;
-import elemental2.dom.Path2D;
-import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
-import jsinterop.base.JsArrayLike;
 
 public class PathPartList
 {
@@ -549,32 +543,4 @@ public class PathPartList
         return points;
     }
 
-
-    @JsType(isNative = true, name = "Array", namespace = JsPackage.GLOBAL)
-    public static class PathPartListJSO implements JsIterable<PathPartEntryJSO>, JsArrayLike<PathPartEntryJSO>
-    {
-        @JsOverlay
-        public static final PathPartListJSO make()
-        {
-            return new PathPartListJSO();
-        }
-
-        protected PathPartListJSO()
-        {
-        }
-
-        public native int push(PathPartEntryJSO... var_args);
-
-        @JsOverlay
-        public final PathPartEntryJSO get(final int i)
-        {
-            return getAt(i);
-        }
-
-        @JsOverlay
-        public final int length()
-        {
-            return getLength();
-        }
-    }
 }

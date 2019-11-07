@@ -25,50 +25,51 @@ import com.ait.lienzo.shared.core.types.TextBaseLine;
 import com.ait.lienzo.shared.core.types.TextUnit;
 import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
-
 import elemental2.core.Uint8ClampedArray;
 
 /**
  * Text utilities.
  */
-public class TextUtils
-{
+public class TextUtils {
 
-    static ScratchPad                       FORBOUNDS = new ScratchPad(1, 1);
+    private ScratchPad FORBOUNDS = new ScratchPad(1, 1);
 
-    static NFastStringMap<NFastDoubleArray> OFFSCACHE = new NFastStringMap<>();
+    private NFastStringMap<NFastDoubleArray> OFFSCACHE = new NFastStringMap<>();
 
-    static NFastDoubleArray getTextOffsets(Uint8ClampedArray data, int wide, int high, int base)
-    {
-		int top = -1;
-		int bot = -1;
-		for (int y = 0; ((y < high) && (top < 0)); y++) {
-			for (int x = 0; ((x < wide) && (top < 0)); x++) {
-				if (data.getAt((y * wide + x) * 4) != 0) {
-					top = y;
-				}
-			}
-		}
-		if (top < 0) {
-			top = 0;
-		}
-		for (int y = high - 1; ((y > top) && (bot < 0)); y--) {
-			for (int x = 0; ((x < wide) && (bot < 0)); x++) {
-				if (data.getAt((y * wide + x) * 4) != 0) {
-					bot = y;
-				}
-			}
-		}
-		if ((top < 0) || (bot < 0)) {
-			return null;
-		}
+    private NFastDoubleArray getTextOffsets(Uint8ClampedArray data, int wide, int high, int base) {
 
+        int top = -1;
+        int bot = -1;
+        for (int y = 0; ((y < high) && (top < 0)); y++) {
+            for (int x = 0; ((x < wide) && (top < 0)); x++) {
+                Double value = data.getAt((y * wide + x) * 4); //FIX IT
+                if (value != 0) {
+                    top = y;
+                }
+            }
+        }
+
+        if (top < 0) {
+            top = 0;
+        }
+
+        for (int y = high - 1; ((y > top) && (bot < 0)); y--) {
+            for (int x = 0; ((x < wide) && (bot < 0)); x++) {
+                Double value = data.getAt((y * wide + x) * 4);
+                if (value != 0) {
+                    bot = y;
+                }
+            }
+        }
+
+        if ((top < 0) || (bot < 0)) {
+            return null;
+        }
         return NFastDoubleArray.make2P(top - base, bot - base);
-    };
+    }
 
-    public static final NFastDoubleArray getTextOffsets(final String font, final TextBaseLine baseline)
-    {
-        if(FORBOUNDS.getContext() == null) {
+    private final NFastDoubleArray getTextOffsets(final String font, final TextBaseLine baseline) {
+        if (FORBOUNDS.getContext() == null) {
             throw new Error();
         }
 
@@ -105,24 +106,21 @@ public class TextUtils
         return getTextOffsets(ctxt.getImageData(0, 0, w, h).data, w, h, m * 2);
     }
 
-    public static BoundingBox getBoundingBox(final String text, final double size, final String style, final String family, final TextUnit unit, final TextBaseLine baseline, final TextAlign align)
-    {
-        if ((null == text) || (text.isEmpty()) || (false == (size > 0)))
-        {
+    public BoundingBox getBoundingBox(final String text, final double size, final String style, final String family, final TextUnit unit, final TextBaseLine baseline, final TextAlign align) {
+        if ((null == text) || (text.isEmpty()) || (false == (size > 0))) {
             return BoundingBox.fromDoubles(0, 0, 0, 0);
         }
         final String font = getFontString(size, unit, style, family);
 
         final String base = font + " " + baseline.getValue();
-
         NFastDoubleArray offs = OFFSCACHE.get(base);
 
-        if (null == offs)
-        {
-            OFFSCACHE.put(base, offs = getTextOffsets(font, baseline));
+        if (null == offs) {
+            offs = getTextOffsets(font, baseline);
+            OFFSCACHE.put(base, offs);
         }
-        if (null == offs)
-        {
+
+        if (null == offs) {
             return BoundingBox.fromDoubles(0, 0, 0, 0);
         }
 
@@ -136,8 +134,7 @@ public class TextUtils
 
         final BoundingBox bbox = new BoundingBox().addY(offs.get(0)).addY(offs.get(1));
 
-        switch (align)
-        {
+        switch (align) {
             case LEFT:
             case START:
                 bbox.addX(0).addX(wide);
@@ -153,12 +150,11 @@ public class TextUtils
         return bbox;
     }
 
-    public static String getFontString(final double size, final TextUnit unit, final String style, final String family)
-    {
+    public String getFontString(final double size, final TextUnit unit, final String style, final String family) {
         return style + " " + size + unit.toString() + " " + family;
     }
 
-    public static String padString(String string, int targetSize, char padChar, TextAlign where) {
+    public String padString(String string, int targetSize, char padChar, TextAlign where) {
         if (string.length() >= targetSize) {
             return string;
         }
@@ -198,6 +194,4 @@ public class TextUtils
                 return string;
         }
     }
-
-
 }

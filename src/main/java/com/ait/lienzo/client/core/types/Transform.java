@@ -365,12 +365,17 @@ public final class Transform
         double m02 = this.v[4];
         double m12 = this.v[5];
 
-        double det = m00 * m11 - m01 * m10;
+        double det = (m00 * m11) - (m01 * m10);
 
         Transform inverse = new Transform();
-        inverse.v = new double[] {m11 / det, -m10 / det, -m01 / det, m00 / det,
-                              (m01 * m12 - m11 * m02) / det,
-                              (m10 * m02 - m00 * m12) / det };
+        inverse.v = new double[] {
+                m11 / det,
+                -m10 / det,
+                -m01 / det,
+                m00 / det,
+                ((m01 * m12) - (m11 * m02)) / det,
+                ((m10 * m02) - (m00 * m12)) / det
+        };
 
         return inverse;
     }

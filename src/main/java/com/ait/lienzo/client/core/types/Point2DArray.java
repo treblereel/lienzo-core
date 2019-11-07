@@ -37,8 +37,6 @@ import jsinterop.base.JsArrayLike;
 
 public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
 {
-    //private final JsArray<Point2D> m_jso;
-
     public static final Point2DArray fromArrayOfDouble(final double... array)
     {
         final Point2DArray points = new Point2DArray();
@@ -294,10 +292,8 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
             Point2D p = getAt(i);
             no.push(p.copy());
         }
-        throw new UnsupportedOperationException();
-
-        //return no;
-    };
+        return no;
+    }
 
     @JsOverlay
     public final Collection<Point2D> getPoints()

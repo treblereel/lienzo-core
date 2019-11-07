@@ -18,13 +18,12 @@ package com.ait.lienzo.client.core;
 
 import com.ait.lienzo.client.core.types.LinearGradient.LinearGradientJSO;
 import com.ait.lienzo.client.core.types.PathPartEntryJSO;
-import com.ait.lienzo.client.core.types.PathPartList.PathPartListJSO;
+import com.ait.lienzo.client.core.types.PathPartListJSO;
 import com.ait.lienzo.client.core.types.PatternGradient.PatternGradientJSO;
 import com.ait.lienzo.client.core.types.RadialGradient.RadialGradientJSO;
 import com.ait.lienzo.client.core.types.Shadow.ShadowJSO;
 import com.ait.lienzo.client.core.types.Transform;
 
-import elemental2.core.Global;
 import elemental2.core.JsArray;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.CanvasGradient;
