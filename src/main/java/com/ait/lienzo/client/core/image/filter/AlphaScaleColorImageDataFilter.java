@@ -24,12 +24,10 @@ import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.IColor;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.annotations.JsProperty;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 public class AlphaScaleColorImageDataFilter extends AbstractRGBImageDataFilter<AlphaScaleColorImageDataFilter>
 {
@@ -100,7 +98,7 @@ public class AlphaScaleColorImageDataFilter extends AbstractRGBImageDataFilter<A
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -117,7 +115,6 @@ public class AlphaScaleColorImageDataFilter extends AbstractRGBImageDataFilter<A
 
     private final void filter_(Uint8ClampedArray dataArray, int length, int r, int g, int b, boolean invert)
     {
-//        int[] data = Uint8ClampedArray.ConstructorLengthUnionType.of(dataArray).asIntArray();
         int[] data = Js.uncheckedCast(dataArray);
         for (int i = 0; i < length; i += 4) {
             double v = ((data[i] * 0.21) + (data[i + 1] * 0.72) + (data[i + 2] * 0.07));
@@ -125,13 +122,13 @@ public class AlphaScaleColorImageDataFilter extends AbstractRGBImageDataFilter<A
             data[i + 1] = g;
             data[i + 2] = b;
             v = Js.coerceToInt(v + 0.5);
-            if (true == invert) {
+            if (invert) {
                 data[i + 3] = (int) v;
             } else {
                 data[i + 3] = (int) (255 - v);
             }
         }
-    };
+    }
 
     @Override
     public IFactory<AlphaScaleColorImageDataFilter> getFactory()

@@ -111,7 +111,7 @@ import jsinterop.base.Js;
  */
 public abstract class Node<T extends Node<T>> implements IDrawable<T>
 {
-    private static final HashSet<Type<?>> ALL_EVENTS = new HashSet<Type<?>>();
+    private static final HashSet<Type<?>> ALL_EVENTS = new HashSet<>();
 
     private final OptionalNodeFields      m_opts     = OptionalNodeFields.make();
 
@@ -203,7 +203,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
     public static final List<Attribute> asAttributes(final List<Attribute> base, final Attribute... list)
     {
-        final ArrayList<Attribute> make = new ArrayList<Attribute>(base);
+        final ArrayList<Attribute> make = new ArrayList<>(base);
 
         make.addAll(asList(list));
 
@@ -823,7 +823,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         drawWithTransforms(context,
                            alpha,
                            bounds,
-                           () -> getPossibleNodeTransform());
+                           this::getPossibleNodeTransform);
     }
 
     public void drawWithTransforms(final Context2D context, final double alpha, final BoundingBox bounds, final Supplier<Transform> transformSupplier)
@@ -859,7 +859,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
      * 
      * @param context
      */
-    abstract protected void drawWithoutTransforms(Context2D context, double alpha, BoundingBox bounds);
+    protected abstract void drawWithoutTransforms(Context2D context, double alpha, BoundingBox bounds);
 
     @Override
     public Point2D getAbsoluteLocation()
@@ -943,7 +943,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     protected Transform getPossibleNodeTransform()
     {
 
-        if (false == hasAnyTransformAttributes() && null == transform)
+        if (!hasAnyTransformAttributes() && null == transform)
         {
             return null;
         }
@@ -958,7 +958,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
         }
 
-        if (false == hasComplexTransformAttributes())
+        if (!hasComplexTransformAttributes())
         {
             return cachedXfrm;
         }
@@ -1351,7 +1351,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
 
         if ((null != hand) && (isEventHandledGlobally(type)) && (isListening()))
         {
-            if (false == isVisible())
+            if (!isVisible())
             {
                 final IPrimitive<?> prim = asPrimitive();
 
@@ -1546,7 +1546,7 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         return m_opts.hashCode();
     }
 
-    public static abstract class NodeFactory<N extends IJSONSerializable<N>>extends AbstractFactory<N>
+    public abstract static class NodeFactory<N extends IJSONSerializable<N>>extends AbstractFactory<N>
     {
         protected NodeFactory(final NodeType type)
         {
@@ -1639,33 +1639,33 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         protected final void setUserData(Object userData)
         {
             this.userData = userData;
-        };
+        }
 
         protected final HandlerManager getHandlerManager()
         {
 			return this.hand;
-        };
+        }
 
         protected final void setHandlerManager(HandlerManager hand)
         {
             this.hand = hand;
-        };
+        }
 
         protected final boolean isAnimating()
         {
 			return anim > 0;
-        };
+        }
 
         protected final void doAnimating()
         {
             this.anim = this.anim + 1;
-        };
+        }
 
         protected final void unAnimating()
         {
 			if (this.anim > 0) {
 				this.anim = this.anim - 1;
 			}
-        };
+        }
     }
 }

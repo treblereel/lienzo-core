@@ -4,20 +4,10 @@ import java.util.function.Consumer;
 
 public class DefaultSelectionListener implements SelectionListener
 {
-    public static final Consumer<WiresShape>     SHAPE_NO_OP     = new Consumer<WiresShape>()
-    {
-        @Override
-        public void accept(WiresShape shape)
-        {
-        }
+    public static final Consumer<WiresShape>     SHAPE_NO_OP     = shape -> {
     };
 
-    public static final Consumer<WiresConnector> CONNECTOR_NO_OP = new Consumer<WiresConnector>()
-    {
-        @Override
-        public void accept(WiresConnector connector)
-        {
-        }
+    public static final Consumer<WiresConnector> CONNECTOR_NO_OP = connector -> {
     };
 
     private final       Consumer<WiresShape>     onSelectShape;

@@ -22,9 +22,9 @@ import java.util.Set;
 
 public class ObjectValidator extends AbstractAttributeTypeValidator
 {
-    private final ArrayList<String>                        m_requiredAttributes = new ArrayList<String>();
+    private final ArrayList<String>                        m_requiredAttributes = new ArrayList<>();
 
-    private final HashMap<String, IAttributeTypeValidator> m_attributes         = new HashMap<String, IAttributeTypeValidator>();
+    private final HashMap<String, IAttributeTypeValidator> m_attributes         = new HashMap<>();
 
     public ObjectValidator(final String typeName)
     {

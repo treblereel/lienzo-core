@@ -17,15 +17,10 @@
 package com.ait.lienzo.tools.client;
 
 import elemental2.core.Global;
-import elemental2.core.JsArray;
-import elemental2.core.JsBoolean;
 import elemental2.core.JsIterable;
 import elemental2.core.JsIteratorIterable;
 import elemental2.core.JsMap;
-import elemental2.core.JsMap.EntriesJsIteratorIterableTypeParameterArrayUnionType;
 import elemental2.core.JsMap.JsIterableTypeParameterArrayUnionType;
-import elemental2.core.JsNumber;
-import elemental2.core.JsObject;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;

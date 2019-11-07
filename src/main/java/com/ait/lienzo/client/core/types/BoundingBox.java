@@ -24,8 +24,6 @@ import jsinterop.annotations.JsType;
 @JsType
 public final class BoundingBox
 {
-    //private final BoundingBoxJSO m_jso;
-
     @JsProperty
     private double minx;
 
@@ -49,9 +47,7 @@ public final class BoundingBox
 
     public static BoundingBox fromBoundingBox(final BoundingBox bbox)
     {
-        BoundingBox thisBbox = fromDoubles(bbox.minx, bbox.miny, bbox.maxx,bbox.maxy);
-
-        return thisBbox;
+        return fromDoubles(bbox.minx, bbox.miny, bbox.maxx,bbox.maxy);
     }
 
     public static BoundingBox fromDoubles(final double minx, final double miny, final double maxx, final double maxy)
@@ -317,7 +313,7 @@ public final class BoundingBox
     @Override
     public final boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof BoundingBox)))
+        if ((other == null) || (!(other instanceof BoundingBox)))
         {
             return false;
         }

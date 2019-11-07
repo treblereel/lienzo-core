@@ -156,9 +156,10 @@ public final class Geometry
             // this only happens when as is before RADIANS_270 and and ae is after RADIANS_270
             ae += Geometry.RADIANS_360;
         }
-        double xmin = 0, xmax = 0;
-
-        double ymin = 0, ymax = 0;
+        double xmin = 0;
+        double xmax = 0;
+        double ymin = 0;
+        double ymax = 0;
 
         if (xs < xe)
         {
@@ -309,8 +310,7 @@ public final class Geometry
     {
         if (closeEnough(p[0], 0))
         {
-            final double[] roots = quadraticDerivitiveRoots(p);
-            return roots;
+            return quadraticDerivitiveRoots(p);
         }
 
         final double[] roots = new double[3];
@@ -371,8 +371,7 @@ public final class Geometry
             return null;
         }
         Point2DArray points = curve.getControlPoints();
-        BoundingBox  box    = getBoundingBoxForQuadraticCurve(points);
-        return box;
+        return getBoundingBoxForQuadraticCurve(points);
     }
 
     public static BoundingBox getBoundingBoxForQuadraticCurve(final Point2DArray points)
@@ -443,13 +442,10 @@ public final class Geometry
         double c = 3 * s * t * t;
         double d = t * t * t;
 
-        double v = a * val[0] +
+        return a * val[0] +
                    b * val[1] +
                    c * val[2] +
                    d * val[3];
-
-        return v;
-
     }
 
     private static double[] quadraticDerivitiveRoots(double[] val)
@@ -719,7 +715,7 @@ public final class Geometry
         {
             closed = true;
         }
-        if (closed && false == Geometry.collinear(plastmin1, p0, p2))
+        if (closed && !Geometry.collinear(plastmin1, p0, p2))
         {
             p0new = new Point2D(0, 0);
 
@@ -975,8 +971,7 @@ public final class Geometry
 
             if (0 <= a && a <= 1 && 0 <= b && b <= 1)
             {
-                Point2D p =  new Point2D(a0.getX() + a * (a1.getX() - a0.getX()), a0.getY() + a * (a1.getY() - a0.getY()));
-                return p;
+                return new Point2D(a0.getX() + a * (a1.getX() - a0.getX()), a0.getY() + a * (a1.getY() - a0.getY()));
             }
         }
         return null;
@@ -1182,9 +1177,7 @@ public final class Geometry
     {
         final Point2DArray cardinals = getCardinals(shape.getBoundingBox(), requestedCardinals);
         final Set<Point2D>[] intersections = getCardinalIntersects(shape, cardinals);
-        Point2DArray points = removeInnerPoints(cardinals.get(0), intersections);
-
-        return points;
+        return removeInnerPoints(cardinals.get(0), intersections);
     }
 
     public static Set<Point2D>[] getCardinalIntersects(AbstractMultiPathPartShape<?> shape, Point2DArray cardinals)
@@ -1308,8 +1301,7 @@ public final class Geometry
     public static Point2D getPathPointsProjectionIntersects(MultiPath path, Point2D center, Point2D point)
     {
         Set<Point2D>[] intersections = getCardinalIntersects(path, Point2DArray.fromArrayOfPoint2D(center, point));
-        Point2D intersection = (Point2D) intersections[0].toArray()[0];
-        return intersection;
+        return (Point2D) intersections[0].toArray()[0];
     }
 
     public static void getPathPointsProjectionIntersects(PathPartList path, Point2DArray points, Set<Point2D>[] intersections, boolean addCenter)
@@ -1476,9 +1468,7 @@ public final class Geometry
         double l4 = Math.sqrt(l * l - r * r);
 
         Point2D intersection = dx.mul(l4);
-        boolean interseects = intersection.equals(p);
-
-        return interseects;
+        return intersection.equals(p);
     }
 
     public static final Point2DArray removeInnerPoints(final Point2D c, final Set<Point2D>[] pointSet)
@@ -1516,7 +1506,7 @@ public final class Geometry
 
         if (iset == null)
         {
-            iset = new HashSet<Point2D>();
+            iset = new HashSet<>();
 
             intersections[index] = iset;
         }
@@ -1531,7 +1521,7 @@ public final class Geometry
      */
     public static final Point2DArray getCardinals(final BoundingBox box, Direction[] requestedCardinals)
     {
-        Set<Direction> set = new HashSet<Direction>(Arrays.asList(requestedCardinals));
+        Set<Direction> set = new HashSet<>(Arrays.asList(requestedCardinals));
 
         Point2DArray points = new Point2DArray();
 
@@ -1627,7 +1617,7 @@ public final class Geometry
         return Direction.NORTH_WEST;
     }
 
-    public static final IPrimitive<?> setScaleToFit(final IPrimitive<?> prim, final double wide, final double high)
+    public static final IPrimitive setScaleToFit(final IPrimitive<?> prim, final double wide, final double high)
     {
         final Point2D scale = prim.getScale();
 
@@ -1647,7 +1637,7 @@ public final class Geometry
         return setScaleToFit(prim, wide, high, bbox);
     }
 
-    public static final IPrimitive<?> setScaleToFit(final IPrimitive<?> prim, final double wide, final double high, final BoundingBox bbox)
+    public static final IPrimitive setScaleToFit(final IPrimitive<?> prim, final double wide, final double high, final BoundingBox bbox)
     {
         prim.setScale(wide / bbox.getWidth(), high / bbox.getHeight());
 

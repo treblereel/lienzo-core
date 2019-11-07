@@ -50,12 +50,7 @@ public class WiresHandlerFactoryImpl implements WiresHandlerFactory {
                                              final WiresShapeHighlight<PickerPart.ShapePart> highlight,
                                              final WiresManager manager) {
         final WiresControlFactory controlFactory = manager.getControlFactory();
-        final Supplier<WiresLayerIndex> indexBuilder = new Supplier<WiresLayerIndex>() {
-            @Override
-            public WiresLayerIndex get() {
-                return controlFactory.newIndex(manager);
-            }
-        };
+        final Supplier<WiresLayerIndex> indexBuilder = () -> controlFactory.newIndex(manager);
         return new WiresShapeHandlerImpl(indexBuilder,
                                          shape,
                                          highlight,

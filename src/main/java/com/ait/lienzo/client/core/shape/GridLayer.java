@@ -17,7 +17,6 @@
 package com.ait.lienzo.client.core.shape;
 
 import com.ait.lienzo.client.core.Context2D;
-import com.ait.lienzo.client.core.shape.json.JSONDeserializer;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.BoundingBox;
@@ -329,7 +328,7 @@ public class GridLayer extends Layer
     @Override
     protected void drawWithoutTransforms(Context2D context, double alpha, final BoundingBox bounds)
     {
-        if (false == isVisible())
+        if (!isVisible())
         {
             return;
         }
@@ -343,7 +342,8 @@ public class GridLayer extends Layer
 
         Point2D b = new Point2D(vw, vh);
 
-        double scaleX = 1, scaleY = 1;
+        double scaleX = 1;
+        double scaleY = 1;
 
         Transform t = isTransformable() ? vp.getTransform() : null;
 

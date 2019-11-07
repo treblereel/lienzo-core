@@ -46,7 +46,7 @@ public class PaletteType implements IStringValued
     @Override
     public boolean equals(final Object other)
     {
-        if (false == (other instanceof PaletteType))
+        if (!(other instanceof PaletteType))
         {
             return false;
         }

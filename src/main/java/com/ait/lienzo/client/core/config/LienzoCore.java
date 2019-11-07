@@ -95,7 +95,7 @@ public final class LienzoCore
 
     private ImageSelectionMode             m_imageSelectionMode             = ImageSelectionMode.SELECT_NON_TRANSPARENT;
 
-    private final ArrayList<ILienzoPlugin> m_plugins                        = new ArrayList<ILienzoPlugin>();
+    private final ArrayList<ILienzoPlugin> m_plugins                        = new ArrayList<>();
 
 
 

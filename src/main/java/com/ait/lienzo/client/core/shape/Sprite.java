@@ -252,7 +252,7 @@ public class Sprite extends Shape<Sprite>
 
         String behavior = getSpriteBehavior();
 
-        if ((null != behavior) && (false == behavior.trim().isEmpty()))
+        if ((null != behavior) && (!behavior.trim().isEmpty()))
         {
             m_index = 0;
 
@@ -311,7 +311,7 @@ public class Sprite extends Shape<Sprite>
 
     public final Sprite play()
     {
-        if (false == isPlaying())
+        if (!isPlaying())
         {
             if ((null != m_frames) && (null != m_sprite) && (m_index < m_frames.length))
             {
@@ -388,7 +388,7 @@ public class Sprite extends Shape<Sprite>
 
     public final boolean isPlaying()
     {
-        return (false == m_paused);
+        return (!m_paused);
     }
 
     @Override
@@ -400,7 +400,7 @@ public class Sprite extends Shape<Sprite>
 
             if (null != bbox)
             {
-                if (false == m_inited)
+                if (!m_inited)
                 {
                     m_inited = true;
 
@@ -536,29 +536,24 @@ public class Sprite extends Shape<Sprite>
         @Override
         public void process(IJSONSerializable<?> node, ValidationContext ctx) throws ValidationException
         {
-            if (false == (node instanceof Sprite))
+            if (!(node instanceof Sprite))
             {
                 return;
             }
             Sprite self = (Sprite) node;
 
-            if (false == self.isLoaded())
+            if (!self.isLoaded())
             {
                 self.load();
 
-                self.onLoaded(new SpriteLoadedHandler()
-                {
-                    @Override
-                    public void onSpriteLoaded(Sprite sprite)
+                self.onLoaded(sprite -> {
+                    if (sprite.isLoaded() && sprite.isVisible())
                     {
-                        if (sprite.isLoaded() && sprite.isVisible())
-                        {
-                            Layer layer = sprite.getLayer();
+                        Layer layer = sprite.getLayer();
 
-                            if ((null != layer) && (null != layer.getViewport()))
-                            {
-                                layer.batch();
-                            }
+                        if ((null != layer) && (null != layer.getViewport()))
+                        {
+                            layer.batch();
                         }
                     }
                 });

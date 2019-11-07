@@ -144,6 +144,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
      * @return this Viewport
      */
 
+    @Override
     public final Viewport setTransform(final Transform transform)
     {
         super.setTransform(transform);
@@ -280,7 +281,7 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     {
         if ((null != scene) && (LienzoCore.IS_CANVAS_SUPPORTED))
         {
-            if (false == scene.adopt(this))
+            if (!scene.adopt(this))
             {
                 throw new IllegalArgumentException("Scene is already adopted.");
             }

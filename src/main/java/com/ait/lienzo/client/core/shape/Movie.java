@@ -53,10 +53,6 @@ import elemental2.dom.TextMetrics;
 import jsinterop.annotations.JsProperty;
 import jsinterop.base.Js;
 
-//import com.google.gwt.media.client.Video;
-//import com.google.gwt.dom.client.Document;
-//import com.google.gwt.user.client.ui.RootPanel;
-
 /**
  * Movie provides a mechanism for viewing and controlling videos in a Canvas.
  * Due to discrepancies in the adoption of the Canvas specification by different vendors,
@@ -189,7 +185,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
             }
             if (onLoad != null)
             {
-                m_video.onloadedmetadata = (e) -> { onLoad.onLoad(this, m_video); return null;};
+                m_video.onloadedmetadata = e -> { onLoad.onLoad(this, m_video); return null;};
             }
             m_video.src = url;
 
@@ -219,11 +215,11 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
 
     private final void setErrorHandler(Movie movie, HTMLVideoElement element)
     {
-		element.onerror = (e) -> {
+		element.onerror = e -> {
             movie.setErrorCode(((HTMLVideoElement)e.target).error.code);
             return null;
 		};
-    };
+    }
 
     private final String getTextBestFit(final Context2D context, final String text, final int wide)
     {
@@ -299,7 +295,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
 
         if (null != m_error)
         {
-            if (false == context.isSelection())
+            if (!context.isSelection())
             {
                 if (wide < 1)
                 {
@@ -391,7 +387,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
 
             context.setGlobalAlpha(alpha);
 
-            if ((false == m_xorig) && (m_filters.isActive()))
+            if ((!m_xorig) && (m_filters.isActive()))
             {
                 try
                 {
@@ -542,7 +538,7 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
      */
     public Movie pause()
     {
-        if ((null != m_video) && (false == isPaused()))
+        if ((null != m_video) && (!isPaused()))
         {
             m_pause = true;
 
@@ -573,15 +569,10 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
             {
                 final Movie movie = this;
 
-                Scheduler.get().scheduleDeferred(new ScheduledCommand()
-                {
-                    @Override
-                    public void execute()
+                Scheduler.get().scheduleDeferred(() -> {
+                    if (null != m_onend)
                     {
-                        if (null != m_onend)
-                        {
-                            m_onend.onEnded(movie);
-                        }
+                        m_onend.onEnded(movie);
                     }
                 });
             }
@@ -921,10 +912,10 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
             if (null == m_watch)
             {
 
-                m_video.onended = (e) ->
+                m_video.onended = e ->
                 {
 
-                    if (false == m_movie.isLoop())
+                    if (!m_movie.isLoop())
                     {
                         m_movie.setEnded(true);
                     }

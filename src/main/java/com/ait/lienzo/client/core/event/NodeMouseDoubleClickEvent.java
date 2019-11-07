@@ -22,7 +22,7 @@ import elemental2.dom.HTMLElement;
 
 public class NodeMouseDoubleClickEvent extends AbstractNodeHumanInputEvent<NodeMouseDoubleClickHandler, Node>
 {
-    private static final Type<NodeMouseDoubleClickHandler> TYPE = new Type<NodeMouseDoubleClickHandler>();
+    private static final Type<NodeMouseDoubleClickHandler> TYPE = new Type<>();
 
     public static Type<NodeMouseDoubleClickHandler> getType()
     {

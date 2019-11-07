@@ -24,11 +24,11 @@ public final class ImageCache
 {
     private static final ImageCache                INSTANCE   = new ImageCache();
 
-    private final NFastStringMap<String>           m_messages = new NFastStringMap<String>();
+    private final NFastStringMap<String>           m_messages = new NFastStringMap<>();
 
-    private final NFastStringMap<HTMLImageElement> m_url_hmap = new NFastStringMap<HTMLImageElement>();
+    private final NFastStringMap<HTMLImageElement> m_url_hmap = new NFastStringMap<>();
 
-    private final NFastStringMap<HTMLImageElement> m_key_hmap = new NFastStringMap<HTMLImageElement>();
+    private final NFastStringMap<HTMLImageElement> m_key_hmap = new NFastStringMap<>();
 
     private int                                    m_counting = -1;
 

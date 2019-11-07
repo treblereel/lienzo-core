@@ -33,7 +33,7 @@ public final class StringFormatter
             return jsNumber.toFixed(digits);
 		}
 		return "NaN";
-    };
+    }
 
     /**
      * Simple formatter. Replaces strings of the form "{0}", "{1}" etc. with the

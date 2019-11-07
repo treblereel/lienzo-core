@@ -20,14 +20,13 @@ import com.ait.lienzo.client.core.shape.Node;
 
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
-import elemental2.dom.UIEvent;
 import elemental2.dom.WheelEvent;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 
 public class NodeMouseWheelEvent extends AbstractNodeHumanInputEvent<NodeMouseWheelHandler, Node>
 {
-    private static final Type<NodeMouseWheelHandler> TYPE = new Type<NodeMouseWheelHandler>();
+    private static final Type<NodeMouseWheelHandler> TYPE = new Type<>();
 
     public static final Type<NodeMouseWheelHandler> getType()
     {

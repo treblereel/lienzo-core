@@ -22,7 +22,6 @@ import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.AttributeType;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
-//import com.google.gwt.json.client.JSONObject;
 
 /**
  * IFactory provides meta information for serialization support.
@@ -47,7 +46,7 @@ public interface IFactory<T extends IJSONSerializable<T>>
      * 
      * @return String e.g. "Circle" for the Circle class
      */
-    public String getTypeName();
+    String getTypeName();
 
     /**
      * Creates a new object of type T from a JSONObject.
@@ -59,19 +58,19 @@ public interface IFactory<T extends IJSONSerializable<T>>
      * @throws ValidationException
      */
     // @FIXME serialisation (mdp)
-    public T create(Object node, ValidationContext ctx) throws ValidationException;
+    T create(Object node, ValidationContext ctx) throws ValidationException;
 
     /**
      * Returns a collection of all the attributes that this type supports.
      * @return Collection&lt;Attribute&gt;
      */
-    public Collection<Attribute> getAttributeSheet();
+    Collection<Attribute> getAttributeSheet();
 
     /**
      * Returns a collection of the required attributes that this type supports.
      * @return Collection&lt;Attribute&gt;
      */
-    public Collection<Attribute> getRequiredAttributes();
+    Collection<Attribute> getRequiredAttributes();
 
     /**
      * Returns the {@link AttributeType} of the attribute with the specified 
@@ -80,9 +79,9 @@ public interface IFactory<T extends IJSONSerializable<T>>
      * @param attributeName
      * @return AttributeType
      */
-    public AttributeType getAttributeType(String attributeName);
+    AttributeType getAttributeType(String attributeName);
 
-    public void process(IJSONSerializable<?> node, ValidationContext ctx) throws ValidationException;
+    void process(IJSONSerializable<?> node, ValidationContext ctx) throws ValidationException;
 
-    public boolean isPostProcessed();
+    boolean isPostProcessed();
 }

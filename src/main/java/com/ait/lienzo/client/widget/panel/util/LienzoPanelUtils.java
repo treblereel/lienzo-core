@@ -13,6 +13,11 @@ import static elemental2.dom.DomGlobal.document;
 
 public class LienzoPanelUtils {
 
+    private LienzoPanelUtils()
+    {
+
+    }
+
     public static HTMLDivElement createDiv() {
         return (HTMLDivElement) document.createElement("div");
     }

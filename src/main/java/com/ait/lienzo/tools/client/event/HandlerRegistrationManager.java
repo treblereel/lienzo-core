@@ -20,7 +20,7 @@ import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public final class HandlerRegistrationManager implements HandlerRegistration
 {
-    private final NFastArrayList<HandlerRegistration> m_list = new NFastArrayList<HandlerRegistration>();
+    private final NFastArrayList<HandlerRegistration> m_list = new NFastArrayList<>();
 
     public HandlerRegistrationManager()
     {
@@ -59,7 +59,7 @@ public final class HandlerRegistrationManager implements HandlerRegistration
 
     public final HandlerRegistration register(final HandlerRegistration handler)
     {
-        if ((null != handler) && (false == m_list.contains(handler)))
+        if ((null != handler) && (!m_list.contains(handler)))
         {
             m_list.add(handler);
         }

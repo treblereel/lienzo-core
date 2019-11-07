@@ -383,7 +383,7 @@ public final class Transform
     public final double getDeterminant()
     {
         return this.v[0] * this.v[3] - this.v[2] * this.v[1]; // m00 * m11 - m01 * m10
-    };
+    }
 
     /**
      * Transforms the specified <code>ptSrc</code> and stores the result
@@ -527,7 +527,7 @@ public final class Transform
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof Transform)))
+        if ((other == null) || (!(other instanceof Transform)))
         {
             return false;
         }
@@ -543,7 +543,7 @@ public final class Transform
         return (this.v[0] == that.v[0]) && (this.v[1] == that.v[1])
                && (this.v[2] == that.v[2]) && (this.v[3] == that.v[3])
                && (this.v[4] == that.v[4]) && (this.v[5] == that.v[5]);
-    };
+    }
 
     @Override
     public int hashCode()

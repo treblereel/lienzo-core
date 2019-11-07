@@ -16,20 +16,6 @@
 
 package com.ait.lienzo.client.widget.panel.impl;
 
-import com.ait.lienzo.client.core.event.*;
-import com.ait.lienzo.client.core.shape.IPrimitive;
-import com.ait.lienzo.client.core.shape.Rectangle;
-import com.ait.lienzo.client.core.types.DragBounds;
-import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.lienzo.client.widget.DefaultDragConstraintEnforcer;
-import com.ait.lienzo.client.widget.DragContext;
-import com.ait.lienzo.client.widget.panel.Bounds;
-import com.ait.lienzo.shared.core.types.ColorName;
-import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-import java.util.function.Supplier;
-//import com.ait.tooling.common.api.java.util.function.Supplier;
-//import com.ait.tooling.nativetools.client.event.HandlerRegistrationManager;
-
 public class PreviewLayerDecorator
 {
 //    static final  String                     STROKE_COLOR = ColorName.RED.getColorString();

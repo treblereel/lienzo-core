@@ -107,7 +107,7 @@ public final class DashArray
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof DashArray)))
+        if ((other == null) || (!(other instanceof DashArray)))
         {
             return false;
         }

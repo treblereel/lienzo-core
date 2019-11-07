@@ -46,7 +46,7 @@ public final class Console implements ILogging
 //			}
 //		}
         throw new RuntimeException();
-    };
+    }
 
     private static final  void profile_end_0()
     {
@@ -57,7 +57,7 @@ public final class Console implements ILogging
 //			}
 //		}
         throw new RuntimeException();
-    };
+    }
 
     private static final void timestamp_0(String message)
     {
@@ -70,7 +70,7 @@ public final class Console implements ILogging
 //			}
 //		}
         throw new RuntimeException();
-    };
+    }
 
     public final void clear()
     {

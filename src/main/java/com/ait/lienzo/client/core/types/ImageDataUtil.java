@@ -7,6 +7,12 @@ import elemental2.dom.ImageData;
 
 public class ImageDataUtil
 {
+
+    private ImageDataUtil()
+    {
+
+    }
+
     /**
      * Offsets for each color use RGBA ordering.
      */
@@ -186,5 +192,5 @@ public class ImageDataUtil
     private static void setColorAt(ImageData image, int color, int x, int y, int offset)
     {
         image.data.setAt(4 * (x + y * image.width) + offset, (double) color);
-    };
+    }
 }

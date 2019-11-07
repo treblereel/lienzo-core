@@ -113,13 +113,13 @@ public abstract class NArrayBase<M> implements JsIterable<M>, JsArrayLike<M>
     public final boolean isEmpty()
     {
 		return getLength() < 1;
-    };
+    }
 
     @JsOverlay
     public final int size()
     {
 		return getLength();
-    };
+    }
 
     public native int push(M... var_args);
 
@@ -136,7 +136,7 @@ public abstract class NArrayBase<M> implements JsIterable<M>, JsArrayLike<M>
 		} else {
 		    setLength(size);
 		}
-    };
+    }
 
     public native M pop();
 

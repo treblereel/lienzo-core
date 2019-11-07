@@ -118,7 +118,7 @@ public class WiresShapeControlUtils {
         if (shape.getMagnets() == null) {
             return null;
         }
-        Map<String, WiresConnector> connectors = new HashMap<String, WiresConnector>();
+        Map<String, WiresConnector> connectors = new HashMap<>();
         collectionSpecialConnectors(shape,
                                     connectors);
         return connectors.values().toArray(new WiresConnector[connectors.size()]);

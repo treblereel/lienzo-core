@@ -87,7 +87,7 @@ public class RestrictedMousePanMediator extends AbstractMediator
         } else if ("mouseDown".equals(event.type)) {
             final IEventFilter filter = getEventFilter();
 
-            if ((null == filter) || (false == filter.isEnabled()) || (filter.test(event)))
+            if ((null == filter) || (!filter.isEnabled()) || (filter.test(event)))
             {
                 onMouseDown(x, y);
             }

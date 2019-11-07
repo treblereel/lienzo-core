@@ -200,7 +200,7 @@ public class Text extends Shape<Text>
 
         final double size = getFontSize();
 
-        if ((null == text) || (text.isEmpty()) || (false == (size > 0)))
+        if ((null == text) || (text.isEmpty()) || (!(size > 0)))
         {
             return;
         }
@@ -298,7 +298,7 @@ public class Text extends Shape<Text>
 
                 return true;
             }
-            if (false == filled)
+            if (!filled)
             {
                 return false;
             }
@@ -372,7 +372,7 @@ public class Text extends Shape<Text>
     {
         if (setStrokeParams(context, alpha, filled))
         {
-            if (getShadow() != null && false == context.isSelection())
+            if (getShadow() != null && !context.isSelection())
             {
                 doApplyShadow(context);
             }
@@ -400,7 +400,7 @@ public class Text extends Shape<Text>
 
         final double size = getFontSize();
 
-        if ((null == text) || (text.isEmpty()) || (false == (size > 0)))
+        if ((null == text) || (text.isEmpty()) || (!(size > 0)))
         {
             return new TextMetrics();
         }

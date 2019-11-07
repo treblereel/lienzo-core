@@ -117,7 +117,7 @@ public class Bow extends Shape<Bow>
 
             context.arc(0, 0, ord, beg, end, ccw);
 
-            context.arc(0, 0, ird, end, beg, (false == ccw));
+            context.arc(0, 0, ird, end, beg, (!ccw));
 
             context.closePath();
 

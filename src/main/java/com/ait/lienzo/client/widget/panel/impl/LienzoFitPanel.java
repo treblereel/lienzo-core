@@ -1,9 +1,6 @@
 package com.ait.lienzo.client.widget.panel.impl;
 
-import com.ait.lienzo.client.core.shape.Layer;
-import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.google.gwt.dom.client.Style;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 
@@ -27,7 +24,7 @@ public class LienzoFitPanel extends LienzoPanelDelegate<LienzoFitPanel> {
 
     public LienzoFitPanel(LienzoPanelImpl panel) {
         this.panel = panel;
-        this.m_resizeListener = (e) ->
+        this.m_resizeListener = e ->
         {
             onResize();
         };

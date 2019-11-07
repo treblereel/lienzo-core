@@ -24,16 +24,16 @@ import jsinterop.annotations.JsType;
  */
 public interface FillGradient
 {
-    public String getType();
+    String getType();
 
-    public LinearGradient asLinearGradient();
+    LinearGradient asLinearGradient();
 
-    public RadialGradient asRadialGradient();
+    RadialGradient asRadialGradient();
 
-    public PatternGradient asPatternGradient();
+    PatternGradient asPatternGradient();
 
     @JsType
-    public static class GradientJSO
+    class GradientJSO
     {
         public String type;
 

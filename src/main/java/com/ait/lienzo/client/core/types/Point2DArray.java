@@ -26,8 +26,6 @@ import com.ait.lienzo.tools.client.collection.NFastDoubleArray;
 import elemental2.core.Global;
 import elemental2.core.JsIterable;
 import jsinterop.annotations.JsOverlay;
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
 import jsinterop.base.JsArrayLike;
 
@@ -265,7 +263,7 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
         no.push(p1.copy());
         if (sz < 2) {
             return no;
-        };
+        }
 
 
         for (int i = 1; i < sz; i++) {
@@ -278,7 +276,7 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
         }
 
         return no;
-    };
+    }
 
     @JsOverlay
     public final Point2DArray copy()
@@ -300,7 +298,7 @@ public class Point2DArray implements JsIterable<Point2D>, JsArrayLike<Point2D>
     {
         final int size = size();
 
-        final ArrayList<Point2D> list = new ArrayList<Point2D>(size);
+        final ArrayList<Point2D> list = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++)
         {

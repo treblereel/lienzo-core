@@ -28,7 +28,7 @@ public final class NFastArrayList<M> extends NArrayBase<M>
 {
     @JsOverlay
     public static <M> NFastArrayList<M> fromObjects(M... objects) {
-        final NFastArrayList<M> list = new NFastArrayList<M>();
+        final NFastArrayList<M> list = new NFastArrayList<>();
         for (M item : objects) {
             list.add(item);
         }
@@ -99,11 +99,11 @@ public final class NFastArrayList<M> extends NArrayBase<M>
     @JsOverlay
     public final NFastArrayList<M> copy()
     {
-        NFastArrayList<M> list = new NFastArrayList<M>();
+        NFastArrayList<M> list = new NFastArrayList<>();
         M[] array = slice(0);
         list.push(array);
         return list;
-    };
+    }
 
     /**
      * Remove the value passed in as argument from the List.
@@ -167,7 +167,7 @@ public final class NFastArrayList<M> extends NArrayBase<M>
     @JsOverlay
     public final NFastArrayList<M> moveToTop(final M value)
     {
-        if ((size() < 2) || (false == contains(value)))
+        if ((size() < 2) || (!contains(value)))
         {
             return this;
         }
@@ -181,7 +181,7 @@ public final class NFastArrayList<M> extends NArrayBase<M>
     @JsOverlay
     public final NFastArrayList<M> moveToBottom(final M value)
     {
-        if ((size() < 2) || (false == contains(value)))
+        if ((size() < 2) || (!contains(value)))
         {
             return this;
         }

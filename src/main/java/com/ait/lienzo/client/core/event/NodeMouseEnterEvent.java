@@ -22,7 +22,7 @@ import elemental2.dom.HTMLElement;
 
 public class NodeMouseEnterEvent extends AbstractNodeHumanInputEvent<NodeMouseEnterHandler, Node>
 {
-    private static final Type<NodeMouseEnterHandler> TYPE = new Type<NodeMouseEnterHandler>();
+    private static final Type<NodeMouseEnterHandler> TYPE = new Type<>();
 
     public static final Type<NodeMouseEnterHandler> getType()
     {

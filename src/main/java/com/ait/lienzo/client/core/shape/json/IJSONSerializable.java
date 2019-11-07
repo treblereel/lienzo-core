@@ -26,10 +26,10 @@ package com.ait.lienzo.client.core.shape.json;
  */
 public interface IJSONSerializable<T extends IJSONSerializable<T>>
 {
-    public String toJSONString();
+    String toJSONString();
 
     // @FIXME serialisation (mdp)
     //public JSONObject toJSONObject();
 
-    public IFactory<?> getFactory();
+    IFactory<?> getFactory();
 }

@@ -149,7 +149,7 @@ public class ColorMapBackedPicker
 
         public PickerOptions(final boolean hotspotsEnabled,
                              final double hotspotWidth) {
-            this.shapesToSkip = new NFastArrayList<WiresContainer>();
+            this.shapesToSkip = new NFastArrayList<>();
             this.hotspotsEnabled = hotspotsEnabled;
             this.hotspotWidth = hotspotWidth;
         }

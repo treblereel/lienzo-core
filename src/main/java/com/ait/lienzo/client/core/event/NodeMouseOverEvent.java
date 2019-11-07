@@ -19,11 +19,10 @@ package com.ait.lienzo.client.core.event;
 import com.ait.lienzo.client.core.shape.Node;
 
 import elemental2.dom.HTMLElement;
-import elemental2.dom.MouseEvent;
 
 public class NodeMouseOverEvent extends AbstractNodeHumanInputEvent<NodeMouseOverHandler, Node>
 {
-    private static final Type<NodeMouseOverHandler> TYPE = new Type<NodeMouseOverHandler>();
+    private static final Type<NodeMouseOverHandler> TYPE = new Type<>();
 
     public static final Type<NodeMouseOverHandler> getType()
     {

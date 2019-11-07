@@ -799,7 +799,7 @@ public class WiresConnector
                                                  final int mouseX,
                                                  final int mouseY,
                                                  final Point2DArray oldPoints) {
-        NFastStringMap<Integer> colorMap = new NFastStringMap<Integer>();
+        NFastStringMap<Integer> colorMap = new NFastStringMap<>();
 
         IDirectionalMultiPointShape<?> line = connector.getLine();
         ScratchPad scratch = line.getScratchPad();

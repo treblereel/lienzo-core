@@ -34,7 +34,6 @@ import com.ait.lienzo.client.core.shape.wires.IControlHandleFactory;
 import com.ait.lienzo.client.core.shape.wires.IControlHandleList;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.DashArray;
-import com.ait.lienzo.client.core.types.DragBounds;
 import com.ait.lienzo.client.core.types.FillGradient;
 import com.ait.lienzo.client.core.types.LinearGradient;
 import com.ait.lienzo.client.core.types.PathPartList;
@@ -53,7 +52,6 @@ import elemental2.dom.HTMLImageElement;
 import elemental2.dom.Path2D;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
-import jsinterop.base.Js;
 
 /**
  * Shapes are objects that can be drawn on a canvas.
@@ -91,7 +89,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
     private double                    selectionStrokeOffset = 0;
 
     @JsProperty
-    private double                    strokeWidth = LienzoCore.get().getDefaultStrokeWidth();;
+    private double                    strokeWidth = LienzoCore.get().getDefaultStrokeWidth();
 
     @JsProperty
     private LineCap                   lineCap;
@@ -214,7 +212,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         }
         if (types.size() > 1)
         {
-            types = new ArrayList<ControlHandleType>(new HashSet<ControlHandleType>(types));
+            types = new ArrayList<>(new HashSet<>(types));
         }
         IControlHandleFactory factory = getControlHandleFactory();
 
@@ -351,7 +349,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
 
                 return true;
             }
-            if (false == filled)
+            if (!filled)
             {
                 return false;
             }
@@ -484,7 +482,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
 
                 return true;
             }
-            if (false == filled)
+            if (!filled)
             {
                 return false;
             }
@@ -617,7 +615,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
 
         context.setStrokeWidth(width + offset);
 
-        if (false == hasExtraStrokeAttributes())
+        if (!hasExtraStrokeAttributes())
         {
             return true;
         }
@@ -663,7 +661,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
     {
         boolean hasAttribute = dashArray != null || lineJoin != null || lineCap != null || miterLimit > 0;
         return hasAttribute;
-    };
+    }
 
     protected boolean doStrokeExtraProperties()
     {
@@ -680,7 +678,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
     {
         if (setStrokeParams(context, alpha, filled))
         {
-            if (getShadow() != null && false == context.isSelection())
+            if (getShadow() != null && !context.isSelection())
             {
                 doApplyShadow(context);
             }
@@ -694,7 +692,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
     {
         if (setStrokeParams(context, alpha, filled))
         {
-            if (getShadow() != null && false == context.isSelection())
+            if (getShadow() != null && !context.isSelection())
             {
                 doApplyShadow(context);
             }
@@ -713,7 +711,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
      */
     protected final void doApplyShadow(final Context2D context)
     {
-        if (false == isAppliedShadow() && getShadow() != null)
+        if (!isAppliedShadow() && getShadow() != null)
         {
             setAppliedShadow(true);
 
@@ -1394,41 +1392,41 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         protected final boolean isDragging()
         {
 			return this.drag;
-        };
+        }
 
         protected final void setDragging(boolean drag)
         {
             this.drag = drag;
-        };
+        }
 
         protected final boolean isAppliedShadow()
         {
 			return this.apsh;
-        };
+        }
 
         protected final void setAppliedShadow(boolean apsh)
         {
             this.apsh = apsh;
-        };
+        }
 
         protected final DragConstraintEnforcer getDragConstraintEnforcer()
         {
 			return this.denf;
-        };
+        }
 
         protected final void setDragConstraintEnforcer(DragConstraintEnforcer denf)
         {
             this.denf = denf;
-        };
+        }
 
         protected final IControlHandleFactory getControlHandleFactory()
         {
 			return this.hand;
-        };
+        }
 
         protected final void setControlHandleFactory(IControlHandleFactory hand)
         {
             this.hand = hand;
-        };
+        }
     }
 }

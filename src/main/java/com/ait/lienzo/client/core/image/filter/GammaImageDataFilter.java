@@ -79,7 +79,7 @@ public class GammaImageDataFilter extends AbstractValueTableImageDataFilter<Gamm
             table[i] = Js.coerceToInt(255 * Math.pow(i / 255, 1 / value) + 0.5);
         }
         return new FilterTableArray(table);
-    };
+    }
 
     @Override
     public IFactory<GammaImageDataFilter> getFactory()

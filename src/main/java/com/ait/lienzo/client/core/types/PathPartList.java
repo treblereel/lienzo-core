@@ -65,7 +65,7 @@ public class PathPartList
     {
         resetBoundingBox();
 
-        if (false == m_mov)
+        if (!m_mov)
         {
             M(0, 0);
         }
@@ -293,7 +293,7 @@ public class PathPartList
         return toJSONString();
     }
 
-    public final static NFastDoubleArray convertEndpointToCenterParameterization(final double x1, final double y1, final double x2, final double y2, final double fa, final double fs, double rx, double ry, final double pv)
+    public static final NFastDoubleArray convertEndpointToCenterParameterization(final double x1, final double y1, final double x2, final double y2, final double fa, final double fs, double rx, double ry, final double pv)
     {
         final NFastDoubleArray points = new NFastDoubleArray();
 

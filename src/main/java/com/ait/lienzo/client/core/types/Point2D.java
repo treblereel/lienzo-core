@@ -21,9 +21,7 @@ import java.util.Objects;
 import com.ait.lienzo.client.core.util.GeometryException;
 
 import elemental2.core.Global;
-import elemental2.core.JsArray;
 import jsinterop.annotations.JsProperty;
-import jsinterop.annotations.JsType;
 
 /**
  * Point2D can be used to represent a point or vector in 2D.
@@ -129,7 +127,7 @@ public final class Point2D
         double dy = this.y;
 
         return Math.sqrt((dx * dx) + (dy * dy));
-    };
+    }
 
     /**
      * Returns the distance from this Point2D to the other Point2D.
@@ -144,7 +142,7 @@ public final class Point2D
         double dy = other.y - this.y;
 
         return Math.sqrt((dx * dx) + (dy * dy));
-    };
+    }
 
 
     /**
@@ -335,7 +333,7 @@ public final class Point2D
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof Point2D)))
+        if ((other == null) || (!(other instanceof Point2D)))
         {
             return false;
         }

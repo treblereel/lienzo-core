@@ -12,7 +12,6 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.ait.lienzo.tools.client.collection.MetaData;
 
 import jsinterop.annotations.JsProperty;
 
@@ -47,11 +46,8 @@ public class Image
                  final int index) {
         this(ImageStrips.encodeURL(stripName,
                                    index),
-             new ImageLoadCallback() {
-                 @Override
-                 public void onImageLoaded(Image image) {
-                     // Defaults to an empty callback, as the strip image has been already loaded
-                 }
+             image -> {
+                 // Defaults to an empty callback, as the strip image has been already loaded
              });
     }
 
@@ -289,12 +285,9 @@ public class Image
         if (!imageProxy.isLoaded()) {
             final String url = getURL();
             imageProxy.load(url,
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    callback.onImageLoaded(Image.this);
-                                    performBatch();
-                                }
+                            () -> {
+                                callback.onImageLoaded(Image.this);
+                                performBatch();
                             });
         } else {
             callback.onImageLoaded(Image.this);
@@ -418,12 +411,7 @@ public class Image
             if (node instanceof Image) {
                 final Image self = (Image) node;
                 self.configure(self.getURL())
-                    .load(new ImageLoadCallback() {
-                        @Override
-                        public void onImageLoaded(Image image) {
-                            image.performBatch();
-                        }
-                    });
+                    .load(image -> image.performBatch());
             }
         }
     }

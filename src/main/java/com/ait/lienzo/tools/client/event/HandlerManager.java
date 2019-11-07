@@ -56,7 +56,7 @@ public class HandlerManager
         }
 
         // no more handlers, so prune map.
-        if ( handlers.size() == 0)
+        if ( handlers.isEmpty())
         {
             map.remove(type);
         }
@@ -103,8 +103,6 @@ public class HandlerManager
                         causes = new HashSet<>();
                     }
                     causes.add(var11);
-
-                    throw new Error(var11);
                 }
             }
             if (causes != null) {

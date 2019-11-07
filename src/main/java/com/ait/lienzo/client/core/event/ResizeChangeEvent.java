@@ -26,7 +26,7 @@ public class ResizeChangeEvent extends AbstractNodeHumanInputEvent<ResizeChangeH
 
     private int                              m_height;
 
-    private static final Type<ResizeChangeHandler> TYPE = new Type<ResizeChangeHandler>();
+    private static final Type<ResizeChangeHandler> TYPE = new Type<>();
 
     public static final Type<ResizeChangeHandler> getType()
     {

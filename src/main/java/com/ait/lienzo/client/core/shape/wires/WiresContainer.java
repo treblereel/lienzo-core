@@ -18,8 +18,6 @@
 package com.ait.lienzo.client.core.shape.wires;
 
 import com.ait.lienzo.client.core.Attribute;
-import com.ait.lienzo.client.core.event.AbstractNodeHumanInputEvent;
-import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.tools.client.event.HandlerManager;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
@@ -43,8 +41,6 @@ import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.tools.common.api.flow.Flows;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-
-import elemental2.dom.HTMLElement;
 
 import java.util.Objects;
 

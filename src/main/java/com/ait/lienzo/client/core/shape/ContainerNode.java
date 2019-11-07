@@ -200,7 +200,7 @@ public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerN
     @Override
     protected void drawWithoutTransforms(final Context2D context, double alpha, final BoundingBox bounds)
     {
-        if ((context.isSelection()) && (false == isListening()))
+        if ((context.isSelection()) && (!isListening()))
         {
             return;
         }
@@ -269,7 +269,7 @@ public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerN
     @Override
     public List<Attribute> getBoundingBoxAttributes()
     {
-        return new ArrayList<Attribute>(0);
+        return new ArrayList<>(0);
     }
 
     /**
@@ -321,36 +321,31 @@ public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerN
     {
         if ((null == id) || ((id = id.trim()).isEmpty()))
         {
-            return new ArrayList<Node<?>>(0);
+            return new ArrayList<>(0);
         }
         final String look = id;
 
-        return find(new Predicate<Node<?>>()
-        {
-            @Override
-            public boolean test(Node<?> node)
+        return find(node -> {
+            if (null == node)
             {
-                if (null == node)
-                {
-                    return false;
-                }
-                String id = node.getID();
-
-                if ((null != id) && (false == (id = id.trim()).isEmpty()))
-                {
-                    return id.equals(look);
-                }
                 return false;
             }
+            String id1 = node.getID();
+
+            if ((null != id1) && (false == (id1 = id1.trim()).isEmpty()))
+            {
+                return id1.equals(look);
+            }
+            return false;
         });
     }
 
-    abstract protected void find(Predicate<Node<?>> predicate, LinkedHashSet<Node<?>> buff);
+    protected abstract void find(Predicate<Node<?>> predicate, LinkedHashSet<Node<?>> buff);
 
     @Override
     public final Iterable<Node<?>> find(final Predicate<Node<?>> predicate)
     {
-        final LinkedHashSet<Node<?>> buff = new LinkedHashSet<Node<?>>();
+        final LinkedHashSet<Node<?>> buff = new LinkedHashSet<>();
 
         find(predicate, buff);
 
@@ -383,7 +378,7 @@ public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerN
         return this;
     }
 
-    public static abstract class ContainerNodeFactory<C extends IJSONSerializable<C> & IContainer<C, ?>>extends NodeFactory<C>implements IContainerFactory
+    public abstract static class ContainerNodeFactory<C extends IJSONSerializable<C> & IContainer<C, ?>>extends NodeFactory<C>implements IContainerFactory
     {
         protected ContainerNodeFactory(final NodeType type)
         {

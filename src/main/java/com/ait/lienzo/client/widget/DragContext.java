@@ -17,7 +17,6 @@
 package com.ait.lienzo.client.widget;
 
 import com.ait.lienzo.client.core.Context2D;
-import com.ait.lienzo.tools.client.event.INodeXYEvent;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.core.types.Point2D;
@@ -383,7 +382,7 @@ public class DragContext
      * 
      * @return IPrimitive
      */
-    public IPrimitive<?> getNode()
+    public IPrimitive getNode()
     {
         return m_prim;
     }

@@ -47,7 +47,7 @@ public class GroupType implements IStringValued
     @Override
     public boolean equals(final Object other)
     {
-        if (false == (other instanceof GroupType))
+        if (!(other instanceof GroupType))
         {
             return false;
         }

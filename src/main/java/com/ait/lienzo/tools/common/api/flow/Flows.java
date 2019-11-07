@@ -47,31 +47,17 @@ public final class Flows
     {
         Objects.requireNonNull(op);
 
-        return new BooleanOp()
-        {
-            @Override
-            public final boolean test()
-            {
-                return (false == op.test());
-            }
-        };
+        return () -> (false == op.test());
     }
 
     public static final <T> BooleanOp composeOp(final T value, final Predicate<T> predicate)
     {
         Objects.requireNonNull(predicate);
 
-        return new BooleanOp()
-        {
-            @Override
-            public final boolean test()
-            {
-                return predicate.test(value);
-            }
-        };
+        return () -> predicate.test(value);
     }
 
-    public static abstract class PredicateBooleanOp<T>implements BooleanOp, Predicate<T>
+    public abstract static class PredicateBooleanOp<T>implements BooleanOp, Predicate<T>
     {
         private final T m_value;
 
@@ -128,7 +114,7 @@ public final class Flows
 
             for (int i = 0; i < size; i++)
             {
-                if (false == m_list.get(i).test())
+                if (!m_list.get(i).test())
                 {
                     return false;
                 }

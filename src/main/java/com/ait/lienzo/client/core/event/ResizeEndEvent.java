@@ -26,7 +26,7 @@ public class ResizeEndEvent extends AbstractNodeHumanInputEvent<ResizeEndHandler
 
     private int                           m_height;
 
-    private static final Type<ResizeEndHandler> TYPE = new Type<ResizeEndHandler>();
+    private static final Type<ResizeEndHandler> TYPE = new Type<>();
 
     public static final Type<ResizeEndHandler> getType()
     {

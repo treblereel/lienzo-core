@@ -1500,7 +1500,7 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     {
         context.save();
 
-        if (false == context.isSelection())
+        if (!context.isSelection())
         {
             context.setGlobalAlpha(alpha);
 
@@ -1685,27 +1685,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
     public Picture reFilter(final PictureFilteredHandler handler)
     {
-        getImageProxy().reFilter(new ImageShapeFilteredHandler<Picture>()
-        {
-            @Override
-            public void onImageShapeFiltered(Picture picture)
-            {
-                handler.onPictureFiltered(picture);
-            }
-        });
+        getImageProxy().reFilter(picture -> handler.onPictureFiltered(picture));
         return this;
     }
 
     public Picture unFilter(final PictureFilteredHandler handler)
     {
-        getImageProxy().unFilter(new ImageShapeFilteredHandler<Picture>()
-        {
-            @Override
-            public void onImageShapeFiltered(Picture picture)
-            {
-                handler.onPictureFiltered(picture);
-            }
-        });
+        getImageProxy().unFilter(picture -> handler.onPictureFiltered(picture));
         return this;
     }
 
@@ -1790,13 +1776,13 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
         @Override
         public void process(IJSONSerializable<?> node, ValidationContext ctx) throws ValidationException
         {
-            if (false == (node instanceof Picture))
+            if (!(node instanceof Picture))
             {
                 return;
             }
             Picture self = (Picture) node;
 
-            if (false == self.isLoaded())
+            if (!self.isLoaded())
             {
                 self.getImageProxy().load(self.getURL());
 
@@ -1807,19 +1793,14 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
     private PictureLoadedHandler createPictureLoader()
     {
-        return new PictureLoadedHandler()
-        {
-            @Override
-            public void onPictureLoaded(Picture picture)
+        return picture -> {
+            if (picture.isLoaded() && picture.isVisible())
             {
-                if (picture.isLoaded() && picture.isVisible())
-                {
-                    Layer layer = picture.getLayer();
+                Layer layer = picture.getLayer();
 
-                    if ((null != layer) && (null != layer.getViewport()))
-                    {
-                        layer.batch();
-                    }
+                if ((null != layer) && (null != layer.getViewport()))
+                {
+                    layer.batch();
                 }
             }
         };
@@ -1827,13 +1808,6 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
 
     private void onLoaded(final PictureLoadedHandler handler)
     {
-        getImageProxy().setImageShapeLoadedHandler(new ImageShapeLoadedHandler<Picture>()
-        {
-            @Override
-            public void onImageShapeLoaded(Picture picture)
-            {
-                handler.onPictureLoaded(picture);
-            }
-        });
+        getImageProxy().setImageShapeLoadedHandler(picture -> handler.onPictureLoaded(picture));
     }
 }

@@ -132,7 +132,7 @@ public final class EventFilter
             @Override
             public final boolean test(final UIEvent event)
             {
-                return (false == filter.test(event));
+                return (!filter.test(event));
             }
         };
     }
@@ -264,7 +264,7 @@ public final class EventFilter
 
                 if (filter.isEnabled())
                 {
-                    if (false == filter.test(event))
+                    if (!filter.test(event))
                     {
                         return false;
                     }

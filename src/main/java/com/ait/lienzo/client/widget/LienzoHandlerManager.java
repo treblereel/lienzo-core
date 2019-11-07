@@ -204,7 +204,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (!m_viewport.getOnEventHandlers().getOnMouseClickEventHandle().onMouseEventBefore(mouseEvent))
@@ -226,7 +226,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (!m_viewport.getOnEventHandlers().getOnMouseDoubleClickEventHandle().onMouseEventBefore(mouseEvent))
@@ -247,7 +247,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (!m_viewport.getOnEventHandlers().getOnMouseMoveEventHandle().onMouseEventBefore(mouseEvent))
@@ -282,7 +282,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (!m_viewport.getOnEventHandlers().getOnMouseUpEventHandle().onMouseEventBefore(mouseEvent))
@@ -309,7 +309,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (!m_viewport.getOnEventHandlers().getOnMouseDownEventHandle().onMouseEventBefore(mouseEvent))
@@ -335,7 +335,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeMouseOutEvent.getAssociatedType(), mouseEvent, x, y))
@@ -351,7 +351,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeMouseOverEvent.getAssociatedType(), mouseEvent, x, y))
@@ -374,7 +374,7 @@ final public class LienzoHandlerManager
         {
             MouseEvent mouseEvent = (MouseEvent) event;
 
-            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(mouseEvent.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(mouseEvent.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeMouseWheelEvent.getAssociatedType(), mouseEvent, x, y))
@@ -397,7 +397,7 @@ final public class LienzoHandlerManager
             TouchList touches = touchEvent.touches;
             Touch touch = touches.getAt(0);
 
-            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(touch.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeTouchEndEvent.getAssociatedType(), touchEvent, x, y))
@@ -420,7 +420,7 @@ final public class LienzoHandlerManager
             TouchList touches = touchEvent.touches;
             Touch touch = touches.getAt(0);
 
-            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(touch.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeTouchMoveEvent.getAssociatedType(), touchEvent, x, y))
@@ -441,7 +441,7 @@ final public class LienzoHandlerManager
             // @FIXME assuming (double check) touches is not null, and we only look at the first touch, which is also not null (mdp)
             TouchList touches = touchEvent.touches;
             Touch touch = touches.getAt(0);
-            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(touch.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeTouchStartEvent.getAssociatedType(), touchEvent, x, y))
@@ -462,7 +462,7 @@ final public class LienzoHandlerManager
             // @FIXME assuming (double check) touches is not null, and we only look at the first touch, which is also not null (mdp)
             TouchList touches = touchEvent.touches;
             Touch touch = touches.getAt(0);
-            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);;
+            int x = MouseEventUtil.getRelativeX(touch.clientX, m_lienzoElm);
             int y = MouseEventUtil.getRelativeY(touch.clientY, m_lienzoElm);
 
             if (m_mediators.handleEvent(nodeTouchCancelEvent.getAssociatedType(), touchEvent, x, y))
@@ -697,14 +697,7 @@ final public class LienzoHandlerManager
 
     private final <H extends EventHandler> Node<?> findPrimitiveForEventType(final int x, final int y, final Type<H> type)
     {
-        return findPrimitiveForPredicate(x, y,  new Predicate<Node<?>>()
-        {
-            @Override
-            public boolean test(final Node<?>prim)
-            {
-                return prim.isEventHandled(type);
-            }
-        });
+        return findPrimitiveForPredicate(x, y, prim -> prim.isEventHandled(type));
     }
 
     private final Node<?>  findPrimitiveForPredicate(final int x, final int y, final Predicate<Node<?>> pred)
@@ -723,7 +716,7 @@ final public class LienzoHandlerManager
 
                 if (null == list)
                 {
-                    list = new NFastArrayList<Node<?>>();
+                    list = new NFastArrayList<>();
                 }
                 list.add(node);
 
@@ -740,7 +733,7 @@ final public class LienzoHandlerManager
             }
             node = node.getParent();
         }
-        if ((list != null) && (list.isEmpty() == false))
+        if ((list != null) && (!list.isEmpty()))
         {
             final int size = list.size();
 
@@ -765,14 +758,7 @@ final public class LienzoHandlerManager
 
     private final void doPrepareDragging(final int x, final int y, final MouseEvent mouseEvent, final TouchEvent touchEvent)
     {
-        final Node<?> find = findPrimitiveForPredicate(x, y, new Predicate<Node<?>>()
-        {
-            @Override
-            public boolean test(final Node<?> prim)
-            {
-                return prim.isDraggable();
-            }
-        });
+        final Node<?> find = findPrimitiveForPredicate(x, y, prim -> prim.isDraggable());
 
         if (null != find)
         {
@@ -861,7 +847,7 @@ final public class LienzoHandlerManager
             {
                 if ((null != shape) && (shape.isEventHandled(NodeMouseEnterEvent.getType())))
                 {
-                    fireEvent(mouseEvent, touchEvent, x, y,null,  (Node<?>) shape, nodeMouseEnterEvent);
+                    fireEvent(mouseEvent, touchEvent, x, y, null, shape, nodeMouseEnterEvent);
                 }
                 m_over_prim = shape;
             }
@@ -898,11 +884,11 @@ final public class LienzoHandlerManager
     {
         if (m_dragging_mouse_pressed)
         {
-            if (false == m_dragging)
+            if (!m_dragging)
             {
                 doPrepareDragging(x, y, mouseEvent, touchEvent);
 
-                if (false == m_dragging)
+                if (!m_dragging)
                 {
                     // Don't pick up any draggable objects along the way - LIENZO-88
                     // Not sure about this, it may interfere with deferred mouse click handling

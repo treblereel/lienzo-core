@@ -24,12 +24,10 @@ import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 import com.ait.lienzo.shared.core.types.IColor;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.annotations.JsProperty;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of a Color Luminosity based Image Filter.
@@ -119,7 +117,7 @@ public class ColorDeltaAlphaImageDataFilter extends AbstractRGBImageDataFilter<C
                 data[i + 3] = 0;
             }
     	}
-    };
+    }
 
     @Override
     public IFactory<ColorDeltaAlphaImageDataFilter> getFactory()

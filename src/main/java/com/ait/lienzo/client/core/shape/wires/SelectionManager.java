@@ -1256,13 +1256,7 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
 
         public SelectionDragHandler(SelectionManager selectionManager) {
             this.m_selectionManager = selectionManager;
-            Supplier<WiresLayerIndex> indexBuilder = new Supplier<WiresLayerIndex>() {
-
-                @Override
-                public WiresLayerIndex get() {
-                    return getControlFactory().newIndex(getWiresManager());
-                }
-            };
+            Supplier<WiresLayerIndex> indexBuilder = () -> getControlFactory().newIndex(getWiresManager());
             this.multipleShapeHandler = new WiresCompositeShapeHandler(indexBuilder,
                                                                        m_selectionManager.m_shapeControl,
                                                                        getControlFactory().newShapeHighlight(getWiresManager()),

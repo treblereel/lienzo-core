@@ -71,7 +71,7 @@ public class IsoscelesTrapezoid extends Shape<IsoscelesTrapezoid>
     {
         if (m_list.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return false;
             }

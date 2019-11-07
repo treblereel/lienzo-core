@@ -24,7 +24,7 @@ import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public class AnimationProperties implements IBoundedList<AnimationProperty>
 {
-    private final NFastArrayList<AnimationProperty> m_properties = new NFastArrayList<AnimationProperty>();
+    private final NFastArrayList<AnimationProperty> m_properties = new NFastArrayList<>();
 
     public static final AnimationProperties toPropertyList(final AnimationProperty property, final AnimationProperty... properties)
     {
@@ -78,7 +78,7 @@ public class AnimationProperties implements IBoundedList<AnimationProperty>
     @Override
     public final Iterator<AnimationProperty> iterator()
     {
-        return new BoundedListIterator<AnimationProperty>(this);
+        return new BoundedListIterator<>(this);
     }
 
     @Override

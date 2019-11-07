@@ -27,35 +27,19 @@ public class AnimationScheduler
                                                  Element element) {
         final int id = requestImplNew(callback,
                                       element);
-        return new AnimationHandle() {
-            @Override
-            public void cancel() {
-                cancelImpl(id);
-            }
-        };
+        return () -> cancelImpl(id);
     }
 
     private static int requestImplNew(AnimationCallback cb,
                                       Element element) {
-        DomGlobal.RequestAnimationFrameCallbackFn callback = new DomGlobal.RequestAnimationFrameCallbackFn() {
-            @Override public void onInvoke(final double p0)
-            {
-                cb.execute(p0);
-            }
-        };
-        int id = DomGlobal.requestAnimationFrame(callback,
+        DomGlobal.RequestAnimationFrameCallbackFn callback = p0 -> cb.execute(p0);
+        return DomGlobal.requestAnimationFrame(callback,
                                                  element);
-
-        return id;
     }
 
     private static void cancelImpl(int id) {
         DomGlobal.cancelAnimationFrame(id);
     }
-
-//    public void requestAnimationFrame(final com.ait.lienzo.client.core.animation.AnimationCallback animationCallback)
-//    {
-//    }
 
     /**
      * The callback used when an animation frame becomes available.
@@ -73,12 +57,12 @@ public class AnimationScheduler
      * A handle to the requested animation frame created by
      * {@link #requestAnimationFrame(AnimationCallback, Element)}.
      */
-    public abstract static class AnimationHandle {
+    public interface AnimationHandle {
         /**
          * Cancel the requested animation frame. If the animation frame is already
          * canceled, do nothing.
          */
-        public abstract void cancel();
+        void cancel();
     }
 
 

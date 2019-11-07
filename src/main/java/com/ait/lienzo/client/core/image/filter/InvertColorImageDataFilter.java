@@ -22,11 +22,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 /**
  * A class that allows for easy creation of a Invert Color Image Filter.
@@ -54,7 +52,7 @@ public class InvertColorImageDataFilter extends AbstractImageDataFilter<InvertCo
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -78,7 +76,7 @@ public class InvertColorImageDataFilter extends AbstractImageDataFilter<InvertCo
     		data[i + 1] = 255 - data[i + 1];
     		data[i + 2] = 255 - data[i + 2];
     	}
-    };
+    }
 
     @Override
     public IFactory<InvertColorImageDataFilter> getFactory()

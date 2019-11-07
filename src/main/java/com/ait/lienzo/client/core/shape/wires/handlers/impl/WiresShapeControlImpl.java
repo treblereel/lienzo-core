@@ -65,24 +65,9 @@ public class WiresShapeControlImpl
 
     public WiresShapeControlImpl(WiresShape shape) {
         parentPickerControl = new WiresParentPickerControlImpl(shape,
-                                                               new Supplier<WiresLayerIndex>() {
-                                                                   @Override
-                                                                   public WiresLayerIndex get() {
-                                                                       return index.get();
-                                                                   }
-                                                               });
-        m_dockingAndControl = new WiresDockingControlImpl(new Supplier<WiresParentPickerControl>() {
-            @Override
-            public WiresParentPickerControl get() {
-                return parentPickerControl;
-            }
-        });
-        m_containmentControl = new WiresContainmentControlImpl(new Supplier<WiresParentPickerControl>() {
-            @Override
-            public WiresParentPickerControl get() {
-                return parentPickerControl;
-            }
-        });
+                                                               () -> index.get());
+        m_dockingAndControl = new WiresDockingControlImpl(() -> parentPickerControl);
+        m_containmentControl = new WiresContainmentControlImpl(() -> parentPickerControl);
         m_magnetsControl = new WiresMagnetsControlImpl(shape);
     }
 
@@ -138,12 +123,7 @@ public class WiresShapeControlImpl
     @Override
     public WiresShapeControlImpl setLocationBounds(final OptionalBounds bounds) {
         if (null == locationBounds) {
-            locationBounds = new WiresShapeLocationBounds(new Supplier<BoundingBox>() {
-                @Override
-                public BoundingBox get() {
-                    return absoluteShapeBounds;
-                }
-            });
+            locationBounds = new WiresShapeLocationBounds(() -> absoluteShapeBounds);
         }
         locationBounds.setBounds(bounds);
         return this;
@@ -223,14 +203,8 @@ public class WiresShapeControlImpl
 
         shapeUpdated(false);
 
-        forEachConnectorControl(new Consumer<WiresConnectorControl>() {
-            @Override
-            public void accept(WiresConnectorControl control)
-            {
-                control.onMove(dx,
-                               dy);
-            }
-        });
+        forEachConnectorControl(control -> control.onMove(dx,
+                                                  dy));
 
         WiresShapeControlUtils.checkForAndApplyLineSplice(getWiresManager(),
                                                           getShape());
@@ -274,13 +248,7 @@ public class WiresShapeControlImpl
         if (m_alignAndDistributeControl != null) {
             m_alignAndDistributeControl.dragEnd();
         }
-        forEachConnectorControl(new Consumer<WiresConnectorControl>() {
-            @Override
-            public void accept(WiresConnectorControl control)
-            {
-                control.onMoveComplete();
-            }
-        });
+        forEachConnectorControl(control -> control.onMoveComplete());
     }
 
     @Override
@@ -305,13 +273,7 @@ public class WiresShapeControlImpl
             shapeUpdated(true);
         }
 
-        forEachConnectorControl(new Consumer<WiresConnectorControl>() {
-            @Override
-            public void accept(WiresConnectorControl control)
-            {
-                control.execute();
-            }
-        });
+        forEachConnectorControl(control -> control.execute());
 
         WiresShapeControlUtils.checkForAndApplyLineSplice(getWiresManager(),
                                                           getShape());
@@ -331,13 +293,7 @@ public class WiresShapeControlImpl
         if (null != m_containmentControl) {
             m_containmentControl.clear();
         }
-        forEachConnectorControl(new Consumer<WiresConnectorControl>() {
-            @Override
-            public void accept(WiresConnectorControl control)
-            {
-                control.clear();
-            }
-        });
+        forEachConnectorControl(control -> control.clear());
         clearState();
     }
 
@@ -354,13 +310,7 @@ public class WiresShapeControlImpl
             m_alignAndDistributeControl.reset();
         }
         getShape().shapeMoved();
-        forEachConnectorControl(new Consumer<WiresConnectorControl>() {
-            @Override
-            public void accept(WiresConnectorControl control)
-            {
-                control.reset();
-            }
-        });
+        forEachConnectorControl(control -> control.reset());
         clearState();
     }
 

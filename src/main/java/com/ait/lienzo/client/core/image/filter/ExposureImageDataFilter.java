@@ -79,7 +79,7 @@ public class ExposureImageDataFilter extends AbstractValueTableImageDataFilter<E
 			table[i] = Js.coerceToInt(255 * (1 - Math.exp(-(i / 255) * value)));
 		}
 		return new FilterTableArray(table);
-    };
+    }
 
     @Override
     public IFactory<ExposureImageDataFilter> getFactory()

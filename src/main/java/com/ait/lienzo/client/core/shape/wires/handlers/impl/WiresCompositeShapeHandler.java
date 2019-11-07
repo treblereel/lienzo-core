@@ -62,12 +62,7 @@ public class WiresCompositeShapeHandler
         super.startDrag(dragContext);
 
         final WiresLayerIndex index = buildIndex();
-        shapeControl.useIndex(new Supplier<WiresLayerIndex>() {
-            @Override
-            public WiresLayerIndex get() {
-                return index;
-            }
-        });
+        shapeControl.useIndex(() -> index);
 
         shapeControl.onMoveStart(dragContext.getDragStartX(),
                                  dragContext.getDragStartY());

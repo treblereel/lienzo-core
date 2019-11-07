@@ -102,7 +102,7 @@ public class Ring extends Shape<Ring>
     {
         if (setStrokeParams(context, alpha, filled))
         {
-            if (getShadow() != null && false == context.isSelection())
+            if (getShadow() != null && !context.isSelection())
             {
                 doApplyShadow(context);
             }

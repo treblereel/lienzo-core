@@ -42,7 +42,7 @@ public class ProxyType implements IStringValued
     @Override
     public boolean equals(final Object other)
     {
-        if (false == (other instanceof ProxyType))
+        if (!(other instanceof ProxyType))
         {
             return false;
         }

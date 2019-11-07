@@ -38,7 +38,13 @@ public final class DefaultDragConstraintEnforcer implements DragConstraintEnforc
 
     private DragConstraint m_constraint;
 
-    private double         m_dx1, m_dx2, m_dy1, m_dy2;
+    private double         m_dx1;
+
+    private double         m_dx2;
+
+    private double         m_dy1;
+
+    private double         m_dy2;
 
     @Override
     public final void startDrag(final DragContext dragContext)

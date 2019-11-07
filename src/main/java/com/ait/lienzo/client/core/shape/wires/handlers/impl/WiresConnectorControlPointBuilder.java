@@ -136,16 +136,9 @@ public class WiresConnectorControlPointBuilder
 
     public void scheduleControlPointBuildAnimation(final int delay)
     {
-        scheduleControlPointBuildAnimation(new Function<Shape<?>, IAnimationHandle>()
-        {
-            @Override
-            public IAnimationHandle apply(final Shape<?> shape)
-            {
-                return shape.animate(AnimationTweener.LINEAR,
-                                     AnimationProperties.toPropertyList(AnimationProperty.Properties.END_ANGLE(2 * Math.PI)),
-                                     delay);
-            }
-        });
+        scheduleControlPointBuildAnimation(shape -> shape.animate(AnimationTweener.LINEAR,
+                                                          AnimationProperties.toPropertyList(AnimationProperty.Properties.END_ANGLE(2 * Math.PI)),
+                                                          delay));
     }
 
     void scheduleControlPointBuildAnimation(final Function<Shape<?>, IAnimationHandle> animateTask)
@@ -291,25 +284,13 @@ public class WiresConnectorControlPointBuilder
     {
 
         register(manager,
-                 cp.addNodeMouseEnterHandler(new NodeMouseEnterHandler()
-                 {
-                     @Override
-                     public void onNodeMouseEnter(NodeMouseEnterEvent event)
-                     {
-                         destroyMousePointerCP();
-                         cancelExitTimer();
-                     }
+                 cp.addNodeMouseEnterHandler(event -> {
+                     destroyMousePointerCP();
+                     cancelExitTimer();
                  }));
 
         register(manager,
-                 cp.addNodeMouseExitHandler(new NodeMouseExitHandler()
-                 {
-                     @Override
-                     public void onNodeMouseExit(NodeMouseExitEvent event)
-                     {
-                         disable();
-                     }
-                 }));
+                 cp.addNodeMouseExitHandler(event -> disable()));
     }
 
     private Shape<?> createTransientControlHandle()

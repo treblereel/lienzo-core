@@ -24,7 +24,6 @@ import com.ait.lienzo.shared.core.types.Color;
 import com.ait.lienzo.shared.core.types.Color.HSL;
 import com.ait.lienzo.shared.core.types.IColor;
 
-import jsinterop.annotations.JsProperty;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
 
@@ -42,15 +41,15 @@ import jsinterop.base.JsPropertyMap;
 
 public interface AnimationProperty
 {
-    public boolean init(Node<?> node);
+    boolean init(Node<?> node);
 
-    public boolean apply(Node<?> node, double percent);
+    boolean apply(Node<?> node, double percent);
 
-    public boolean isStateful();
+    boolean isStateful();
 
-    public boolean isRefreshing();
+    boolean isRefreshing();
 
-    public AnimationProperty copy();
+    AnimationProperty copy();
 
     /**
      * Properties provides convenience methods for defining which attributes of an IPrimitive node 
@@ -64,8 +63,12 @@ public interface AnimationProperty
      * @see AnimationTweener
      */
 
-    public static class Properties
+    class Properties
     {
+        private Properties() {
+
+        }
+
         public static final AnimationProperty X(final double x)
         {
             return new DoubleAnimationProperty(x, Attribute.X);
@@ -378,7 +381,7 @@ public interface AnimationProperty
             }
         }
 
-        private static abstract class AbstractStringColorAnimationProperty implements AnimationProperty
+        private abstract static class AbstractStringColorAnimationProperty implements AnimationProperty
         {
             private final String    m_target;
 
@@ -510,11 +513,7 @@ public interface AnimationProperty
             @Override
             public boolean init(final Node<?> node)
             {
-                if ((node != null) && (m_calc != null))
-                {
-                    return true;
-                }
-                return false;
+                return (node != null) && (m_calc != null) ? true : false;
             }
 
             @Override

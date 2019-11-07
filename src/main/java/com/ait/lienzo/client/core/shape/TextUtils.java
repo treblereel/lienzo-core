@@ -107,7 +107,7 @@ public class TextUtils {
     }
 
     public BoundingBox getBoundingBox(final String text, final double size, final String style, final String family, final TextUnit unit, final TextBaseLine baseline, final TextAlign align) {
-        if ((null == text) || (text.isEmpty()) || (false == (size > 0))) {
+        if ((null == text) || (text.isEmpty()) || (!(size > 0))) {
             return BoundingBox.fromDoubles(0, 0, 0, 0);
         }
         final String font = getFontString(size, unit, style, family);

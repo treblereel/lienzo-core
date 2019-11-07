@@ -17,13 +17,12 @@
 package com.ait.lienzo.client.core.event;
 
 import com.ait.lienzo.client.core.shape.Node;
-import com.ait.lienzo.client.widget.DragContext;
 
 import elemental2.dom.HTMLElement;
 
 public class NodeDragMoveEvent extends AbstractNodeHumanInputEvent<NodeDragMoveHandler, Node>
 {
-    private static final Type<NodeDragMoveHandler> TYPE = new Type<NodeDragMoveHandler>();
+    private static final Type<NodeDragMoveHandler> TYPE = new Type<>();
 
     public static final Type<NodeDragMoveHandler> getType()
     {

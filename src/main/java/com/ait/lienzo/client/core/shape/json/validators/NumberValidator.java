@@ -55,5 +55,5 @@ public class NumberValidator extends AbstractAttributeTypeValidator
     private final boolean isNumber(double number)
     {
 		return JsNumber.isFinite(number);
-    };
+    }
 }

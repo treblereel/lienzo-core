@@ -26,7 +26,7 @@ import com.ait.lienzo.tools.client.collection.NFastArrayList;
 
 public final class Palette extends AbstractPaletteBase<Palette>
 {
-    private final NFastArrayList<PaletteItem> m_list = new NFastArrayList<PaletteItem>();
+    private final NFastArrayList<PaletteItem> m_list = new NFastArrayList<>();
 
     public Palette()
     {
@@ -47,7 +47,7 @@ public final class Palette extends AbstractPaletteBase<Palette>
     {
         if (null != item)
         {
-            if (false == m_list.contains(item))
+            if (!m_list.contains(item))
             {
                 m_list.add(item);
             }

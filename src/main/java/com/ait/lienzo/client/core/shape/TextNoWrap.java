@@ -40,13 +40,13 @@ public class TextNoWrap implements ITextWrapper {
     protected TextUtils textUtils = new TextUtils();
 
     public TextNoWrap(final Text text) {
-        this(() -> text.getText(),
-             () -> text.getFontSize(),
-             () -> text.getFontStyle(),
-             () -> text.getFontFamily(),
-             () -> text.getTextUnit(),
-             () -> text.getTextBaseLine(),
-             () -> text.getTextAlign());
+        this(text::getText,
+             text::getFontSize,
+             text::getFontStyle,
+             text::getFontFamily,
+             text::getTextUnit,
+             text::getTextBaseLine,
+             text::getTextAlign);
         this.text = text;
     }
 

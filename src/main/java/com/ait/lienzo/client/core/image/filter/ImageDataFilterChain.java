@@ -30,7 +30,7 @@ import elemental2.dom.ImageData;
 
 public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilterChain> implements ImageDataFilterable<ImageDataFilterChain>
 {
-    private NFastArrayList<ImageDataFilter<?>> m_filters = new NFastArrayList<ImageDataFilter<?>>();
+    private NFastArrayList<ImageDataFilter<?>> m_filters = new NFastArrayList<>();
 
     public ImageDataFilterChain()
     {
@@ -114,7 +114,7 @@ public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilte
         {
             return null;
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -145,7 +145,7 @@ public class ImageDataFilterChain extends AbstractImageDataFilter<ImageDataFilte
     {
         if (null != filter)
         {
-            if (false == m_filters.contains(filter))
+            if (!m_filters.contains(filter))
             {
                 m_filters.add(filter);
             }

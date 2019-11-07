@@ -65,7 +65,7 @@ public class WiresCompositeControlImpl
         selectedShapes = new ArrayList<>(selectionContext.getShapes());
         selectedConnectors = new ArrayList<>(selectionContext.getConnectors());
 
-        Map<String, WiresConnector> connectors = new HashMap<String, WiresConnector>();
+        Map<String, WiresConnector> connectors = new HashMap<>();
         for (WiresShape shape : selectedShapes) {
 
             WiresShapeControlUtils.collectionSpecialConnectors(shape,
@@ -198,13 +198,13 @@ public class WiresCompositeControlImpl
         final Collection<WiresShape> shapes = selectedShapes;
         if (!shapes.isEmpty()) {
             for (WiresShape shape : shapes) {
-                shape.getControl().onMoveComplete();;
+                shape.getControl().onMoveComplete();
             }
         }
         final Collection<WiresConnector> connectors = selectedConnectors;
         if (!connectors.isEmpty()) {
             for (WiresConnector connector : connectors) {
-                connector.getControl().onMoveComplete();;
+                connector.getControl().onMoveComplete();
             }
         }
         delta = new Point2D(0, 0);
@@ -242,7 +242,6 @@ public class WiresCompositeControlImpl
 
     @Override
     public void execute() {
-        int i = 0;
         for (WiresShape shape : selectedShapes) {
             shape.getControl().getContainmentControl().execute();
         }

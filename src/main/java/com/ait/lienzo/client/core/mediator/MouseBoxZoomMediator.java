@@ -62,19 +62,11 @@ public class MouseBoxZoomMediator extends AbstractMediator
 
     private boolean             m_addedRectangle   = false;
 
-    private Runnable            m_onCancel         = new Runnable()
-    {
-        @Override
-        public void run() {
+    private Runnable            m_onCancel         = () -> {
 
-        }
     };
 
-    private Consumer<Transform> m_onTransform      = new Consumer<Transform>()
-    {
-        @Override
-        public void accept(Transform transform) {
-        }
+    private Consumer<Transform> m_onTransform      = transform -> {
     };
 
     public MouseBoxZoomMediator()
@@ -194,7 +186,7 @@ public class MouseBoxZoomMediator extends AbstractMediator
         {
             final IEventFilter filter = getEventFilter();
 
-            if ((null == filter) || (false == filter.isEnabled()) || (filter.test(event)))
+            if ((null == filter) || (!filter.isEnabled()) || (filter.test(event)))
             {
                 onMouseDown(x, y);
 

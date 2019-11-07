@@ -16,7 +16,6 @@
 package com.ait.lienzo.client.core.shape.wires.layout.direction;
 
 import com.ait.lienzo.client.core.shape.IPrimitive;
-import com.ait.lienzo.client.core.shape.Text;
 import com.ait.lienzo.client.core.shape.wires.layout.AbstractContainerLayout;
 import com.ait.lienzo.client.core.shape.wires.layout.IContainerLayout;
 import com.ait.lienzo.client.core.shape.wires.layout.direction.DirectionLayout.Direction;
@@ -62,7 +61,7 @@ public class DirectionContainerLayout extends AbstractContainerLayout<DirectionL
         final BoundingBox childBoundingBox  = getChildBoundingBox(child, currentLayout.getOrientation());
         final BoundingBox parentBoundingBox = getParentBoundingBox();
 
-        final Function<Direction, Double> margins = direction -> currentLayout.getMargin(direction);
+        final Function<Direction, Double> margins = currentLayout::getMargin;
 
         //Horizontal Alignment
         setHorizontalAlignment(child, HorizontalLayoutFactory.get(currentLayout.getReferencePosition())

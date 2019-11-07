@@ -22,11 +22,9 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.ImageDataUtil;
 import com.ait.lienzo.shared.core.types.ImageFilterType;
 
-import elemental2.core.JsArray;
 import elemental2.core.Uint8ClampedArray;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
-import jsinterop.base.JsArrayLike;
 
 public class EmbossImageDataFilter extends AbstractImageDataFilter<EmbossImageDataFilter>
 {
@@ -57,7 +55,7 @@ public class EmbossImageDataFilter extends AbstractImageDataFilter<EmbossImageDa
         {
             source = ImageDataUtil.copy(source);
         }
-        if (false == isActive())
+        if (!isActive())
         {
             return source;
         }
@@ -95,7 +93,7 @@ public class EmbossImageDataFilter extends AbstractImageDataFilter<EmbossImageDa
             }
         }
         fops.filterLuminosity(dataArray, length);
-    };
+    }
 
     @Override
     public IFactory<EmbossImageDataFilter> getFactory()

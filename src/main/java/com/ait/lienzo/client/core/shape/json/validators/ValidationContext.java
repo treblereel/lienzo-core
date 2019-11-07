@@ -37,9 +37,9 @@ public class ValidationContext
 
     private boolean                     m_validate = true;
 
-    private final List<String>          m_stack    = new ArrayList<String>();
+    private final List<String>          m_stack    = new ArrayList<>();
 
-    private final List<ValidationError> m_errors   = new ArrayList<ValidationError>();
+    private final List<ValidationError> m_errors   = new ArrayList<>();
 
     /**
      * Push the context (e.g. attribute name) that is being deserialized 

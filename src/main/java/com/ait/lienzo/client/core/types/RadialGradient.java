@@ -60,7 +60,7 @@ public final class RadialGradient implements FillGradient
         m_jso.addColorStop(stop, color);
 
         return this;
-    };
+    }
 
     /**
      * Add color stop
@@ -74,7 +74,7 @@ public final class RadialGradient implements FillGradient
         m_jso.addColorStop(stop, color.getColorString());
 
         return this;
-    };
+    }
 
     @Override
     public LinearGradient asLinearGradient()
@@ -113,7 +113,7 @@ public final class RadialGradient implements FillGradient
     @Override
     public boolean equals(final Object other)
     {
-        if ((other == null) || (false == (other instanceof RadialGradient)))
+        if ((other == null) || (!(other instanceof RadialGradient)))
         {
             return false;
         }

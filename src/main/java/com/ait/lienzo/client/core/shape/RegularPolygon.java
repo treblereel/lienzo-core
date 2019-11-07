@@ -121,7 +121,7 @@ public class RegularPolygon extends Shape<RegularPolygon>
     {
         if (m_list.size() < 1)
         {
-            if (false == parse())
+            if (!parse())
             {
                 return false;
             }

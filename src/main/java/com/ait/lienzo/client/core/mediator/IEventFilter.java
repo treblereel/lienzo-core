@@ -16,10 +16,8 @@
 
 package com.ait.lienzo.client.core.mediator;
 
-import com.ait.lienzo.tools.client.event.INodeEvent;
 import java.util.function.Predicate;
 
-import elemental2.dom.MouseEvent;
 import elemental2.dom.UIEvent;
 
 /**
@@ -29,7 +27,7 @@ import elemental2.dom.UIEvent;
  */
 public interface IEventFilter extends Predicate<UIEvent>
 {
-    public boolean isEnabled();
+    boolean isEnabled();
 
-    public void setEnabled(boolean enabled);
+    void setEnabled(boolean enabled);
 }
