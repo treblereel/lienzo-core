@@ -17,6 +17,8 @@ package com.ait.lienzo.client.widget.panel.impl;
 
 import java.util.function.Predicate;
 
+import elemental2.dom.DomGlobal;
+import jsinterop.base.Js;
 import org.gwtproject.dom.client.Style;
 import org.gwtproject.dom.style.shared.Cursor;
 
@@ -373,11 +375,4 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
         return this;
     }
 
-    public static native void enableWindowMouseWheelScroll(boolean enabled)
-    /*-{
-        $wnd.mousewheel = function ()
-        {
-            return enabled;
-        }
-    }-*/;
 }

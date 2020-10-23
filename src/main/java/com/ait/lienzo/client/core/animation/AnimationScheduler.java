@@ -2,6 +2,7 @@ package com.ait.lienzo.client.core.animation;
 
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
+import elemental2.dom.FrameRequestCallback;
 
 public class AnimationScheduler
 {
@@ -31,7 +32,7 @@ public class AnimationScheduler
 
     private static int requestImplNew(AnimationCallback cb,
                                       Element element) {
-        DomGlobal.RequestAnimationFrameCallbackFn callback = p0 -> cb.execute(p0);
+        FrameRequestCallback callback = p0 -> cb.execute(p0);
         return DomGlobal.requestAnimationFrame(callback,
                                                  element);
     }

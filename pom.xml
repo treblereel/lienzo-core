@@ -141,34 +141,9 @@
 			<groupId>org.gwtproject.resources</groupId>
 			<artifactId>gwt-resources-api</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.elemental2</groupId>
-					<artifactId>elemental2-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.gwtproject.core</groupId>
-					<artifactId>gwt-core</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.gwtproject.dom</groupId>
-					<artifactId>gwt-dom</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.gwtproject.safehtml</groupId>
-					<artifactId>gwt-safehtml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.gwtproject.regexp</groupId>
-					<artifactId>gwt-regexp</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.xml.bind</groupId>
-					<artifactId>jaxb-api</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
+<!--
 		<dependency>
 			<groupId>org.gwtproject.resources</groupId>
 			<artifactId>gwt-resources-processor</artifactId>
@@ -196,7 +171,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+-->
+
 		<!-- JsInterop & Elemental2 -->
 		<dependency>
 			<groupId>com.vertispan.jsinterop</groupId>
