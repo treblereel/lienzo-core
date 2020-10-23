@@ -34,8 +34,6 @@ import com.ait.lienzo.tools.common.api.flow.Flows;
 import com.ait.lienzo.tools.client.collection.NFastStringSet;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
-import static com.ait.lienzo.client.core.AttributeOp.any;
-
 public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 {
     protected AlignAndDistribute                                   m_alignAndDistribute;
@@ -75,10 +73,6 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
     private boolean                                                m_indexed;
 
     private boolean                                                m_indexedButRemoved;
-
-    private Flows.BooleanOp                                        m_bboxOp;
-
-    private Flows.BooleanOp                                        m_tranOp;
 
     public AlignAndDistributeControlImpl(IPrimitive<?> group, AlignAndDistribute alignAndDistribute, AlignAndDistribute.AlignAndDistributeMatchesCallback alignAndDistributeMatchesCallback, List<Attribute> attributes)
     {
@@ -126,9 +120,6 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
                     seen.add(attribute.getProperty());
                 }
             }
-            m_bboxOp = any(list);
-
-            m_tranOp = any(Attribute.ROTATION, Attribute.SCALE, Attribute.SHEAR);
         }
     }
 

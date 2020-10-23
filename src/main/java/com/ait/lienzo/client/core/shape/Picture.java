@@ -19,6 +19,8 @@ package com.ait.lienzo.client.core.shape;
 import java.util.Collection;
 import java.util.List;
 
+import org.gwtproject.resources.client.ImageResource;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.config.LienzoCore;
@@ -34,7 +36,6 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.shared.core.types.ImageSelectionMode;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.google.gwt.resources.client.ImageResource;
 import jsinterop.annotations.JsProperty;
 
 /**

@@ -329,7 +329,7 @@ public final class WiresManager
 
     private void destroy() {
         if (!m_shapesMap.isEmpty()) {
-            final WiresShape[] shapes = JsArray.from(m_shapesMap.values());
+            final WiresShape[] shapes = Js.uncheckedCast(m_shapesMap.values());//JsArray.from();
             for (WiresShape shape : shapes) {
                 deregister(shape);
             }

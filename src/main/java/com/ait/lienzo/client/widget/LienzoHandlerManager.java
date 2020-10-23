@@ -53,7 +53,10 @@ import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
 import java.util.function.Predicate;
-import com.google.gwt.dom.client.Style;
+
+import org.gwtproject.dom.client.Style;
+import org.gwtproject.dom.style.shared.Cursor;
+
 import elemental2.dom.AddEventListenerOptions;
 import elemental2.dom.Event;
 import elemental2.dom.EventListener;
@@ -567,7 +570,7 @@ final public class LienzoHandlerManager
         {
             doDragMove(x, y, mouseEvent, touchEvent);
 
-            Style.Cursor cursor = m_lienzo.getNormalCursor();
+            Cursor cursor = m_lienzo.getNormalCursor();
 
             if (null == cursor)
             {
@@ -618,7 +621,7 @@ final public class LienzoHandlerManager
         {
             doDragCancel(x, y, mouseEvent, touchEvent);
         }
-        Style.Cursor cursor = m_lienzo.getSelectCursor();
+        Cursor cursor = m_lienzo.getSelectCursor();
 
         if (null == cursor)
         {

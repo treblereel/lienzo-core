@@ -16,8 +16,9 @@
 
 package com.ait.lienzo.client.core.shape.json.validators;
 
+import org.gwtproject.regexp.shared.RegExp;
+
 import com.ait.lienzo.shared.core.types.ColorName;
-import com.google.gwt.regexp.shared.RegExp;
 
 /**
  * Validates CSS3 color attributes.
@@ -53,7 +54,7 @@ public class ColorValidator extends AbstractAttributeTypeValidator
 
     private static final String         COLOR               = "#[0-9A-Fa-f]{3}|#[0-9A-Fa-f]{6}|rgb\\(" + RGB + "\\)|rgba\\(" + RGB + "\\s*,\\s*" + A + "\\)|hsl\\(" + HSL + "\\)|hsla\\(" + HSL + "\\s*,\\s*" + A + "\\)";
 
-    private static final RegExp COLOR_RE            = RegExp.compile("^(?:" + COLOR + ")$");
+    private static final RegExp COLOR_RE = RegExp.compile("^(?:" + COLOR + ")$");
 
     public static final  ColorValidator INSTANCE            = new ColorValidator();
 

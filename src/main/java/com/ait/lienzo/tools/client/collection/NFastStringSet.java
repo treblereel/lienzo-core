@@ -23,6 +23,7 @@ import elemental2.core.JsSet;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 @JsType(isNative = true, name = "Set", namespace = JsPackage.GLOBAL)
 public final class NFastStringSet implements JsIterable<String>//, NHasJSO<NFastStringSet.NFastStringSetJSO>, NJSONStringify
@@ -51,7 +52,7 @@ public final class NFastStringSet implements JsIterable<String>//, NHasJSO<NFast
     public static final NFastStringSet makeFromSet(final NFastStringSet keys)
     {
         NFastStringSet set = new NFastStringSet();
-        String[] keyArray = JsArray.from(keys);
+        String[] keyArray = Js.uncheckedCast(keys);
         for(String key : keyArray)
         {
             set.add(key);
@@ -259,7 +260,7 @@ public final class NFastStringSet implements JsIterable<String>//, NHasJSO<NFast
             return false;
         }
 
-        String[] array = JsArray.from(look);
+        String[] array = Js.uncheckedCast(look);
         for ( String name : array)
         {
             if (look.contains(name) && contains(name))
@@ -273,7 +274,7 @@ public final class NFastStringSet implements JsIterable<String>//, NHasJSO<NFast
     @JsOverlay
     public final boolean none(final NFastStringSet look)
     {
-        String[] array = JsArray.from(look);
+        String[] array = Js.uncheckedCast(look);
         for ( String name : array) {
             if (look.contains(name) && contains(name))
             {
@@ -287,7 +288,7 @@ public final class NFastStringSet implements JsIterable<String>//, NHasJSO<NFast
     public final boolean all(final NFastStringSet look)
     {
         boolean sean = false;
-        String[] array = JsArray.from(look);
+        String[] array = Js.uncheckedCast(look);
         for ( String name : array) {
             if (contains(name))
             {

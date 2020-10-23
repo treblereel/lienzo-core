@@ -18,6 +18,8 @@ package com.ait.lienzo.client.core.shape;
 
 import java.util.List;
 
+import org.gwtproject.resources.client.ImageResource;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.config.LienzoCore;
@@ -33,7 +35,6 @@ import com.ait.lienzo.client.core.types.SpriteBehaviorMap;
 import com.ait.lienzo.shared.core.types.ImageSerializationMode;
 import com.ait.lienzo.shared.core.types.ShapeType;
 import com.ait.lienzo.tools.client.Timer;
-import com.google.gwt.resources.client.ImageResource;
 import elemental2.dom.HTMLImageElement;
 import jsinterop.annotations.JsProperty;
 

@@ -16,11 +16,12 @@
 
 package com.ait.lienzo.client.widget.panel;
 
+import org.gwtproject.dom.style.shared.Cursor;
+
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.widget.panel.impl.BoundsProviderFactory;
-import com.google.gwt.dom.client.Style.Cursor;
 
 public abstract class LienzoBoundsPanel<P extends LienzoBoundsPanel>
         extends LienzoPanel<P>

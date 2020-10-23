@@ -11,14 +11,20 @@
 	<packaging>jar</packaging>
 
 	<properties>
+		<vertispan.jsinterop.base.version>1.0.0-SNAPSHOT</vertispan.jsinterop.base.version>
+
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<com.google.jsinterop.base.version>1.0.0-RC1</com.google.jsinterop.base.version>
-		<com.google.jsinterop.annotations.version>1.0.2</com.google.jsinterop.annotations.version>
-		<com.google.elemental2.version>1.0.0-RC1</com.google.elemental2.version>
-		<com.google.gwt.version>2.8.2</com.google.gwt.version>
+		<!--com.google.jsinterop.base.version>1.0.0-RC1</com.google.jsinterop.base.version-->
+		<com.google.jsinterop.annotations.version>2.0.0</com.google.jsinterop.annotations.version>
+		<com.google.elemental2.version>1.1.0</com.google.elemental2.version>
+		<!--com.google.gwt.version>2.8.2</com.google.gwt.version-->
 		<junit.version>4.12</junit.version>
+
+		<j2cl.version>0.8-SNAPSHOT</j2cl.version>
+		<j2cl.maven.version>0.16-SNAPSHOT</j2cl.maven.version>
 	</properties>
 
 	<url>http://www.kiegroup.org</url>
@@ -54,6 +60,27 @@
 			</snapshots>
 		</repository>
 		<repository>
+			<id>vertispan-releases</id>
+			<name>Vertispan hosted artifacts-releases</name>
+			<url>https://repo.vertispan.com/j2cl</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>vertispan-snapshots</id>
+			<name>Vertispan Snapshots</name>
+			<url>https://repo.vertispan.com/gwt-snapshot/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>daily</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>sonatype-snapshots-repo</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 			<snapshots>
@@ -78,17 +105,116 @@
 
 	<dependencies>
 		<!-- GWT -->
-		<dependency>
+		<!--dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
 			<version>${com.google.gwt.version}</version>
+		</dependency-->
+		<dependency>
+			<groupId>org.gwtproject.dom</groupId>
+			<artifactId>gwt-dom</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.core</groupId>
+			<artifactId>gwt-core</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.regexp</groupId>
+			<artifactId>gwt-regexp</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.timer</groupId>
+			<artifactId>gwt-timer</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.gwtproject.safehtml</groupId>
+			<artifactId>gwt-safehtml</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.gwtproject.resources</groupId>
+			<artifactId>gwt-resources-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.elemental2</groupId>
+					<artifactId>elemental2-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.core</groupId>
+					<artifactId>gwt-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.dom</groupId>
+					<artifactId>gwt-dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.safehtml</groupId>
+					<artifactId>gwt-safehtml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.regexp</groupId>
+					<artifactId>gwt-regexp</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.xml.bind</groupId>
+					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.gwtproject.resources</groupId>
+			<artifactId>gwt-resources-processor</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.elemental2</groupId>
+					<artifactId>elemental2-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.dom</groupId>
+					<artifactId>gwt-dom</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.safehtml</groupId>
+					<artifactId>gwt-safehtml</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gwtproject.regexp</groupId>
+					<artifactId>gwt-regexp</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.xml.bind</groupId>
+					<artifactId>jaxb-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.gwtproject.resources</groupId>
+			<artifactId>gwt-resources-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<!-- JsInterop & Elemental2 -->
 		<dependency>
-			<groupId>com.google.jsinterop</groupId>
+			<groupId>com.vertispan.jsinterop</groupId>
 			<artifactId>base</artifactId>
-			<version>${com.google.jsinterop.base.version}</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.jsinterop</groupId>
+			<artifactId>jsinterop-annotations</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.google.elemental2</groupId>
 			<artifactId>elemental2-core</artifactId>
@@ -146,11 +272,57 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>8</source>
-					<target>8</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>j2cl</id>
+			<build>
+				<defaultGoal>j2cl:build</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>com.vertispan.j2cl</groupId>
+						<artifactId>j2cl-maven-plugin</artifactId>
+						<version>${j2cl.maven.version}</version>
+						<executions>
+							<execution>
+								<id>build-js</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<defaultWebappDirectory>${project.build.directory}/gwt/launcherDir</defaultWebappDirectory>
+							<compilationLevel>BUNDLE_JAR</compilationLevel>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<!--profile>
+			<id>run</id>
+			<build>
+				<defaultGoal>tomcat7:run</defaultGoal>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.tomcat.maven</groupId>
+						<artifactId>tomcat7-maven-plugin</artifactId>
+						<version>2.2</version>
+						<configuration>
+							<contextFile>${basedir}/src/main/tomcatconf/context.xml</contextFile>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile-->
+	</profiles>
 
 </project>

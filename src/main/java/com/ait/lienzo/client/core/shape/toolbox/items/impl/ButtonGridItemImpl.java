@@ -21,6 +21,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import org.gwtproject.timer.client.Timer;
+
 import com.ait.lienzo.client.core.event.NodeMouseClickEvent;
 import com.ait.lienzo.client.core.event.NodeMouseExitEvent;
 import com.ait.lienzo.client.core.event.NodeMouseExitHandler;
@@ -39,7 +41,6 @@ import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.shared.core.types.Direction;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
-import com.google.gwt.user.client.Timer;
 
 /**
  * A ButtonGridItem implementation.
@@ -59,7 +60,7 @@ public class ButtonGridItemImpl
     private final ButtonItemImpl button;
     private final ToolboxImpl toolbox;
     private final MultiPath arrow;
-    private final Timer unFocusTimer =
+    private final Timer     unFocusTimer =
             new Timer() {
                 @Override
                 public void run() {

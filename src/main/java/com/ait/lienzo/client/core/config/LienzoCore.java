@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.gwtproject.dom.style.shared.Cursor;
+
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.shape.json.IFactory;
@@ -35,7 +37,6 @@ import com.ait.lienzo.shared.core.types.LineCap;
 import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.client.StringOps;
 import com.ait.lienzo.tools.common.api.types.IStringValued;
-import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLCanvasElement;
 import elemental2.dom.ImageData;
@@ -87,7 +88,7 @@ public final class LienzoCore
 
     private boolean                        m_hidpiEnabled                   = false;
 
-    private Cursor                         m_normal_cursor                  = Cursor.DEFAULT;
+    private Cursor                         m_normal_cursor = Cursor.DEFAULT;
 
     private Cursor                         m_select_cursor                  = Cursor.CROSSHAIR;
 

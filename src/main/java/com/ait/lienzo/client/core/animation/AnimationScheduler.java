@@ -1,6 +1,5 @@
 package com.ait.lienzo.client.core.animation;
 
-
 import elemental2.dom.DomGlobal;
 import elemental2.dom.Element;
 

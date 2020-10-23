@@ -17,6 +17,9 @@ package com.ait.lienzo.client.widget.panel.impl;
 
 import java.util.function.Predicate;
 
+import org.gwtproject.dom.client.Style;
+import org.gwtproject.dom.style.shared.Cursor;
+
 import com.ait.lienzo.client.core.config.LienzoCore;
 import com.ait.lienzo.client.core.i18n.MessageConstants;
 import com.ait.lienzo.client.core.mediator.IMediator;
@@ -30,8 +33,6 @@ import com.ait.lienzo.client.widget.DragMouseControl;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.HTMLDivElement;
 
 public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>

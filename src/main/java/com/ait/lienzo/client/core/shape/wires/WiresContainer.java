@@ -44,12 +44,9 @@ import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 
 import java.util.Objects;
 
-import static com.ait.lienzo.client.core.AttributeOp.any;
 
 public class WiresContainer
 {
-    private static final Flows.BooleanOp              XYWH_OP               = any(Attribute.X, Attribute.Y);
-
     private final        NFastArrayList<WiresShape>   m_childShapes;
 
     private final        IContainer<?, IPrimitive<?>> m_container;

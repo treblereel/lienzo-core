@@ -30,9 +30,10 @@ import com.ait.lienzo.shared.core.types.AutoScaleType;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
 import java.util.function.Predicate;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.dom.client.Style;
-import com.google.gwt.dom.client.Style.Cursor;
+import org.gwtproject.core.client.Scheduler;
+import org.gwtproject.dom.client.Style;
+import org.gwtproject.dom.style.shared.Cursor;
+
 import elemental2.core.JsNumber;
 import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;

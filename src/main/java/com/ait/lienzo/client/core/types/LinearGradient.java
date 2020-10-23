@@ -150,7 +150,7 @@ public final class LinearGradient implements FillGradient
 
         public final void addColorStop(double stop, String color)
         {
-			this.colorStops.push(JsArray.<Object>of(stop, color));
+            this.colorStops.push(new Object[]{stop, color});
         }
     }
 }
