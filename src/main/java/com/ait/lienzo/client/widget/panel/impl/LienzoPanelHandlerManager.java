@@ -370,8 +370,6 @@ public final class LienzoPanelHandlerManager
 
             if (m_mediators.handleEvent(nodeMouseWheelEvent.getAssociatedType(), mouseEvent, x, y))
             {
-                event.preventDefault();
-
                 event.stopPropagation();
             }
             else
