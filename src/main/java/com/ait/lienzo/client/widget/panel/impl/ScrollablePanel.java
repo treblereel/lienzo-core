@@ -24,7 +24,6 @@ import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.client.widget.panel.mediators.RestrictedMousePanMediator;
 import elemental2.dom.CSSProperties;
-import elemental2.dom.DomGlobal;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 

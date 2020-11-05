@@ -16,7 +16,6 @@
 
 package com.ait.lienzo.client.widget.panel;
 
-
 import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.google.gwt.dom.client.Style;

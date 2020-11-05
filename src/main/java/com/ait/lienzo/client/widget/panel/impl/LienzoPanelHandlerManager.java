@@ -44,6 +44,7 @@ import com.ait.lienzo.client.core.shape.Node;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.DragContext;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.shared.core.types.DragMode;
 import com.ait.lienzo.shared.core.types.EventPropagationMode;
@@ -65,7 +66,7 @@ import jsinterop.base.Js;
 
 public final class LienzoPanelHandlerManager
 {
-    private final LienzoFixedPanel m_lienzo;
+    private final LienzoPanel m_lienzo;
 
     private final HTMLElement                m_lienzoElm;
 
@@ -101,7 +102,7 @@ public final class LienzoPanelHandlerManager
 
     private       List<TouchPoint>           m_touches                = null;
 
-    public LienzoPanelHandlerManager(final LienzoFixedPanel panel)
+    public LienzoPanelHandlerManager(final LienzoPanel panel)
     {
         m_lienzo = panel;
         m_lienzoElm = Js.uncheckedCast(panel.getElement());
@@ -587,7 +588,7 @@ public final class LienzoPanelHandlerManager
 
                 m_drag_node.getLayer().draw();
 
-                m_lienzo.getDragLayer().clear();
+                m_viewport.getDragLayer().clear();
             }
 
             m_drag_node = null;
@@ -641,7 +642,7 @@ public final class LienzoPanelHandlerManager
 
             m_drag_node.getLayer().draw();
 
-            m_dragContext.drawNodeWithTransforms(m_lienzo.getDragLayer().getContext());
+            m_dragContext.drawNodeWithTransforms(m_viewport.getDragLayer().getContext());
         }
         m_dragging_dispatch_move = m_drag_node.isEventHandled(NodeDragMoveEvent.getType());
 
@@ -658,9 +659,9 @@ public final class LienzoPanelHandlerManager
         }
         if (DragMode.DRAG_LAYER == m_drag_mode)
         {
-            m_lienzo.getDragLayer().draw();
+            m_viewport.getDragLayer().draw();
 
-            m_dragContext.drawNodeWithTransforms(m_lienzo.getDragLayer().getContext());
+            m_dragContext.drawNodeWithTransforms(m_viewport.getDragLayer().getContext());
         }
         else
         {
@@ -855,7 +856,7 @@ public final class LienzoPanelHandlerManager
             doDragCancel(x, y, mouseEvent, touchEvent);
         }
 
-        if (m_lienzo.getDragMouseButtons().allowDrag(m_mouse_button_left,m_mouse_button_middle,m_mouse_button_right))
+        if (m_viewport.getDragMouseButtons().allowDrag(m_mouse_button_left,m_mouse_button_middle,m_mouse_button_right))
         {
             m_dragging_mouse_pressed = true;
         }

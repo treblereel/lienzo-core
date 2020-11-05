@@ -495,25 +495,19 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
     private void removeChildrenIfIndexed(IPrimitive<?> prim, List<ShapePair> pairs)
     {
-        List<IPrimitive<?>> childrenToBeRemoved = new ArrayList<>();
-        for (IPrimitive<?> child : prim.asGroup().getChildNodes().asList())
+        for (IPrimitive<?> child : new ArrayList<>(prim.asGroup().getChildNodes().asList()))
         {
             AlignAndDistributeControl handler = m_alignAndDistribute.getControlForShape(child.uuid());
             if (handler != null)
             {
                 ShapePair pair = new ShapePair(prim.asGroup(), child, handler);
                 pairs.add(pair);
-                childrenToBeRemoved.add(child);
+                prim.asGroup().remove(child);
             }
             if (child instanceof Group)
             {
                 removeChildrenIfIndexed(child.asGroup(), pairs);
             }
-        }
-
-        for (IPrimitive<?> child : childrenToBeRemoved)
-        {
-            prim.asGroup().remove(child);
         }
     }
 

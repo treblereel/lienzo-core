@@ -74,7 +74,7 @@ import jsinterop.base.Js;
 @Deprecated
 final public class LienzoHandlerManager
 {
-    private final LienzoPanel               m_lienzo;
+    private final LienzoPanelImpl m_lienzo;
 
     private final HTMLElement                m_lienzoElm;
 
@@ -110,7 +110,7 @@ final public class LienzoHandlerManager
 
     private       List<TouchPoint>           m_touches                = null;
 
-    public LienzoHandlerManager(final LienzoPanel panel)
+    public LienzoHandlerManager(final LienzoPanelImpl panel)
     {
         m_lienzo = panel;
         m_lienzoElm = Js.uncheckedCast(panel.getElement());
@@ -870,7 +870,7 @@ final public class LienzoHandlerManager
             doDragCancel(x, y, mouseEvent, touchEvent);
         }
 
-        if (m_lienzo.getDragMouseButtons().allowDrag(m_mouse_button_left,m_mouse_button_middle,m_mouse_button_right))
+        if (m_viewport.getDragMouseButtons().allowDrag(m_mouse_button_left,m_mouse_button_middle,m_mouse_button_right))
         {
             m_dragging_mouse_pressed = true;
         }

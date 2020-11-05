@@ -18,6 +18,7 @@ package com.ait.lienzo.client.core.shape;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.function.Predicate;
 
 import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
@@ -42,13 +43,13 @@ import com.ait.lienzo.client.core.shape.storage.ViewportFastArrayStorageEngine;
 import com.ait.lienzo.client.core.types.Point2D;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.core.util.ScratchPad;
+import com.ait.lienzo.client.widget.DragMouseControl;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.INodeEvent;
-import java.util.function.Predicate;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.dom.client.Style.Position;
 import com.google.gwt.dom.client.Style.Unit;
@@ -82,6 +83,8 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     private       ScratchPad     m_spad    = new ScratchPad(0, 0);
 
     private       Mediators      m_mediators;
+
+    private DragMouseControl m_drag_mouse_control;
 
     private static long idCounter;
 
@@ -167,6 +170,16 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     public List<Attribute> getTransformingAttributes()
     {
         return LienzoCore.VIEWPORT_TRANSFORMING_ATTRIBUTES;
+    }
+
+    public void setDragMouseButtons(DragMouseControl controls)
+    {
+        m_drag_mouse_control = controls;
+    }
+
+    public DragMouseControl getDragMouseButtons()
+    {
+        return m_drag_mouse_control;
     }
 
     private final void setSceneAndState(final Scene main)

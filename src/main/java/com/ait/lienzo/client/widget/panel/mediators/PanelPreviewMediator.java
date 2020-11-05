@@ -31,7 +31,7 @@ public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMe
 //
 //    private final        MouseBoxZoomMediator  mediator;
 //    private final        Consumer<IsWidget>    widget;
-//    private final        LienzoPanel           previewPanel;
+//    private final        LienzoPanelImpl           previewPanel;
 //    private final        PreviewLayer          previewLayer;
 //    private              Supplier<BoundingBox> area;
 //    private              double                maxScale;
@@ -63,9 +63,9 @@ public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMe
 //                                final Consumer<IsWidget> widget) {
 //        this(panelSupplier,
 //             widget,
-//             new Supplier<LienzoPanel>() {
+//             new Supplier<LienzoPanelImpl>() {
 //                 @Override
-//                 public LienzoPanel get() {
+//                 public LienzoPanelImpl get() {
 //                     return new LienzoPanelImpl(1, 1);
 //                 }
 //             });
@@ -73,7 +73,7 @@ public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMe
 //
 //    public PanelPreviewMediator(final Supplier<LienzoBoundsPanel> panelSupplier,
 //                                final Consumer<IsWidget> widget,
-//                                final Supplier<LienzoPanel> previewPanelBuilder) {
+//                                final Supplier<LienzoPanelImpl> previewPanelBuilder) {
 //        super(panelSupplier);
 //        this.widget = widget;
 //        this.previewPanel = previewPanelBuilder.get();
@@ -188,7 +188,7 @@ public class PanelPreviewMediator //extends AbstractPanelMediator<PanelPreviewMe
 //        return mediator;
 //    }
 //
-//    LienzoPanel getPreviewPanel() {
+//    LienzoPanelImpl getPreviewPanel() {
 //        return previewPanel;
 //    }
 //

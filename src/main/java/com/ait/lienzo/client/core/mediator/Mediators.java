@@ -20,12 +20,11 @@ import java.util.Iterator;
 
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.core.types.NFastArrayListIterator;
-import com.ait.lienzo.client.widget.LienzoPanel;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.client.widget.panel.impl.LienzoPanelHandlerManager;
+import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
-import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
-
 import elemental2.dom.UIEvent;
 
 /**

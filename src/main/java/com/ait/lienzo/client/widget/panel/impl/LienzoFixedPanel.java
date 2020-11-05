@@ -43,8 +43,6 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
 
     private       LienzoPanelHandlerManager m_events;
 
-    private       DragMouseControl          m_drag_mouse_control;
-
     public static LienzoFixedPanel newPanel() {
         return new LienzoFixedPanel(new Viewport());
     }
@@ -64,7 +62,7 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
 
     private final void doPostCTOR()
     {
-        m_drag_mouse_control = DragMouseControl.LEFT_MOUSE_ONLY;
+        m_view.setDragMouseButtons(DragMouseControl.LEFT_MOUSE_ONLY);
 
         if (LienzoCore.IS_CANVAS_SUPPORTED)
         {
@@ -95,24 +93,11 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
         removeAll();
         m_events.destroy();
         m_events = null;
-        m_drag_mouse_control = null;
     }
 
     @Override
     public HTMLDivElement getElement() {
         return m_view.getElement();
-    }
-
-    public LienzoFixedPanel setDragMouseButtons(DragMouseControl controls)
-    {
-        m_drag_mouse_control = controls;
-
-        return this;
-    }
-
-    public DragMouseControl getDragMouseButtons()
-    {
-        return m_drag_mouse_control;
     }
 
     public LienzoFixedPanel setTransform(final Transform transform)
@@ -316,10 +301,10 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
     }
 
     /**
-     * Sets the background color of the LienzoPanel.
+     * Sets the background color of the LienzoPanelImpl.
      *
      * @param color String
-     * @return this LienzoPanel
+     * @return this LienzoPanelImpl
      */
     public LienzoFixedPanel setBackgroundColor(final String color)
     {
@@ -331,10 +316,10 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
     }
 
     /**
-     * Sets the background color of the LienzoPanel.
+     * Sets the background color of the LienzoPanelImpl.
      *
      * @param color IColor, i.e. ColorName or Color
-     * @return this LienzoPanel
+     * @return this LienzoPanelImpl
      */
     public LienzoFixedPanel setBackgroundColor(final IColor color)
     {

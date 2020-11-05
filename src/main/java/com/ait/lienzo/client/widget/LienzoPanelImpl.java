@@ -16,6 +16,8 @@
 
 package com.ait.lienzo.client.widget;
 
+import java.util.function.Predicate;
+
 import com.ait.lienzo.client.core.config.LienzoCore;
 import com.ait.lienzo.client.core.i18n.MessageConstants;
 import com.ait.lienzo.client.core.mediator.IMediator;
@@ -26,10 +28,11 @@ import com.ait.lienzo.client.core.shape.Scene;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.core.util.CursorMap;
+import com.ait.lienzo.client.widget.panel.LienzoPanel;
+import com.ait.lienzo.client.widget.panel.impl.LienzoPanelHandlerManager;
 import com.ait.lienzo.shared.core.types.AutoScaleType;
 import com.ait.lienzo.shared.core.types.DataURLType;
 import com.ait.lienzo.shared.core.types.IColor;
-import java.util.function.Predicate;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.Cursor;
@@ -44,16 +47,16 @@ import elemental2.dom.ViewCSS;
 import jsinterop.base.Js;
 
 /**
- * LienzoPanel acts as a Container for a {@link com.ait.lienzo.client.core.shape.Viewport}.
+ * LienzoPanelImpl acts as a Container for a {@link com.ait.lienzo.client.core.shape.Viewport}.
  *
  * <ul>
  * <li>An application will typically be composed of one or more LienzoPanels.</li>
- * <li>A LienzoPanel takes width and height as input parameters.</li>
+ * <li>A LienzoPanelImpl takes width and height as input parameters.</li>
  * <li>A {@link com.ait.lienzo.client.core.shape.Viewport} will contain one main {@link com.ait.lienzo.client.core.shape.Scene}</li>
  * <li>The main {@link com.ait.lienzo.client.core.shape.Scene} can contain multiple {@link com.ait.lienzo.client.core.shape.Layer}.</li>
  * </ul>
  */
-public class LienzoPanel //extends FocusPanel implements RequiresResize, ProvidesResize
+public class LienzoPanelImpl extends LienzoPanel //extends FocusPanel implements RequiresResize, ProvidesResize
 {
     private final Viewport       m_view;
 
@@ -67,7 +70,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
 
     private AutoScaleType        m_auto;
 
-    private LienzoHandlerManager m_events;
+    private LienzoPanelHandlerManager m_events;
 
     private Cursor               m_widget_cursor;
 
@@ -77,19 +80,17 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
 
     private Cursor               m_select_cursor;
 
-    private DragMouseControl     m_drag_mouse_control;
-
     private int                  m_widthOffset;
     private int                  m_heightOffset;
 
     private EventListener        m_resizeListener;
 
-    public LienzoPanel(final HTMLDivElement elm, boolean resize)
+    public LienzoPanelImpl(final HTMLDivElement elm, boolean resize)
     {
         this(elm, resize, 0,0);
     }
 
-    public LienzoPanel(final HTMLDivElement elm, boolean resize, int widthOffset, int heightOffset)
+    public LienzoPanelImpl(final HTMLDivElement elm, boolean resize, int widthOffset, int heightOffset)
     {
         m_view = new Viewport();
         m_elm = elm;
@@ -113,7 +114,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
         }
     }
 
-    public LienzoPanel(HTMLDivElement elm, int width, int height)
+    public LienzoPanelImpl(HTMLDivElement elm, int width, int height)
     {
         m_view = new Viewport();
         m_elm = elm;
@@ -153,7 +154,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
 
     private final void doPostCTOR(final int width, final int height)
     {
-        m_drag_mouse_control = DragMouseControl.LEFT_MOUSE_ONLY;
+        m_view.setDragMouseButtons(DragMouseControl.LEFT_MOUSE_ONLY);
 
         if (LienzoCore.IS_CANVAS_SUPPORTED)
         {
@@ -166,7 +167,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
 
             m_widget_cursor = CursorMap.get().lookup(m_elm.style.cursor);
 
-            m_events = new LienzoHandlerManager(this);
+            m_events = new LienzoPanelHandlerManager(this);
         }
         else
         {
@@ -216,10 +217,9 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
         m_active_cursor = null;
         m_normal_cursor = null;
         m_select_cursor = null;
-        m_drag_mouse_control = null;
     }
 
-    public LienzoPanel setAutoScale(final AutoScaleType type)
+    public LienzoPanelImpl setAutoScale(final AutoScaleType type)
     {
         m_auto = type;
 
@@ -235,33 +235,21 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
         return m_auto;
     }
 
-    public LienzoPanel setDragMouseButtons(DragMouseControl controls)
-    {
-        m_drag_mouse_control = controls;
-
-        return this;
-    }
-
-    public DragMouseControl getDragMouseButtons()
-    {
-        return m_drag_mouse_control;
-    }
-
-    public LienzoPanel setTransform(final Transform transform)
+    public LienzoPanelImpl setTransform(final Transform transform)
     {
         getViewport().setTransform(transform);
 
         return this;
     }
 
-    public LienzoPanel draw()
+    public LienzoPanelImpl draw()
     {
         getViewport().draw();
 
         return this;
     }
 
-    public LienzoPanel batch()
+    public LienzoPanelImpl batch()
     {
         getViewport().batch();
 
@@ -269,13 +257,13 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Adds a layer to the {@link LienzoPanel}.
+     * Adds a layer to the {@link LienzoPanelImpl}.
      * It should be noted that this action will cause a {@link com.ait.lienzo.client.core.shape.Layer} draw operation, painting all children in the Layer.
      *
      * @param layer
      * @return
      */
-    public LienzoPanel add(final Layer layer)
+    public LienzoPanelImpl add(final Layer layer)
     {
         getScene().add(layer);
 
@@ -283,13 +271,13 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Adds a layer to the {@link LienzoPanel}.
+     * Adds a layer to the {@link LienzoPanelImpl}.
      * It should be noted that this action will cause a {@link com.ait.lienzo.client.core.shape.Layer} draw operation, painting all children in the Layer.
      *
      * @param layer
      * @return
      */
-    public LienzoPanel add(final Layer layer, final Layer... layers)
+    public LienzoPanelImpl add(final Layer layer, final Layer... layers)
     {
         add(layer);
 
@@ -301,13 +289,13 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Removes a layer from the {@link LienzoPanel}.
+     * Removes a layer from the {@link LienzoPanelImpl}.
      * It should be noted that this action will cause a {@link com.ait.lienzo.client.core.shape.Layer} draw operation, painting all children in the Layer.
      *
      * @param layer
      * @return
      */
-    public LienzoPanel remove(final Layer layer)
+    public LienzoPanelImpl remove(final Layer layer)
     {
         getScene().remove(layer);
 
@@ -315,11 +303,11 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Removes all layer from the {@link LienzoPanel}.
+     * Removes all layer from the {@link LienzoPanelImpl}.
 
      * @return
      */
-    public LienzoPanel removeAll()
+    public LienzoPanelImpl removeAll()
     {
         getScene().removeAll();
 
@@ -327,8 +315,8 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Sets the size in pixels of the {@link LienzoPanel}
-     * Sets the size in pixels of the {@link com.ait.lienzo.client.core.shape.Viewport} contained and automatically added to the instance of the {@link LienzoPanel2}
+     * Sets the size in pixels of the {@link LienzoPanelImpl}
+     * Sets the size in pixels of the {@link com.ait.lienzo.client.core.shape.Viewport} contained and automatically added to the instance of the {@link LienzoPanelImpl}
      */
     public void setPixelSize(final int width, final int height)
     {
@@ -350,7 +338,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
      * Sets the type of cursor to be used when hovering above the element.
      * @param cursor
      */
-    public LienzoPanel setCursor(final Cursor cursor)
+    public LienzoPanelImpl setCursor(final Cursor cursor)
     {
         if ((cursor != null) && (cursor != m_active_cursor))
         {
@@ -363,7 +351,19 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
         return this;
     }
 
-    public LienzoPanel setNormalCursor(final Cursor cursor)
+    //TODO review this
+    @Override
+    public int getWidePx() {
+        return getWidth();
+    }
+
+    //TODO review this
+    @Override
+    public int getHighPx() {
+        return getHeight();
+    }
+
+    public LienzoPanelImpl setNormalCursor(final Cursor cursor)
     {
         m_normal_cursor = cursor;
 
@@ -375,7 +375,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
         return m_normal_cursor;
     }
 
-    public LienzoPanel setSelectCursor(final Cursor cursor)
+    public LienzoPanelImpl setSelectCursor(final Cursor cursor)
     {
         m_select_cursor = cursor;
 
@@ -430,7 +430,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
      *
      * @param layer
      */
-    public LienzoPanel setBackgroundLayer(final Layer layer)
+    public LienzoPanelImpl setBackgroundLayer(final Layer layer)
     {
         getViewport().setBackgroundLayer(layer);
 
@@ -497,12 +497,12 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Sets the background color of the LienzoPanel.
+     * Sets the background color of the LienzoPanelImpl.
      *
      * @param color String
-     * @return this LienzoPanel
+     * @return this LienzoPanelImpl
      */
-    public LienzoPanel setBackgroundColor(final String color)
+    public LienzoPanelImpl setBackgroundColor(final String color)
     {
         if (null != color)
         {
@@ -512,12 +512,12 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Sets the background color of the LienzoPanel.
+     * Sets the background color of the LienzoPanelImpl.
      *
      * @param color IColor, i.e. ColorName or Color
-     * @return this LienzoPanel
+     * @return this LienzoPanelImpl
      */
-    public LienzoPanel setBackgroundColor(final IColor color)
+    public LienzoPanelImpl setBackgroundColor(final IColor color)
     {
         if (null != color)
         {
@@ -527,7 +527,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
     }
 
     /**
-     * Returns the background color of this LienzoPanel.
+     * Returns the background color of this LienzoPanelImpl.
      * Will return null if no color was set, in which case it's probably "white",
      * unless it was changed via CSS rules.
      *
@@ -557,7 +557,7 @@ public class LienzoPanel //extends FocusPanel implements RequiresResize, Provide
      *
      * @param mediator IMediator
      */
-    public LienzoPanel pushMediator(final IMediator mediator)
+    public LienzoPanelImpl pushMediator(final IMediator mediator)
     {
         getViewport().pushMediator(mediator);
 
