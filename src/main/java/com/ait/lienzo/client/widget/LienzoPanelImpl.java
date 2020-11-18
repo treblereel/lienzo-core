@@ -351,16 +351,24 @@ public class LienzoPanelImpl extends LienzoPanel //extends FocusPanel implements
         return this;
     }
 
-    //TODO review this
+    /**
+     * Gets the width in pixels.
+     *
+     * @return
+     */
     @Override
     public int getWidePx() {
-        return getWidth();
+        return m_width;
     }
 
-    //TODO review this
+    /**
+     * Returns the height.
+     *
+     * @return
+     */
     @Override
     public int getHighPx() {
-        return getHeight();
+        return m_height;
     }
 
     public LienzoPanelImpl setNormalCursor(final Cursor cursor)
@@ -445,26 +453,6 @@ public class LienzoPanelImpl extends LienzoPanel //extends FocusPanel implements
     public Layer getDragLayer()
     {
         return getViewport().getDragLayer();
-    }
-
-    /**
-     * Gets the width in pixels.
-     *
-     * @return
-     */
-    public int getWidth()
-    {
-        return m_width;
-    }
-
-    /**
-     * Returns the height.
-     *
-     * @return
-     */
-    public int getHeight()
-    {
-        return m_height;
     }
 
     /**

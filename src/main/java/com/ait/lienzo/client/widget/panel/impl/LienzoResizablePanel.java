@@ -2,10 +2,10 @@ package com.ait.lienzo.client.widget.panel.impl;
 
 import com.ait.lienzo.client.widget.panel.IsResizable;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import elemental2.dom.EventListener;
+import com.ait.lienzo.client.widget.panel.ResizeCallback;
+import com.ait.lienzo.client.widget.panel.ResizeObserver;
+import elemental2.dom.Element;
 import elemental2.dom.HTMLDivElement;
-
-import static elemental2.dom.DomGlobal.window;
 
 /**
  * Automatically fits its size to the parent's one.
@@ -15,7 +15,8 @@ public class LienzoResizablePanel
         implements IsResizable {
 
     private final LienzoFixedPanel panel;
-    private final EventListener m_resizeListener;
+    private ResizeObserver resizeObserver;
+    private final ResizeCallback m_resizeCallback;
 
     public static LienzoResizablePanel newPanel() {
         LienzoFixedPanel panel = LienzoFixedPanel.newPanel();
@@ -24,14 +25,21 @@ public class LienzoResizablePanel
 
     public LienzoResizablePanel(LienzoFixedPanel panel) {
         this.panel = panel;
-        this.m_resizeListener = e -> fitToParentSize();
-        // TODO: lienzo-to-native - Adding the event listener for the whole window - may cause issues when multiple live instances running
-        window.addEventListener("resize", m_resizeListener);
+        this.m_resizeCallback = e -> fitToParentSize();
+    }
+
+    public void initResizeObserver(){
+        if (null == resizeObserver &&
+                null != panel.getElement().parentNode &&
+                null != panel.getElement().parentNode.parentNode) {
+            resizeObserver = new ResizeObserver(m_resizeCallback);
+            resizeObserver.observe((Element) panel.getElement().parentNode.parentNode);
+        }
     }
 
     @Override
     public void onResize() {
-        fitToParentSize();
+        initResizeObserver();
     }
 
     @Override
@@ -41,7 +49,8 @@ public class LienzoResizablePanel
 
     @Override
     public void destroy() {
-        window.removeEventListener("resize", m_resizeListener);
+        resizeObserver.disconnect();
+        resizeObserver = null;
         super.destroy();
     }
 
