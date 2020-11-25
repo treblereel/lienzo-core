@@ -145,20 +145,19 @@ public class PreviewPanel extends ScalablePanel
         scrollEventListener = panel.addScrollEventListener(event -> {
             if (!decorator.isDragging())
             {
-                // TODO: lienzo-to-native scroll(event.getPctX(), event.getPctY());
+                scroll(panel.getHorizontalScrollRate(), panel.getVerticalScrollRate());
             }
         });
 
         resizeEventListener = panel.addResizeEventListener(event -> resize(observed.getWidePx(), observed.getHighPx()));
 
         scaleEventListener = panel.addScaleEventListener(event -> {
-            // TODO: lienzo-to-native
-            /*if (!decorator.isDragging()) {
-                final Point2D factor = event.getFactor();
+
+            if (!decorator.isDragging()) {
                 visibleScaleFactor
-                        .setX(1 / factor.getX())
-                        .setY(1 / factor.getY());
-            }*/
+                        .setX(1 / panel.getViewport().getTransform().getScaleX())
+                        .setY(1 / panel.getViewport().getTransform().getScaleY());
+            }
         });
 
         boundsChangedEventListener = panel.addBoundsChangedEventListener(event -> refresh());
