@@ -22,14 +22,16 @@ import com.ait.lienzo.client.widget.panel.Bounds;
 import com.ait.lienzo.client.widget.panel.BoundsProvider;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
+import com.ait.lienzo.client.widget.panel.ResizeCallback;
+import com.ait.lienzo.client.widget.panel.ResizeObserver;
 import com.ait.lienzo.client.widget.panel.mediators.RestrictedMousePanMediator;
 import elemental2.dom.CSSProperties;
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.createDiv;
 import static com.ait.lienzo.client.widget.panel.util.LienzoPanelUtils.setPanelSize;
-import static elemental2.dom.DomGlobal.window;
 
 public class ScrollablePanel extends LienzoBoundsPanel {
 
@@ -39,7 +41,6 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     private final HTMLDivElement internalScrollPanel = createDiv();
     private final HTMLDivElement scrollPanel = createDiv();
     private final HTMLDivElement rootPanel = createDiv();
-    private EventListener m_resizeListener;
     private EventListener mouseDownListener;
     private EventListener mouseUpListener;
     private EventListener mouseOutListener;
@@ -50,6 +51,8 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     private int highPx;
     private boolean isMouseDown = false;
     private RestrictedMousePanMediator panMediator;
+    private ResizeObserver resizeObserver;
+    private ResizeCallback m_resizeCallback;
 
     public static ScrollablePanel newPanel(final BoundsProvider layerBoundsProvider) {
         return new ScrollablePanel(layerBoundsProvider);
@@ -213,20 +216,18 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     @Override
     public void onResize() {
         super.onResize();
-        if (isContainerStillOpened()) {
-            onScroll();
-            ScrollablePanel.this.fitToParentSize();
-            ScrollablePanel.this.refresh();
-        }
+        initResizeObserver();
     }
 
     private boolean isContainerStillOpened() {
-        return rootPanel.parentNode != null;
+        return this.getElement().parentNode != null && this.getElement().parentNode.parentNode != null;
     }
 
     @Override
     protected void doDestroy() {
         removeHandlers();
+        resizeObserver.disconnect();
+        resizeObserver = null;
         rootPanel.remove();
         isMouseDown = false;
     }
@@ -246,7 +247,6 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         scrollListener = e -> ScrollablePanel.this.onScroll();
         mouseMoveListener = e -> ScrollablePanel.this.enablePointerEvents();
         mouseWheelListener = e -> ScrollablePanel.this.disablePointerEvents();
-        m_resizeListener = e -> ScrollablePanel.this.onResize();
 
         // Attach event listeners.
         rootPanel.addEventListener("mousedown", mouseDownListener);
@@ -255,8 +255,23 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         rootPanel.addEventListener("mousemove", mouseMoveListener);
         domElementContainer.addEventListener("mousewheel", mouseWheelListener);
         scrollPanel.addEventListener("scroll", scrollListener);
-        // TODO: lienzo-to-native - Adding the event listener for the whole window - may cause issues when multiple live instances running
-        window.addEventListener("resize", m_resizeListener);
+
+        // ResizeObserver callback.
+        m_resizeCallback = e -> {
+            if (isContainerStillOpened()) {
+                onScroll();
+                ScrollablePanel.this.fitToParentSize();
+                ScrollablePanel.this.refresh();
+            }
+        };
+    }
+
+    public void initResizeObserver()
+    {
+        if (null == resizeObserver && isContainerStillOpened()) {
+            resizeObserver = new ResizeObserver(m_resizeCallback);
+            resizeObserver.observe((Element) this.getElement().parentNode.parentNode);
+        }
     }
 
     @Override
@@ -272,7 +287,6 @@ public class ScrollablePanel extends LienzoBoundsPanel {
         rootPanel.removeEventListener("mousemove", mouseMoveListener);
         domElementContainer.removeEventListener("mousewheel", mouseWheelListener);
         scrollPanel.removeEventListener("scroll", scrollListener);
-        window.removeEventListener("resize", m_resizeListener);
     }
 
     private void enablePointerEvents() {
