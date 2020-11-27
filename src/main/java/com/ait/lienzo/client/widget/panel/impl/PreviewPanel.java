@@ -26,6 +26,7 @@ import com.ait.lienzo.client.widget.panel.BoundsProvider;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.tools.client.event.HandlerManager;
+import com.google.gwt.dom.client.Style;
 import elemental2.dom.EventListener;
 
 public class PreviewPanel extends ScalablePanel
@@ -61,13 +62,13 @@ public class PreviewPanel extends ScalablePanel
                                                   @Override
                                                   public void onMouseEnter()
                                                   {
-                                                      // TODO: lienzo-to-native: getLienzoPanel().getElement().getStyle().setCursor(Style.Cursor.MOVE);
+                                                      getLienzoPanel().getElement().style.cursor = Style.Cursor.MOVE.getCssName();
                                                   }
 
                                                   @Override
                                                   public void onMouseExit()
                                                   {
-                                                      // TODO: lienzo-to-native: getLienzoPanel().getElement().getStyle().setCursor(Style.Cursor.DEFAULT);
+                                                      getLienzoPanel().getElement().style.cursor = Style.Cursor.DEFAULT.getCssName();
                                                   }
 
                                                   @Override
@@ -75,7 +76,7 @@ public class PreviewPanel extends ScalablePanel
                                                   {
                                                       setVisibleBoundsAt(point.getX(),
                                                                          point.getY());
-                                                      fireLienzoPanelScrollEvent();
+                                                      updatePanelScroll();
                                                       batch();
                                                   }
                                               });
@@ -162,18 +163,6 @@ public class PreviewPanel extends ScalablePanel
 
         boundsChangedEventListener = panel.addBoundsChangedEventListener(event -> refresh());
 
-        // TODO: lienzo-to-native
-        /*addLienzoPanelScrollEventHandler(new LienzoPanelScrollEventHandler()
-        {
-            @Override
-            public void onScroll(LienzoPanelScrollEvent event)
-            {
-                panel.getScrollHandler().updateLienzoPosition(event.getPctX(),
-                                                              event.getPctY());
-                panel.getScrollHandler().refresh();
-            }
-        });*/
-
         // Use actual panel's size.
         resize(panel.getWidePx(),
                panel.getHighPx());
@@ -194,18 +183,23 @@ public class PreviewPanel extends ScalablePanel
         return this;
     }
 
-    void fireLienzoPanelScrollEvent()
+    void updatePanelScroll()
     {
-        final Bounds backgroundBounds = getBackgroundBounds();
-        final double bgWidth          = backgroundBounds.getWidth();
-        final double bgHeight         = backgroundBounds.getHeight();
-        final double x                = visibleBounds.getX();
-        final double y                = visibleBounds.getY();
-        final double width            = bgWidth - getVisibleWidth();
-        final double height           = bgHeight - getVisibleHeight();
-        final double pctX             = width > 0 ? x / width * 100 : 0d;
-        final double pctY             = height > 0 ? y / height * 100 : 0d;
-        // TODO: lienzo-to-nativem_events.fireEvent(new LienzoPanelScrollEvent(pctX, pctY));
+        if (null != observed)
+        {
+            final Bounds backgroundBounds = getBackgroundBounds();
+            final double bgWidth          = backgroundBounds.getWidth();
+            final double bgHeight         = backgroundBounds.getHeight();
+            final double x                = visibleBounds.getX();
+            final double y                = visibleBounds.getY();
+            final double width            = bgWidth - getVisibleWidth();
+            final double height           = bgHeight - getVisibleHeight();
+            final double pctX             = width > 0 ? x / width * 100 : 0d;
+            final double pctY             = height > 0 ? y / height * 100 : 0d;
+
+            observed.applyScrollRateToLayer(pctX, pctY);
+            observed.onRefresh();
+        }
     }
 
     public ScalablePanel adjustVisibleBounds(final double pctX,
