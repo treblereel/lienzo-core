@@ -360,7 +360,8 @@ public final class LienzoPanelHandlerManager
         });
 
         AddEventListenerOptions opt = AddEventListenerOptions.create();
-        opt.setPassive(true);
+        // Cannot be passive otherwise the event will leak and be handled by browser e.g ctrl + wheel
+        opt.setPassive(false);
 
         addEventListener(EventType.MOUSE_WHEEL, (Event event) ->
         {
@@ -372,6 +373,7 @@ public final class LienzoPanelHandlerManager
             if (m_mediators.handleEvent(nodeMouseWheelEvent.getAssociatedType(), mouseEvent, x, y))
             {
                 event.stopPropagation();
+                event.preventDefault();
             }
             else
             {

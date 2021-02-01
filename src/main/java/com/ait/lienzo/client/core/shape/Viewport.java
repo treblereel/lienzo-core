@@ -34,6 +34,7 @@ import com.ait.lienzo.client.core.event.ResizeEndHandler;
 import com.ait.lienzo.client.core.event.ResizeStartEvent;
 import com.ait.lienzo.client.core.event.ResizeStartHandler;
 import com.ait.lienzo.client.core.event.ViewportTransformChangedEvent;
+import com.ait.lienzo.client.core.event.ViewportTransformChangedHandler;
 import com.ait.lienzo.client.core.mediator.IMediator;
 import com.ait.lienzo.client.core.mediator.Mediators;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
@@ -338,6 +339,11 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
     public boolean removeFromParent()
     {
         return false;
+    }
+
+    public HandlerRegistration addViewportTransformChangedHandler(final ViewportTransformChangedHandler handler)
+    {
+        return addEnsureHandler(ViewportTransformChangedEvent.getType(), handler);
     }
 
     public HandlerRegistration addOrientationChangeHandler(final OrientationChangeHandler handler)

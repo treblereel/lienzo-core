@@ -41,6 +41,7 @@ import elemental2.dom.CSSProperties.HeightUnionType;
 import elemental2.dom.CSSProperties.WidthUnionType;
 import elemental2.dom.CSSStyleDeclaration;
 import elemental2.dom.DomGlobal;
+import elemental2.dom.Element;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 import elemental2.dom.ViewCSS;
@@ -575,5 +576,23 @@ public class LienzoPanelImpl extends LienzoPanel //extends FocusPanel implements
     public HTMLDivElement getElement()
     {
         return m_elm;
+    }
+
+    //TODO lienzo-to-native Check if works
+    public void setVisible(boolean visible)
+    {
+        if (visible) {
+            m_elm.style.display = "block"; //inline
+        } else {
+            m_elm.style.display = "none";
+        }
+    }
+
+    //TODO lienzo-to-native Check if works
+    public void removeFromParent() {
+        Element parent = (Element) m_elm.parentNode;
+        if (null != parent) {
+            parent.removeChild(m_elm);
+        }
     }
 }

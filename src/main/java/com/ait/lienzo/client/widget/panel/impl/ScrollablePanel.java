@@ -519,4 +519,8 @@ public class ScrollablePanel extends LienzoBoundsPanel {
     private static double min(double value) {
         return value > 0 ? 0d : value;
     }
+
+    public HTMLDivElement getDomElementContainer() {
+        return domElementContainer;
+    }
 }
