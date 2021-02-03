@@ -27,7 +27,6 @@ import com.ait.lienzo.client.core.shape.Layer;
 import com.ait.lienzo.client.core.shape.Viewport;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.client.widget.panel.impl.ScrollablePanel;
-import com.ait.lienzo.tools.client.event.EventType;
 import elemental2.dom.EventListener;
 import elemental2.dom.HTMLDivElement;
 
@@ -44,9 +43,9 @@ public class PanelMediators {
     private MousePanMediator panMediator;
     private PanelPreviewMediator previewMediator;
 
-    EventListener mouseOutListener;
+    EventListener mouseLeaveListener;
     HTMLDivElement panelElement;
-    static final String ON_MOUSE_OUT = EventType.MOUSE_OUT.getType();
+    static final String ON_MOUSE_LEAVE = "mouseleave";
 
     public static PanelMediators build(final LienzoBoundsPanel panel) {
 
@@ -99,8 +98,8 @@ public class PanelMediators {
             previewMediator = previewMediatorBuilder.get();
         }
 
-        mouseOutListener = mouseOutEvent -> disablePreview();
-        panel.getElement().addEventListener(ON_MOUSE_OUT, mouseOutListener);
+        mouseLeaveListener = mouseLeaveEvent -> disablePreview();
+        panel.getElement().addEventListener(ON_MOUSE_LEAVE, mouseLeaveListener);
 
         return this;
     }
@@ -141,9 +140,9 @@ public class PanelMediators {
             previewMediator.removeHandler();
             previewMediator = null;
         }
-        if (null != panelElement && null != mouseOutListener) {
-            panelElement.removeEventListener(ON_MOUSE_OUT, mouseOutListener);
-            mouseOutListener = null;
+        if (null != panelElement && null != mouseLeaveListener) {
+            panelElement.removeEventListener(ON_MOUSE_LEAVE, mouseLeaveListener);
+            mouseLeaveListener = null;
         }
     }
 

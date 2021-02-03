@@ -52,9 +52,9 @@ public class PanelPreviewMediator extends AbstractPanelMediator<PanelPreviewMedi
     public static PanelPreviewMediator build(final ScrollablePanel panel) {
         return new PanelPreviewMediator(() -> panel, previewPanel -> panel.getDomElementContainer().appendChild(previewPanel))
                 .setArea(() -> BoundingBox.fromDoubles(PREVIEW_AREA_PADDING,
-                                               PREVIEW_AREA_PADDING,
-                                               panel.getElement().offsetWidth - PREVIEW_AREA_PADDING,
-                                               panel.getElement().offsetHeight - PREVIEW_AREA_PADDING));
+                                                       PREVIEW_AREA_PADDING,
+                                                       panel.getElement().offsetWidth - PREVIEW_AREA_PADDING,
+                                                       panel.getElement().offsetHeight - PREVIEW_AREA_PADDING));
     }
 
     public PanelPreviewMediator(final Supplier<LienzoBoundsPanel> panelSupplier,
@@ -71,9 +71,9 @@ public class PanelPreviewMediator extends AbstractPanelMediator<PanelPreviewMedi
         this.divElementConsumer = divElementConsumer;
         this.previewPanel = previewPanelBuilder.get();
         this.area = () -> BoundingBox.fromDoubles(PREVIEW_AREA_LOCATION,
-                                          PREVIEW_AREA_LOCATION,
-                                          PREVIEW_AREA_LOCATION + PREVIEW_AREA_SIZE,
-                                          PREVIEW_AREA_LOCATION + PREVIEW_AREA_SIZE);
+                                                  PREVIEW_AREA_LOCATION,
+                                                  PREVIEW_AREA_LOCATION + PREVIEW_AREA_SIZE,
+                                                  PREVIEW_AREA_LOCATION + PREVIEW_AREA_SIZE);
         this.previewLayer = new PreviewLayer(getBackgroundBounds(), getVisibleBounds());
         this.mediator = new MouseBoxZoomMediator();
         this.maxScale = Double.MAX_VALUE;
@@ -188,8 +188,8 @@ public class PanelPreviewMediator extends AbstractPanelMediator<PanelPreviewMedi
 
     private Supplier<Bounds> getBackgroundBounds() {
         return () -> Bounds.build(0,
-                          0,
-                          getPanel().getWidePx(),
-                          getPanel().getHighPx());
+                                  0,
+                                  getPanel().getWidePx(),
+                                  getPanel().getHighPx());
     }
 }
