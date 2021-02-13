@@ -61,11 +61,6 @@ public class IsoscelesTrapezoid extends Shape<IsoscelesTrapezoid>
         setCornerRadius(corner);
     }
 
-    protected IsoscelesTrapezoid(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.ISOSCELES_TRAPEZOID, node, ctx);
-    }
-
     @Override
     protected boolean prepare(final Context2D context, final double alpha)
     {
@@ -239,12 +234,6 @@ public class IsoscelesTrapezoid extends Shape<IsoscelesTrapezoid>
             addAttribute(Attribute.BOTTOM_WIDTH, true);
 
             addAttribute(Attribute.HEIGHT, true);
-        }
-
-        @Override
-        public IsoscelesTrapezoid create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new IsoscelesTrapezoid(node, ctx);
         }
     }
 }

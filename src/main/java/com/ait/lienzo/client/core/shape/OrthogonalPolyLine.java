@@ -80,11 +80,6 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
         setCornerRadius(corner);
     }
 
-    protected OrthogonalPolyLine(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.ORTHOGONAL_POLYLINE, node, ctx);
-    }
-
     @Override
     public boolean parse()
     {
@@ -862,6 +857,24 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
         return getBoundingBoxAttributesComposed(Attribute.CONTROL_POINTS, Attribute.CORNER_RADIUS);
     }
 
+    @Override
+    protected Shape<OrthogonalPolyLine> copyTo(Shape<OrthogonalPolyLine> other) {
+        super.copyTo(other);
+        ((OrthogonalPolyLine) other).m_headOffsetPoint = m_headOffsetPoint.copy();
+        ((OrthogonalPolyLine) other).m_tailOffsetPoint = m_tailOffsetPoint.copy();
+        ((OrthogonalPolyLine) other).m_computedPoint2DArray = m_computedPoint2DArray.copy();
+        ((OrthogonalPolyLine) other).m_breakDistance = m_breakDistance;
+        ((OrthogonalPolyLine) other).cornerRadius = cornerRadius;
+
+        return other;
+    }
+
+    @Override
+    public OrthogonalPolyLine cloneLine() {
+        OrthogonalPolyLine orthogonalPolyLine = new OrthogonalPolyLine(this.getControlPoints().copy(), cornerRadius);
+        return (OrthogonalPolyLine) copyTo(orthogonalPolyLine);
+    }
+
     public static class OrthogonaPolylLineFactory extends AbstractDirectionalMultiPointShapeFactory<OrthogonalPolyLine>
     {
         public OrthogonaPolylLineFactory()
@@ -872,12 +885,5 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
 
             addAttribute(Attribute.CONTROL_POINTS, true);
         }
-
-        @Override
-        public OrthogonalPolyLine create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new OrthogonalPolyLine(node, ctx);
-        }
     }
-
 }

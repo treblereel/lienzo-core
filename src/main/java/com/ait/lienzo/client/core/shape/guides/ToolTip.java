@@ -371,28 +371,6 @@ public class ToolTip extends GroupOf<IPrimitive<?>, ToolTip> implements IGuidePr
     }
 
     @Override
-    public String toJSONString()
-    {
-        // @FIXME serialization (mdp)
-//        final JSONObject object = super.toJSONObject();
-//
-//        if (null != object)
-//        {
-//            object.put("type", new JSONString("ToolTip"));
-//
-//            return object.toString();
-//        }
-        return null;
-    }
-
-    // @FIXME serialization (mdp)
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        return null;
-//    }
-
-    @Override
     public IStorageEngine<IPrimitive<?>> getDefaultStorageEngine()
     {
         return new PrimitiveFastArrayStorageEngine();

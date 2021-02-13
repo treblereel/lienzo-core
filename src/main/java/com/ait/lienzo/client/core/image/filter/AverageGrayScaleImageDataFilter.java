@@ -90,11 +90,5 @@ public class AverageGrayScaleImageDataFilter extends AbstractImageDataFilter<Ave
         {
             super(ImageFilterType.AverageGrayScaleImageDataFilterType);
         }
-
-        @Override
-        public AverageGrayScaleImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new AverageGrayScaleImageDataFilter(node, ctx);
-        }
     }
 }

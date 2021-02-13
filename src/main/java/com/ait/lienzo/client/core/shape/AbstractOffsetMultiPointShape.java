@@ -39,11 +39,6 @@ public abstract class AbstractOffsetMultiPointShape<T extends AbstractOffsetMult
         super(type);
     }
 
-    protected AbstractOffsetMultiPointShape(final ShapeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(type, node, ctx);
-    }
-
     @Override
     public IOffsetMultiPointShape<?> asOffsetMultiPointShape()
     {

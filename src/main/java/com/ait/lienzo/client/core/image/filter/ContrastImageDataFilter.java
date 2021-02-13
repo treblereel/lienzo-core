@@ -94,11 +94,5 @@ public class ContrastImageDataFilter extends AbstractValueTableImageDataFilter<C
         {
             super(ImageFilterType.ContrastImageDataFilterType);
         }
-
-        @Override
-        public ContrastImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new ContrastImageDataFilter(node, ctx);
-        }
     }
 }

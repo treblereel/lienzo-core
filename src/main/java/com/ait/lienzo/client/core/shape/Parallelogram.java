@@ -74,15 +74,6 @@ public class Parallelogram extends Shape<Parallelogram>
         setCornerRadius(corner);
     }
 
-    protected Parallelogram(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.PARALLELOGRAM, node, ctx);
-    }
-
-
-
-
-
     /**
      * Draws this parallelogram.
      * 
@@ -279,12 +270,6 @@ public class Parallelogram extends Shape<Parallelogram>
             addAttribute(Attribute.SKEW, true);
 
             addAttribute(Attribute.CORNER_RADIUS);
-        }
-
-        @Override
-        public Parallelogram create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Parallelogram(node, ctx);
         }
     }
 }

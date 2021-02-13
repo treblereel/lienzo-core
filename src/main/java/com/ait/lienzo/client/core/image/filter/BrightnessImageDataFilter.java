@@ -114,11 +114,5 @@ public class BrightnessImageDataFilter extends AbstractValueImageDataFilter<Brig
         {
             super(ImageFilterType.BrightnessImageDataFilterType);
         }
-
-        @Override
-        public BrightnessImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new BrightnessImageDataFilter(node, ctx);
-        }
     }
 }

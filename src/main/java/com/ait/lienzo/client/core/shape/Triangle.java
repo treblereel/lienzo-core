@@ -61,11 +61,6 @@ public class Triangle extends AbstractMultiPointShape<Triangle>
         setCornerRadius(corner);
     }
 
-    protected Triangle(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.TRIANGLE, node, ctx);
-    }
-
     /**
      * Sets this triangles points.
      *
@@ -167,12 +162,6 @@ public class Triangle extends AbstractMultiPointShape<Triangle>
             addAttribute(Attribute.POINTS, true);
 
             addAttribute(Attribute.CORNER_RADIUS);
-        }
-
-        @Override
-        public Triangle create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Triangle(node, ctx);
         }
     }
 }

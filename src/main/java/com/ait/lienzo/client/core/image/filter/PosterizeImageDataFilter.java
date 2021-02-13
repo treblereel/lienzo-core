@@ -95,11 +95,5 @@ public class PosterizeImageDataFilter extends AbstractValueTableImageDataFilter<
         {
             super(ImageFilterType.PosterizeImageDataFilterType);
         }
-
-        @Override
-        public PosterizeImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new PosterizeImageDataFilter(node, ctx);
-        }
     }
 }

@@ -102,12 +102,6 @@ public abstract class AbstractMultiPathPartShape<T extends AbstractMultiPathPart
         super(type);
     }
 
-    protected AbstractMultiPathPartShape(final ShapeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(type, node, ctx);
-    }
-
-    // TODO: lienzo-to-native
     protected AbstractMultiPathPartShape<T> copyTo(AbstractMultiPathPartShape<T> other) {
         super.copyTo(other);
         JsInteropUtils.populate(this.m_points, other.m_points, PathPartList::copy);

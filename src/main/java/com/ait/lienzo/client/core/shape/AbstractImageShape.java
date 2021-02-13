@@ -43,13 +43,6 @@ public abstract class AbstractImageShape<T extends AbstractImageShape<T>> extend
     @JsProperty
     private ImageSelectionMode imageSelectionMode;
 
-    protected AbstractImageShape(final ShapeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(type, node, ctx);
-
-        m_proxy = new ImageProxy<T>(upcast());
-    }
-
     protected AbstractImageShape(final ShapeType type, final String url, final boolean listening, final ImageSelectionMode mode)
     {
         super(type);

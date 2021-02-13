@@ -122,11 +122,5 @@ public class HueImageDataFilter extends AbstractValueImageDataFilter<HueImageDat
         {
             super(ImageFilterType.HueImageDataFilterType);
         }
-
-        @Override
-        public HueImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new HueImageDataFilter(node, ctx);
-        }
     }
 }

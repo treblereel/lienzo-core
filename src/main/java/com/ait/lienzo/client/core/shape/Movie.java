@@ -158,13 +158,6 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
         setFilters(filters);
     }
 
-    protected Movie(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.MOVIE, node, ctx);
-
-        m_animate = doInitialize(null);
-    }
-
     private final MovieAnimation doInitialize(VideoElementOnLoad onLoad)
     {
         if (null != m_video)
@@ -831,40 +824,6 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
         }
     }
 
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        JSONObject object = super.toJSONObject();
-//
-//        ImageDataFilterChain chain = m_filters;
-//
-//        if ((null != chain) && (chain.size() > 0))
-//        {
-//            JSONArray filters = new JSONArray();
-//
-//            JSONObject filter = new JSONObject();
-//
-//            filter.put("active", JSONBoolean.getInstance(chain.isActive()));
-//
-//            for (ImageDataFilter<?> ifilter : chain.getFilters())
-//            {
-//                if (null != ifilter)
-//                {
-//                    JSONObject make = ifilter.toJSONObject();
-//
-//                    if (null != make)
-//                    {
-//                        filters.set(filters.size(), make);
-//                    }
-//                }
-//            }
-//            filter.put("filters", filters);
-//
-//            object.put("filter", filter);
-//        }
-//        return object;
-//    }
-
     @Override
     public List<Attribute> getBoundingBoxAttributes()
     {
@@ -1000,34 +959,6 @@ public class Movie extends Shape<Movie>implements ImageDataFilterable<Movie>
             addAttribute(Attribute.SHOW_POSTER);
 
             addAttribute(Attribute.PLAYBACK_RATE);
-        }
-
-        @Override
-        public Movie create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            Movie movie = new Movie(node, ctx);
-// @FIXME serialisation (mdp)
-//            JSONValue jval = node.get("filter");
-//
-//            if (null != jval)
-//            {
-//                JSONObject object = jval.isObject();
-//
-//                if (null != object)
-//                {
-//                    JSONDeserializer.get().deserializeFilters(movie, object, ctx);
-//
-//                    jval = object.get("active");
-//
-//                    JSONBoolean active = jval.isBoolean();
-//
-//                    if (null != active)
-//                    {
-//                        movie.setFiltersActive(active.booleanValue());
-//                    }
-//                }
-//            }
-            return movie;
         }
     }
 }

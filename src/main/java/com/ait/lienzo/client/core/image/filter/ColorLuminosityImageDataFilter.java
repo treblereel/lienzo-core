@@ -102,11 +102,5 @@ public class ColorLuminosityImageDataFilter extends AbstractRGBImageDataFilter<C
         {
             super(ImageFilterType.ColorLuminosityImageDataFilterType);
         }
-
-        @Override
-        public ColorLuminosityImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new ColorLuminosityImageDataFilter(node, ctx);
-        }
     }
 }

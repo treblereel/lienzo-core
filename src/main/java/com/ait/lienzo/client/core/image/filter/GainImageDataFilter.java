@@ -151,11 +151,5 @@ public class GainImageDataFilter extends AbstractTableImageDataFilter<GainImageD
 
             addAttribute(Attribute.BIAS, true);
         }
-
-        @Override
-        public GainImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new GainImageDataFilter(node, ctx);
-        }
     }
 }

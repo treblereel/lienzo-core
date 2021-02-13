@@ -65,13 +65,6 @@ public class Line extends AbstractOffsetMultiPointShape<Line>
         setPoint2DArray(Point2DArray.fromArrayOfPoint2D(p1, p2));
     }
 
-    protected Line(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.LINE, node, ctx);
-
-        refresh();
-    }
-
     @Override
     public Line refresh()
     {
@@ -268,12 +261,6 @@ public class Line extends AbstractOffsetMultiPointShape<Line>
             super(ShapeType.LINE);
 
             addAttribute(Attribute.POINTS, true);
-        }
-
-        @Override
-        public Line create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Line(node, ctx);
         }
     }
 }

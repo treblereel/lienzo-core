@@ -74,11 +74,6 @@ public class Chord extends Shape<Chord>
         this(radius, startAngle, endAngle, false);
     }
 
-    protected Chord(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.CHORD, node, ctx);
-    }
-
     /**
      * Draws this chord.
      *
@@ -231,12 +226,6 @@ public class Chord extends Shape<Chord>
             addAttribute(Attribute.END_ANGLE, true);
 
             addAttribute(Attribute.COUNTER_CLOCKWISE);
-        }
-
-        @Override
-        public Chord create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Chord(node, ctx);
         }
     }
 }

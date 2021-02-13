@@ -154,31 +154,6 @@ public abstract class AbstractImageDataFilter<T extends AbstractImageDataFilter<
         return m_meta;
     }
 
-    @Override
-    public String toJSONString()
-    {
-        throw new UnsupportedOperationException();
-        //return toJSONObject().toString();
-    }
-
-    // @FIXME serialization (mdp)
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getType().getValue()));
-//
-//        if (false == getMetaData().isEmpty())
-//        {
-//            // @FIXME (mdp)
-//            // object.putString("meta", new JSONObject(getMetaData().getJSO()));
-//        }
-//        // object.put("attributes", new JSONObject(getAttributes().getJSO()));
-//
-//        return object;
-//    }
-
     protected static abstract class ImageDataFilterFactory<T extends ImageDataFilter<T>> extends AbstractFactory<T>
     {
         protected ImageDataFilterFactory(final ImageFilterType type)

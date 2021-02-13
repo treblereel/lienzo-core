@@ -65,11 +65,5 @@ public class SolarizeImageDataFilter extends AbstractTableImageDataFilter<Solari
         {
             super(ImageFilterType.SolarizeImageDataFilterType);
         }
-
-        @Override
-        public SolarizeImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new SolarizeImageDataFilter(node, ctx);
-        }
     }
 }

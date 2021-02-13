@@ -25,9 +25,6 @@ import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.Context2D;
 import com.ait.lienzo.client.core.shape.json.IContainerFactory;
 import com.ait.lienzo.client.core.shape.json.IJSONSerializable;
-import com.ait.lienzo.client.core.shape.json.JSONDeserializer;
-import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
-import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.shape.storage.IStorageEngine;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.BoundingPoints;
@@ -61,25 +58,9 @@ public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerN
         setStorageEngine(storage);
     }
 
-    protected ContainerNode(final NodeType type, final Object node, final ValidationContext ctx) throws ValidationException
+    protected ContainerNode(final NodeType type)
     {
-        super(type, node, ctx);
-    }
-
-    @Override
-    public T copy()
-    {
-        final Node<?> node = copyUnchecked();
-
-        if (null == node)
-        {
-            return null;
-        }
-        if (getNodeType() != node.getNodeType())
-        {
-            return null;
-        }
-        return node.cast();
+        super(type);
     }
 
     /**
@@ -390,18 +371,6 @@ public abstract class ContainerNode<M extends IDrawable<?>, T extends ContainerN
         protected ContainerNodeFactory(final String typeName)
         {
             super(typeName);
-        }
-
-        protected abstract C container(Object node, ValidationContext ctx) throws ValidationException;
-
-        @Override
-        public C create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            final C container = container(node, ctx);
-
-            JSONDeserializer.get().deserializeChildren(container, node, this, ctx);
-
-            return container;
         }
     }
 }

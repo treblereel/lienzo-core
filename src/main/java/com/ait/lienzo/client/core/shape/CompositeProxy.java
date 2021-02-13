@@ -52,13 +52,6 @@ public abstract class CompositeProxy<C extends CompositeProxy<C, P>, P extends I
         m_type = type;
     }
 
-    protected CompositeProxy(final ProxyType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(NodeType.PROXY, node, ctx);
-
-        m_type = type;
-    }
-
     protected abstract P getProxy();
 
     protected void setProxyType(final ProxyType type)
@@ -236,14 +229,6 @@ public abstract class CompositeProxy<C extends CompositeProxy<C, P>, P extends I
         return cast();
     }
 
-    // @FIXME serialization (mdp)
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
-
     @Override
     public DragConstraintEnforcer getDragConstraints()
     {
@@ -283,12 +268,6 @@ public abstract class CompositeProxy<C extends CompositeProxy<C, P>, P extends I
         getProxy().refresh();
 
         return cast();
-    }
-
-    @Override
-    public C copy()
-    {
-        return null;
     }
 
     @Override

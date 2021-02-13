@@ -330,7 +330,7 @@ public class WiresShapeControlUtils {
                             newPoints2.push(oldPoints.get(i));
                         }
 
-                        IDirectionalMultiPointShape<?> line = c.getLine().copy();
+                        IDirectionalMultiPointShape<?> line = c.getLine().cloneLine();
                         line.setPoint2DArray(newPoints2);
                         c2 = new WiresConnector(line,
                                                 c.getHeadDecorator().copy(),

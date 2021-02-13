@@ -105,11 +105,5 @@ public class DiffusionImageDataFilter extends AbstractValueTransformImageDataFil
         {
             super(ImageFilterType.DiffusionImageDataFilterType);
         }
-
-        @Override
-        public DiffusionImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new DiffusionImageDataFilter(node, ctx);
-        }
     }
 }

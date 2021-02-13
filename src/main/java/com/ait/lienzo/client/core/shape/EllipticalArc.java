@@ -79,11 +79,6 @@ public class EllipticalArc extends Shape<EllipticalArc>
         setRadiusX(radiusX).setRadiusY(radiusY).setStartAngle(startAngle).setEndAngle(endAngle).setCounterClockwise(false);
     }
 
-    protected EllipticalArc(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.ELLIPTICAL_ARC, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -253,12 +248,6 @@ public class EllipticalArc extends Shape<EllipticalArc>
             addAttribute(Attribute.END_ANGLE, true);
 
             addAttribute(Attribute.COUNTER_CLOCKWISE);
-        }
-
-        @Override
-        public EllipticalArc create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new EllipticalArc(node, ctx);
         }
     }
 }

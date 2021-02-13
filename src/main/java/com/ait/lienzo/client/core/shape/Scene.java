@@ -68,12 +68,6 @@ public class Scene extends ContainerNode<Layer, Scene>
         m_element.id = "scene_div" + idCounter++;
     }
 
-    protected Scene(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(NodeType.SCENE, node, ctx);
-        m_element.id = "scene_div" + idCounter++;
-    }
-
     @Override
     public final IStorageEngine<Layer> getDefaultStorageEngine()
     {
@@ -347,61 +341,6 @@ public class Scene extends ContainerNode<Layer, Scene>
             }
         }
     }
-
-// @FIXME serialisation (mdp)
-//    /**
-//     * Returns a {@link JSONObject} representation containing the object type, attributes and its respective children.
-//     *
-//     * @return JSONObject
-//     */
-//    @Override
-//    public final JSONObject toJSONObject()
-//    {
-//        final JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getNodeType().getValue()));
-//
-//        if (hasMetaData())
-//        {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty())
-//            {
-//                // @FIXME (mdp)
-//                // object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        // object.put("attributes", new JSONObject(getAttributes().getJSO()));
-//
-//        final NFastArrayList<Layer> list = getChildNodes();
-//
-//        final JSONArray children = new JSONArray();
-//
-//        if (list != null)
-//        {
-//            final int size = list.size();
-//
-//            for (int i = 0; i < size; i++)
-//            {
-//                final Layer layer = list.get(i);
-//
-//                if (null != layer)
-//                {
-//                    final JSONObject make = layer.toJSONObject();
-//
-//                    if (null != make)
-//                    {
-//                        children.set(children.size(), make);
-//                    }
-//                }
-//            }
-//        }
-//        object.put("children", children);
-//
-//        object.put("storage", getStorageEngine().toJSONObject());
-//
-//        return object;
-//    }
 
     /**
      * Adds a {@link Layer} to the Scene.
@@ -954,12 +893,6 @@ public class Scene extends ContainerNode<Layer, Scene>
         public SceneFactory()
         {
             super(NodeType.SCENE);
-        }
-
-        @Override
-        public final Scene container(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Scene(node, ctx);
         }
 
         @Override

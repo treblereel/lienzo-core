@@ -51,11 +51,6 @@ public class Ring extends Shape<Ring>
         setInnerRadius(innerRadius).setOuterRadius(outerRadius);
     }
 
-    protected Ring(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.RING, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -187,12 +182,6 @@ public class Ring extends Shape<Ring>
             addAttribute(Attribute.INNER_RADIUS, true);
 
             addAttribute(Attribute.OUTER_RADIUS, true);
-        }
-
-        @Override
-        public Ring create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Ring(node, ctx);
         }
     }
 }

@@ -54,11 +54,6 @@ public class Spline extends AbstractMultiPointShape<Spline>
         setControlPoints(points);
     }
 
-    protected Spline(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.SPLINE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -364,12 +359,6 @@ public class Spline extends AbstractMultiPointShape<Spline>
             addAttribute(Attribute.LINE_FLATTEN);
 
             addAttribute(Attribute.CONTROL_POINTS, true);
-        }
-
-        @Override
-        public Spline create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Spline(node, ctx);
         }
     }
 

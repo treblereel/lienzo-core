@@ -62,12 +62,6 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
         return this;
     }
 
-// @FIXME (mdp)
-//    public final JSONObject toJSONObject()
-//    {
-//        return new JSONObject(m_jso);
-//    }
-
     public final NFastStringHistogram inc(final String key, final String... keys)
     {
         inc(key);

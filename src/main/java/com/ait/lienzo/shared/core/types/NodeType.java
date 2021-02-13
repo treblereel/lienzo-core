@@ -75,4 +75,9 @@ public class NodeType implements IStringValued
     {
         return getValue().hashCode();
     }
+
+    public NodeType copy()
+    {
+        return new NodeType(m_value);
+    }
 }

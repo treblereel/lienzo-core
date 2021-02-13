@@ -77,9 +77,6 @@ import com.ait.lienzo.client.core.shape.guides.IGuidePrimitive;
 import com.ait.lienzo.client.core.shape.json.AbstractFactory;
 import com.ait.lienzo.client.core.shape.json.IFactory;
 import com.ait.lienzo.client.core.shape.json.IJSONSerializable;
-import com.ait.lienzo.client.core.shape.json.JSONDeserializer;
-import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
-import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.BoundingPoints;
 import com.ait.lienzo.client.core.types.DragBounds;
@@ -98,8 +95,6 @@ import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.INodeEvent;
 import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.tools.common.api.java.util.UUID;
-import elemental2.core.JsWeakSet;
-import elemental2.dom.DomGlobal;
 import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import jsinterop.base.Js;
@@ -115,8 +110,6 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     private static final HashSet<Type<?>> ALL_EVENTS = new HashSet<>();
 
     private final OptionalNodeFields      m_opts     = OptionalNodeFields.make();
-
-//    private final Attributes              m_attr;
 
     private NodeType                      m_type;
 
@@ -235,72 +228,6 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     protected void setNodeType(final NodeType type)
     {
         m_type = type;
-    }
-
-    /**
-     * Constructor used by de-serialization code.
-     *
-     * @param type
-     * @param node
-     */
-    protected Node(final NodeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        m_type = type;
-
-        // @FIXME attr removal(mdp)
-        // @FIXME serialization(mdp)
-//        if (null == node)
-//        {
-//            // m_attr = new Attributes(this);
-//
-//            return;
-//        }
-//        final JSONValue aval = node.get("attributes");
-//
-//        if (null == aval)
-//        {
-//            // m_attr = new Attributes(this);
-//        }
-//        else
-//        {
-//            final JSONObject aobj = aval.isObject();
-//
-//            if (null == aobj)
-//            {
-//                // m_attr = new Attributes(this);
-//            }
-//            else
-//            {
-//                final JavaScriptObject ajso = aobj.getJavaScriptObject();
-//
-//                if (null == ajso)
-//                {
-//                    // m_attr = new Attributes(this);
-//                }
-//                else
-//                {
-//                    // m_attr = new Attributes(ajso, this);
-//                }
-//            }
-//        }
-//        final JSONValue mval = node.get("meta");
-//
-//        if (null != mval)
-//        {
-//            final JSONObject mobj = mval.isObject();
-//
-//            if (null != mobj)
-//            {
-//                final JavaScriptObject mjso = mobj.getJavaScriptObject();
-//
-//                if (null != mjso)
-//                {
-//                    // @FIXME (mdp)
-//                    // final NObjectJSO jso = mjso.cast();
-//                    // m_opts.setMetaData(new MetaData(jso));
-//                }
-//            }
-//        }
     }
 
     @Override
@@ -596,15 +523,8 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
         return Js.uncheckedCast(this);
     }
 
-    // TODO: lienzo-to-native
-    protected final Node<?> copyUnchecked()
-    {
-        return (Node<?>) JSONDeserializer.get().fromString(toJSONString(), false);// don't validate
-    }
-
-    // TODO: lienzo-to-native
     protected Node<T> copyTo(Node<T> other) {
-        other.m_type = this.m_type;
+        other.m_type = this.m_type.copy();
         other.x = this.x;
         other.y = this.y;
         other.rotation = this.rotation;
@@ -628,26 +548,6 @@ public abstract class Node<T extends Node<T>> implements IDrawable<T>
     public final String uuid()
     {
         return m_opts.uuid();
-    }
-
-    /**
-     * Serializes this Node as a JSON string.
-     * The JSON string can be deserialized with 
-     * {@link JSONDeserializer#fromString(String)}.
-     * 
-     * @return JSON string
-     */
-    @Override
-    public String toJSONString()
-    {
-        // @FIXME serialisaion (mdp)
-//        final JSONObject object = toJSONObject();
-//
-//        if (null != object)
-//        {
-//            return object.toString();
-//        }
-        return null;
     }
 
 // @FIXME (mdp)

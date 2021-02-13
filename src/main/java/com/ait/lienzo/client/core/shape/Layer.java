@@ -99,16 +99,6 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
         super(NodeType.LAYER, storage);
     }
 
-    /**
-     * Constructor. Creates an instance of a Layer.
-     * 
-     * @param node 
-     */
-    protected Layer(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(NodeType.LAYER, node, ctx);
-    }
-
     public final HTMLDivElement getElement()
     {
         if (null == m_wrapper)
@@ -371,61 +361,6 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
             }
         }
     }
-
-    // @FIXME serialisation (mdp)
-//    /**
-//     * Serializes this Layer as a {@link com.google.gwt.json.client.JSONObject}
-//     *
-//     * @return JSONObject
-//     */
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        final JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getNodeType().getValue()));
-//
-//        if (hasMetaData())
-//        {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty())
-//            {
-//                // @FIXME (mdp)
-//                //object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        //object.put("attributes", new JSONObject(getAttributes().getJSO()));
-//
-//        final NFastArrayList<IPrimitive<?>> list = getChildNodes();
-//
-//        final JSONArray children = new JSONArray();
-//
-//        if (null != list)
-//        {
-//            final int size = list.size();
-//
-//            for (int i = 0; i < size; i++)
-//            {
-//                final IPrimitive<?> prim = list.get(i);
-//
-//                if (null != prim)
-//                {
-//                    JSONObject make = prim.toJSONObject();
-//
-//                    if (null != make)
-//                    {
-//                        children.set(children.size(), make);
-//                    }
-//                }
-//            }
-//        }
-//        object.put("children", children);
-//
-//        object.put("storage", getStorageEngine().toJSONObject());
-//
-//        return object;
-//    }
 
     /**
      * Sets this layer's pixel size.
@@ -1132,12 +1067,6 @@ public class Layer extends ContainerNode<IPrimitive<?>, Layer>
             addAttribute(Attribute.CLEAR_LAYER_BEFORE_DRAW);
 
             addAttribute(Attribute.TRANSFORMABLE);
-        }
-
-        @Override
-        public Layer container(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Layer(node, ctx);
         }
 
         @Override

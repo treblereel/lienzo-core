@@ -64,8 +64,6 @@ import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
  */
 public interface IDrawable<T extends IDrawable<T>> extends EventReceiver, IJSONSerializable<T> //NObjectOnWire,
 {
-    T copy();
-
     T draw();
 
     T batch();

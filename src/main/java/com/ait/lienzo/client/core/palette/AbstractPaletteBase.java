@@ -37,109 +37,11 @@ public abstract class AbstractPaletteBase<T extends AbstractPaletteBase<T>> impl
 
         m_meta = new MetaData();
     }
-
-
-    protected AbstractPaletteBase(final PaletteType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        // @FIXME re-enable htis later (mdp)
-        m_type = type;
-//
-//        if (null == node)
-//        {
-            // m_attr = new Attributes(this);
-
-            m_meta = new MetaData();
-//
-//            return;
-//        }
-//        JSONValue aval = node.get("attributes");
-//
-//        if (null == aval)
-//        {
-//            m_attr = new Attributes(this);
-//        }
-//        else
-//        {
-//            JSONObject aobj = aval.isObject();
-//
-//            if (null == aobj)
-//            {
-//                m_attr = new Attributes(this);
-//            }
-//            else
-//            {
-//                JavaScriptObject ajso = aobj.getJavaScriptObject();
-//
-//                if (null == ajso)
-//                {
-//                    m_attr = new Attributes(this);
-//                }
-//                else
-//                {
-//                    m_attr = new Attributes(ajso, this);
-//                }
-//            }
-//        }
-//        JSONValue mval = node.get("meta");
-//
-//        if (null == mval)
-//        {
-//            m_meta = new MetaData();
-//        }
-//        else
-//        {
-//            JSONObject mobj = mval.isObject();
-//
-//            if (null == mobj)
-//            {
-//                m_meta = new MetaData();
-//            }
-//            else
-//            {
-//                JavaScriptObject mjso = mobj.getJavaScriptObject();
-//
-//                if (null == mjso)
-//                {
-//                    m_meta = new MetaData();
-//                }
-//                else
-//                {
-//                    NObjectJSO jso = mjso.cast();
-//
-//                    m_meta = new MetaData(jso);
-//                }
-//            }
-//        }
-    }
-
+    
     public final MetaData getMetaData()
     {
         return m_meta;
     }
-
-    // @FIXME serialisation (mdp)
-    @Override
-    public final String toJSONString()
-    {
-        return null; //toJSONObject().toString();
-    }
-
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(m_type.getValue()));
-//
-//        if (false == getMetaData().isEmpty())
-//        {
-//            // @FIXME (mdp)
-//            // object.putString("meta", new JSONObject(getMetaData().getJSO()));
-//        }
-//        //object.putString("attributes", new JSONObject(getAttributes().getJSO()));
-//
-//        return object;
-//    }
 
     @Override
     public IFactory<?> getFactory()

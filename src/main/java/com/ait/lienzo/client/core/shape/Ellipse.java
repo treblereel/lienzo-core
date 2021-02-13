@@ -55,11 +55,6 @@ public class Ellipse extends Shape<Ellipse>
         setWidth(width).setHeight(height);
     }
 
-    protected Ellipse(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.ELLIPSE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -162,12 +157,6 @@ public class Ellipse extends Shape<Ellipse>
             addAttribute(Attribute.WIDTH, true);
 
             addAttribute(Attribute.HEIGHT, true);
-        }
-
-        @Override
-        public Ellipse create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Ellipse(node, ctx);
         }
     }
 }

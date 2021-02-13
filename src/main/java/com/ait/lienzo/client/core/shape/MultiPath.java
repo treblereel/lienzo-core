@@ -57,46 +57,8 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
         }
     }
 
-    protected MultiPath(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.MULTI_PATH, node, ctx);
-
-        // @FIXME serialization
-//        JSONValue pval = node.get("path-list");
-//
-//        if (null != pval)
-//        {
-//            final JSONArray list = pval.isArray();
-//
-//            if (null != list)
-//            {
-//                final int size = list.size();
-//
-//                for (int i = 0; i < size; i++)
-//                {
-//                    final JSONValue lval = list.get(i);
-//
-//                    if (null != lval)
-//                    {
-//                        final JSONArray path = lval.isArray();
-//
-//                        if (null != path)
-//                        {
-////@FIXME fix this later (mdp)
-////                            PathPartListJSO pjso = path.getJavaScriptObject().cast();
-////
-////                            addBoundingBox(new PathPartList(pjso, true));
-//                        }
-//                    }
-//                }
-//            }
-//        }
-    }
-
-    // TODO: lienzo-to-native
-    @Override
-    public MultiPath copy() {
-        return (MultiPath) copyTo(new MultiPath());
+    public static MultiPath clonePath(final MultiPath multiPath) {
+        return (MultiPath) multiPath.copyTo(new MultiPath());
     }
 
     public MultiPath M(final double x, final double y)
@@ -218,28 +180,6 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
         return this;
     }
 
-    // @FIXME serialization (mdp)
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        final JSONObject object = super.toJSONObject();
-//
-//        final NFastArrayList<PathPartList> list = getPathPartListArray();
-//
-//        final JSONArray path = new JSONArray();
-//
-//        final int size = list.size();
-//
-////@FIXME fix later (mdp)
-////        for (int i = 0; i < size; i++)
-////        {
-////            path.set(i, list.get(i).toJSONArray());
-////        }
-//        object.put("path-list", path);
-//
-//        return object;
-//    }
-
     private final PathPartList getOrIncrementList()
     {
         resetBoundingBox(); // null the cache, as the BB will change
@@ -280,12 +220,6 @@ public class MultiPath extends AbstractMultiPathPartShape<MultiPath>
         public MultiPathFactory()
         {
             super(ShapeType.MULTI_PATH);
-        }
-
-        @Override
-        public MultiPath create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new MultiPath(node, ctx);
         }
     }
 }

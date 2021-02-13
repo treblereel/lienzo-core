@@ -161,11 +161,6 @@ public class Text extends Shape<Text>
         setText(text).setFontFamily(family).setFontStyle(style).setFontSize(size);
     }
 
-    protected Text(Object node, ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.TEXT, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -667,12 +662,6 @@ public class Text extends Shape<Text>
             addAttribute(Attribute.TEXT_BASELINE);
 
             addAttribute(Attribute.WIDTH);
-        }
-
-        @Override
-        public Text create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new Text(node, ctx);
         }
     }
 }

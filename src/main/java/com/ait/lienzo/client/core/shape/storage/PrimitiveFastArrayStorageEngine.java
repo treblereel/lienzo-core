@@ -47,11 +47,5 @@ public class PrimitiveFastArrayStorageEngine extends AbstractFastArrayStorageEng
         {
             super(StorageEngineType.PRIMITIVE_FAST_ARRAY_STORAGE_ENGINE);
         }
-
-        @Override
-        public PrimitiveFastArrayStorageEngine create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new PrimitiveFastArrayStorageEngine(node, ctx);
-        }
     }
 }

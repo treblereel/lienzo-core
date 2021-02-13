@@ -47,11 +47,5 @@ public class ViewportFastArrayStorageEngine extends AbstractFastArrayStorageEngi
         {
             super(StorageEngineType.VIEWPORT_FAST_ARRAY_STORAGE_ENGINE);
         }
-
-        @Override
-        public ViewportFastArrayStorageEngine create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new ViewportFastArrayStorageEngine(node, ctx);
-        }
     }
 }

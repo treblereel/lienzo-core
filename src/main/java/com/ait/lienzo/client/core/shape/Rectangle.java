@@ -69,11 +69,6 @@ public class Rectangle extends Shape<Rectangle>
         setCornerRadius(corner);
     }
 
-    protected Rectangle(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.RECTANGLE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -217,12 +212,6 @@ public class Rectangle extends Shape<Rectangle>
             addAttribute(Attribute.HEIGHT, true);
 
             addAttribute(Attribute.CORNER_RADIUS);
-        }
-
-        @Override
-        public Rectangle create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Rectangle(node, ctx);
         }
     }
 }

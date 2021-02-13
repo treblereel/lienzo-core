@@ -118,11 +118,5 @@ public class RGBIgnoreAlphaImageDataFilter extends AbstractRGBImageDataFilter<RG
         {
             super(ImageFilterType.RGBIgnoreAlphaImageDataFilterType);
         }
-
-        @Override
-        public RGBIgnoreAlphaImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new RGBIgnoreAlphaImageDataFilter(node, ctx);
-        }
     }
 }

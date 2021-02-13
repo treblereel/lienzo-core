@@ -126,13 +126,6 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
         setSceneAndState(new Scene());
     }
 
-    protected Viewport(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(NodeType.VIEWPORT, node, ctx);
-    }
-
-
-
     @Override
     public final IStorageEngine<Scene> getDefaultStorageEngine()
     {
@@ -587,43 +580,6 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
         }
     }
 
-
-    // @FIXME seialisation (mdp)
-//    /**
-//     * Returns a {@link JSONObject} representation of the {@link Viewport} with its {@link Attributes} as well as its children.
-//     *
-//     * @return {@link JSONObject}
-//     */
-//    @Override
-//    public final JSONObject toJSONObject()
-//    {
-//        final JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getNodeType().getValue()));
-//
-//        if (hasMetaData())
-//        {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty())
-//            {
-//                // @FIXME (mdp)
-//                //object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        //object.put("attributes", new JSONObject(getAttributes().getJSO()));
-//
-//        final JSONArray children = new JSONArray();
-//
-//        children.set(0, getScene().toJSONObject());
-//
-//        object.put("children", children);
-//
-//        object.put("storage", getStorageEngine().toJSONObject());
-//
-//        return object;
-//    }
-
     private final Layer getBackgroundLayer()
     {
         final NFastArrayList<Layer> list = m_back.getChildNodes();
@@ -742,12 +698,6 @@ public class Viewport extends ContainerNode<Scene, Viewport> implements EventRec
             // so override the requirednesss.
 
             addAttribute(Attribute.TRANSFORM, true);
-        }
-
-        @Override
-        public final Viewport container(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Viewport(node, ctx);
         }
 
         @Override

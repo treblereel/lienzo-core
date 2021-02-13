@@ -48,11 +48,5 @@ public class BumpImageDataFilter extends AbstractConvolveImageDataFilter<BumpIma
         {
             super(ImageFilterType.BumpImageDataFilterType);
         }
-
-        @Override
-        public BumpImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new BumpImageDataFilter(node, ctx);
-        }
     }
 }

@@ -83,28 +83,6 @@ public abstract class AbstractStorageEngine<M> implements IStorageEngine<M>
         return m_meta;
     }
 
-    public String toJSONString()
-    {
-        // @FIXME json serialisation (mdp)
-        //return toJSONObject().toString();
-        return null;
-    }
-
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        final JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getStorageEngineType().getValue()));
-//
-//        if (false == getMetaData().isEmpty())
-//        {
-//            // @FIXME (mdp)
-//            // object.putString("meta", new JSONObject(getMetaData().getJSO()));
-//        }
-//        return object;
-//    }
-
     @Override
     public void migrate(final IStorageEngine<M> storage)
     {

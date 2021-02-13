@@ -76,11 +76,6 @@ public class Arc extends Shape<Arc>
         setRadius(radius).setStartAngle(startAngle).setEndAngle(endAngle).setCounterClockwise(false);
     }
 
-    protected Arc(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.ARC, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -221,12 +216,6 @@ public class Arc extends Shape<Arc>
             addAttribute(Attribute.END_ANGLE, true);
 
             addAttribute(Attribute.COUNTER_CLOCKWISE);
-        }
-
-        @Override
-        public Arc create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Arc(node, ctx);
         }
     }
 }

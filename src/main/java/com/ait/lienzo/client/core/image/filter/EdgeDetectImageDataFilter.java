@@ -138,11 +138,5 @@ public class EdgeDetectImageDataFilter extends AbstractImageDataFilter<EdgeDetec
         {
             super(ImageFilterType.EdgeDetectImageDataFilterType);
         }
-
-        @Override
-        public EdgeDetectImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new EdgeDetectImageDataFilter(node, ctx);
-        }
     }
 }

@@ -133,11 +133,5 @@ public class ColorDeltaAlphaImageDataFilter extends AbstractRGBImageDataFilter<C
 
             addAttribute(Attribute.VALUE, true);
         }
-
-        @Override
-        public ColorDeltaAlphaImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new ColorDeltaAlphaImageDataFilter(node, ctx);
-        }
     }
 }

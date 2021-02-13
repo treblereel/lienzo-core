@@ -47,11 +47,6 @@ public class Circle extends Shape<Circle>
         setRadius(radius);
     }
 
-    protected Circle(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.CIRCLE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -125,12 +120,6 @@ public class Circle extends Shape<Circle>
             super(ShapeType.CIRCLE);
 
             addAttribute(Attribute.RADIUS, true);
-        }
-
-        @Override
-        public Circle create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Circle(node, ctx);
         }
     }
 }

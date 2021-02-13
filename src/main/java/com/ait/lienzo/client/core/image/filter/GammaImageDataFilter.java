@@ -93,11 +93,5 @@ public class GammaImageDataFilter extends AbstractValueTableImageDataFilter<Gamm
         {
             super(ImageFilterType.GammaImageDataFilterType);
         }
-
-        @Override
-        public GammaImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new GammaImageDataFilter(node, ctx);
-        }
     }
 }

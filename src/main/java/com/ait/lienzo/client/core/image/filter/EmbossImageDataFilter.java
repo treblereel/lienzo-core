@@ -107,11 +107,5 @@ public class EmbossImageDataFilter extends AbstractImageDataFilter<EmbossImageDa
         {
             super(ImageFilterType.EmbossImageDataFilterType);
         }
-
-        @Override
-        public EmbossImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new EmbossImageDataFilter(node, ctx);
-        }
     }
 }

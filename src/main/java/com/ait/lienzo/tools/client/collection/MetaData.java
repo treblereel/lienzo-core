@@ -55,11 +55,7 @@ public final class MetaData //implements NHasJSO<NObjectJSO>, NJSONStringify
 //        }
 //    }
 
-//    public final JSONObject toJSONObject()
-//    {
-//        return m_jso.toJSONObject();
-//    }
-//
+
 //    @Override
 //    public final NObjectJSO getJSO()
 //    {

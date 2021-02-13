@@ -81,11 +81,5 @@ public class SharpenImageDataFilter extends AbstractConvolveImageDataFilter<Shar
         {
             super(ImageFilterType.SharpenImageDataFilterType);
         }
-
-        @Override
-        public SharpenImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new SharpenImageDataFilter(node, ctx);
-        }
     }
 }

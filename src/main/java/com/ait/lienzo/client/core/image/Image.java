@@ -58,11 +58,6 @@ public class Image
         load(callback);
     }
 
-    private Image(final Object node,
-                  final ValidationContext ctx) throws ValidationException {
-        super(ShapeType.IMAGE, node, ctx);
-    }
-
     Image() {
         super(ShapeType.IMAGE);
     }
@@ -353,30 +348,6 @@ public class Image
         this.url = Picture.toValidURL(url);
     }
 
-    // @FIXME serialization (mdp)
-//    @Override
-//    public JSONObject toJSONObject() {
-//        //JSONObject attr = new JSONObject(getAttributes().getJSO());
-//        JSONObject attr = new JSONObject();
-//
-//        attr.put("url", new JSONString(getURL()));
-//
-//        JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getShapeType().getValue()));
-//
-//        if (hasMetaData()) {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty()) {
-//                // @FIXME (mdp)
-//                //object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        object.put("attributes", attr);
-//        return object;
-//    }
-
     @Override
     public void destroy() {
         destroyProxy();
@@ -394,11 +365,6 @@ public class Image
             addAttribute(Attribute.CLIPPED_IMAGE_HEIGHT);
             addAttribute(Attribute.CLIPPED_IMAGE_DESTINATION_WIDTH);
             addAttribute(Attribute.CLIPPED_IMAGE_DESTINATION_HEIGHT);
-        }
-
-        @Override
-        public Image create(Object node, ValidationContext ctx) throws ValidationException {
-            return new Image(node, ctx);
         }
 
         @Override

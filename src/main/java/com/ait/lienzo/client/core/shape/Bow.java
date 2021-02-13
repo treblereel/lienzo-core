@@ -76,11 +76,6 @@ public class Bow extends Shape<Bow>
         this(innerRadius, outerRadius, startAngle, endAngle, false);
     }
 
-    protected Bow(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.BOW, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -262,12 +257,6 @@ public class Bow extends Shape<Bow>
             addAttribute(Attribute.END_ANGLE, true);
 
             addAttribute(Attribute.COUNTER_CLOCKWISE);
-        }
-
-        @Override
-        public Bow create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Bow(node, ctx);
         }
     }
 }

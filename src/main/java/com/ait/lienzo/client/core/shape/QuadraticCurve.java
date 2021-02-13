@@ -65,11 +65,6 @@ public class QuadraticCurve extends AbstractMultiPointShape<QuadraticCurve>
         this(new Point2D(0, 0), cp, ep);
     }
 
-    protected QuadraticCurve(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.QUADRATIC_CURVE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -142,12 +137,6 @@ public class QuadraticCurve extends AbstractMultiPointShape<QuadraticCurve>
             super(ShapeType.QUADRATIC_CURVE);
 
             addAttribute(Attribute.CONTROL_POINTS, true);
-        }
-
-        @Override
-        public QuadraticCurve create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new QuadraticCurve(node, ctx);
         }
     }
 }

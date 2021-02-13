@@ -34,11 +34,6 @@ public class Group extends GroupOf<IPrimitive<?>, Group>
         super(GroupType.GROUP, storage);
     }
 
-    protected Group(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(GroupType.GROUP, node, ctx);
-    }
-
     @Override
     public Group asGroup()
     {
@@ -81,12 +76,6 @@ public class Group extends GroupOf<IPrimitive<?>, Group>
                 }
             }
             return false;
-        }
-
-        @Override
-        public Group container(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Group(node, ctx);
         }
     }
 }

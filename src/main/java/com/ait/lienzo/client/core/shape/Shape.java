@@ -119,43 +119,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         m_type = type;
     }
 
-    public Shape(final ShapeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(NodeType.SHAPE, node, ctx);
-
-        m_type = type;
-
-        if (hasFill())
-        {
-            FillGradient grad = getFillGradient();
-
-            if (null != grad)
-            {
-                final PatternGradient patg = grad.asPatternGradient();
-
-                if (null != patg)
-                {
-                    new ImageLoader(patg.getSrc())
-                    {
-                        @Override
-                        public void onImageElementLoad(final HTMLImageElement elem)
-                        {
-                            setFillGradient(new PatternGradient(elem, patg.getRepeat()));
-
-                            batch();
-                        }
-
-                        @Override
-                        public void onImageElementError(String message)
-                        {
-                            LienzoCore.get().error(message);
-                        }
-                    };
-                }
-            }
-        }
-    }
-
     @Override
     public T draw()
     {
@@ -236,10 +199,9 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    // TODO: lienzo-to-native
-    protected Shape<T> copyTo(Shape<T> other) {
+    Shape<T> copyTo(Shape<T> other) {
         super.copyTo(other);
-        other.m_type = this.m_type;
+        other.m_type = this.m_type.copy();
         other.m_ckey = this.m_ckey;
         other.gradient = this.gradient;
         other.fillColor = this.fillColor;
@@ -256,29 +218,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         other.shadow = null != shadow ? this.shadow.copy() : null;
         other.miterLimit = this.miterLimit;
         return other;
-    }
-
-    // TODO: lienzo-to-native
-    @Override
-    public T copy()
-    {
-        final Node<?> node = copyUnchecked();
-
-        if (null == node)
-        {
-            return null;
-        }
-        if (NodeType.SHAPE != node.getNodeType())
-        {
-            return null;
-        }
-        final Shape<?> shape = ((Shape<?>) node);
-
-        if (getShapeType() != shape.getShapeType())
-        {
-            return null;
-        }
-        return shape.cast();
     }
 
     /**
@@ -1173,34 +1112,6 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
             layer.detachShapeFromColorMap(this);
         }
     }
-
-    // @FIXME serialization (mdp)
-//    /**
-//     * Serializes this shape as a {@link JSONObject}
-//     *
-//     * @return JSONObject
-//     */
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        final JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getShapeType().getValue()));
-//
-//        if (hasMetaData())
-//        {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty())
-//            {
-//                // @FIXME (mdp)
-//                //object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        //object.put("attributes", new JSONObject(getAttributes().getJSO()));
-//
-//        return object;
-//    }
 
     @Override
     public DragConstraintEnforcer getDragConstraints()

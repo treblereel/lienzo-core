@@ -74,11 +74,6 @@ public class Star extends Shape<Star>
         setCornerRadius(corner);
     }
 
-    protected Star(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.STAR, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -291,12 +286,6 @@ public class Star extends Shape<Star>
             addAttribute(Attribute.INNER_RADIUS, true);
 
             addAttribute(Attribute.OUTER_RADIUS, true);
-        }
-
-        @Override
-        public Star create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Star(node, ctx);
         }
     }
 }

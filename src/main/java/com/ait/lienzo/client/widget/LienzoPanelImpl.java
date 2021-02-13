@@ -456,15 +456,6 @@ public class LienzoPanelImpl extends LienzoPanel //extends FocusPanel implements
         return getViewport().getDragLayer();
     }
 
-    /**
-     * Returns a JSON representation of the {@link com.ait.lienzo.client.core.shape.Viewport} children.
-     * @return
-     */
-    public String toJSONString()
-    {
-        return getViewport().toJSONString();
-    }
-
     public String toDataURL()
     {
         return getViewport().toDataURL();

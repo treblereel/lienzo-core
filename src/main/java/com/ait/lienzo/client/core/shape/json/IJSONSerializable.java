@@ -26,10 +26,11 @@ package com.ait.lienzo.client.core.shape.json;
  */
 public interface IJSONSerializable<T extends IJSONSerializable<T>>
 {
-    String toJSONString();
 
-    // @FIXME serialisation (mdp)
-    //public JSONObject toJSONObject();
+//    String toJSONString();
+//    public JSONObject toJSONObject();
 
+    //TODO lienzo-to-native Remove this method and refactor AbstractFactory dependency
+    // so this interface can be removed
     IFactory<?> getFactory();
 }

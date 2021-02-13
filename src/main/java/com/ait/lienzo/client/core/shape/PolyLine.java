@@ -85,11 +85,6 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
         this(Point2DArray.fromArrayOfDouble(array));
     }
 
-    protected PolyLine(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.POLYLINE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -269,6 +264,22 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
         return true;
     }
 
+    @Override
+    protected Shape<PolyLine> copyTo(Shape<PolyLine> other) {
+        super.copyTo(other);
+        ((PolyLine) other).m_headOffsetPoint = m_headOffsetPoint.copy();
+        ((PolyLine) other).m_tailOffsetPoint = m_tailOffsetPoint.copy();
+        ((PolyLine) other).cornerRadius = cornerRadius;
+
+        return other;
+    }
+
+    @Override
+    public PolyLine cloneLine() {
+        PolyLine polyLine = new PolyLine(this.getControlPoints().copy(), cornerRadius);
+        return (PolyLine) copyTo(polyLine);
+    }
+
     public static class PolyLineFactory extends AbstractOffsetMultiPointShapeFactory<PolyLine>
     {
         public PolyLineFactory()
@@ -278,12 +289,6 @@ public class PolyLine extends AbstractDirectionalMultiPointShape<PolyLine>
             addAttribute(Attribute.POINTS, true);
 
             addAttribute(Attribute.CORNER_RADIUS);
-        }
-
-        @Override
-        public PolyLine create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new PolyLine(node, ctx);
         }
     }
 }

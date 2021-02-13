@@ -68,11 +68,6 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
         this(new Point2D(0, 0), c1, c2, ep);
     }
 
-    protected BezierCurve(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.BEZIER_CURVE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -145,12 +140,6 @@ public class BezierCurve extends AbstractMultiPointShape<BezierCurve>
             super(ShapeType.BEZIER_CURVE);
 
             addAttribute(Attribute.CONTROL_POINTS, true);
-        }
-
-        @Override
-        public BezierCurve create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new BezierCurve(node, ctx);
         }
     }
 }

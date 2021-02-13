@@ -292,11 +292,5 @@ public class StackBlurImageDataFilter extends AbstractValueImageDataFilter<Stack
         {
             super(ImageFilterType.StackBlurImageDataFilterType);
         }
-
-        @Override
-        public StackBlurImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new StackBlurImageDataFilter(node, ctx);
-        }
     }
 }

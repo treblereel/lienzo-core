@@ -46,11 +46,6 @@ public abstract class AbstractDirectionalMultiPointShape<T extends AbstractDirec
         super(type);
     }
 
-    protected AbstractDirectionalMultiPointShape(final ShapeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(type, node, ctx);
-    }
-
     @Override
     public IDirectionalMultiPointShape<?> asDirectionalMultiPointShape()
     {
@@ -110,6 +105,16 @@ public abstract class AbstractDirectionalMultiPointShape<T extends AbstractDirec
     @Override
     public Point2D adjustPoint(double x, double y, double deltaX, double deltaY) {
         return new Point2D(x, y);
+    }
+
+    @Override
+    protected Shape<T> copyTo(Shape<T> other) {
+        super.copyTo(other);
+        ((IDirectionalMultiPointShape<T>) other).setHeadDirection(headDirection);
+        ((IDirectionalMultiPointShape<T>) other).setTailDirection(headDirection);
+        ((IDirectionalMultiPointShape<T>) other).setCorrectionOffset(correctionOffset);
+
+        return other;
     }
 
     protected static abstract class AbstractDirectionalMultiPointShapeFactory<T extends AbstractDirectionalMultiPointShape<T>> extends AbstractOffsetMultiPointShapeFactory<T>

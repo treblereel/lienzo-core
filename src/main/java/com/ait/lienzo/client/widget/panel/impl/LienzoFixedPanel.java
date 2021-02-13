@@ -270,16 +270,6 @@ public class LienzoFixedPanel extends LienzoPanel<LienzoFixedPanel>
         return getViewport().getDragLayer();
     }
 
-    /**
-     * Returns a JSON representation of the {@link com.ait.lienzo.client.core.shape.Viewport} children.
-     *
-     * @return
-     */
-    public String toJSONString()
-    {
-        return getViewport().toJSONString();
-    }
-
     public String toDataURL()
     {
         return getViewport().toDataURL();

@@ -49,18 +49,6 @@ public interface IFactory<T extends IJSONSerializable<T>>
     String getTypeName();
 
     /**
-     * Creates a new object of type T from a JSONObject.
-     * 
-     * @param node JSONObject
-     * @param ctx ValidationContext
-     * 
-     * @return T
-     * @throws ValidationException
-     */
-    // @FIXME serialisation (mdp)
-    T create(Object node, ValidationContext ctx) throws ValidationException;
-
-    /**
      * Returns a collection of all the attributes that this type supports.
      * @return Collection&lt;Attribute&gt;
      */

@@ -71,11 +71,6 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
     @JsProperty
     private int clippedImageDestinationHeight;
 
-    protected Picture(Object node, ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.PICTURE, node, ctx);
-    }
-
     /**
      * Creates a Picture from a URL.
      * The following attributes are defaulted:
@@ -1416,80 +1411,6 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
         return this;
     }
 
-    // @FIXME serialization (mdp)
-//    /**
-//     * Serializes this shape as a {@link JSONObject}
-//     *
-//     * @return JSONObject
-//     */
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        //JSONObject attr = new JSONObject(getAttributes().getJSO());
-//        JSONObject attr = new JSONObject();
-//
-//        if (getImageSerializationMode() == ImageSerializationMode.DATA_URL)
-//        {
-//            String url = getImageProxy().getImageElementURL();
-//
-//            if (null == url)
-//            {
-//                url = getURL();
-//            }
-//            if (url.startsWith("data:"))
-//            {
-//                attr.put("url", new JSONString(url));
-//            }
-//            else
-//            {
-//                attr.put("url", new JSONString(toDataURL(false)));
-//            }
-//        }
-//        JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getShapeType().getValue()));
-//
-//        if (hasMetaData())
-//        {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty())
-//            {
-//                // @FIXME (mdp)
-//                // object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        object.put("attributes", attr);
-//
-//        ImageDataFilterChain chain = getImageProxy().getFilterChain();
-//
-//        if ((null != chain) && (chain.size() > 0))
-//        {
-//            JSONArray filters = new JSONArray();
-//
-//            JSONObject filter = new JSONObject();
-//
-//            filter.put("active", JSONBoolean.getInstance(chain.isActive()));
-//
-//            for (ImageDataFilter<?> ifilter : chain.getFilters())
-//            {
-//                if (null != ifilter)
-//                {
-//                    JSONObject make = ifilter.toJSONObject();
-//
-//                    if (null != make)
-//                    {
-//                        filters.set(filters.size(), make);
-//                    }
-//                }
-//            }
-//            filter.put("filters", filters);
-//
-//            object.put("filter", filter);
-//        }
-//        return object;
-//    }
-
     /**
      * Draws the image on the canvas.
      * 
@@ -1736,35 +1657,6 @@ public class Picture extends AbstractImageShape<Picture> implements ImageDataFil
             addAttribute(Attribute.SERIALIZATION_MODE);
 
             addAttribute(Attribute.IMAGE_SELECTION_MODE);
-        }
-
-        @Override
-        public Picture create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            Picture picture = new Picture(node, ctx);
-
-            // @FIXME serialization (mdp)
-//            JSONValue jval = node.get("filter");
-//
-//            if (null != jval)
-//            {
-//                JSONObject object = jval.isObject();
-//
-//                if (null != object)
-//                {
-//                    JSONDeserializer.get().deserializeFilters(picture, object, ctx);
-//
-//                    jval = object.get("active");
-//
-//                    JSONBoolean active = jval.isBoolean();
-//
-//                    if (null != active)
-//                    {
-//                        picture.setFiltersActive(active.booleanValue());
-//                    }
-//                }
-//            }
-            return picture;
         }
 
         @Override

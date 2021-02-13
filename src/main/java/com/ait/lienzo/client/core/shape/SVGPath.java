@@ -47,13 +47,6 @@ public class SVGPath extends Shape<SVGPath>
         setPath(path);
     }
 
-    protected SVGPath(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.SVG_PATH, node, ctx);
-
-        setPath(getPath());
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -572,12 +565,6 @@ public class SVGPath extends Shape<SVGPath>
             super(ShapeType.SVG_PATH);
 
             addAttribute(Attribute.PATH, true);
-        }
-
-        @Override
-        public SVGPath create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new SVGPath(node, ctx);
         }
     }
 }

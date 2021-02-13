@@ -144,11 +144,5 @@ public class AlphaScaleColorImageDataFilter extends AbstractRGBImageDataFilter<A
 
             addAttribute(Attribute.INVERTED);
         }
-
-        @Override
-        public AlphaScaleColorImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new AlphaScaleColorImageDataFilter(node, ctx);
-        }
     }
 }

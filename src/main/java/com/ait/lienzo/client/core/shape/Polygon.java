@@ -69,11 +69,6 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
         this(Point2DArray.fromArrayOfDouble(array));
     }
 
-    protected Polygon(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.POLYGON, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -184,12 +179,6 @@ public class Polygon extends AbstractMultiPointShape<Polygon>
             addAttribute(Attribute.POINTS, true);
 
             addAttribute(Attribute.CORNER_RADIUS);
-        }
-
-        @Override
-        public Polygon create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Polygon(node, ctx);
         }
     }
 }

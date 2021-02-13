@@ -47,11 +47,5 @@ public class SceneFastArrayStorageEngine extends AbstractFastArrayStorageEngine<
         {
             super(StorageEngineType.SCENE_FAST_ARRAY_STORAGE_ENGINE);
         }
-
-        @Override
-        public SceneFastArrayStorageEngine create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new SceneFastArrayStorageEngine(node, ctx);
-        }
     }
 }

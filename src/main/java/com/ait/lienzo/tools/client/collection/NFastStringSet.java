@@ -79,12 +79,7 @@ public final class NFastStringSet implements JsIterable<String>//, NHasJSO<NFast
 //
 //        add(nset);
 //    }
-//
-//    public final JSONObject toJSONObject()
-//    {
-//        return new JSONObject(m_jso);
-//    }
-//
+
 //    @Override
 //    public final NFastStringSetJSO getJSO()
 //    {

@@ -67,11 +67,6 @@ public abstract class AbstractMultiPointShape<T extends AbstractMultiPointShape<
         super(type);
     }
 
-    protected AbstractMultiPointShape(final ShapeType type, final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(type, node, ctx);
-    }
-
     public final T setControlPoints(final Point2DArray points)
     {
         this.points = points;

@@ -143,11 +143,6 @@ public class Sprite extends Shape<Sprite>
         }
     }
 
-    public Sprite(Object node, ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.SPRITE, node, ctx);
-    }
-
     Sprite load()
     {
         if (isLoaded())
@@ -460,42 +455,6 @@ public class Sprite extends Shape<Sprite>
         return (m_sprite != null);
     }
 
-
-    // @FIXME serialization (mdp)
-//    @Override
-//    public JSONObject toJSONObject()
-//    {
-//        //JSONObject attr = new JSONObject(getAttributes().getJSO());
-//        JSONObject attr = new JSONObject();
-//
-//        if (getSerializationMode() == ImageSerializationMode.DATA_URL)
-//        {
-//            String url = getURL();
-//
-//            if (false == url.startsWith("data:"))
-//            {
-//                attr.put("url", new JSONString(ScratchPad.toDataURL(m_sprite)));
-//            }
-//        }
-//        JSONObject object = new JSONObject();
-//
-//        object.put("type", new JSONString(getShapeType().getValue()));
-//
-//        if (hasMetaData())
-//        {
-//            final MetaData meta = getMetaData();
-//
-//            if (false == meta.isEmpty())
-//            {
-//                // @FIXME (mdp)
-//                //object.putString("meta", new JSONObject(meta.getJSO()));
-//            }
-//        }
-//        object.put("attributes", attr);
-//
-//        return object;
-//    }
-
     @Override
     public List<Attribute> getBoundingBoxAttributes()
     {
@@ -519,12 +478,6 @@ public class Sprite extends Shape<Sprite>
             addAttribute(Attribute.AUTO_PLAY);
 
             addAttribute(Attribute.SERIALIZATION_MODE);
-        }
-
-        @Override
-        public Sprite create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new Sprite(node, ctx);
         }
 
         @Override

@@ -67,11 +67,6 @@ public class RegularPolygon extends Shape<RegularPolygon>
         setCornerRadius(corner);
     }
 
-    protected RegularPolygon(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.REGULAR_POLYGON, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -261,12 +256,6 @@ public class RegularPolygon extends Shape<RegularPolygon>
             addAttribute(Attribute.SIDES, true);
 
             addAttribute(Attribute.CORNER_RADIUS);
-        }
-
-        @Override
-        public RegularPolygon create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new RegularPolygon(node, ctx);
         }
     }
 }

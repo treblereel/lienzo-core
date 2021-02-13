@@ -78,11 +78,5 @@ public class LuminosityGrayScaleImageDataFilter extends AbstractImageDataFilter<
         {
             super(ImageFilterType.LuminosityGrayScaleImageDataFilterType);
         }
-
-        @Override
-        public LuminosityGrayScaleImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new LuminosityGrayScaleImageDataFilter(node, ctx);
-        }
     }
 }

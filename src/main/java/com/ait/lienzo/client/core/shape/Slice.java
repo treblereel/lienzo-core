@@ -74,11 +74,6 @@ public class Slice extends Shape<Slice>
         this(radius, startAngle, endAngle, false);
     }
 
-    protected Slice(final Object node, final ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.SLICE, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -239,12 +234,6 @@ public class Slice extends Shape<Slice>
             addAttribute(Attribute.END_ANGLE, true);
 
             addAttribute(Attribute.COUNTER_CLOCKWISE);
-        }
-
-        @Override
-        public Slice create(final Object node, final ValidationContext ctx) throws ValidationException
-        {
-            return new Slice(node, ctx);
         }
     }
 }

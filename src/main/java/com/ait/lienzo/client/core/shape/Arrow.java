@@ -107,17 +107,6 @@ public class Arrow extends Shape<Arrow>
         setArrowType(arrowType);
     }
 
-    /**
-     * Constructor. Creates an instance of an arrow that is a copy of the serialized arrow
-     * given as an argument.
-     * 
-     * @param node serialized arrow 
-     */
-    protected Arrow(Object node, ValidationContext ctx) throws ValidationException
-    {
-        super(ShapeType.ARROW, node, ctx);
-    }
-
     @Override
     public BoundingBox getBoundingBox()
     {
@@ -553,12 +542,6 @@ public class Arrow extends Shape<Arrow>
             addAttribute(Attribute.BASE_ANGLE, true);
 
             addAttribute(Attribute.ARROW_TYPE, true);
-        }
-
-        @Override
-        public Arrow create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new Arrow(node, ctx);
         }
     }
 }

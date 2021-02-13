@@ -92,11 +92,5 @@ public class LightnessGrayScaleImageDataFilter extends AbstractImageDataFilter<L
         {
             super(ImageFilterType.LightnessGrayScaleImageDataFilterType);
         }
-
-        @Override
-        public LightnessGrayScaleImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new LightnessGrayScaleImageDataFilter(node, ctx);
-        }
     }
 }

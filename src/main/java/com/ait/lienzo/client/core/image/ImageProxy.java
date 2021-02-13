@@ -717,19 +717,6 @@ public class ImageProxy<T extends AbstractImageShape<T>> implements ImageDataFil
     private static final class ClearFilter implements ImageDataFilter<ClearFilter>
     {
         @Override
-        public String toJSONString()
-        {
-            return null;
-        }
-
-        // @FIXME serialization (mdp)
-//        @Override
-//        public JSONObject toJSONObject()
-//        {
-//            return null;
-//        }
-
-        @Override
         public IFactory<?> getFactory()
         {
             return null;

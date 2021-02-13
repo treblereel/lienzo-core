@@ -93,11 +93,5 @@ public class ExposureImageDataFilter extends AbstractValueTableImageDataFilter<E
         {
             super(ImageFilterType.ExposureImageDataFilterType);
         }
-
-        @Override
-        public ExposureImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new ExposureImageDataFilter(node, ctx);
-        }
     }
 }

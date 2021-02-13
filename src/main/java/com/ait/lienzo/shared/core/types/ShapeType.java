@@ -121,4 +121,9 @@ public class ShapeType implements IStringValued
     {
         return getValue().hashCode();
     }
+
+    public ShapeType copy()
+    {
+        return new ShapeType(m_value);
+    }
 }

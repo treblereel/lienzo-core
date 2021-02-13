@@ -96,7 +96,7 @@ public class BoxDecorator
 
     @Override
     public BoxDecorator copy() {
-        return new BoxDecorator(decorator.copy())
+        return new BoxDecorator(MultiPath.clonePath(decorator))
                 .setPadding(padding);
     }
 

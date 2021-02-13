@@ -90,11 +90,5 @@ public class InvertColorImageDataFilter extends AbstractImageDataFilter<InvertCo
         {
             super(ImageFilterType.InvertColorImageDataFilterType);
         }
-
-        @Override
-        public InvertColorImageDataFilter create(Object node, ValidationContext ctx) throws ValidationException
-        {
-            return new InvertColorImageDataFilter(node, ctx);
-        }
     }
 }
