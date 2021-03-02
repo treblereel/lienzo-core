@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.ait.lienzo.client.core.Attribute;
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Node;
@@ -29,12 +28,6 @@ import com.ait.lienzo.client.core.shape.wires.AlignAndDistribute;
 import com.ait.lienzo.client.core.shape.wires.handlers.AlignAndDistributeControl;
 import com.ait.lienzo.client.core.types.BoundingBox;
 import com.ait.lienzo.client.core.types.Point2D;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
-import com.ait.lienzo.tools.common.api.flow.Flows;
-import com.ait.lienzo.tools.client.collection.NFastStringSet;
-import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
-
-import static com.ait.lienzo.client.core.AttributeOp.any;
 
 public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 {
@@ -45,10 +38,6 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
     protected BoundingBox                                          m_box;
 
     protected boolean                                              m_isDragging;
-
-    protected HandlerRegistrationManager                           m_attrHandlerRegs;
-
-    protected HandlerRegistration                                  m_dragEndHandlerReg;
 
     protected AlignAndDistribute.AlignAndDistributeMatchesCallback m_alignAndDistributeMatchesCallback;
 
@@ -76,11 +65,7 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
 
     private boolean                                                m_indexedButRemoved;
 
-    private Flows.BooleanOp                                        m_bboxOp;
-
-    private Flows.BooleanOp                                        m_tranOp;
-
-    public AlignAndDistributeControlImpl(IPrimitive<?> group, AlignAndDistribute alignAndDistribute, AlignAndDistribute.AlignAndDistributeMatchesCallback alignAndDistributeMatchesCallback, List<Attribute> attributes)
+    public AlignAndDistributeControlImpl(IPrimitive<?> group, AlignAndDistribute alignAndDistribute, AlignAndDistribute.AlignAndDistributeMatchesCallback alignAndDistributeMatchesCallback)
     {
         m_group = group;
 
@@ -102,34 +87,6 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
         captureVerticalPositions(top, bottom);
 
         m_alignAndDistribute.indexOn(this);
-
-        m_attrHandlerRegs = new HandlerRegistrationManager();
-
-        if (attributes != null)
-        {
-            final ArrayList<Attribute> temp = new ArrayList<>(attributes);
-
-            temp.add(Attribute.X);
-
-            temp.add(Attribute.Y);
-
-            final NFastStringSet seen = new NFastStringSet();
-
-            final ArrayList<Attribute> list = new ArrayList<>();
-
-            for (Attribute attribute : temp)
-            {
-                if (null != attribute && false == seen.contains(attribute.getProperty()))
-                {
-                    list.add(attribute);
-
-                    seen.add(attribute.getProperty());
-                }
-            }
-            m_bboxOp = any(list);
-
-            m_tranOp = any(Attribute.ROTATION, Attribute.SCALE, Attribute.SHEAR);
-        }
     }
 
     public boolean isIndexed()
@@ -445,7 +402,6 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
     @Override
     public void remove()
     {
-        this.removeHandlerRegistrations();
     }
 
     private void iterateAndRemoveIndex(IPrimitive<?> prim)
@@ -644,26 +600,5 @@ public class AlignAndDistributeControlImpl implements AlignAndDistributeControl
     public void dragEnd()
     {
         reset();
-    }
-
-    private void removeDragHandlerRegistrations()
-    {
-        if (null != m_dragEndHandlerReg)
-        {
-            m_dragEndHandlerReg.removeHandler();
-
-            m_dragEndHandlerReg = null;
-        }
-    }
-
-    private void removeHandlerRegistrations()
-    {
-        if (null != m_attrHandlerRegs)
-        {
-            m_attrHandlerRegs.destroy();
-
-            m_attrHandlerRegs = null;
-        }
-        removeDragHandlerRegistrations();
     }
 }
