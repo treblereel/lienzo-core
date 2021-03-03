@@ -38,7 +38,6 @@ import com.ait.lienzo.client.widget.DragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.HandlerRegistrationManager;
 import elemental2.core.JsArray;
 import jsinterop.base.Js;
@@ -83,8 +82,6 @@ public final class WiresManager
     private boolean                m_spliceEnabled;
 
     private WiresEventHandlers     m_wiresEventHandlers;
-
-    private Map<String, HandlerRegistration> shapeRefreshHandlers = new HashMap<>();
 
     public static final WiresManager get(Layer layer)
     {
@@ -245,11 +242,12 @@ public final class WiresManager
     {
         // Shapes added to the align and distribute index.
         // Treat a resize like a drag.
-        // Except right now we cannot A&D during steps (TODO)
         final AlignAndDistributeControl alignAndDistrControl = addToIndex(shape);
         shape.getControl().setAlignAndDistributeControl(alignAndDistrControl);
 
         registrationManager.register(shape.addWiresResizeStartHandler(event -> alignAndDistrControl.dragStart()));
+
+        registrationManager.register(shape.addWiresMoveHandler(event -> alignAndDistrControl.refresh(true, true)));
 
         registrationManager.register(shape.addWiresResizeEndHandler(event -> alignAndDistrControl.dragEnd()));
     }
@@ -374,32 +372,12 @@ public final class WiresManager
 
     private AlignAndDistributeControl addToIndex(final WiresShape shape)
     {
-        // Add refresh handler for AlignAndDistribute control
-        addRefreshHandler(shape);
         return m_index.addShape(shape.getGroup());
-    }
-
-    private void addRefreshHandler(final WiresShape shape)
-    {
-        shapeRefreshHandlers.put(shape.uuid(), shape.addWiresMoveHandler(event ->
-            m_index.getShapeControl(shape.getGroup()).refresh(true, true)));
     }
 
     private void removeFromIndex(final WiresShape shape)
     {
-        // Remove refresh handler for AlignAndDistribute control
-        removeRefreshHandlers(shape);
         m_index.removeShape(shape.getGroup());
-    }
-
-    private void removeRefreshHandlers(final WiresShape shape)
-    {
-        HandlerRegistration handler = shapeRefreshHandlers.get(shape.uuid());
-        if (null != handler)
-        {
-            shapeRefreshHandlers.remove(shape.uuid());
-            handler.removeHandler();
-        }
     }
 
     public AlignAndDistribute getAlignAndDistribute()
