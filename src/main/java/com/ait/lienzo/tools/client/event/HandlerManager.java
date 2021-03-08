@@ -1,7 +1,7 @@
 package com.ait.lienzo.tools.client.event;
 
-import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
+import com.ait.lienzo.tools.client.event.INodeEvent.Type;
 import elemental2.core.JsArray;
 import elemental2.core.JsMap;
 import elemental2.core.JsSet;
@@ -45,29 +45,27 @@ public class HandlerManager
     }
 
     protected <H> void removeHandler(Type<H> type, EventHandler handler) {
-        JsArray<EventHandler> handlers = map.get(type);
-        if ( handlers != null )
+        if (map != null)
         {
-            int index = handlers.indexOf(handler);
-            handlers.splice(index, 1);
-        }
+            JsArray<EventHandler> handlers = map.get(type);
 
-        // no more handlers, so prune map.
-        if ( handlers.length == 0)
-        {
-            map.delete(type);
-        }
+            if ( handlers != null )
+            {
+                int index = handlers.indexOf(handler);
+                handlers.splice(index, 1);
 
-        if (map.size == 0)
-        {
-            map = null;
-        }
-//        if (this.firingDepth > 0) {
-//            this.enqueueRemove(type, source, handler);
-//        } else {
-//            this.doRemoveNow(type, source, handler);
-//        }
+                // no more handlers, so prune map.
+                if ( handlers.length == 0)
+                {
+                    map.delete(type);
+                }
+            }
 
+            if (map.size == 0)
+            {
+                map = null;
+            }
+        }
     }
 
     public void fireEvent(final INodeEvent event)
@@ -133,7 +131,7 @@ public class HandlerManager
         @Override
         public void removeHandler()
         {
-            manager.removeHandler(type, handler);
+                manager.removeHandler(type, handler);
         }
     }
 
