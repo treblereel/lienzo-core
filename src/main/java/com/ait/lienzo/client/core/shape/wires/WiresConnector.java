@@ -20,8 +20,6 @@ package com.ait.lienzo.client.core.shape.wires;
 import java.util.Objects;
 
 import com.ait.lienzo.client.core.Context2D;
-import com.ait.lienzo.tools.client.event.HandlerManager;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.client.core.shape.Group;
 import com.ait.lienzo.client.core.shape.IDirectionalMultiPointShape;
 import com.ait.lienzo.client.core.shape.IPrimitive;
@@ -43,7 +41,8 @@ import com.ait.lienzo.shared.core.types.ArrowEnd;
 import com.ait.lienzo.shared.core.types.Direction;
 import com.ait.lienzo.shared.core.types.EventPropagationMode;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
-
+import com.ait.lienzo.tools.client.event.HandlerManager;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.ImageData;
 
@@ -928,11 +927,16 @@ public class WiresConnector
         int sy = (int) (box.getY() - strokeWidth - offsetY);
         ImageData backing = ctx.getImageData(sx,
                                              sy,
-                                             (int) (box.getWidth() + strokeWidth + strokeWidth),
-                                             (int) (box.getHeight() + strokeWidth + strokeWidth));
+                                             (int) (box.getWidth() + strokeWidth),
+                                             (int) (box.getHeight() + strokeWidth));
+
+        // Snap mouse X/Y into ImageData boundaries
+        int fixedMouseX = Math.min(Math.abs(mouseX - sx), (int) (box.getWidth()));
+        int fixedMouseY = Math.min(Math.abs(mouseY - sy), (int) (box.getHeight()));
+
         color = BackingColorMapUtils.findColorAtPoint(backing,
-                                                      mouseX - sx,
-                                                      mouseY - sy);
+                                                      fixedMouseX,
+                                                      fixedMouseY);
         return null != color ? colorMap.get(color) : -1;
     }
 
