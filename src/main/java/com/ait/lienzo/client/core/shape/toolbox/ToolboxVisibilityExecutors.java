@@ -29,8 +29,8 @@ import com.ait.lienzo.client.core.types.Point2D;
 
 public class ToolboxVisibilityExecutors {
 
-    private static final double ANIMATION_SCALE_DELAY_MILLIS = 50;
-    private static final double ANIMATION_ALPHA_DELAY_MILLIS = 50;
+    static final double ANIMATION_SCALE_DELAY_MILLIS = 0d;
+    static final double ANIMATION_ALPHA_DELAY_MILLIS = 0d;
 
     public static AnimatedAlphaGroupExecutor alpha(final double targetAlphaValue) {
         return new AnimatedAlphaGroupExecutor(targetAlphaValue);

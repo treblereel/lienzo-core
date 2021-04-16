@@ -23,9 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
-import com.ait.lienzo.tools.client.event.EventType;
-import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.client.core.event.NodeDragEndEvent;
 import com.ait.lienzo.client.core.event.NodeDragEndHandler;
 import com.ait.lienzo.client.core.event.NodeMouseClickEvent;
@@ -52,11 +51,10 @@ import com.ait.lienzo.client.core.types.Transform;
 import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.client.widget.DragConstraintEnforcer;
 import com.ait.lienzo.client.widget.DragContext;
-import java.util.function.Supplier;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
+import com.ait.lienzo.tools.client.event.EventType;
+import com.ait.lienzo.tools.client.event.HandlerRegistration;
 import com.ait.lienzo.tools.client.event.MouseEventUtil;
-
-import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.MouseEvent;
 
@@ -99,38 +97,37 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
 
     }
 
-    public static int                    SELECTION_PADDING = 10;
+    public static int                   SELECTION_PADDING = 10;
 
-    private final Layer                  m_layer;
+    private final Layer                 m_layer;
 
-    private final WiresManager           m_wiresManager;
+    private final WiresManager          m_wiresManager;
 
-    private SelectedItems                m_selected;
+    private SelectedItems               m_selected;
 
+    private final WiresCompositeControl m_shapeControl;
 
-    private final WiresCompositeControl  m_shapeControl;
+    private HandlerRegistration         m_selectMouseDownHandlerReg;
 
-    private       HandlerRegistration    m_selectMouseDownHandlerReg;
+    private HandlerRegistration         m_selectMouseClickHandlerReg;
 
-    private       HandlerRegistration    m_selectMouseClickHandlerReg;
+    private HandlerRegistration         m_selectMouseDoubleClickHandlerReg;
 
-    private       HandlerRegistration    m_selectMouseDoubleClickHandlerReg;
+    private SelectionShapeProvider      m_selectionShapeProvider;
 
-    private       SelectionShapeProvider m_selectionShapeProvider;
+    private BoundingBox                 m_startBoundingBox;
 
-    private       BoundingBox            m_startBoundingBox;
+    private Point2D                     m_start;
 
-    private       Point2D                m_start;
+    private HandlerRegistration         m_dragSelectionStartReg;
 
-    private       HandlerRegistration    m_dragSelectionStartReg;
+    private HandlerRegistration         m_dragSelectionMoveReg;
 
-    private       HandlerRegistration    m_dragSelectionMoveReg;
+    private HandlerRegistration         m_dragSelectionEndReg;
 
-    private       HandlerRegistration    m_dragSelectionEndReg;
+    private HandlerRegistration         m_dragSelectionMouseClickReg;
 
-    private       HandlerRegistration  m_dragSelectionMouseClickReg;
-
-    private       SelectionDragHandler m_selectionDragHandler;
+    private SelectionDragHandler        m_selectionDragHandler;
 
     private       boolean              m_selectionCreationInProcess;
 
@@ -243,7 +240,6 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
             // CLICK
             if (event.type.equals(EventType.CLICKED.getType()))
             {
-                DomGlobal.console.log("[SelectionManager] onMouseEventBefore - CLICK");
                 // this is to differentiate on a drag's mouseup event. It must come before the selection shape null
                 // as it must always cleanup a m_ignoreMouseClick after a mouse down
                 if (m_ignoreMouseClick)
@@ -1255,8 +1251,8 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
                                                         DragConstraintEnforcer,
                                                         NodeMouseClickHandler
     {
-        private final SelectionManager m_selectionManager;
-        private final WiresCompositeShapeHandler multipleShapeHandler;
+        SelectionManager m_selectionManager;
+        WiresCompositeShapeHandler multipleShapeHandler;
         private int adjustX = 0;
         private int adjustY = 0;
         private boolean running;
@@ -1326,9 +1322,20 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
             multipleShapeHandler.onNodeDragEnd(event);
             m_selectionManager.rebuildSelectionArea();
             running = false;
+
+            reinforceSelectionShapeOnTop();
         }
 
-        private void updateSelectionShapeForExternallyConnectedConnectors(int dx,
+        void reinforceSelectionShapeOnTop()
+        {
+            Shape<?> shape = m_selectionManager.getSelectionShape();
+            if (null != shape )
+            {
+                shape.getLayer().moveToTop(shape);
+            }
+        }
+
+        void updateSelectionShapeForExternallyConnectedConnectors(int dx,
                                                                           int dy,
                                                                           BoundingBox originalBox)
         {
