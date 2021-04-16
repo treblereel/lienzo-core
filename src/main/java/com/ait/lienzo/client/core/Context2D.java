@@ -32,9 +32,8 @@ import com.ait.lienzo.shared.core.types.LineCap;
 import com.ait.lienzo.shared.core.types.LineJoin;
 import com.ait.lienzo.shared.core.types.TextAlign;
 import com.ait.lienzo.shared.core.types.TextBaseLine;
-
-import elemental2.dom.CanvasRenderingContext2D.FillStyleUnionType;
-import elemental2.dom.CanvasRenderingContext2D.StrokeStyleUnionType;
+import elemental2.dom.BaseRenderingContext2D.FillStyleUnionType;
+import elemental2.dom.BaseRenderingContext2D.StrokeStyleUnionType;
 import elemental2.dom.HTMLCanvasElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.HTMLVideoElement;

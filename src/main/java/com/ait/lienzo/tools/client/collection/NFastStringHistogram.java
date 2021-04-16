@@ -29,6 +29,7 @@ import elemental2.core.JsMap.JsIterableTypeParameterArrayUnionType;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
+import jsinterop.base.Js;
 
 public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogram.NFastStringHistogramJSO>, NJSONStringify
 {
@@ -143,7 +144,7 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
 
     public final Collection<String> keys()
     {
-        String[] keys = JsArray.from(m_jso.keys());
+        String[] keys = Js.uncheckedCast(JsArray.from(m_jso.keys()));
 
         return Collections.unmodifiableList(Arrays.asList(keys));
     }
@@ -289,7 +290,7 @@ public final class NFastStringHistogram //implements NHasJSO<NFastStringHistogra
         private final int total()
         {
 			int     i = 0;
-			Integer[] vales = JsArray.from(values());
+			Integer[] vales = Js.uncheckedCast(JsArray.from(values()));
 			for ( int val :  vales)
             {
                 i = i + val;

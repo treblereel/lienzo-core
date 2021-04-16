@@ -23,6 +23,7 @@ import com.ait.lienzo.tools.client.collection.NFastStringMap;
 import com.ait.lienzo.tools.common.api.types.IStringValued;
 
 import elemental2.core.JsArray;
+import jsinterop.base.Js;
 
 public abstract class AbstractLienzoCorePlugin implements ILienzoPlugin
 {
@@ -66,7 +67,7 @@ public abstract class AbstractLienzoCorePlugin implements ILienzoPlugin
     @Override
     public final String[] keys()
     {
-        return JsArray.from(m_suppliers.keys());
+        return Js.uncheckedCast(JsArray.from(m_suppliers.keys()));
     }
 
     @Override

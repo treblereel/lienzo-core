@@ -23,6 +23,7 @@ import com.ait.lienzo.tools.common.api.flow.Flows.BooleanOp;
 import com.ait.lienzo.tools.common.api.flow.Flows.PredicateBooleanOp;
 
 import elemental2.core.JsArray;
+import jsinterop.base.Js;
 
 public final class AttributeOp
 {
@@ -189,7 +190,7 @@ public final class AttributeOp
 
             final NFastStringSet changed = context();
 
-            String[] array = JsArray.from(attributes);
+            String[] array = Js.uncheckedCast(JsArray.from(attributes));
             for (String attribute : array)
             {
                 if (!seen.contains(attribute) && changed.contains(attribute))
