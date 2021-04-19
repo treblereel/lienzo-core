@@ -35,6 +35,7 @@ public class Tooltip {
     private static final String PATH_FILL_COLOR = "#404040";
     private static final String PATH_STROKE_COLOR = "#000000";
     private static final String TEXT_COLOR = "#FFFFFF";
+    private static final double TEXT_STROKE_WIDTH = 0;
     private static final double DURATION = 150;
     private final MultiPath path;
     private final Text text;
@@ -50,7 +51,8 @@ public class Tooltip {
                         .setStrokeColor(PATH_STROKE_COLOR);
         this.text =
                 new Text("")
-                        .setFillColor(TEXT_COLOR);
+                        .setFillColor(TEXT_COLOR).
+                        setStrokeWidth(TEXT_STROKE_WIDTH);
         this.group =
                 new Group()
                         .setAlpha(0)
