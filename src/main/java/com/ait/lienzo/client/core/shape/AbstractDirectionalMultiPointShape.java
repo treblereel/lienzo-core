@@ -108,7 +108,7 @@ public abstract class AbstractDirectionalMultiPointShape<T extends AbstractDirec
     }
 
     @Override
-    protected Shape<T> copyTo(Shape<T> other) {
+    public Shape<T> copyTo(Shape<T> other) {
         super.copyTo(other);
         ((IDirectionalMultiPointShape<T>) other).setHeadDirection(headDirection);
         ((IDirectionalMultiPointShape<T>) other).setTailDirection(headDirection);

@@ -858,7 +858,7 @@ public class OrthogonalPolyLine extends AbstractDirectionalMultiPointShape<Ortho
     }
 
     @Override
-    protected Shape<OrthogonalPolyLine> copyTo(Shape<OrthogonalPolyLine> other) {
+    public Shape<OrthogonalPolyLine> copyTo(Shape<OrthogonalPolyLine> other) {
         super.copyTo(other);
         ((OrthogonalPolyLine) other).m_headOffsetPoint = m_headOffsetPoint.copy();
         ((OrthogonalPolyLine) other).m_tailOffsetPoint = m_tailOffsetPoint.copy();

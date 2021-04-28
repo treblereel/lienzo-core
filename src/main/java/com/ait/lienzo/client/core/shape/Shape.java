@@ -199,7 +199,7 @@ public abstract class Shape<T extends Shape<T>> extends Node<T> implements IPrim
         return cast();
     }
 
-    Shape<T> copyTo(Shape<T> other) {
+    public Shape<T> copyTo(Shape<T> other) {
         super.copyTo(other);
         other.m_type = this.m_type.copy();
         other.m_ckey = this.m_ckey;

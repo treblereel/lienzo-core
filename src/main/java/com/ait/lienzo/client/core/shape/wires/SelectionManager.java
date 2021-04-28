@@ -115,7 +115,7 @@ public class SelectionManager implements NodeMouseDoubleClickHandler, NodeMouseC
 
     private SelectionShapeProvider      m_selectionShapeProvider;
 
-    private BoundingBox                 m_startBoundingBox;
+    BoundingBox                 m_startBoundingBox;
 
     private Point2D                     m_start;
 
