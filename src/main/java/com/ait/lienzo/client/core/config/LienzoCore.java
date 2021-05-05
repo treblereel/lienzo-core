@@ -35,12 +35,12 @@ import com.ait.lienzo.shared.core.types.LineCap;
 import com.ait.lienzo.tools.client.Console;
 import com.ait.lienzo.tools.client.StringOps;
 import com.ait.lienzo.tools.common.api.types.IStringValued;
-import com.google.gwt.dom.client.Style.Cursor;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLCanvasElement;
 import elemental2.dom.ImageData;
 import jsinterop.base.Js;
 import jsinterop.base.JsPropertyMap;
+import org.gwtproject.dom.style.shared.Cursor;
 
 /**
  * A Global Configuration Manager.

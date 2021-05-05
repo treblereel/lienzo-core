@@ -26,8 +26,8 @@ import com.ait.lienzo.client.widget.panel.BoundsProvider;
 import com.ait.lienzo.client.widget.panel.LienzoBoundsPanel;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.tools.client.event.HandlerManager;
-import com.google.gwt.dom.client.Style;
 import elemental2.dom.EventListener;
+import org.gwtproject.dom.client.Style;
 
 public class PreviewPanel extends ScalablePanel
 {

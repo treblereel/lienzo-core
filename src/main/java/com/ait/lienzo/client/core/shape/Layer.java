@@ -39,11 +39,11 @@ import com.ait.lienzo.shared.core.types.NodeType;
 import com.ait.lienzo.tools.client.collection.NFastArrayList;
 import com.ait.lienzo.tools.client.collection.NFastStringMap;
 import java.util.function.Predicate;
-import com.google.gwt.dom.client.Style;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.DomGlobal;
 import elemental2.dom.HTMLCanvasElement;
 import elemental2.dom.HTMLDivElement;
+import org.gwtproject.dom.client.Style;
 
 /**
  * Layer is an abstraction for the Canvas element.

@@ -34,8 +34,8 @@ import com.ait.lienzo.client.core.shape.json.validators.ValidationContext;
 import com.ait.lienzo.client.core.shape.json.validators.ValidationException;
 import com.ait.lienzo.shared.core.types.ImageSelectionMode;
 import com.ait.lienzo.shared.core.types.ShapeType;
-import com.google.gwt.resources.client.ImageResource;
 import jsinterop.annotations.JsProperty;
+import org.gwtproject.resources.client.ImageResource;
 
 /**
  * Image Support for Canvas

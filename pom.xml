@@ -22,7 +22,6 @@
 		<com.google.jsinterop.base.version>1.0.0</com.google.jsinterop.base.version>
 		<com.google.jsinterop.annotations.version>2.0.0</com.google.jsinterop.annotations.version>
 		<com.google.elemental2.version>1.1.0</com.google.elemental2.version>
-		<com.google.gwt.version>2.9.0</com.google.gwt.version>
 		<junit.version>4.12</junit.version>
 	</properties>
 
@@ -84,9 +83,19 @@
 	<dependencies>
 		<!-- GWT -->
 		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${com.google.gwt.version}</version>
+			<groupId>org.gwtproject.widgets</groupId>
+			<artifactId>gwt-widgets</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.resources</groupId>
+			<artifactId>gwt-resources-api</artifactId>
+			<version>HEAD-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gwtproject.dom</groupId>
+			<artifactId>gwt-dom</artifactId>
+			<version>HEAD-SNAPSHOT</version>
 		</dependency>
 		<!-- JsInterop & Elemental2 -->
 		<dependency>

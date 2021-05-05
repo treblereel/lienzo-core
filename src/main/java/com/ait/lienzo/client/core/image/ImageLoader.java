@@ -17,13 +17,13 @@
 package com.ait.lienzo.client.core.image;
 
 import com.ait.lienzo.client.widget.RootPanel;
-import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.resources.client.ImageResource;
-import com.google.gwt.resources.client.impl.ImageResourcePrototype;
 import elemental2.dom.CSSProperties;
 import elemental2.dom.HTMLElement;
 import elemental2.dom.HTMLImageElement;
 import elemental2.dom.Image;
+import org.gwtproject.dom.style.shared.Display;
+import org.gwtproject.resources.client.ImageResource;
+import org.gwtproject.resources.client.impl.ImageResourcePrototype;
 
 public abstract class ImageLoader
 {

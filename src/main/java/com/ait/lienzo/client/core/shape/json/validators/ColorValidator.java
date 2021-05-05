@@ -17,7 +17,7 @@
 package com.ait.lienzo.client.core.shape.json.validators;
 
 import com.ait.lienzo.shared.core.types.ColorName;
-import com.google.gwt.regexp.shared.RegExp;
+import org.gwtproject.regexp.shared.RegExp;
 
 /**
  * Validates CSS3 color attributes.

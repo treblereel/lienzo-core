@@ -1,13 +1,13 @@
 package com.ait.lienzo.client.widget.panel.impl;
 
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.user.client.ui.Widget;
+import org.gwtproject.user.client.ui.FlowPanel;
+import org.gwtproject.user.client.ui.IsWidget;
+import org.gwtproject.user.client.ui.Widget;
 
 public class LienzoPanelWidgetWrapper
         extends LienzoPanelDelegate<LienzoPanelWidgetWrapper>
-        implements IsWidget  {
+        implements IsWidget {
 
     private final LienzoPanel panel;
     private final FlowPanel container;
